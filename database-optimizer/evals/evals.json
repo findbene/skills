@@ -1,0 +1,41 @@
+{
+  "skill_name": "database-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The Metabase dashboard query that shows average quality scores by niche over the last 7 days is taking 12 seconds to load. Fix it.",
+      "expected_output": "Diagnose missing index on quality_scores(niche, created_at), prescribe CREATE INDEX CONCURRENTLY, and provide the optimized SQL query.",
+      "files": [],
+      "expectations": [
+        "The response identifies a missing composite index on quality_scores(niche, created_at) as the primary cause",
+        "The response uses CREATE INDEX CONCURRENTLY to avoid locking the production table",
+        "The response includes a WHERE clause filtering created_at to the last 7 days",
+        "The response checks for N+1 patterns (per-niche queries vs single GROUP BY)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We need to add a view_count column to the agent_outputs table which already has 500K rows in production. How do we do this safely?",
+      "expected_output": "Provide zero-downtime migration: ALTER TABLE with DEFAULT, CREATE INDEX CONCURRENTLY, and a reversible DOWN migration.",
+      "files": [],
+      "expectations": [
+        "The response uses ALTER TABLE ... ADD COLUMN ... DEFAULT 0 syntax",
+        "The response uses CREATE INDEX CONCURRENTLY for any index on the new column",
+        "The response explicitly warns never to run CREATE INDEX without CONCURRENTLY on production",
+        "The response includes the DOWN migration (DROP COLUMN)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our Next.js dashboard is making a database call for every video in the list to get its quality score. The page loads 50 videos and we are seeing 51 queries per page load. Fix it.",
+      "expected_output": "Identify N+1, provide a single JOIN query, quantify 51 to 1 improvement, and mention Supabase connection pooling.",
+      "files": [],
+      "expectations": [
+        "The response identifies this as the N+1 query pattern",
+        "The response provides a single SQL query using LEFT JOIN to fetch all videos and scores",
+        "The response quantifies the improvement: from 51 queries to 1",
+        "The response mentions Supabase transaction pooler (port 6543) for serverless Next.js"
+      ]
+    }
+  ]
+}

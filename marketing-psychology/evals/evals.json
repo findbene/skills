@@ -1,0 +1,40 @@
+{
+  "skill_name": "marketing-psychology",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I run a B2B SaaS for HR teams at $299/month. My trial-to-paid conversion is 8% and I can't figure out why people sign up but don't convert. What psychological principles should I apply to my upgrade email sequence and in-app prompts?",
+      "expected_output": "Analysis using relevant psychological principles (e.g., endowment effect, commitment & consistency, loss aversion, goal-gradient), with specific actionable recommendations for the upgrade email and in-app prompts.",
+      "assertions": [
+        "Identifies at least 3 relevant psychological principles by name",
+        "Connects each principle to a specific tactic for the upgrade email or in-app prompt",
+        "Addresses the trial experience and what happens in the first session",
+        "Mentions loss aversion or framing of what users lose by not upgrading",
+        "Provides specific copy suggestions or structural recommendations"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We're launching a $197 online course on LinkedIn content. We want to use scarcity and urgency but I've heard this can backfire. When does scarcity work and when does it feel manipulative?",
+      "expected_output": "Nuanced analysis of scarcity psychology, distinguishing genuine scarcity from artificial urgency, with specific guidance on ethical application and examples of what works vs. what damages trust.",
+      "assertions": [
+        "Distinguishes between genuine and artificial scarcity",
+        "Explains the psychological mechanism behind scarcity (e.g., reactance, loss aversion)",
+        "Gives specific examples of scarcity tactics that work vs. those that feel fake",
+        "Addresses trust implications and long-term brand effects",
+        "Provides a recommendation on whether/how to use scarcity for this specific product"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Help me write a landing page for my project management tool for remote teams",
+      "expected_output": "Acknowledges this is primarily a copywriting/page-cro task, offers to apply psychological principles to the copy strategy (e.g., anchoring, social proof structure, loss aversion in CTAs), and redirects to copywriting skill for the actual writing.",
+      "assertions": [
+        "Recognizes this is primarily a copywriting task",
+        "Offers psychological lens to apply to the copy strategy rather than writing the page itself",
+        "Mentions relevant principles (social proof, anchoring, loss aversion) as applicable to landing pages",
+        "References or redirects to the copywriting skill for the actual page writing"
+      ]
+    }
+  ]
+}

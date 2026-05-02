@@ -1,0 +1,37 @@
+{
+  "skill_name": "paid-ads",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're running Google Search Ads for our HR software (targeting 'performance management software' keywords). Spend: $8K/month. CPC: $12. Click-through rate: 3.2%. Conversion rate (trial signup): 4.8%. CPA: $250. Our LTV is $4,800. How should we optimize this?",
+      "expected_output": "Paid search optimization analysis with specific recommendations on bidding strategy, keyword targeting, quality score improvement, landing page alignment, and budget allocation.",
+      "assertions": [
+        "Evaluates the CPA ($250) against LTV ($4,800) — notes this is a strong ratio",
+        "Addresses keyword intent and match type optimization",
+        "Covers quality score components (CTR, ad relevance, landing page experience)",
+        "Recommends bid strategy given the strong economics",
+        "Identifies at least 2-3 specific optimization levers"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we use broad match or exact match keywords in Google Ads?",
+      "expected_output": "Nuanced answer covering when to use each match type, the evolution of Google's Smart Bidding and broad match, budget considerations, and a recommendation based on account maturity.",
+      "assertions": [
+        "Explains the tradeoff between reach (broad) and control (exact)",
+        "Addresses Smart Bidding's impact on broad match effectiveness",
+        "Gives a recommendation based on budget size and campaign maturity",
+        "Mentions phrase match as the middle ground"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design the creative for our Facebook ad",
+      "expected_output": "Offers paid ads strategic guidance on creative direction and spec requirements, redirects to ad-creative skill for the actual creative design/copy.",
+      "assertions": [
+        "Offers creative strategy input (what hooks work for B2B SaaS ads, format recommendations)",
+        "Redirects to ad-creative skill for the creative execution"
+      ]
+    }
+  ]
+}

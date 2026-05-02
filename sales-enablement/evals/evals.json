@@ -1,0 +1,39 @@
+{
+  "skill_name": "sales-enablement",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our sales team keeps losing deals to Salesforce because prospects say 'we already use Salesforce for everything.' Create a battle card to help reps handle this objection and win against Salesforce in our CRM niche for small businesses.",
+      "expected_output": "Battle card covering: the objection response framework, Salesforce's weaknesses for SMBs, our strengths vs. Salesforce, discovery questions to uncover dissatisfaction, and proof points.",
+      "assertions": [
+        "Provides a specific objection response script (not just talking points)",
+        "Identifies Salesforce weaknesses relevant to SMBs (complexity, cost, admin overhead)",
+        "Lists our competitive advantages specific to small business use case",
+        "Includes discovery questions to uncover pain with Salesforce",
+        "Provides at least 2-3 proof points or customer success examples"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What should be in a sales one-pager for our HR software?",
+      "expected_output": "One-pager structure and content recommendations with specific sections, recommended length, design principles, and what to include vs. exclude.",
+      "assertions": [
+        "Provides a recommended one-pager structure with sections",
+        "Notes which elements are essential (value prop, proof points, CTA)",
+        "Addresses what NOT to include (avoid feature lists, keep it outcome-focused)",
+        "Recommends length (one actual page, not two)",
+        "Notes different versions for different audiences if applicable"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Train our sales team on our new features",
+      "expected_output": "Offers to create sales enablement materials for the new features (battle cards, talk tracks, demo scripts), notes that actual training delivery is a sales management function.",
+      "assertions": [
+        "Offers to create enablement materials (feature talk track, demo script, FAQ)",
+        "Notes that training delivery is a sales management function",
+        "Distinguishes between materials creation and training delivery"
+      ]
+    }
+  ]
+}

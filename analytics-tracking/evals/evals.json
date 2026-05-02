@@ -1,0 +1,38 @@
+{
+  "skill_name": "analytics-tracking",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B SaaS with a marketing website and a product. We have GA4 installed but barely use it. We want to track: which channels drive signups, which content converts to trials, and where in the signup flow people drop off. How do we set this up?",
+      "expected_output": "Analytics tracking plan covering: event taxonomy, conversion goals in GA4, UTM parameter strategy, funnel visualization setup, and a measurement framework for channel attribution.",
+      "assertions": [
+        "Provides specific event names and tracking plan",
+        "Covers UTM parameter setup for channel attribution",
+        "Designs conversion funnel tracking (visit → signup → activation)",
+        "Addresses signup flow drop-off tracking",
+        "Notes GA4 limitations and what additional tools might be needed"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What marketing attribution model should we use — first touch, last touch, or multi-touch?",
+      "expected_output": "Attribution model comparison with recommendation based on sales cycle length, channel mix, and available data — with practical implementation guidance.",
+      "assertions": [
+        "Explains first touch, last touch, and multi-touch models",
+        "Gives a recommendation based on B2B SaaS context",
+        "Notes that multi-touch is ideal but requires more data infrastructure",
+        "Addresses the practical starting point for a small team"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build a dashboard for our marketing metrics",
+      "expected_output": "Offers analytics tracking strategy and metric framework, notes that dashboard building is a data engineering/BI tool task, and recommends specific tools for the dashboard.",
+      "assertions": [
+        "Provides the metrics framework (what to measure)",
+        "Notes dashboard building requires BI tools (Looker Studio, Metabase, etc.)",
+        "Recommends specific tools appropriate for their stage"
+      ]
+    }
+  ]
+}

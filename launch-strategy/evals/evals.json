@@ -1,0 +1,38 @@
+{
+  "skill_name": "launch-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're launching a new AI-powered writing assistant for e-commerce product descriptions in 6 weeks. We have a small team (4 people) and $10K marketing budget. We have 200 people on a waitlist. How do we plan this launch?",
+      "expected_output": "6-week launch plan with phased timeline, channel strategy, budget allocation, launch day checklist, and post-launch momentum plan.",
+      "assertions": [
+        "Creates a week-by-week launch timeline",
+        "Includes pre-launch phase (waitlist activation, teaser content, beta program)",
+        "Covers launch day execution (timing, channels, team roles)",
+        "Addresses post-launch momentum (follow-up content, press, reviews)",
+        "Allocates the $10K budget across channels with rationale",
+        "Leverages the 200-person waitlist specifically"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we launch on Product Hunt?",
+      "expected_output": "Analysis of Product Hunt launch suitability for the product, with guidance on how to maximize a PH launch if pursuing it, and alternatives if not.",
+      "assertions": [
+        "Assesses Product Hunt fit based on product type",
+        "Explains what makes a successful PH launch",
+        "Gives a clear recommendation on whether to pursue",
+        "Provides alternatives if PH isn't the right fit"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the press release for our launch",
+      "expected_output": "Offers launch strategy input on press release timing and distribution, redirects to copywriting skill for the actual press release writing.",
+      "assertions": [
+        "Offers launch strategy input (timing, embargo, distribution)",
+        "Redirects to copywriting skill for the actual press release"
+      ]
+    }
+  ]
+}

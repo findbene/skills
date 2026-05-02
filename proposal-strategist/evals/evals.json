@@ -1,0 +1,41 @@
+{
+  "skill_name": "proposal-strategist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to write a proposal for Bright Smile Dental. 2 locations, 15 staff, missing 80 calls/week after hours. Voice Agent at 4000/month setup and 800/month retainer. Current answering service costs 1200/month and misses everything after 6pm.",
+      "expected_output": "Produce 3-5 client-specific win themes, three-act narrative, standalone executive summary, pricing anchored on ROI.",
+      "files": [],
+      "expectations": [
+        "The response produces 3-5 win themes specific to Bright Smile Dental (swapping names would break them)",
+        "The response uses three-act structure: current pain, solution, future state",
+        "The response includes an executive summary that can stand alone as a closing argument",
+        "The response anchors pricing on ROI and outcome not cost justification"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this proposal I wrote: Citadel AI offers cutting-edge AI solutions that will transform your business operations with our robust platform and world-class technology. What is wrong with it?",
+      "expected_output": "Identify empty adjectives, flag it applies to any business, demand evidence, require problem-solution-proof rewrite.",
+      "files": [],
+      "expectations": [
+        "The response identifies cutting-edge, transform, robust, and world-class as empty adjectives",
+        "The response flags that the text could apply to any business",
+        "The response demands evidence for each claim",
+        "The response requires a rewrite with specific problem-solution-proof structure"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "How do I handle pricing in a proposal when the client has already said we are too expensive?",
+      "expected_output": "Recommend ROI anchoring before price, quantify current costs, calculate multiplier, frame retainer as investment.",
+      "files": [],
+      "expectations": [
+        "The response recommends establishing ROI context BEFORE defending price",
+        "The response recommends quantifying the current cost (staff, missed revenue)",
+        "The response frames the retainer as an investment not an expense",
+        "The response does not recommend simply lowering the price"
+      ]
+    }
+  ]
+}

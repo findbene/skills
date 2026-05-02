@@ -1,0 +1,41 @@
+{
+  "skill_name": "sre",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "How would we know if our pipeline stopped working? Right now we just check the logs manually every morning.",
+      "expected_output": "Identify critical observability gap (MTTD = hours), recommend specific golden signal alerts on job failure rate and job count, reference SLO targets.",
+      "files": [],
+      "expectations": [
+        "The response identifies manual morning checks as a critical observability gap",
+        "The response quantifies current MTTD as hours vs target of less than 5 minutes",
+        "The response recommends specific alert rules on job failure rate and job count drop",
+        "The response references SLO targets"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our pipeline failed 3 times this week. Each time I just restarted it. Is that okay?",
+      "expected_output": "Identify manual restarts as toil, calculate error budget burn, recommend Error Recovery Agent automation, push for post-mortem.",
+      "files": [],
+      "expectations": [
+        "The response identifies manual restarts as toil",
+        "The response calculates or references error budget burn rate",
+        "The response recommends automating retries via the Error Recovery Agent",
+        "The response requires a post-mortem on root cause"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Should we ship the new publisher platform feature or fix the ElevenLabs fallback first?",
+      "expected_output": "Apply error budget policy: check remaining budget, ship feature if >50%, fix reliability if <25%, frame ElevenLabs as single point of failure.",
+      "files": [],
+      "expectations": [
+        "The response checks the error budget before recommending either option",
+        "The response recommends shipping feature if error budget >50%, fixing reliability if <25%",
+        "The response identifies ElevenLabs as a single point of failure",
+        "The response explains that SLO error budget policy drives this decision"
+      ]
+    }
+  ]
+}

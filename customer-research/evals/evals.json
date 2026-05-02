@@ -1,0 +1,38 @@
+{
+  "skill_name": "customer-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We've never done formal customer research. I want to understand why customers choose us over competitors and what almost made them not buy. How do I set up a win-loss interview program?",
+      "expected_output": "Win-loss interview program design with participant criteria, interview questions, cadence, analysis framework, and how to use insights across marketing and product.",
+      "assertions": [
+        "Provides specific interview question list for win and loss interviews",
+        "Covers participant recruitment approach",
+        "Recommends interview cadence (how many per month)",
+        "Provides analysis and insight synthesis framework",
+        "Notes how to distribute insights to marketing, sales, and product"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want to run a customer survey to understand satisfaction. Should I use NPS or CSAT?",
+      "expected_output": "Comparison of NPS vs. CSAT with guidance on when to use each, how to implement, and what to do with the results beyond the score.",
+      "assertions": [
+        "Explains NPS (loyalty/recommendation metric) vs. CSAT (satisfaction metric)",
+        "Gives clear guidance on when each is appropriate",
+        "Notes that the follow-up question is more valuable than the score",
+        "Addresses survey frequency and response rate optimization"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a customer persona for our product",
+      "expected_output": "Notes that customer research informs personas but persona creation itself is a marketing strategy task. Offers to design a research program to gather data for an evidence-based persona rather than a fictional one.",
+      "assertions": [
+        "Distinguishes between research-based and assumption-based personas",
+        "Offers to design a research program to build an evidence-based persona",
+        "Does not just generate a fictional persona template"
+      ]
+    }
+  ]
+}

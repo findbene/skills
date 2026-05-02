@@ -1,0 +1,43 @@
+{
+  "skill_name": "content-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build the full editorial calendar for the AI tools & automation niche channel for next week.",
+      "expected_output": "Produce a table-format calendar with specific topics (not generic), all relevant platforms, content repurposing shown, and measurable CTAs for every entry.",
+      "files": [],
+      "expectations": [
+        "The response produces a table with Day/Platform/Format/Topic/CTA columns",
+        "The response includes YouTube, TikTok, Instagram Reels, X/Twitter, and LinkedIn",
+        "The response shows Monday YouTube content repurposed into Wednesday/Thursday Shorts",
+        "The response gives specific topic titles with numbers or details, not generic placeholders",
+        "The response includes a measurable CTA for every entry"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We just published a 12-minute YouTube video: 'Top 10 AI Tools That Replace Your Entire Marketing Team'. What do we create from it?",
+      "expected_output": "Apply the full repurposing matrix: 3 YouTube Shorts, 3 TikToks, 3 Instagram Reels, 1 LinkedIn article, 1 SEO blog post, 5 Twitter quote cards, 1 Beehiiv email segment — 14+ pieces total.",
+      "files": [],
+      "expectations": [
+        "The response lists exactly 3 YouTube Shorts with specific timestamps or moments",
+        "The response includes 3 TikToks, 3 Instagram Reels, 1 LinkedIn article, and 5 Twitter/X quote cards",
+        "The response mentions 1 SEO blog post targeting a specific keyword",
+        "The response includes 1 email newsletter segment for Beehiiv",
+        "The total derivative pieces add up to 14 or more"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What content should @CitadelAI post on LinkedIn this month to generate inbound SMB leads?",
+      "expected_output": "Apply B2B content pillars with specific numbers (318 calls, 127 appointments), rotate story/expertise/opinion/data post types, and include LinkedIn-native rules.",
+      "files": [],
+      "expectations": [
+        "The response uses specific @CitadelAI proof numbers (318 calls, 127 appointments, or $2K/month saved)",
+        "The response rotates all 4 post types: story, expertise, opinion, data",
+        "The response prohibits external links in post body (LinkedIn-native rule)",
+        "The response specifies responding to all comments within the first 60 minutes"
+      ]
+    }
+  ]
+}

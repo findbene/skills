@@ -1,0 +1,42 @@
+{
+  "skill_name": "sales-coach",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a call tomorrow with the owner of a dental office. They came inbound from our landing page. How do I structure the call and what questions should I ask?",
+      "expected_output": "Apply SPIN framework, include upfront contract, dental-office pain questions, 30-min structure, warn against early pitching.",
+      "files": [],
+      "expectations": [
+        "The response uses a SPIN or similar discovery framework",
+        "The response recommends starting with an upfront contract",
+        "The response provides specific Implication questions for dental office pain",
+        "The response gives a 30-minute structure with time allocations",
+        "The response warns against pitching before discovery is complete"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We had a deal with an HVAC company. They were interested, then went silent after I sent the proposal. What happened and how do I recover it?",
+      "expected_output": "Diagnose specific causes (shallow discovery, premature proposal, no next step), apply Gap Selling, recommend recovery outreach with implication questions.",
+      "files": [],
+      "expectations": [
+        "The response diagnoses specific causes: shallow discovery, premature proposal, no committed next step",
+        "The response applies Gap Selling to identify what we do not know",
+        "The response recommends specific recovery outreach with implication questions",
+        "The response does not suggest generic follow-up"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I have 5 deals in my pipeline. None of them have moved in 2 weeks. Help me review them.",
+      "expected_output": "Apply MEDDPICC diagnostic to each deal, identify missing fields, ask targeted stage-specific questions, recommend specific interventions.",
+      "files": [],
+      "expectations": [
+        "The response applies MEDDPICC diagnostic framework",
+        "The response identifies specific missing fields (economic buyer, decision process)",
+        "The response asks questions tailored to each deal stage",
+        "The response recommends specific intervention actions"
+      ]
+    }
+  ]
+}

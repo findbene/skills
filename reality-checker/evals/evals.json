@@ -1,0 +1,41 @@
+{
+  "skill_name": "reality-checker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I think this script is ready to publish. The hook is AI is changing everything and you need to know about this. The auditor gave it a 6.8.",
+      "expected_output": "REJECT: hook is generic (no specific number), 6.8 is below 7.0 threshold, with specific rewrite.",
+      "files": [],
+      "expectations": [
+        "The response gives a REJECT verdict",
+        "The response identifies 6.8 as below the 7.0 minimum threshold",
+        "The response identifies the hook as generic (no specific number or fact)",
+        "The response provides a rewritten hook with a specific number or fact"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The pipeline ran once successfully in dry-run mode. Are we ready to go live?",
+      "expected_output": "NEEDS WORK: dry-run success is necessary but not sufficient; enumerate missing production readiness checklist items.",
+      "files": [],
+      "expectations": [
+        "The response answers NEEDS WORK, not APPROVED",
+        "The response explains dry-run success alone is insufficient for production",
+        "The response lists specific missing items: social accounts, API keys, quality scores averaging 7.5+",
+        "The response requires 3+ real pipeline runs at target quality before go-live"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I wrote a proposal and I am pretty confident it is good. I am going to send it today.",
+      "expected_output": "Apply proposal reality check (client-specific win themes, claims evidence-backed, no empty adjectives, ROI quantified) \u2014 default to NEEDS WORK.",
+      "files": [],
+      "expectations": [
+        "The response applies the proposal reality check criteria before approving",
+        "The response checks whether win themes are specific enough that swapping client names would break them",
+        "The response defaults to NEEDS WORK if any criterion is unconfirmed",
+        "The response requests specific evidence before approving the send"
+      ]
+    }
+  ]
+}

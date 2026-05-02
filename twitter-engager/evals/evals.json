@@ -1,0 +1,42 @@
+{
+  "skill_name": "twitter-engager",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a Twitter thread about the border crisis going on right now for @TheRightClip",
+      "expected_output": "Produce 6+ tweet thread with specific number in Tweet 1, no external links in main chain, standalone value per tweet, final tweet triggers replay, post at 8am/12pm/5pm EST.",
+      "files": [],
+      "expectations": [
+        "The response produces a thread of 6 or more tweets",
+        "Tweet 1 uses a specific number or name, not a vague statement",
+        "The response contains no external links in the main tweet chain",
+        "The response recommends posting at 8am, 12pm, or 5pm EST",
+        "The response recommends replying to own thread within 30 minutes after posting"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Someone just posted @CitadelAI is a scam, I paid 3K and got nothing tagging our account. What do we do right now?",
+      "expected_output": "Classify as reputation threat requiring <30 min response, provide specific non-defensive public reply script, three-step flow, warn against deletion or argument.",
+      "files": [],
+      "expectations": [
+        "The response classifies this as a reputation threat requiring response within 30 minutes",
+        "The response provides a specific non-defensive public reply that acknowledges by name",
+        "The response follows three-step flow: public acknowledge, DM invite, resolution",
+        "The response explicitly warns against deleting, ignoring, or arguing publicly"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our @TheRightClip X account has 500 followers and 0.8% engagement rate. What is the fastest single lever to pull?",
+      "expected_output": "Identify replying to own tweets within 30 min as the #1 lever, give specific posting times (8am/12pm/5pm EST), recommend conservative-niche engagement tactics.",
+      "files": [],
+      "expectations": [
+        "The response identifies replying to own tweets within 30 minutes as the #1 lever",
+        "The response gives specific posting times: 8am, 12pm, or 5pm EST",
+        "The response recommends quote-tweeting trending conservative topics with a strong opinion",
+        "The response does not recommend buying followers or engagement pods"
+      ]
+    }
+  ]
+}

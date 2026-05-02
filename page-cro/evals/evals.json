@@ -1,0 +1,39 @@
+{
+  "skill_name": "page-cro",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My SaaS landing page converts at 1.8% and industry average for my niche (HR software) is around 3-4%. The page has: a headline, 3 feature blocks, customer logos, a pricing section, and a 'Get Started' CTA. What should I look at first?",
+      "expected_output": "Prioritized CRO analysis covering: above-the-fold value proposition, CTA clarity and placement, trust signal effectiveness, friction reduction, and a ranked list of what to fix first.",
+      "assertions": [
+        "Identifies the above-the-fold section as first priority",
+        "Questions the headline's clarity and value proposition specificity",
+        "Addresses CTA copy ('Get Started' is weak) and placement",
+        "Covers trust signal optimization (logos are good, reviews/numbers even better)",
+        "Provides a prioritized list of what to test first"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should I add a video to my homepage hero section?",
+      "expected_output": "Nuanced CRO analysis of hero video impact with conditions under which it helps vs. hurts (page speed, autoplay, value clarity), and a recommendation framework.",
+      "assertions": [
+        "Addresses page speed impact of hero videos",
+        "Distinguishes between product demo video vs. brand video",
+        "Covers autoplay best practices",
+        "Gives a conditional recommendation based on the product type",
+        "Mentions A/B testing as the definitive answer"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the copy for my pricing page",
+      "expected_output": "Offers CRO guidance on pricing page structure and conversion optimization, redirects to copywriting skill for the actual copy writing.",
+      "assertions": [
+        "Distinguishes between page optimization (CRO) and copy writing",
+        "Offers pricing page CRO principles (decoy, anchoring, recommended plan)",
+        "Redirects to copywriting skill for the actual writing"
+      ]
+    }
+  ]
+}

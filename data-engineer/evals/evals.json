@@ -1,0 +1,42 @@
+{
+  "skill_name": "data-engineer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're ingesting raw JSON order events from an S3 bucket into our lakehouse. Design the full Bronze → Silver → Gold pipeline for it.",
+      "expected_output": "Define all 3 Medallion layers with clear rules, PySpark code for each layer, and the access rule preventing gold consumers from reading bronze/silver directly.",
+      "files": [],
+      "expectations": [
+        "The response defines Bronze as append-only and immutable with audit columns (_ingested_at, _source_system)",
+        "The response uses MERGE/upsert for Silver deduplication, not overwrite",
+        "The response uses replaceWhere for idempotent Gold reruns",
+        "The response includes PySpark code for at least 2 of the 3 layers",
+        "The response states that gold consumers must not read bronze or silver directly"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The Auditor Agent quality scores in our Supabase agent_outputs table are showing null values for about 15% of rows, but the pipeline isn't alerting. How do we fix this?",
+      "expected_output": "Identify this as a missing data quality contract, add NOT NULL constraint or dbt test, wire an alert to n8n, and provide a backfill plan for the 15% affected rows.",
+      "files": [],
+      "expectations": [
+        "The response identifies the root cause as a missing schema contract or data quality check",
+        "The response recommends adding a NOT NULL constraint or dbt test on quality_score",
+        "The response recommends wiring an alert to n8n webhook /webhook/quality-alert",
+        "The response includes a backfill plan for the 15% affected rows"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our full-refresh pipeline on the content_calendar table costs $45/run and we're running it 6 times/day for 6 niches. That's $270/day. Fix it.",
+      "expected_output": "Recommend switching to an incremental CDC pipeline using MERGE/upsert, quantify the expected cost reduction to under 10% of current spend, and explain the architecture change.",
+      "files": [],
+      "expectations": [
+        "The response recommends switching to incremental/CDC pipeline instead of full refresh",
+        "The response uses MERGE/upsert strategy for Silver layer updates",
+        "The response quantifies savings: incremental cost should be less than 10% of full-refresh cost",
+        "The response mentions _ingested_at partitioning for Bronze append-only design"
+      ]
+    }
+  ]
+}

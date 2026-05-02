@@ -1,0 +1,37 @@
+{
+  "skill_name": "programmatic-seo",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a property management SaaS. I want to create location-specific landing pages for every US city with more than 50,000 residents — that's about 900 cities. How do I do this with programmatic SEO?",
+      "expected_output": "Programmatic SEO strategy for location pages including: data sources, URL structure, template design, content differentiation to avoid duplicate content penalties, CMS/technical approach, and indexation strategy.",
+      "assertions": [
+        "Covers data sourcing for 900 cities",
+        "Recommends URL structure for location pages",
+        "Addresses duplicate content risk and differentiation strategies",
+        "Covers indexation strategy (sitemap, internal linking)",
+        "Mentions technical implementation approach (CMS, static generation, etc.)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What's the difference between programmatic SEO and just having a lot of blog posts?",
+      "expected_output": "Clear explanation of programmatic SEO vs. editorial content, with use cases for each and guidance on when to use programmatic approaches.",
+      "assertions": [
+        "Explains the structured data / template approach of programmatic SEO",
+        "Distinguishes from editorial blog content",
+        "Gives concrete use case examples for programmatic SEO",
+        "Addresses the scale vs. quality tradeoff"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a blog post about project management for remote teams",
+      "expected_output": "Redirects to content-strategy or copywriting skill since this is individual content creation, not programmatic/scaled SEO.",
+      "assertions": [
+        "Identifies this as individual content creation, not programmatic SEO",
+        "Redirects to content-strategy or copywriting skill"
+      ]
+    }
+  ]
+}

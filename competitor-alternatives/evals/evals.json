@@ -1,0 +1,39 @@
+{
+  "skill_name": "competitor-alternatives",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a project management tool competing with Asana and Monday.com. We want to create 'alternatives to Asana' and 'Asana vs. us' pages. How should we structure these and what should they say?",
+      "expected_output": "Strategy for alternatives and comparison pages including URL structure, page structure, positioning angle, content sections, SEO optimization, and CTA strategy.",
+      "assertions": [
+        "Recommends URL structure (/asana-alternative vs. /asana-vs-us)",
+        "Covers fair and honest positioning (not just bashing the competitor)",
+        "Provides specific content sections for alternatives pages",
+        "Addresses SEO optimization for the target keywords",
+        "Recommends a migration/switching angle (make switching easy)",
+        "Notes the legal/brand guideline considerations for competitor mentions"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our main competitor just lowered their price. Should we update our comparison page?",
+      "expected_output": "Guidance on responding to competitor price changes on comparison pages — whether to update immediately, how to reframe the value argument, and avoiding a race to the bottom.",
+      "assertions": [
+        "Recommends updating the comparison page promptly",
+        "Advises framing around total value rather than just price",
+        "Addresses the risk of making price the primary comparison axis",
+        "Suggests monitoring competitor positioning changes systematically"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a blog post comparing all project management tools",
+      "expected_output": "Offers to help with comparison content strategy but notes generic roundup posts differ from competitor-alternatives pages. Offers to structure a comparison post while noting the SEO/positioning differences.",
+      "assertions": [
+        "Distinguishes between a generic roundup and targeted alternatives/comparison pages",
+        "Notes different SEO and intent targeting for each format",
+        "Offers to help with the comparison structure"
+      ]
+    }
+  ]
+}

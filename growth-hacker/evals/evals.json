@@ -1,0 +1,41 @@
+{
+  "skill_name": "growth-hacker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We are getting about 1000 views per video but almost no affiliate link clicks. How do we fix the funnel?",
+      "expected_output": "Identify Awareness-to-Action gap, recommend A/B tests on link placement, check product-niche match, benchmark 2-4% CTR.",
+      "files": [],
+      "expectations": [
+        "The response identifies the funnel gap as Awareness-to-Action (0% CTR from views)",
+        "The response recommends A/B testing link placement (description vs pinned comment)",
+        "The response checks product-to-niche match strength",
+        "The response benchmarks against a 2-4% affiliate CTR target"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do we get our first 10 agency clients?",
+      "expected_output": "Prioritize referrals over cold outreach, design the agency lead loop, use ICE-scored experiments, provide a specific first-month action plan.",
+      "files": [],
+      "expectations": [
+        "The response prioritizes referrals and warm intros over cold outreach",
+        "The response designs a specific agency lead loop (case study to email to call to sign)",
+        "The response uses ICE scoring for channel experiments",
+        "The response provides a concrete first-month action plan"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Should we focus on growing TikTok or LinkedIn first for Citadel AI brand?",
+      "expected_output": "Distinguish TikTok (Stream 1, content) vs LinkedIn (Stream 2, agency clients), apply North Star metric for each, explain different funnels.",
+      "files": [],
+      "expectations": [
+        "The response distinguishes TikTok as Stream 1 vs LinkedIn as Stream 2",
+        "The response applies a North Star metric for each platform separately",
+        "The response explains these are different funnels not competing choices",
+        "The response recommends testing both with ICE scoring"
+      ]
+    }
+  ]
+}

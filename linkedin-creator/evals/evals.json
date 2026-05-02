@@ -1,0 +1,43 @@
+{
+  "skill_name": "linkedin-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a LinkedIn post for @CitadelAI targeting HVAC company owners about their after-hours call problem.",
+      "expected_output": "Open with a specific story hook (not generic question), include proof numbers (318 calls/127 appointments), no external links in body, question CTA, 3-5 specific hashtags.",
+      "files": [],
+      "expectations": [
+        "The response opens with a story, bold claim, or curiosity gap not a generic question",
+        "The response includes specific proof numbers (318 calls, 127 appointments, or 8-second response)",
+        "The response contains no external links in the post body",
+        "The response ends with a question to drive comments",
+        "The response includes 3-5 specific hashtags (not generic like #business)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I published a LinkedIn post 2 hours ago. It has 45 likes but only 3 comments and very low reach. What went wrong?",
+      "expected_output": "Diagnose missed first-60-minute engagement window, check external link suppression, and give immediate recovery actions.",
+      "files": [],
+      "expectations": [
+        "The response identifies the missed first-60-minute engagement window as the primary cause",
+        "The response checks whether the post body contained an external link (LinkedIn suppression)",
+        "The response gives immediate recovery actions (reply to all 3 comments now)",
+        "The response recommends a follow-up comment with the link instead of editing the post"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build a 30-day LinkedIn content plan for @CitadelAI to generate inbound SMB leads.",
+      "expected_output": "4 posts/week rotating story/expertise/opinion/data, targeting dental/HVAC/home services, rotating CTAs, daily engagement routine.",
+      "files": [],
+      "expectations": [
+        "The response specifies 4 posts per week rotating all 4 post types",
+        "The response targets specific verticals: dental, home services, HVAC, or real estate",
+        "The response rotates CTAs: DM for audit, book Calendly, link in comments",
+        "The response includes a daily engagement routine (5-10 comments before posting)",
+        "The response specifies no external links in post bodies"
+      ]
+    }
+  ]
+}

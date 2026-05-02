@@ -1,0 +1,37 @@
+{
+  "skill_name": "site-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're rebuilding our SaaS website from scratch. We have: homepage, 8 feature pages, 3 pricing tiers, blog, help docs, and we want to add industry-specific landing pages for 5 verticals. How should we structure the site URL architecture and navigation?",
+      "expected_output": "Comprehensive site architecture recommendation including URL structure for all sections, navigation hierarchy, internal linking strategy between feature/vertical pages, and SEO rationale.",
+      "assertions": [
+        "Recommends specific URL structure for each section",
+        "Addresses internal linking between feature pages and vertical landing pages",
+        "Covers navigation hierarchy (primary, secondary, footer)",
+        "Explains SEO rationale for the recommended structure",
+        "Addresses crawl depth and link equity distribution"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should I use /blog/ or /resources/ as my content hub URL?",
+      "expected_output": "Nuanced answer covering SEO implications of each choice, brand considerations, user expectation, and a clear recommendation with reasoning.",
+      "assertions": [
+        "Addresses SEO implications of both options",
+        "Covers user expectation and click-through patterns",
+        "Gives a clear recommendation with reasoning",
+        "Notes that consistency matters more than the exact choice"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write content for my homepage",
+      "expected_output": "Recognizes this is a copywriting task, redirects to copywriting skill, and offers site architecture guidance only on page structure/sections if relevant.",
+      "assertions": [
+        "Redirects to copywriting skill for content creation",
+        "May offer input on homepage section structure from an architecture perspective"
+      ]
+    }
+  ]
+}

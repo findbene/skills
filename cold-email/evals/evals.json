@@ -1,0 +1,40 @@
+{
+  "skill_name": "cold-email",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a cold email to the VP of Engineering at a Series B fintech company (150-300 employees). We sell an API monitoring and alerting tool at $500/month. Their pain: production API failures cost them $50K+ per incident and they're alerting on generic server metrics not API-specific ones. I want to book a 20-minute call.",
+      "expected_output": "Cold email with compelling subject line, specific problem-led opener, concise value proposition, social proof element, and low-friction CTA. Under 150 words for the body.",
+      "assertions": [
+        "Subject line is specific and non-salesy (not 'Quick question' or 'Partnership opportunity')",
+        "Opening line references a specific problem (API failures, not generic pain)",
+        "Email body is under 150 words",
+        "CTA asks for a specific short commitment (20-min call, not 'let me know if interested')",
+        "Does not use phrases like 'I hope this email finds you well' or 'I wanted to reach out'",
+        "Checks for product-marketing-context.md if available"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a 5-touch follow-up sequence for the cold email above. I want it to add value each time and not just be 'just checking in.'",
+      "expected_output": "5-email follow-up sequence with a different angle/value in each email — case study, new insight, resource, competitive angle, and breakup email.",
+      "assertions": [
+        "Each follow-up has a distinct angle (not repeating the same pitch)",
+        "At least one email offers a concrete value-add (insight, case study, resource)",
+        "Breakup email is included as the final touch",
+        "CTAs vary across the sequence (some softer than the initial ask)",
+        "Cadence/timing recommendations are provided"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build me a LinkedIn outreach sequence for the same prospect",
+      "expected_output": "Notes that cold email and LinkedIn outreach share principles but LinkedIn has different norms. Offers to help with LinkedIn-specific messaging while noting the social-content or linkedin-creator skill may be more specialized.",
+      "assertions": [
+        "Offers to apply cold email principles to LinkedIn messaging",
+        "Notes LinkedIn-specific differences (shorter, no subject line, connection note limits)",
+        "References social-content or linkedin-creator skill as more specialized"
+      ]
+    }
+  ]
+}

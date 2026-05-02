@@ -1,0 +1,37 @@
+{
+  "skill_name": "signup-flow-cro",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We lose 65% of users between clicking 'Start Free Trial' and completing account creation. The flow is: click CTA → email/password form → email verification → company details form → choose plan → payment. What should we change?",
+      "expected_output": "Flow analysis identifying the highest-friction steps with specific fixes: defer payment, simplify email verification, reduce company details fields, optimize step sequencing.",
+      "assertions": [
+        "Identifies payment in the signup flow as a major barrier for free trial",
+        "Recommends deferring payment until after the trial value is demonstrated",
+        "Addresses email verification friction (instant magic link vs. go-check-email)",
+        "Recommends reducing company details to minimum required",
+        "Suggests a simplified flow with fewer steps"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we require a credit card for free trial signup?",
+      "expected_output": "Data-driven analysis of CC-required vs. no-CC trials with conversion rate impact, lead quality tradeoff, and a recommendation based on the product type.",
+      "assertions": [
+        "Addresses the conversion volume vs. quality tradeoff",
+        "Cites typical conversion rate difference (CC-required trials often convert 2-3x better but get fewer starts)",
+        "Gives a conditional recommendation based on product type and sales model",
+        "Notes the psychological barrier vs. intent filter dynamic"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Help me design the UI for our signup form",
+      "expected_output": "Offers CRO-focused UI principles for signup forms, redirects to a design skill for the actual visual design work.",
+      "assertions": [
+        "Provides CRO-relevant UI principles (single-column layout, social login, progress indicators)",
+        "Redirects to a design skill for actual UI design"
+      ]
+    }
+  ]
+}

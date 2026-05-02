@@ -1,0 +1,40 @@
+{
+  "skill_name": "email-sequence",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a 7-email welcome sequence for new trial users of our B2B project management SaaS. Trial is 14 days. Goal is to get them to invite their team (our activation metric). Average company size is 15 people.",
+      "expected_output": "7-email sequence with subject lines, send timing, goals per email, and body copy for each. Focused on driving team invitations as the activation event.",
+      "assertions": [
+        "Provides all 7 emails with subject lines and body copy",
+        "Send timing is specified for each email",
+        "Each email has a clear single goal",
+        "At least 2-3 emails specifically drive toward team invitation",
+        "Emails are concise (not walls of text)",
+        "Includes a re-engagement or 'trial ending soon' email"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our welcome email gets 42% open rate but only 8% click rate. How do we improve the click rate?",
+      "expected_output": "Analysis of welcome email click rate optimization — CTA clarity, single vs. multiple CTAs, personalization, preview text, and email body structure.",
+      "assertions": [
+        "Addresses single CTA vs. multiple CTAs (one clear action is better)",
+        "Covers CTA copy and button design",
+        "Addresses email body length and structure",
+        "Notes that 42% open rate is strong — the problem is post-open engagement",
+        "Gives 3+ specific changes to test"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up my email automation in Mailchimp",
+      "expected_output": "Notes that email sequence skill covers strategy and copy, not platform configuration. Offers to write the sequence and provide setup guidance, redirects to technical implementation.",
+      "assertions": [
+        "Distinguishes between email sequence strategy/copy and platform configuration",
+        "Offers to write the sequence content",
+        "Notes the implementation would be done in Mailchimp (or similar ESP)"
+      ]
+    }
+  ]
+}

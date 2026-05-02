@@ -1,0 +1,42 @@
+{
+  "skill_name": "pipeline-analyst",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have 3 HubSpot deals: Dental group 3K/mo in Proposal Sent 3 weeks, last contact 10 days ago, only office manager. HVAC 2K/mo Discovery, talked twice, no next step. Real estate 5K/mo Negotiation, 2 contacts, meeting next week. Which need attention?",
+      "expected_output": "Apply MEDDPICC to each deal, flag dental as high-risk, HVAC as missing next step, real estate as healthiest, give specific interventions.",
+      "files": [],
+      "expectations": [
+        "The response applies MEDDPICC to evaluate each deal",
+        "The response flags the dental deal as high-risk (single-threaded + stalled in proposal)",
+        "The response flags HVAC as missing a committed next step",
+        "The response scores real estate as the healthiest deal",
+        "The response gives specific intervention actions for each deal"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "My win rate this month was 20%. Last month it was 35%. What is going on?",
+      "expected_output": "Request segmentation data, suggest pipeline velocity analysis, distinguish stage-specific vs across-all-stages drop, propose diagnostic steps.",
+      "files": [],
+      "expectations": [
+        "The response requests segmentation data before diagnosing",
+        "The response suggests pipeline velocity analysis",
+        "The response distinguishes a stage-specific drop from an across-the-board drop",
+        "The response proposes diagnostic steps rather than assuming a single cause"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I have 45K in weighted pipeline against 15K remaining quota for the month. Am I in good shape?",
+      "expected_output": "Reject simple 3x coverage, ask about deal health and engagement recency, apply quality-adjusted coverage, output Commit/Best Case/Upside breakdown.",
+      "files": [],
+      "expectations": [
+        "The response rejects simple 3x weighted coverage as sufficient",
+        "The response asks about deal engagement recency and single vs multi-threaded status",
+        "The response outputs Commit / Best Case / Upside breakdown",
+        "The response applies quality-adjusted coverage rather than raw weighted pipeline"
+      ]
+    }
+  ]
+}

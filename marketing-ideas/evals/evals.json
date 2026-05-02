@@ -1,0 +1,39 @@
+{
+  "skill_name": "marketing-ideas",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B SaaS for construction project management. $199/month. Our target buyers are general contractors with 10-50 employees. We have a $5K/month marketing budget. Most of our competitors are doing the same thing — Google ads, LinkedIn, and webinars. What marketing ideas would actually differentiate us?",
+      "expected_output": "5-10 differentiated marketing ideas specific to the construction/GC niche, with reasoning for why each would stand out from generic B2B SaaS marketing, and rough feasibility notes for a $5K budget.",
+      "assertions": [
+        "Generates at least 5 distinct marketing ideas",
+        "Ideas are specific to the construction/GC audience (not generic B2B advice)",
+        "At least 2-3 ideas are channel-diversified from the competitors' LinkedIn/Google/webinar approach",
+        "Includes feasibility notes or budget considerations",
+        "Explains the differentiation angle for at least some ideas"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What are some low-cost or free marketing ideas for a bootstrapped SaaS with no budget?",
+      "expected_output": "10+ zero or near-zero cost marketing ideas across channels (SEO, community, partnerships, content, product-led) with practical first steps for each.",
+      "assertions": [
+        "Provides at least 8 distinct ideas",
+        "All ideas are genuinely low/no cost",
+        "Covers multiple channels (not all content or all SEO)",
+        "Includes at least one community/partnership angle",
+        "Gives practical first step for at least some ideas"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Implement a referral program for our SaaS",
+      "expected_output": "Acknowledges this is a referral program design task and redirects to the referral-program skill, while offering a few high-level campaign ideas for launching/promoting the referral program.",
+      "assertions": [
+        "Recognizes this is referral program design, not just idea generation",
+        "Redirects to referral-program skill for detailed implementation",
+        "May offer ideas for promoting the referral program (launch campaign, in-app placement)"
+      ]
+    }
+  ]
+}

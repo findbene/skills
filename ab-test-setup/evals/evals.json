@@ -1,0 +1,38 @@
+{
+  "skill_name": "ab-test-setup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We want to A/B test our pricing page headline. Current: 'The Project Management Tool for Creative Teams' vs. new variant: 'Stop Losing Projects in Spreadsheets.' Our site gets 8,000 pricing page visitors per month and our current conversion rate is 3.2%. How long should we run this test and what should we measure?",
+      "expected_output": "Complete A/B test setup including: sample size calculation, test duration estimate, primary and secondary metrics, statistical significance threshold, and test documentation template.",
+      "assertions": [
+        "Calculates or estimates required sample size based on 3.2% baseline and target MDE",
+        "Estimates test duration in weeks based on 8,000/month traffic",
+        "Defines primary metric (pricing page conversion) and secondary metrics",
+        "Sets 95% statistical significance as minimum threshold",
+        "Addresses minimum detectable effect (what improvement size is worth detecting)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our A/B test showed variant B won with 92% confidence. Should we roll it out?",
+      "expected_output": "Analysis of 92% confidence result — explains why this is below the 95% standard, the false positive risk, and provides a recommendation on whether to ship or keep testing.",
+      "assertions": [
+        "Explains that 92% confidence means 8% chance of false positive",
+        "Notes 95% is the standard threshold",
+        "Gives a clear recommendation (likely: keep testing to reach 95%, or ship with caveats)",
+        "Addresses traffic/time constraints if applicable"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run an A/B test on our website for me",
+      "expected_output": "Clarifies that the ab-test-setup skill designs and plans tests but doesn't execute them in the browser. Offers to design the full test setup, then redirects to implementation tools for the actual test.",
+      "assertions": [
+        "Clarifies the skill designs tests but doesn't execute in-browser",
+        "Offers to complete the test design (hypothesis, variants, metrics, duration)",
+        "Notes implementation requires a testing tool (Optimizely, VWO, etc.)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "skill_name": "discovery-coach",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I am getting on a call with a potential client tomorrow they run a home services company with 20 employees. What should I ask them?",
+      "expected_output": "Provide SPIN questions (2-3 Situation max), upfront contract script, 30-min call structure, and warning not to pitch before discovery.",
+      "files": [],
+      "expectations": [
+        "The response provides SPIN questions: Situation, Problem, Implication, Need-Payoff",
+        "The response limits Situation questions to 2-3 maximum",
+        "The response includes an upfront contract script",
+        "The response provides a 30-minute call structure with time allocations",
+        "The response warns against pitching before discovery is complete"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I asked the prospect about their current setup and they said we use ServiceTitan. Then I immediately told them how our AI integrates with ServiceTitan. Was that the right move?",
+      "expected_output": "Diagnose the jump from Situation to pitch skipping Problem and Implication stages, and recommend specific follow-up questions.",
+      "files": [],
+      "expectations": [
+        "The response identifies that jumping from Situation to pitch skipped Problem and Implication stages",
+        "The response explains the gap: actual pain was never discovered",
+        "The response provides specific questions to ask next to surface pain and implication",
+        "The response does not validate pitching at this stage"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The prospect said our biggest challenge is we are always busy but we never seem to make enough money. How do I dig into that?",
+      "expected_output": "Apply Sandler Pain Funnel (3 levels: describe, cost in dollars, personal stakes) AND Gap Selling root cause analysis.",
+      "files": [],
+      "expectations": [
+        "The response applies the Sandler Pain Funnel with at least 3 levels",
+        "The response includes a Level 2 question about financial cost to the business",
+        "The response includes a Level 3 question about personal stakes",
+        "The response applies Gap Selling root cause analysis"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "skill_name": "carousel-growth-engine",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a full carousel for TikTok and Instagram promoting Citadel AI's AI receptionist for dental offices.",
+      "expected_output": "Produce all 6 slides following the Hook/Problem/Agitation/Solution/Feature/CTA arc with correct specs and API call.",
+      "files": [],
+      "expectations": [
+        "The response produces exactly 6 slides in Hook/Problem/Agitation/Solution/Feature/CTA order",
+        "The response specifies 9:16 vertical format and 768x1376px resolution",
+        "The response specifies JPG format (not PNG)",
+        "The response includes the TikTok Upload-Post API call with auto_add_music=true and privacy_level=PUBLIC_TO_EVERYONE",
+        "The response states no text in the bottom 20% of any slide"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our last 8 carousels averaged 1.7% engagement rate. Diagnose what's probably wrong.",
+      "expected_output": "Analyze failure causes in priority order, reference learnings.json as the diagnostic tool, and recommend specific A/B testing over the next 6 carousels.",
+      "files": [],
+      "expectations": [
+        "The response analyzes Slide 1 hook type as the primary failure candidate",
+        "The response mentions auto_add_music as a potential cause of distribution loss",
+        "The response references learnings.json as the diagnostic tracking tool",
+        "The response recommends A/B testing 3 different hook types over next 6 carousels",
+        "The response states a target engagement rate of 5%+"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build a carousel for @AutomateBrain: '5 AI tools that replace a $5K/month employee'",
+      "expected_output": "Produce all 6 slides matching the exact example from SKILL.md with correct format specs and API call.",
+      "files": [],
+      "expectations": [
+        "Slide 1 uses the hook '5 AI tools that replace a $5K/month employee'",
+        "Slide 5 contains the phrase 'Setup in under 1 hour'",
+        "Slide 6 contains 'Save this + follow for more AI tools'",
+        "The response specifies JPG format and 9:16 aspect ratio",
+        "The response includes API call spec with auto_add_music=true"
+      ]
+    }
+  ]
+}

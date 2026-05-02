@@ -1,0 +1,42 @@
+{
+  "skill_name": "executive-summary",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write the executive summary for Bright Smile Dental monthly report. They paid 4000 this month. Baseline was 7200/month. We handled 318 calls, booked 127 appointments, response time dropped from 4 hours to 8 seconds. 15.8% escalation rate.",
+      "expected_output": "Produce 325-475 word summary with Situation, Key Finding, Financial Impact, 3 quantified Performance Highlights, and Priority Actions.",
+      "files": [],
+      "expectations": [
+        "The response includes Financial Impact with 4000 cost, 7200 baseline, and calculated savings",
+        "The response references all 3 metrics: 318 calls, 127 appointments, 8-second response time",
+        "The response includes the 15.8% escalation rate",
+        "The response is between 325-475 words",
+        "The response contains no vague adjectives (significantly, greatly, excellent)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a summary of what we accomplished this month for my own review.",
+      "expected_output": "Use Bottom Line Up Front format with 1-sentence conclusion first, or ask for data if none provided.",
+      "files": [],
+      "expectations": [
+        "The response uses BLUF structure with conclusion first",
+        "The response asks for actual data/numbers if none were provided",
+        "The response structure includes Findings, Recommendation, and Risk",
+        "The response does not write vague summaries without quantified data"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Here is my draft: This month we significantly improved our performance across multiple metrics and achieved great results overall with a good customer satisfaction rating. Make it better.",
+      "expected_output": "Reject the draft as unpublishable (no numbers, vague adjectives), ask for actual data, explain what evidence is needed.",
+      "files": [],
+      "expectations": [
+        "The response rejects the draft rather than editing around the vagueness",
+        "The response identifies significantly improved and great results as unacceptable vague language",
+        "The response asks for specific numbers before rewriting",
+        "The response does not produce a rewrite without actual data"
+      ]
+    }
+  ]
+}

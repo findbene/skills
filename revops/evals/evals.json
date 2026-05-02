@@ -1,0 +1,39 @@
+{
+  "skill_name": "revops",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B SaaS with a 6-person sales team. Our MQL-to-SQL rate is 22% and SQL-to-close is 18%. Marketing sends 200 MQLs/month. The sales team complains MQL quality is low. How do we fix this?",
+      "expected_output": "RevOps analysis of the MQL-to-SQL gap with recommendations for: MQL definition refinement, lead scoring model improvement, SLA between marketing and sales, and feedback loop design.",
+      "assertions": [
+        "Questions the current MQL definition and scoring model",
+        "Recommends a sales-marketing SLA (response time, feedback requirements)",
+        "Addresses feedback loop (how sales tells marketing which MQLs are good/bad)",
+        "Analyzes the 22% MQL-SQL rate in context (low-moderate, room to improve)",
+        "Provides specific lead scoring criteria recommendations"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What metrics should we track in our RevOps dashboard?",
+      "expected_output": "RevOps metric framework covering the full funnel from MQL through revenue, with recommended targets/benchmarks for each metric for a B2B SaaS.",
+      "assertions": [
+        "Covers the full funnel: MQL, SQL, opportunity, closed-won, revenue",
+        "Includes velocity metrics (time in each stage)",
+        "Addresses revenue metrics (NRR, ARR growth, churn)",
+        "Provides B2B SaaS benchmarks for key metrics",
+        "Notes which metrics to look at weekly vs. monthly"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up our CRM in HubSpot",
+      "expected_output": "Offers RevOps strategy input on CRM setup (pipeline stages, property design, automation rules), notes that technical HubSpot configuration is implementation work.",
+      "assertions": [
+        "Provides RevOps strategy for CRM setup (stage design, properties needed)",
+        "Notes that technical HubSpot configuration is implementation work",
+        "Recommends CRM design principles before touching the tool"
+      ]
+    }
+  ]
+}

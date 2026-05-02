@@ -1,0 +1,39 @@
+{
+  "skill_name": "referral-program",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B SaaS for restaurants ($79/month). We have 500 paying customers. Most came through word of mouth but we don't have a formal referral program. How should we design one?",
+      "expected_output": "Referral program design including: incentive structure (double-sided vs. one-sided), reward type (discount vs. cash vs. credit), referral mechanics, messaging templates, and launch plan.",
+      "assertions": [
+        "Recommends double-sided referral (both referrer and referred get reward)",
+        "Addresses reward type options (account credit likely best for B2B SaaS)",
+        "Covers referral mechanics (unique link, code, or email)",
+        "Provides messaging for the referral ask (email, in-app prompt)",
+        "Addresses when to ask (after value milestone, not on day 1)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our referral program has a 2% participation rate after 6 months. How do we improve this?",
+      "expected_output": "Referral program audit covering: incentive attractiveness, ask timing, program visibility, friction in the referral process, and A/B test hypotheses.",
+      "assertions": [
+        "Assesses whether the incentive is compelling enough",
+        "Covers ask timing (when in customer journey)",
+        "Addresses program visibility (do customers know it exists?)",
+        "Provides specific A/B test hypotheses to improve participation",
+        "Notes that 2% is below average and identifies likely root causes"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up referral tracking in our app",
+      "expected_output": "Offers referral program strategy guidance, notes that technical implementation (tracking) requires engineering work, and recommends referral platforms (ReferralHero, Viral Loops, etc.).",
+      "assertions": [
+        "Provides referral program strategy input",
+        "Notes that tracking implementation is engineering work",
+        "Recommends specific referral program platforms as options"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "skill_name": "ai-seo",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My SaaS for legal document automation isn't showing up when lawyers ask ChatGPT or Perplexity for software recommendations. Our competitors are being mentioned but we aren't. What do I do?",
+      "expected_output": "Strategy for improving AI search visibility including: structured content, brand mention building, llms.txt, passage-level citability, entity establishment, and platform-specific optimization tactics.",
+      "assertions": [
+        "Addresses brand mention signals and citation building",
+        "Covers structured/passage-level content for citability",
+        "Mentions llms.txt or AI crawler accessibility",
+        "Addresses entity establishment and knowledge graph presence",
+        "Provides platform-specific tactics for at least 2 AI search platforms"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What is llms.txt and should I add it to my website?",
+      "expected_output": "Clear explanation of llms.txt, what it does, when it helps, how to implement it, and a recommendation based on the user's situation.",
+      "assertions": [
+        "Explains what llms.txt is and its purpose",
+        "Covers implementation steps",
+        "Gives a clear recommendation on whether to add it",
+        "Addresses which AI platforms respect it"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Help me rank #1 on Google for 'best CRM software'",
+      "expected_output": "Acknowledges this is a traditional SEO task and redirects to seo-audit or programmatic-seo skills, while noting that AI-SEO skill focuses on generative/AI search optimization rather than traditional Google ranking.",
+      "assertions": [
+        "Distinguishes between traditional SEO and AI/generative SEO",
+        "Redirects to seo-audit or related skill for traditional ranking",
+        "Notes this skill's focus on AI search visibility"
+      ]
+    }
+  ]
+}

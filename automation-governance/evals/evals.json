@@ -1,0 +1,41 @@
+{
+  "skill_name": "automation-governance",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to automate sending a follow-up email whenever a new lead comes into HubSpot from our website form.",
+      "expected_output": "Evaluate the automation across all 4 governance dimensions and give a clear APPROVE or APPROVE AS PILOT verdict with an n8n workflow spec.",
+      "files": [],
+      "expectations": [
+        "The response evaluates time savings, data criticality, dependency risk, and scalability",
+        "The response gives a clear verdict: APPROVE or APPROVE AS PILOT",
+        "The response recommends an n8n workflow with specific node structure",
+        "The response uses the PROD-CRM-LeadFollowup naming convention pattern"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Let's automate the entire client onboarding process — contract signing, account setup, welcome email, Supabase schema creation, and first report generation — all triggered when a deal closes in HubSpot.",
+      "expected_output": "Flag the complexity and external dependency count, recommend APPROVE AS PILOT for first phase only, and suggest splitting into smaller automations with human checkpoints.",
+      "files": [],
+      "expectations": [
+        "The response flags more than 3 external dependencies",
+        "The response recommends APPROVE AS PILOT, not full APPROVE",
+        "The response requires human checkpoint before irreversible actions (contract, schema creation)",
+        "The response recommends breaking into multiple smaller automations"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Can we automate charging clients' credit cards when their monthly retainer is due?",
+      "expected_output": "Classify payment data as CRITICAL, recommend PARTIAL AUTOMATION ONLY with human approval before charges, and flag PCI DSS compliance requirements.",
+      "files": [],
+      "expectations": [
+        "The response classifies data criticality as CRITICAL",
+        "The response recommends PARTIAL AUTOMATION ONLY or DENY, not full APPROVE",
+        "The response requires human checkpoint before any charge is executed",
+        "The response mentions PCI DSS compliance requirements"
+      ]
+    }
+  ]
+}

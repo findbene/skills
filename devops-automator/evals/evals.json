@@ -1,0 +1,43 @@
+{
+  "skill_name": "devops-automator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up the full CI/CD pipeline for the AI Agency Python pipeline repo (findbene/AI_Agency). It needs to run tests, check for secrets, build a Docker image, and deploy to the server.",
+      "expected_output": "GitHub Actions YAML with stages in order: security-scan first, test, build, deploy with rollback and no hardcoded secrets.",
+      "files": [],
+      "expectations": [
+        "The response places security-scan (secret scan + vulnerability check) as the first stage",
+        "The response uses pytest tests/ -v for the test stage",
+        "The response tags the Docker image with github.sha",
+        "The response restricts deploy stage to main branch pushes only",
+        "The response uses GitHub Actions secrets, not hardcoded values"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The n8n container keeps crashing after about 2 hours with an out-of-memory error. How do we fix this and make it self-healing?",
+      "expected_output": "Fix OOM via Docker Compose memory limit, add restart policy and healthcheck, and mention Prometheus monitoring.",
+      "files": [],
+      "expectations": [
+        "The response adds a memory limit to the n8n service in docker-compose.yml",
+        "The response adds restart: unless-stopped or restart: always",
+        "The response adds a healthcheck with curl -f http://localhost:5678/healthz",
+        "The response recommends Prometheus monitoring for container memory usage"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We need to deploy the media pipeline agents as containers that auto-scale based on the video generation queue depth. Design the architecture.",
+      "expected_output": "Propose Docker containers, queue-depth scaling trigger, Kubernetes HPA or ECS auto-scaling, Terraform IaC, and Prometheus queue monitoring.",
+      "files": [],
+      "expectations": [
+        "The response proposes queue depth (RQ or Celery) as the scaling metric",
+        "The response specifies Kubernetes HPA or AWS ECS auto-scaling policy",
+        "The response requires Terraform IaC, not manual console changes",
+        "The response specifies min/max replica counts and a scale-up threshold",
+        "The response includes a Prometheus alert when queue exceeds 50 jobs"
+      ]
+    }
+  ]
+}

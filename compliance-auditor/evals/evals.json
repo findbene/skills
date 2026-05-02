@@ -1,0 +1,41 @@
+{
+  "skill_name": "compliance-auditor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're adding Amazon affiliate links to our TikTok video descriptions and YouTube descriptions. What do we need to do?",
+      "expected_output": "Specify exact FTC disclosure language, correct placement (before links), platform-specific formats, and warn that footer-only disclosure is insufficient.",
+      "files": [],
+      "expectations": [
+        "The response specifies FTC disclosure must appear BEFORE the affiliate links, not after",
+        "The response gives platform-specific formats (#ad for social, full disclosure for YouTube)",
+        "The response warns that footer-only placement is insufficient",
+        "The response provides specific disclosure language or a checklist per platform"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Is this code compliant? cursor.execute(f'SELECT * FROM users WHERE email = {email}')",
+      "expected_output": "Immediately flag the SQL injection vulnerability from f-string interpolation, classify it as critical, and provide the corrected parameterized query.",
+      "files": [],
+      "expectations": [
+        "The response flags the f-string interpolation as a SQL injection vulnerability",
+        "The response classifies this as a critical security violation",
+        "The response provides the corrected parameterized query using %s placeholder",
+        "The response does not suggest this is a minor or acceptable risk"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Someone unsubscribed from our Beehiiv list 2 months ago. Do we need to do anything?",
+      "expected_output": "Confirm the GDPR/CCPA obligation, specify the 30-day deletion deadline, and recommend a data retention audit for all unsubscribed contacts.",
+      "files": [],
+      "expectations": [
+        "The response confirms GDPR and/or CCPA requires honoring the unsubscribe",
+        "The response mentions a deletion deadline (30 days or similar)",
+        "The response warns to verify no further emails were sent to this person",
+        "The response recommends a broader data retention audit for unsubscribed contacts"
+      ]
+    }
+  ]
+}

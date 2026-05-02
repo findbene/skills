@@ -1,0 +1,61 @@
+---
+name: codex-ecosystem
+description: "Codex CLI configuration and MCP server management for initializing and managing OpenAI Codex in projects. Use this skill any time Codex needs to be configured for a project, Codex MCP servers need to be enabled, or Codex project settings need to be managed. Trigger immediately on: \"Codex\", \"Codex CLI\", \"codex config\", \"codex MCP\", \"OpenAI Codex\", \"Codex project\", \"codex setup\", \"codex configuration\", \"enable codex\", \"codex agent\", \"codex server\", \"Codex ecosystem\". If someone says \"set up Codex for this project\" or \"configure Codex MCP\" this skill MUST trigger."
+---
+
+# Codex Ecosystem Setup
+
+Handle bootstrap and MCP management for Codex projects.
+
+## Bootstrap Policy
+
+Do not create or modify `.codex/` automatically on plugin activation.
+
+1. Check whether `.codex/config.toml` exists.
+2. If missing, explain what will be created.
+3. Ask for confirmation.
+4. Create files only after confirmation.
+
+## Bootstrap Actions
+
+When approved by the user:
+
+```bash
+mkdir -p .codex
+cp "${CLAUDE_PLUGIN_ROOT}/.codex/config.template.toml" .codex/config.toml
+cp "${CLAUDE_PLUGIN_ROOT}/.codex/recommended-mcps.toml" .codex/recommended-mcps.toml
+```
+
+If plugin-root files are unavailable, create `.codex/config.toml` with safe defaults:
+
+```toml
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+sandbox = "workspace-write"
+approval_policy = "on-request"
+```
+
+## Curated MCP Set
+
+Only the verified set is considered curated:
+- `context7`
+- `playwright`
+- `postgres`
+- `filesystem`
+- `github`
+
+All are disabled by default in template config.
+
+## MCP Enablement Workflow
+
+1. Analyze task requirements.
+2. Suggest relevant MCP(s).
+3. Ask before changing `.codex/config.toml`.
+4. Enable only requested MCP(s).
+5. Remind about required environment variables.
+
+## Best Practices
+
+- Prefer minimal enablement.
+- Use `recommended-mcps.toml` for server reference blocks.
+- For non-curated MCPs, use `/codex-mcp-search` and manual user confirmation.

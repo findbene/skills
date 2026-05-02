@@ -1,0 +1,38 @@
+{
+  "skill_name": "pricing-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B SaaS for restaurant inventory management. Currently charging $99/month flat. We have customers from single-location restaurants to 20-location chains. The chains get WAY more value but pay the same as single-location. Should we change our pricing model?",
+      "expected_output": "Pricing model analysis recommending value-metric-based pricing (per location, per user, or per revenue managed), with specific tier recommendations and migration strategy.",
+      "assertions": [
+        "Identifies the pricing problem (flat rate doesn't capture value from chains)",
+        "Recommends a value metric (per location is likely ideal here)",
+        "Provides specific tier structure recommendation",
+        "Addresses migration strategy for existing customers",
+        "Notes pricing psychology considerations for the transition"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We want to raise prices by 30% for existing customers. How do we do this without massive churn?",
+      "expected_output": "Price increase communication strategy with timing, messaging approach, grandfathering options, and churn mitigation tactics.",
+      "assertions": [
+        "Recommends a specific communication timeline (notice period)",
+        "Covers grandfathering vs. full increase options",
+        "Provides messaging framework focused on value delivered",
+        "Addresses high-risk segment identification and proactive outreach",
+        "Notes that 30% is significant and may require segmented approach"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design the layout of our pricing page",
+      "expected_output": "Offers pricing strategy input on tier presentation and pricing psychology, redirects to page-cro or copywriting for the actual page layout/copy.",
+      "assertions": [
+        "Provides pricing strategy input (tier order, recommended plan, decoy)",
+        "Redirects to page-cro or copywriting for layout and copy"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "skill_name": "ad-creative",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write 5 Meta ad hooks and headlines for our recruiting software targeting HR Directors at companies with 50-500 employees. Pain point: time-to-hire is 6+ weeks. Our USP: AI screening cuts that to 2 weeks. Budget: $15K/month.",
+      "expected_output": "5 distinct ad hooks/headlines with different angles (pain-led, outcome-led, social proof, curiosity, competitive) suitable for Meta feed ads.",
+      "assertions": [
+        "Provides exactly 5 distinct hooks with different angles",
+        "At least one hook is pain-led (references 6+ week hiring time)",
+        "At least one hook is outcome-led (references 2-week result)",
+        "Hooks are written for Meta feed (attention-grabbing, scroll-stopping)",
+        "Includes a recommended primary CTA for each"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What's a good structure for a 30-second YouTube pre-roll ad script for a B2B SaaS?",
+      "expected_output": "30-second script structure with timing breakdown (hook 0-5s, problem 5-15s, solution 15-25s, CTA 25-30s) and example fill-in template.",
+      "assertions": [
+        "Provides a timing breakdown for 30 seconds",
+        "Emphasizes the skip-proof 5-second hook",
+        "Covers the unskippable CTA at the end",
+        "Includes a template or fill-in-the-blank structure",
+        "Notes B2B-specific considerations (tone, length preference)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Optimize my Google Ads bidding strategy",
+      "expected_output": "Notes this is a paid ads strategy task and redirects to paid-ads skill for bidding optimization, while offering creative-level input on ad copy quality affecting Quality Score.",
+      "assertions": [
+        "Redirects to paid-ads skill for bidding strategy",
+        "Notes creative quality affects Quality Score as the connection point"
+      ]
+    }
+  ]
+}

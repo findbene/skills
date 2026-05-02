@@ -1,0 +1,39 @@
+{
+  "skill_name": "churn-prevention",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our B2B SaaS has 12% monthly churn. Our biggest segment is SMBs at $99/month. Usage analytics show that customers who churn use the product 60% less in weeks 2-3 compared to those who stay. What churn prevention interventions should we run?",
+      "expected_output": "Churn intervention strategy using the usage signal, including: trigger-based intervention design, messaging templates, CS escalation process, and success metrics.",
+      "assertions": [
+        "Uses the weeks 2-3 usage drop as the key early warning signal",
+        "Designs a specific intervention triggered by the usage decline",
+        "Provides messaging approach for the intervention (email, in-app, CS call)",
+        "Addresses root cause investigation (why does usage drop?)",
+        "Sets success metrics for the intervention program"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We have 200 churned customers from the last 6 months. How do we run a win-back campaign?",
+      "expected_output": "Win-back campaign strategy with segmentation (recency, reason for churn, plan type), messaging sequence, offer design, and expected conversion rate benchmarks.",
+      "assertions": [
+        "Recommends segmenting churned customers by recency and reason",
+        "Covers win-back offer design (discount, feature update, new value prop)",
+        "Provides a multi-touch sequence (not just one email)",
+        "Sets realistic conversion rate expectations (2-5% is typical for win-back)",
+        "Addresses how to identify churned customers most likely to return"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a cancellation email for when customers want to cancel",
+      "expected_output": "Provides churn prevention strategy for the cancellation moment (save offers, exit survey, pause option), and redirects to copywriting or email-sequence skill for the actual email writing.",
+      "assertions": [
+        "Covers the cancellation moment strategy (save offer, pause option, exit survey)",
+        "Notes the email writing itself is better handled by copywriting skill",
+        "Recommends capturing cancellation reason as a data point"
+      ]
+    }
+  ]
+}

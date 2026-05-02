@@ -1,0 +1,39 @@
+{
+  "skill_name": "social-content",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Turn this blog post summary into a LinkedIn post: 'We analyzed 500 cold emails that got replies. The #1 factor wasn't personalization or subject line — it was the specificity of the problem statement in the first sentence. Vague openers like \"I noticed you work in sales\" got 2% reply rates. Specific problem openers like \"Most SDRs at Series B companies tell us they spend 3 hours/day on manual research\" got 18% reply rates.'",
+      "expected_output": "LinkedIn post that adapts the data into an engaging format — strong hook, story or insight, specific numbers, and a clear takeaway. Appropriate length for LinkedIn (3-8 short paragraphs or bullets).",
+      "assertions": [
+        "Opens with a strong hook that doesn't bury the lead",
+        "Uses the specific numbers (500 emails, 2%, 18%) prominently",
+        "Formatted for LinkedIn readability (short paragraphs, line breaks)",
+        "Includes a clear takeaway or call-to-action",
+        "Appropriate length for LinkedIn (not too long, not a single sentence)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a Twitter/X thread about why most SaaS companies' onboarding emails fail. I want it to be educational but also position my email consultancy.",
+      "expected_output": "A 5-8 tweet thread with a strong hook tweet, numbered insights, examples, and a soft CTA at the end that positions the consultancy without being salesy.",
+      "assertions": [
+        "Thread starts with a strong hook tweet (contrarian or data-driven)",
+        "Contains 5-8 tweets total",
+        "Each tweet is a standalone insight (numbered or with clear structure)",
+        "Includes at least one specific example or data point",
+        "Ends with a soft CTA that mentions the consultancy naturally"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a 6-email welcome sequence for new SaaS trial users",
+      "expected_output": "Acknowledges this is an email sequence task (not social content), redirects to email-sequence skill while optionally offering social content versions of key onboarding messages.",
+      "assertions": [
+        "Recognizes this is an email sequence task, not social content",
+        "Redirects to the email-sequence skill",
+        "Does not attempt to write 6 emails as if this were a social content request"
+      ]
+    }
+  ]
+}

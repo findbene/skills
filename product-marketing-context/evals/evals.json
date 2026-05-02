@@ -1,0 +1,40 @@
+{
+  "skill_name": "product-marketing-context",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to create a product-marketing-context.md file for my SaaS. It's a time tracking tool for law firms ($79/month per user, 50-200 employee firms). Our differentiator is automatic time capture — no manual entry. Competitors are Clio and TimeSolv. Can you help me build this document?",
+      "expected_output": "Structured product-marketing-context.md document with all required sections: product overview, ICP, personas, problems, differentiation, objections, customer language, brand voice, proof points, and goals.",
+      "assertions": [
+        "Creates a complete product-marketing-context.md structure",
+        "Includes ICP section with firmographic details (law firms, 50-200 employees)",
+        "Captures the key differentiator (automatic time capture) prominently",
+        "Includes competitor positioning section (vs. Clio, vs. TimeSolv)",
+        "Asks clarifying questions for sections where information is missing",
+        "Produces output that other skills can read to avoid re-asking context questions"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Update our product-marketing-context.md — we just launched a new integration with QuickBooks and we want to add it as a proof point.",
+      "expected_output": "Reads the existing product-marketing-context.md, adds the QuickBooks integration to the appropriate sections (integrations, proof points, objection handling for accounting workflow questions).",
+      "assertions": [
+        "Reads the existing file before making changes",
+        "Adds QuickBooks integration to proof points section",
+        "Updates integration/compatibility section if it exists",
+        "Notes implications for objection handling (accounting workflow questions)",
+        "Preserves all other existing content"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write landing page copy for my time tracking tool",
+      "expected_output": "Offers to first create the product-marketing-context.md to ensure the copy is grounded in proper positioning, then redirects to copywriting skill for the actual page writing.",
+      "assertions": [
+        "Offers to create product-marketing-context.md first",
+        "Redirects to copywriting skill for the actual landing page copy",
+        "Explains that context document makes subsequent copy more accurate"
+      ]
+    }
+  ]
+}

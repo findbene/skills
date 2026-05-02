@@ -1,0 +1,39 @@
+{
+  "skill_name": "onboarding-cro",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our B2B SaaS has a 14-day free trial. 80% of users never create their first project during the trial. Our activation metric is 'created first project.' What should we do to fix this?",
+      "expected_output": "Onboarding analysis covering: in-app friction reduction, activation trigger design, onboarding email sequence, empty state optimization, and first-session experience improvements.",
+      "assertions": [
+        "Addresses the empty state (what the user sees before creating a project)",
+        "Recommends reducing steps to first project creation",
+        "Covers onboarding email sequence timing and content",
+        "Addresses the activation metric definition and whether it's correct",
+        "Provides at least 3 specific actionable recommendations"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we use a product tour or a checklist for onboarding?",
+      "expected_output": "Comparison of product tours vs. checklists with recommendation based on product complexity, user type, and activation goal, with hybrid approach option.",
+      "assertions": [
+        "Distinguishes when product tours work vs. when they create friction",
+        "Explains the psychology of checklists (goal-gradient effect)",
+        "Gives a clear recommendation with conditions",
+        "Mentions hybrid approach possibility",
+        "Notes that both should optimize for the single activation moment"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write our onboarding email sequence",
+      "expected_output": "Offers onboarding strategy input (timing, triggers, goals per email) and redirects to email-sequence skill for the actual email writing.",
+      "assertions": [
+        "Offers onboarding email strategy (goals, triggers, sequence structure)",
+        "Redirects to email-sequence skill for the actual writing",
+        "Distinguishes between onboarding optimization strategy and email copywriting"
+      ]
+    }
+  ]
+}

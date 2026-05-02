@@ -1,0 +1,38 @@
+{
+  "skill_name": "free-tool-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We build a contract management SaaS for small businesses at $149/month. We want to create a free tool that drives traffic and leads. What should we build and how?",
+      "expected_output": "Free tool strategy including: tool idea recommendations specific to contract management, SEO keyword opportunity, lead capture mechanism, conversion path to paid product, and build vs. buy guidance.",
+      "assertions": [
+        "Generates at least 3 specific free tool ideas relevant to contract management",
+        "Evaluates each for SEO opportunity and traffic potential",
+        "Covers lead capture mechanism (email gate vs. no gate)",
+        "Designs a conversion path from tool user to paid customer",
+        "Addresses build complexity vs. marketing value tradeoff"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we gate our free tool behind an email or keep it fully free?",
+      "expected_output": "Analysis of gated vs. ungated free tools with conversion rate data, SEO impact differences, and a recommendation based on the tool type and business goal.",
+      "assertions": [
+        "Addresses SEO impact (ungated tools get more backlinks and shares)",
+        "Covers lead quality differences",
+        "Recommends a hybrid (ungated tool, optional email for results/report)",
+        "Notes that gating reduces usage and viral sharing"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build a free tool for our website",
+      "expected_output": "Notes this skill handles the strategy and planning, not the actual building. Provides strategy framework and redirects to engineering/product for implementation.",
+      "assertions": [
+        "Covers strategy and planning for the free tool",
+        "Notes implementation requires engineering resources",
+        "Offers to complete the full strategy document"
+      ]
+    }
+  ]
+}

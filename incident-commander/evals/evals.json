@@ -1,0 +1,41 @@
+{
+  "skill_name": "incident-commander",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The pipeline has been running for 2 hours and no videos have been published. All jobs show failed status.",
+      "expected_output": "Classify as SEV1/SEV2, check error_log.jsonl and circuit breaker, apply 4-step response, give specific mitigation steps.",
+      "files": [],
+      "expectations": [
+        "The response immediately classifies severity as SEV1 or SEV2",
+        "The response checks error_log.jsonl as the first diagnostic step",
+        "The response checks the circuit breaker in llm_client.py",
+        "The response gives specific mitigation steps, not generic debugging"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We just recovered from an incident where the ElevenLabs API key expired and caused 4 hours of voiceover failures. What should we do now?",
+      "expected_output": "Trigger blameless post-mortem, fill out template with 5 Whys, produce action items with owners and due dates.",
+      "files": [],
+      "expectations": [
+        "The response triggers a blameless post-mortem",
+        "The response fills the post-mortem template with Timeline, Root Cause (5 Whys), Action Items",
+        "The response identifies the systemic gap: no API key expiry alerting",
+        "The response assigns action items with specific owners and due dates"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Quality scores dropped from 7.8 average to 5.2 average over the last 2 days. What is happening?",
+      "expected_output": "Classify as SEV2, apply structured diagnostic with timeboxed hypotheses (15 min), recommend mitigation (revert or quality gate).",
+      "files": [],
+      "expectations": [
+        "The response classifies this as SEV2",
+        "The response checks audit logs and recent prompt/model routing changes",
+        "The response timeboxes each diagnostic hypothesis to 15 minutes",
+        "The response recommends reverting the last change or enforcing a quality_score >= 7.0 gate"
+      ]
+    }
+  ]
+}

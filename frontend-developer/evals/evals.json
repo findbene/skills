@@ -1,0 +1,43 @@
+{
+  "skill_name": "frontend-developer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build the VideoCard component for the AI Agency SaaS dashboard. It needs to show title, niche, quality score, publish status, and let users click to view details.",
+      "expected_output": "TypeScript React component with strict types, React.memo, full keyboard accessibility, semantic HTML, and AI Agency brand colors.",
+      "files": [],
+      "expectations": [
+        "The response uses TypeScript with a typed VideoCardProps interface (no any)",
+        "The response wraps the component in React.memo",
+        "The response includes role=button, tabIndex=0, and onKeyDown handler for Enter/Space",
+        "The response uses an article element for semantic HTML",
+        "The response uses AI Agency brand colors (Navy #0A1628 or Gold #D4AF37)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The SaaS dashboard is loading slowly. Lighthouse shows LCP of 5.8s and a bundle size of 2.4MB. What do we fix?",
+      "expected_output": "Diagnose LCP, apply React.lazy code-splitting, move data fetching to Server Components, and target LCP < 2.5s with initial JS < 500KB.",
+      "files": [],
+      "expectations": [
+        "The response identifies the LCP root element and recommends preloading it",
+        "The response recommends React.lazy() + Suspense for heavy components",
+        "The response recommends moving data fetching to Next.js Server Components",
+        "The response targets LCP < 2.5s and initial bundle < 500KB"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "An accessibility audit flagged 6 violations: no keyboard access on chart tooltips, missing form labels on dropdown, color contrast 2.8:1, modal does not trap focus, missing alt text on thumbnails, quality score bar has no text alternative.",
+      "expected_output": "Provide specific code fixes for all 6 WCAG 2.1 AA violations.",
+      "files": [],
+      "expectations": [
+        "The response adds tabIndex=0 and onKeyDown to chart tooltips",
+        "The response adds htmlFor on label or aria-label on the dropdown",
+        "The response specifies color contrast must be at least 4.5:1 (WCAG AA)",
+        "The response implements focus trap with role=dialog and aria-modal=true",
+        "The response uses meter element or aria attributes for the quality score bar"
+      ]
+    }
+  ]
+}

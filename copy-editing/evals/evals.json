@@ -1,0 +1,40 @@
+{
+  "skill_name": "copy-editing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you edit this About Us section? 'We are a team of passionate professionals who are dedicated to helping businesses grow. We believe in the power of technology to transform companies and help them achieve their goals. Our mission is to provide innovative solutions that drive results and create value for our clients. We have been doing this for over 10 years and we are very proud of what we have achieved.'",
+      "expected_output": "Edited version that removes jargon, passive voice, and vague claims. Makes it specific, active, and human. Provides tracked-changes style before/after or annotated edit.",
+      "assertions": [
+        "Removes or replaces vague buzzwords like 'passionate,' 'innovative,' 'solutions,' 'drive results'",
+        "Eliminates passive voice constructions",
+        "Makes the copy more specific (asks for details or suggests placeholder specifics)",
+        "Shortens the overall length without losing meaning",
+        "Provides annotation or rationale for key changes"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Edit this cold email opener: 'I hope this email finds you well. I am reaching out today because I wanted to introduce you to our revolutionary AI-powered platform that is disrupting the sales enablement space and helping companies like yours achieve unprecedented results.'",
+      "expected_output": "Rewritten opener that cuts the throat-clearing, removes clichés, and leads with something relevant to the recipient. Multiple alternatives if helpful.",
+      "assertions": [
+        "Removes 'I hope this email finds you well'",
+        "Eliminates 'revolutionary,' 'disrupting,' 'unprecedented'",
+        "Shortens to 1-2 sentences maximum",
+        "Leads with something specific or relevant to the recipient",
+        "Suggests asking for a specific detail to personalize further"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write me a new tagline for my HR software company",
+      "expected_output": "Acknowledges this is a copywriting (creation) task rather than copy-editing (improvement), offers to help generate options but notes the copywriting skill is better suited, asks clarifying questions about audience and positioning.",
+      "assertions": [
+        "Distinguishes between writing new copy vs. editing existing copy",
+        "Still offers to help with tagline options",
+        "Asks at least 1-2 clarifying questions (audience, differentiator, tone)",
+        "References copywriting skill as better suited for creation tasks"
+      ]
+    }
+  ]
+}

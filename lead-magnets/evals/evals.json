@@ -1,0 +1,37 @@
+{
+  "skill_name": "lead-magnets",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I run a project management SaaS for freelancers at $49/month. I get about 2,000 visitors/month but only 3% opt-in to my email list. I want to grow my list faster. What lead magnet should I create and how should I structure it?",
+      "expected_output": "Lead magnet strategy with specific recommendations for freelancer PM SaaS, including content type, topic, format, delivery mechanism, and opt-in placement strategy.",
+      "assertions": [
+        "Recommends specific lead magnet ideas relevant to freelancers and project management",
+        "Evaluates format options (template, guide, checklist, tool) with pros/cons",
+        "Covers opt-in placement strategy (where on the site to promote)",
+        "Addresses the gap between value promise and product (lead magnet should bridge)",
+        "Provides a recommended choice with rationale"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should I gate my template library (50 templates) or keep it free to access?",
+      "expected_output": "Analysis of gating vs. ungating with consideration of SEO value, lead quality, user acquisition goals, and a recommendation.",
+      "assertions": [
+        "Addresses SEO impact of gating (loses indexable content)",
+        "Covers lead quality vs. volume tradeoff",
+        "Recommends a hybrid option (free access, email for premium bundle or updates)",
+        "Notes that 50 templates is substantial — individual templates could be ungated, full bundle gated"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the landing page copy for my lead magnet",
+      "expected_output": "Offers lead magnet positioning input, redirects to copywriting skill for the actual landing page copy.",
+      "assertions": [
+        "Offers input on lead magnet positioning and value proposition",
+        "Redirects to copywriting skill for landing page copy"
+      ]
+    }
+  ]
+}

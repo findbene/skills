@@ -1,0 +1,41 @@
+{
+  "skill_name": "outbound-strategist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write me a cold email to the owner of Bright Smile Dental. They just opened a second location last month. We offer AI voice agents that handle inbound calls 24/7.",
+      "expected_output": "Use second-location signal, lowercase 3-5 word subject, open with signal, value prop in their language, single low-friction CTA.",
+      "files": [],
+      "expectations": [
+        "The response uses the second location opening as a Tier 1 signal",
+        "The response uses a lowercase 3-5 word subject line that looks internal",
+        "The response opens with the signal not a generic opener",
+        "The response uses a single low-friction CTA (15 min call, not 30-min demo)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Help me write an email to dental offices. I want to send it to 500 of them.",
+      "expected_output": "Warn 1-3% conversion on identical emails, recommend signal-based segmentation, require trigger event before outreach.",
+      "files": [],
+      "expectations": [
+        "The response warns that identical email to 500 prospects converts at 1-3%",
+        "The response recommends signal-based approach instead of mass blast",
+        "The response requires a trigger event before outreach",
+        "The response recommends segmenting and personalizing opening lines at minimum"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I sent 3 emails and have not heard back. Should I give up or keep following up?",
+      "expected_output": "Explain 3 emails is only Touch 3 of an 8-10 touch sequence, recommend switching channels, give specific next touch.",
+      "files": [],
+      "expectations": [
+        "The response explains that 3 emails is only Touch 3 in an 8-10 touch sequence",
+        "The response recommends switching channels (LinkedIn or phone for the next touch)",
+        "The response provides the full multi-touch sequence architecture",
+        "The response specifies each new touch must add a different value angle"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "skill_name": "paywall-upgrade-cro",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We have a freemium SaaS with 50,000 free users and only 2% convert to paid ($29/month). The paywall appears when users hit feature limits. Our churn on paid is low (4% monthly). How do we improve the free-to-paid conversion?",
+      "expected_output": "Upgrade conversion strategy covering: paywall trigger optimization, upgrade copy and framing, pricing psychology, in-app upgrade prompts, and email upgrade sequences.",
+      "assertions": [
+        "Addresses paywall trigger timing (hit limit vs. proactive)",
+        "Covers upgrade copy — benefit-led vs. feature-led messaging",
+        "Addresses pricing psychology at the paywall (loss aversion, anchoring)",
+        "Recommends in-app nudges before the hard paywall limit",
+        "Notes that low paid churn indicates strong product-market fit — opportunity to be more aggressive with upgrade prompts"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we show the paywall before or after users hit the limit?",
+      "expected_output": "Analysis of reactive vs. proactive paywall placement with recommendation based on user engagement, value demonstration timing, and upgrade intent signals.",
+      "assertions": [
+        "Distinguishes reactive (hit limit) vs. proactive (preview of upgrade value) paywalls",
+        "Addresses the goal-gradient effect and timing of upgrade prompts",
+        "Recommends a hybrid approach (in-app hints before limit + hard paywall at limit)",
+        "Covers how to use usage milestones as upgrade trigger signals"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up our pricing page",
+      "expected_output": "Offers paywall/upgrade-focused input on pricing page design, redirects to page-cro or copywriting skill for the full pricing page.",
+      "assertions": [
+        "Offers paywall-specific input (upgrade CTAs, tier presentation)",
+        "Redirects to page-cro or copywriting for full pricing page setup"
+      ]
+    }
+  ]
+}

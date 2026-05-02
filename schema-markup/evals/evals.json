@@ -1,0 +1,39 @@
+{
+  "skill_name": "schema-markup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a SaaS pricing page with 3 plans (Starter $49/mo, Growth $149/mo, Scale $399/mo). I also have customer reviews. How do I implement schema markup to get rich results in Google?",
+      "expected_output": "JSON-LD schema implementation for the pricing page including Product schema for each plan and Review/AggregateRating schema, with code examples and validation guidance.",
+      "assertions": [
+        "Provides JSON-LD code examples (not Microdata or RDFa)",
+        "Covers Product schema for the pricing plans",
+        "Covers Review or AggregateRating schema",
+        "Includes Google's eligibility requirements for rich results",
+        "Mentions validation with Google's Rich Results Test"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What schema types should a SaaS blog use?",
+      "expected_output": "List of recommended schema types for a SaaS blog (Article, BlogPosting, FAQPage, HowTo, BreadcrumbList) with guidance on when to use each and implementation notes.",
+      "assertions": [
+        "Recommends Article or BlogPosting schema as primary",
+        "Mentions FAQPage schema as high-value for SaaS content",
+        "Covers BreadcrumbList for navigation",
+        "Notes which types are most likely to produce rich results",
+        "Provides at least one code snippet example"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Do a full SEO audit of my website",
+      "expected_output": "Recognizes this is a full SEO audit task and redirects to seo-audit skill, while offering to assess the structured data component as part of that audit.",
+      "assertions": [
+        "Redirects to seo-audit skill for the full audit",
+        "Positions schema markup as one component of SEO",
+        "Does not attempt to run a full audit as a schema-markup skill"
+      ]
+    }
+  ]
+}

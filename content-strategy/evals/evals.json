@@ -1,0 +1,41 @@
+{
+  "skill_name": "content-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I run a project management SaaS for architecture firms. We have a blog but barely get any traffic. I'm not sure what to write about — our competitors all cover the same generic project management content. How do I build a content strategy that actually drives traffic and leads?",
+      "expected_output": "A content strategy framework specific to architecture/PM SaaS including: ICP-specific topic clusters, keyword research approach, differentiation angle vs. generic PM content, mix of searchable vs. shareable content, and prioritization framework.",
+      "assertions": [
+        "Identifies the niche (architecture firms) as a content differentiation opportunity",
+        "Recommends specific topic pillars relevant to architecture project management",
+        "Distinguishes between searchable and shareable content",
+        "Provides a prioritization framework for content ideas",
+        "Addresses the competitor parity problem with a differentiation angle",
+        "Mentions checking for product-marketing-context file if available"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a keyword export from Ahrefs with 500 keywords. How do I turn this into a content plan?",
+      "expected_output": "Step-by-step process for analyzing a keyword export: clustering by topic, mapping to buyer stages, scoring by priority, and outputting a prioritized content plan table.",
+      "assertions": [
+        "Explains how to cluster keywords by topic/intent",
+        "Maps keywords to buyer journey stages (awareness/consideration/decision/implementation)",
+        "Provides a scoring or prioritization framework",
+        "Mentions quick-win identification (low competition + decent volume)",
+        "Suggests output format (table with keyword, volume, difficulty, stage, content type, priority)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a 2000-word blog post about project management for remote teams",
+      "expected_output": "Acknowledges this is a content creation task (not strategy), offers to help structure/outline it using content strategy principles, and redirects to the copywriting skill for the actual writing.",
+      "assertions": [
+        "Distinguishes between content strategy (planning) and content creation (writing)",
+        "Offers to create an outline or content brief instead",
+        "References copywriting skill for the actual writing",
+        "Asks at least one strategic question (target keyword, audience, angle)"
+      ]
+    }
+  ]
+}

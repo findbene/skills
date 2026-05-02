@@ -1,0 +1,42 @@
+{
+  "skill_name": "security-engineer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this FastAPI endpoint: @app.post(\"/api/run\") async def run_pipeline(niche: str, api_key: str = Header(None)): if api_key == \"hardcoded-secret-123\": return pipeline.run(niche=niche)",
+      "expected_output": "Flag hardcoded secret (critical), require os.environ.get(), use hmac.compare_digest, validate niche with Pydantic, return generic error messages.",
+      "files": [],
+      "expectations": [
+        "The response flags the hardcoded secret as a critical vulnerability",
+        "The response recommends using os.environ.get() instead",
+        "The response requires hmac.compare_digest for constant-time comparison",
+        "The response validates niche input with Pydantic constraints",
+        "The response recommends generic error messages that do not leak internals"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We just added a new endpoint. Should I worry about security?",
+      "expected_output": "Apply STRIDE threat modeling proactively, check auth/input validation/rate limiting/error responses/secrets.",
+      "files": [],
+      "expectations": [
+        "The response applies STRIDE analysis (Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation of Privilege)",
+        "The response checks authentication on the new endpoint",
+        "The response checks input validation, rate limiting, and error responses",
+        "The response takes a proactive security stance"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want to add a feature where users can search for content by typing in a search term that gets passed to our Supabase query.",
+      "expected_output": "Flag SQL injection risk, require parameterized queries or ORM abstraction, validate with Pydantic, add query length limits.",
+      "files": [],
+      "expectations": [
+        "The response immediately flags SQL injection risk from user-provided search input",
+        "The response requires parameterized queries or ORM-level abstraction",
+        "The response requires Pydantic validation before input reaches the database",
+        "The response adds query length limits to prevent DoS"
+      ]
+    }
+  ]
+}

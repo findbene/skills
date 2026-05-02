@@ -1,0 +1,44 @@
+{
+  "skill_name": "instagram-curator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up our Instagram strategy for the tech gadgets niche channel to drive affiliate sales to remotetechgear.com.",
+      "expected_output": "Cover Shopping setup, Stories link sticker, link in bio, and Reels product demos \u2014 plus posting schedule (Wed/Fri/Sat, 8am/1pm/7pm) and 1/3 content rule.",
+      "files": [],
+      "expectations": [
+        "The response covers Instagram Shopping setup with product tagging",
+        "The response includes Stories link sticker pointing to remotetechgear.com",
+        "The response specifies posting schedule: Wed/Fri/Sat at 8am/1pm/7pm",
+        "The response applies the 1/3 content rule (product showcases, tutorials, UGC)",
+        "The response mentions engagement target (3.5%+) and shopping conversion target (2.5%+)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our tech gadgets Reel got 50% average watch time and 1.2% engagement rate. What needs to change?",
+      "expected_output": "Diagnose in order: first 3 seconds hook, text overlays (85% silent viewers), loop ending, golden hour engagement, caption CTA.",
+      "files": [],
+      "expectations": [
+        "The response checks the first 3 seconds for a visual interrupt hook first",
+        "The response mentions text overlays because 85% of viewers watch without sound",
+        "The response checks whether the ending triggers a replay loop",
+        "The response identifies the golden hour (first 60 minutes) engagement window",
+        "The response gives a specific fix for each identified failure point"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the Instagram posting schedule and content plan for @TheRightClip conservative content channel for this week.",
+      "expected_output": "Specify Wed/Fri/Sat posting days at 8am/1pm/7pm, daily Stories, Reels as primary format, question-ending captions.",
+      "files": [],
+      "expectations": [
+        "The response specifies posting days as Wed, Fri, Sat (not daily)",
+        "The response specifies times as 8am, 1pm, 7pm in audience timezone",
+        "The response includes daily Stories even on non-post days",
+        "The response recommends Reels as the primary format (not static posts)",
+        "The response ends captions with a question to drive comments"
+      ]
+    }
+  ]
+}

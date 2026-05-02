@@ -1,0 +1,41 @@
+{
+  "skill_name": "social-media-strategist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We just finished a video about the border executive order. Which platforms do we publish to and in what order?",
+      "expected_output": "Identify as Tier 1 content, recommend all 7 platforms, publish to X/Twitter first within 30 min, explain content cascade.",
+      "files": [],
+      "expectations": [
+        "The response identifies this as Tier 1 conservative content",
+        "The response recommends all 7 platforms: YouTube Shorts, TikTok, Instagram Reels, X/Twitter, Facebook Reels, Rumble, Truth Social",
+        "The response recommends publishing to X/Twitter first (within 30 min of news breaking)",
+        "The response explains the one-video-to-seven-platform content cascade"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Give me the full week posting schedule across all 6 niches and 7 platforms.",
+      "expected_output": "Produce Mon-Sun weekly structure with platform peak times, differentiate Tier 1 vs Tier 2 cadence, include Saturday trending topic for Tier 1.",
+      "files": [],
+      "expectations": [
+        "The response produces Mon-Sun structure: Mon=long-form YouTube, Wed=new short-form, Sat=Tier 1 trending",
+        "The response includes platform peak times: YouTube Wed/Thu/Sat 7-9am, TikTok Tue/Thu/Fri 6-11pm, Instagram Wed/Fri/Sat 8am/1pm/7pm",
+        "The response differentiates Tier 1 from Tier 2 niche cadence",
+        "The response includes Sunday analytics review and next-week planning"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our YouTube Shorts for the AI tools niche get 50K views but the same content repurposed to Instagram Reels only gets 2K. What is wrong?",
+      "expected_output": "Diagnose platform-specific failures: missing trending audio, caption mismatch, first-frame thumbnail, golden hour engagement, hashtag strategy.",
+      "files": [],
+      "expectations": [
+        "The response identifies missing trending audio on Instagram Reels as a primary cause",
+        "The response identifies golden hour engagement failure (not engaging in first 60 minutes)",
+        "The response addresses hashtag strategy: 5-8 mix of trending + niche + branded",
+        "The response gives specific actionable fixes for each cause"
+      ]
+    }
+  ]
+}

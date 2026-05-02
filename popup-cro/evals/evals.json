@@ -1,0 +1,38 @@
+{
+  "skill_name": "popup-cro",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our exit-intent popup offers a 10% discount coupon and converts at 2.1%. Competitors seem to be getting 5-8% on exit popups. What should we test to improve this?",
+      "expected_output": "CRO analysis of the exit popup with specific A/B test hypotheses covering: offer type, headline, urgency/scarcity, design, and targeting improvements.",
+      "assertions": [
+        "Questions whether discount is the right offer vs. alternative (guide, trial, demo)",
+        "Provides at least 3 specific A/B test hypotheses",
+        "Addresses the headline and value prop of the popup",
+        "Covers targeting refinement (who sees it, when)",
+        "References industry benchmarks for exit popup conversion rates"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "When should a popup appear — on load, after X seconds, on scroll, or on exit intent?",
+      "expected_output": "Data-driven guidance on popup timing for different goals (email capture, discount, demo booking) with recommendations per traffic source and page type.",
+      "assertions": [
+        "Distinguishes timing recommendations by goal (email vs. purchase vs. demo)",
+        "Covers scroll depth triggers as often better than time-based",
+        "Addresses exit intent as high-intent targeting",
+        "Notes that on-load popups have high close rates",
+        "Gives a specific recommendation for the most common use case"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design the visual layout of my popup modal",
+      "expected_output": "Offers CRO-focused design principles for popup layout (visual hierarchy, button placement, close button), notes that visual design is better handled by a design skill.",
+      "assertions": [
+        "Provides CRO-relevant design principles (button color, CTA placement, close button visibility)",
+        "Notes that detailed visual design is beyond scope of CRO optimization"
+      ]
+    }
+  ]
+}

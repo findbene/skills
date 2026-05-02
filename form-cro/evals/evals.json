@@ -1,0 +1,37 @@
+{
+  "skill_name": "form-cro",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our SaaS signup form has 8 fields: First Name, Last Name, Company Name, Company Size (dropdown), Phone, Email, Password, and 'How did you hear about us?' Our form completion rate is 34%. What should I change?",
+      "expected_output": "Form audit with specific field-by-field recommendations, a prioritized reduction plan, and expected impact on conversion rate based on industry data.",
+      "assertions": [
+        "Recommends reducing to 3-4 fields maximum for initial signup",
+        "Identifies Phone and 'How did you hear about us?' as first to cut",
+        "Addresses combining First Name + Last Name into one Name field",
+        "Covers progressive disclosure (collect company size later, post-signup)",
+        "References industry benchmarks on field count vs. conversion"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What's the best way to handle required vs. optional fields on a form?",
+      "expected_output": "Best practices for required/optional field labeling, visual treatment, and UX guidance that reduces form abandonment.",
+      "assertions": [
+        "Recommends marking optional fields rather than required (fewer interruptions)",
+        "Covers visual hierarchy for field labels",
+        "Addresses inline validation timing",
+        "Notes that all non-required fields should be reconsidered before adding"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write copy for our checkout page",
+      "expected_output": "Recognizes checkout page copy is a copywriting task, redirects to copywriting skill while offering form-specific CRO input on checkout form structure.",
+      "assertions": [
+        "Redirects to copywriting skill for checkout page copy",
+        "Offers form-specific CRO input (field order, trust signals near submit button)"
+      ]
+    }
+  ]
+}

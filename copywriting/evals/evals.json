@@ -1,0 +1,42 @@
+{
+  "skill_name": "copywriting",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here's our current hero section for our invoicing SaaS (Billfast, $29/month for freelancers): 'Billfast — Professional Invoicing Made Simple. Create and send professional invoices in minutes. Start your free trial today.' Can you rewrite it to be more compelling?",
+      "expected_output": "Rewritten hero section with a stronger headline focused on outcome/benefit, a specific subheadline, and improved CTA. Should provide 2-3 headline options with rationale.",
+      "assertions": [
+        "Provides at least 2 alternative headline options",
+        "Headlines focus on outcome or benefit rather than features",
+        "Includes a rewritten subheadline that adds specificity",
+        "Provides a stronger CTA than 'Start your free trial today'",
+        "Explains the reasoning behind each copywriting choice",
+        "Avoids vague words like 'simple,' 'professional,' 'easy' without specifics"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to write copy for a pricing page. We have 3 tiers: Starter ($49/mo, 5 users), Growth ($149/mo, 25 users), Scale ($399/mo, unlimited). Most customers should be on Growth. How do I write the tier names, descriptions, and CTAs?",
+      "expected_output": "Pricing page copy strategy with tier naming recommendations, feature framing guidance, CTA text for each tier, and advice on making Growth the obvious choice using anchoring and decoy effect.",
+      "assertions": [
+        "Recommends renaming tiers or explains how names signal value",
+        "Addresses how to make Growth the 'obvious choice' (anchoring, decoy effect, visual emphasis)",
+        "Provides specific CTA text for each tier",
+        "Addresses the recommended plan annotation or badge",
+        "Gives guidance on what to emphasize in each tier description"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write me 5 email subject lines for our Black Friday sale — 40% off annual plans",
+      "expected_output": "5 subject lines with rationale for each, noting this is email copywriting and may benefit from the email-sequence skill for the full email body.",
+      "assertions": [
+        "Provides exactly 5 subject line options",
+        "Subject lines vary in approach (urgency, curiosity, benefit-led, etc.)",
+        "At least one uses personalization or specificity",
+        "Rationale or brief note on the strategy of each line",
+        "Notes that email-sequence skill handles full email body/sequence structure"
+      ]
+    }
+  ]
+}
