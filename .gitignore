@@ -1,0 +1,7 @@
+# Embedded git repos (skills that are themselves git clones)
+claude-cookbook-frontend-design/
+remotion/
+
+# OS noise
+.DS_Store
+Thumbs.db
