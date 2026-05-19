@@ -1,6 +1,7 @@
 ---
 name: bulk
-description: Bulk-transcribe all videos from a TikTok profile using the video-transcriber pipeline. Use this skill whenever the user wants to process an entire TikTok account's video library, transcribe all videos from a creator's profile, run batch transcription with organized topic-based output, or download and transcribe a large number of TikTok videos at once. Apply whenever the user says "bulk transcribe", "transcribe all videos", "process entire profile", "transcribe everything from @username", "process all TikTok videos", "batch transcribe", "download all videos from this account", "transcribe the whole channel", or "process the first N videos from a profile". Do not manually transcribe one at a time when this batch pipeline is available. Requires the video-transcriber project at ~/video-transcriber/.
+description: "Bulk-transcribe all videos from a TikTok profile using the video-transcriber pipeline. Triggers: 'use bulk', 'bulk', 'bulk task'."
+allowed-tools: Bash, Glob, Grep, Read
 user_invocable: true
 ---
 
@@ -125,14 +126,14 @@ print('Done! Transcripts saved to transcripts/')
 
 After all transcripts are generated, YOU (Claude Code) will:
 
-1. Read each transcript file from `transcripts/` directory
-2. For each transcript, analyze and extract:
+1. Read each transcript file from `transcripts/` directory → verify: file readable + content matches expected shape
+2. For each transcript, analyze and extract: → verify: step output matches expected outcome
    - **Topic**: A descriptive 2-4 word kebab-case topic name (e.g., "agentic-engineering", "context-management")
    - **Summary**: One-sentence summary of the main point
    - **Key Tips**: 3-5 actionable bullet points
    - **Details**: Additional context
 
-3. Create organized output in `summaries/` directory:
+3. Create organized output in `summaries/` directory: → verify: output file exists + no syntax error
    ```
    summaries/
    ├── INDEX.md
@@ -146,7 +147,7 @@ After all transcripts are generated, YOU (Claude Code) will:
    - Example: "How to Use Context Windows" → `how-to-use-context-windows.md`
    - Example: "Claude Code Tips & Tricks!" → `claude-code-tips-tricks.md`
 
-4. Each summary file format:
+4. Each summary file format: → verify: step output matches expected outcome
    ```markdown
    ---
    video_id: {id}
@@ -172,7 +173,7 @@ After all transcripts are generated, YOU (Claude Code) will:
    {original transcript}
    ```
 
-5. Create INDEX.md listing all summaries grouped by topic:
+5. Create INDEX.md listing all summaries grouped by topic: → verify: output exists + parses without error
    ```markdown
    # Video Summaries Index
 
@@ -189,8 +190,47 @@ After completion, report:
 - Topics identified
 - Output locations
 
-## Error Handling
+## Triggers
 
-- If a video fails, log the error and continue with the next one
-- Save partial progress (transcripts saved immediately)
-- User can re-run and existing transcripts won't be re-downloaded
+bulk transcribe, transcribe all videos, process entire profile, process all TikTok videos, batch transcribe, download all videos from this account, transcribe the whole channel, process the first N videos from a profile
+
+## When NOT to use
+
+- Task is unrelated to bulk — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Bulk needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for bulk
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving bulk
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken
+
+## References
+
+Extended sections moved to `references/details.md`.

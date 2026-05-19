@@ -1,6 +1,7 @@
 ---
 name: customer-research
-description: "Plan and conduct customer research — interviews, surveys, win/loss analysis, and voice-of-customer programs to understand buying motivations, pain points, and product feedback. Use this whenever the user asks about 'customer research,' 'customer interviews,' 'user research,' 'win-loss analysis,' 'understanding why customers buy,' 'voice of customer,' 'NPS follow-up,' or 'how do we learn more about our customers.' Trigger even when the user needs to understand churn reasons or buying motivations without using research terminology."
+description: "Plan and conduct customer research — interviews, surveys, win/loss analysis, and voice-of-customer programs to underst. Triggers: 'use customer-research', 'customer research', 'customer-research task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -59,35 +60,35 @@ Most engagements combine both. Establish which mode applies before proceeding.
 
 For each asset, extract:
 
-1. **Jobs to Be Done** — what outcome is the customer trying to achieve?
+1. **Jobs to Be Done** — what outcome is the customer trying to achieve? → verify: step output matches expected outcome
    - Functional job: the task itself
    - Emotional job: how they want to feel
    - Social job: how they want to be perceived
 
-2. **Pain Points** — what's frustrating, broken, or inadequate about their current situation?
+2. **Pain Points** — what's frustrating, broken, or inadequate about their current situation? → verify: step output matches expected outcome
    - Prioritize pains mentioned unprompted and with emotional language
 
-3. **Trigger Events** — what changed that made them seek a solution?
+3. **Trigger Events** — what changed that made them seek a solution? → verify: step output matches expected outcome
    - Common triggers: team growth, new hire, missed target, embarrassing incident, competitor doing something
 
-4. **Desired Outcomes** — what does success look like in their words?
+4. **Desired Outcomes** — what does success look like in their words? → verify: step output matches expected outcome
    - Capture exact quotes, not paraphrases
 
-5. **Language and Vocabulary** — exact words and phrases customers use
+5. **Language and Vocabulary** — exact words and phrases customers use → verify: step output matches expected outcome
    - This is gold for copy. "We were drowning in spreadsheets" > "manual process inefficiency"
 
-6. **Alternatives Considered** — what else did they look at or try?
+6. **Alternatives Considered** — what else did they look at or try? → verify: step output matches expected outcome
    - Includes doing nothing, hiring someone, or building internally
 
 ### Synthesis Steps
 
 After extracting from individual assets:
 
-1. **Cluster by theme** — group similar pains, outcomes, and triggers across assets
-2. **Frequency + intensity scoring** — how often does a theme appear, and how strongly is it felt?
-3. **Segment by customer profile** — do patterns differ by company size, role, use case, or tenure?
-4. **Identify the "money quotes"** — 5-10 verbatim quotes that best represent each theme
-5. **Flag contradictions** — where do customers say one thing but do another?
+1. **Cluster by theme** — group similar pains, outcomes, and triggers across assets → verify: step output matches expected outcome
+2. **Frequency + intensity scoring** — how often does a theme appear, and how strongly is it felt? → verify: step output matches expected outcome
+3. **Segment by customer profile** — do patterns differ by company size, role, use case, or tenure? → verify: step output matches expected outcome
+4. **Identify the "money quotes"** — 5-10 verbatim quotes that best represent each theme → verify: step output matches expected outcome
+5. **Flag contradictions** — where do customers say one thing but do another? → verify: step output matches expected outcome
 
 ### Research Quality Guardrails
 
@@ -192,7 +193,7 @@ What causes them to start looking for a solution like yours?
 - [trigger 2]
 
 **Top Pains**
-1. [Pain — in their words if possible]
+1. [Pain — in their words if possible] → verify: step output matches expected outcome
 2. [Pain]
 3. [Pain]
 
@@ -231,12 +232,12 @@ Words and phrases they actually use (sourced from research):
 
 Depending on what the user needs, offer:
 
-1. **Research synthesis report** — themes, quotes, patterns, and implications
-2. **VOC quote bank** — organized verbatim quotes by theme, for use in copy
-3. **Persona document** — 1-3 personas built from the research
-4. **Jobs-to-be-done map** — functional, emotional, and social jobs by segment
-5. **Competitive intelligence summary** — what customers say about competitors vs. you
-6. **Research gap analysis** — what you still don't know and how to find it
+1. **Research synthesis report** — themes, quotes, patterns, and implications → verify: step output matches expected outcome
+2. **VOC quote bank** — organized verbatim quotes by theme, for use in copy → verify: step output matches expected outcome
+3. **Persona document** — 1-3 personas built from the research → verify: step output matches expected outcome
+4. **Jobs-to-be-done map** — functional, emotional, and social jobs by segment → verify: step output matches expected outcome
+5. **Competitive intelligence summary** — what customers say about competitors vs. you → verify: step output matches expected outcome
+6. **Research gap analysis** — what you still don't know and how to find it → verify: step output matches expected outcome
 
 Ask the user which deliverable(s) they need before generating output.
 
@@ -246,11 +247,11 @@ Ask the user which deliverable(s) they need before generating output.
 
 If context is unclear:
 
-1. **What's the goal?** Improve messaging? Build personas? Find product gaps? Understand churn?
-2. **What do you already have?** (transcripts, surveys, tickets, G2 reviews, nothing)
-3. **Who is the target segment?** (all customers, a specific tier, churned users, prospects who didn't buy)
-4. **What's your product?** (if not in the product marketing context file)
-5. **What do you want delivered?** (synthesis report, persona, quote bank, competitive intel)
+1. **What's the goal?** Improve messaging? Build personas? Find product gaps? Understand churn? → verify: step output matches expected outcome
+2. **What do you already have?** (transcripts, surveys, tickets, G2 reviews, nothing) → verify: file content matches expected shape
+3. **Who is the target segment?** (all customers, a specific tier, churned users, prospects who didn't buy) → verify: step output matches expected outcome
+4. **What's your product?** (if not in the product marketing context file) → verify: step output matches expected outcome
+5. **What do you want delivered?** (synthesis report, persona, quote bank, competitive intel) → verify: step output matches expected outcome
 
 Don't ask all five at once — lead with #1 and #2, then follow up as needed.
 
@@ -267,3 +268,40 @@ Don't ask all five at once — lead with #1 and #2, then follow up as needed.
 | Planning paid ads informed by research | `paid-ads` |
 | Writing cold email using research on pain/trigger | `cold-email` |
 | Planning content based on discovered topics | `content-strategy` |
+
+## When NOT to use
+
+- Task is unrelated to customer research — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Customer Research needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for customer research
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving customer research
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

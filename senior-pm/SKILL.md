@@ -1,6 +1,7 @@
 ---
 name: "senior-pm"
-description: Senior Project Manager for enterprise software, SaaS, and digital transformation projects. Specializes in portfolio management, quantitative risk analysis, resource optimization, stakeholder alignment, and executive reporting. Uses advanced methodologies including EMV analysis, Monte Carlo simulation, WSJF prioritization, and multi-dimensional health scoring. Use when a user needs help with project plans, project status reports, risk assessments, resource allocation, project roadmaps, milestone tracking, team capacity planning, portfolio health reviews, program management, or executive-level project reporting — especially for enterprise-scale initiatives with multiple workstreams, complex dependencies, or multi-million dollar budgets.
+description: "Senior Project Manager for enterprise software, SaaS, and digital transformation projects. Triggers: 'use senior-pm', 'senior pm', 'senior-pm task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Senior Project Management Expert
@@ -60,9 +61,9 @@ python3 scripts/risk_matrix_analyzer.py assets/sample_project_data.json
 ```
 
 **Risk Quantification Process:**
-1. **Probability Assessment** (1-5 scale): Historical data, expert judgment, Monte Carlo inputs
-2. **Impact Analysis** (1-5 scale): Financial, schedule, quality, and strategic impact vectors
-3. **Category Weighting**: Technical (1.2x), Resource (1.1x), Financial (1.4x), Schedule (1.0x)
+1. **Probability Assessment** (1-5 scale): Historical data, expert judgment, Monte Carlo inputs → verify: step output matches expected outcome
+2. **Impact Analysis** (1-5 scale): Financial, schedule, quality, and strategic impact vectors → verify: step output matches expected outcome
+3. **Category Weighting**: Technical (1.2x), Resource (1.1x), Financial (1.4x), Schedule (1.0x) → verify: step output matches expected outcome
 4. **EMV Calculation**:
 
 ```python
@@ -233,69 +234,69 @@ Reference: `assets/expected_output.json`
 
 ### Portfolio Health Review (Weekly)
 
-1. **Data Collection & Validation**
+1. **Data Collection & Validation** → verify: step output matches expected outcome
    ```bash
    python3 scripts/project_health_dashboard.py current_portfolio.json
    ```
    ⚠️ If any project composite score <60 or a critical data field is missing, STOP and resolve data integrity issues before proceeding.
 
-2. **Risk Assessment Update**
+2. **Risk Assessment Update** → verify: step output matches expected outcome
    ```bash
    python3 scripts/risk_matrix_analyzer.py current_portfolio.json
    ```
    ⚠️ If any risk score >18 (Avoid threshold), STOP and initiate escalation to project sponsor before proceeding.
 
-3. **Capacity Analysis**
+3. **Capacity Analysis** → verify: step output matches expected outcome
    ```bash
    python3 scripts/resource_capacity_planner.py current_portfolio.json
    ```
    ⚠️ If any team utilization >90% or <60%, flag for immediate reallocation discussion before step 4.
 
-4. **Executive Summary Generation**
+4. **Executive Summary Generation** → verify: step output matches expected outcome
    - Synthesize outputs into executive report format
    - Highlight critical issues and recommendations
    - Prepare stakeholder communications
 
 ### Monthly Strategic Review
 
-1. **Portfolio Prioritization Review**
+1. **Portfolio Prioritization Review** → verify: step output matches expected outcome
    - Apply WSJF/RICE/ICE models to evaluate current priorities
    - Assess strategic alignment with business objectives
    - Identify optimization opportunities
 
-2. **Risk Portfolio Analysis**
+2. **Risk Portfolio Analysis** → verify: step output matches expected outcome
    - Update risk appetite and tolerance levels
    - Review portfolio risk correlation and concentration
    - Adjust risk mitigation investments
 
-3. **Resource Optimization Planning**
+3. **Resource Optimization Planning** → verify: step output matches expected outcome
    - Analyze capacity constraints across upcoming quarter
    - Plan resource reallocation and hiring strategies
    - Identify skill gaps and training needs
 
-4. **Stakeholder Alignment Session**
+4. **Stakeholder Alignment Session** → verify: step output matches expected outcome
    - Present portfolio health and strategic recommendations
    - Gather feedback on prioritization and resource allocation
    - Align on upcoming quarter priorities and investments
 
 ### Quarterly Portfolio Optimization
 
-1. **Strategic Alignment Assessment**
+1. **Strategic Alignment Assessment** → verify: step output matches expected outcome
    - Evaluate portfolio contribution to business objectives
    - Assess market and competitive position changes
    - Update strategic priorities and success criteria
 
-2. **Financial Performance Review**
+2. **Financial Performance Review** → verify: step output matches expected outcome
    - Analyze risk-adjusted ROI across portfolio
    - Review budget performance and forecast accuracy
    - Optimize investment allocation for maximum value
 
-3. **Capability Gap Analysis**
+3. **Capability Gap Analysis** → verify: step output matches expected outcome
    - Identify emerging technology and skill requirements
    - Plan capability building investments
    - Assess make vs. buy vs. partner decisions
 
-4. **Portfolio Rebalancing**
+4. **Portfolio Rebalancing** → verify: step output matches expected outcome
    - Apply three horizons model for innovation balance
    - Optimize risk-return profile using efficient frontier
    - Plan new initiatives and sunset decisions
@@ -406,3 +407,40 @@ Reference: `references/portfolio-kpis.md` for full definitions and measurement g
 
 - **Product Strategist** (`product-team/product-strategist/`) — Product OKRs align with portfolio objectives
 - **Scrum Master** (`project-management/scrum-master/`) — Sprint velocity data feeds project health dashboards
+
+## When NOT to use
+
+- Task is unrelated to senior pm — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Senior Pm needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for senior pm
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving senior pm
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

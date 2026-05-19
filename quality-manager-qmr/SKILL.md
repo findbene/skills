@@ -1,6 +1,7 @@
 ---
 name: "quality-manager-qmr"
-description: Senior Quality Manager Responsible Person (QMR) for HealthTech and MedTech companies. Provides quality system governance, management review leadership, regulatory compliance oversight, and quality performance monitoring per ISO 13485 Clause 5.5.2.
+description: "Senior Quality Manager Responsible Person (QMR) for HealthTech and MedTech companies. Triggers: 'use quality-manager-qmr', 'quality manager qmr', 'quality-manager-qmr task'."
+allowed-tools: Glob, Grep, Read
 triggers:
   - management review
   - quality policy
@@ -76,9 +77,9 @@ Conduct management reviews per ISO 13485 Clause 5.6 requirements.
 
 ### Workflow: Prepare and Execute Management Review
 
-1. Schedule management review (minimum annually, typically quarterly or semi-annually)
-2. Notify all required attendees minimum 2 weeks prior
-3. Collect required inputs from process owners:
+1. Schedule management review (minimum annually, typically quarterly or semi-annually) → verify: step output matches expected outcome
+2. Notify all required attendees minimum 2 weeks prior → verify: step output matches expected outcome
+3. Collect required inputs from process owners: → verify: step output matches expected outcome
    - Audit results (internal and external)
    - Customer feedback (complaints, satisfaction, returns)
    - Process performance and product conformity
@@ -86,11 +87,11 @@ Conduct management reviews per ISO 13485 Clause 5.6 requirements.
    - Previous review action items
    - Changes affecting QMS (regulatory, organizational)
    - Recommendations for improvement
-4. Compile input summary report with trend analysis
-5. Prepare presentation materials with supporting data
-6. Distribute agenda and input package 1 week prior
-7. Conduct review meeting per agenda
-8. **Validation:** All required inputs reviewed; decisions documented with owners and due dates
+4. Compile input summary report with trend analysis → verify: step output matches expected outcome
+5. Prepare presentation materials with supporting data → verify: step output matches expected outcome
+6. Distribute agenda and input package 1 week prior → verify: step output matches expected outcome
+7. Conduct review meeting per agenda → verify: step output matches expected outcome
+8. **Validation:** All required inputs reviewed; decisions documented with owners and due dates → verify: step output matches expected outcome
 
 ### Required Attendees
 
@@ -112,47 +113,47 @@ Review Period: [Start Date] to [End Date]
 Review Date: [Scheduled Date]
 Prepared By: [QMR Name]
 
-1. AUDIT RESULTS
+1. AUDIT RESULTS → verify: step output matches expected outcome
    Internal audits completed: [X] of [X] planned
    External audits completed: [X]
    Total findings: [X] major / [X] minor
    Open findings: [X]
    Finding trends: [Analysis]
 
-2. CUSTOMER FEEDBACK
+2. CUSTOMER FEEDBACK → verify: step output matches expected outcome
    Complaints received: [X]
    Complaint rate: [X per 1000 units]
    Customer satisfaction score: [X.X/5.0]
    Returns: [X] units ([X]%)
    Top issues: [Categories]
 
-3. PROCESS PERFORMANCE
+3. PROCESS PERFORMANCE → verify: step output matches expected outcome
    [Process 1]: [Metric] vs [Target] - [Status]
    [Process 2]: [Metric] vs [Target] - [Status]
    Out-of-spec processes: [List]
 
-4. PRODUCT CONFORMITY
+4. PRODUCT CONFORMITY → verify: step output matches expected outcome
    First pass yield: [X]%
    Nonconformance rate: [X]%
    Scrap cost: $[X]
    Top defect categories: [List]
 
-5. CAPA STATUS
+5. CAPA STATUS → verify: step output matches expected outcome
    Open CAPAs: [X]
    Overdue: [X]
    Effectiveness rate: [X]%
    Average age: [X] days
 
-6. PREVIOUS ACTIONS
+6. PREVIOUS ACTIONS → verify: step output matches expected outcome
    Total from last review: [X]
    Completed: [X] | In progress: [X] | Overdue: [X]
 
-7. CHANGES AFFECTING QMS
+7. CHANGES AFFECTING QMS → verify: step output matches expected outcome
    Regulatory: [List changes]
    Organizational: [List changes]
    Process: [List changes]
 
-8. RECOMMENDATIONS
+8. RECOMMENDATIONS → verify: step output matches expected outcome
    [Collected improvement opportunities]
 ```
 
@@ -175,19 +176,19 @@ Establish, monitor, and report quality performance indicators.
 
 ### Workflow: Establish Quality KPI Framework
 
-1. Identify quality objectives requiring measurement
-2. Select KPIs per objective using SMART criteria:
+1. Identify quality objectives requiring measurement → verify: step output matches expected outcome
+2. Select KPIs per objective using SMART criteria: → verify: step output matches expected outcome
    - Specific: Clear definition and calculation
    - Measurable: Quantifiable with available data
    - Actionable: Team can influence results
    - Relevant: Aligned to quality objectives
    - Time-bound: Defined measurement frequency
-3. Define target values based on baseline data and benchmarks
-4. Assign data source and collection responsibility
-5. Establish reporting frequency per KPI category
-6. Configure dashboard displays and trend analysis
-7. Define escalation thresholds and alert triggers
-8. **Validation:** Each KPI has owner, target, data source, and escalation criteria
+3. Define target values based on baseline data and benchmarks → verify: step output matches expected outcome
+4. Assign data source and collection responsibility → verify: step output matches expected outcome
+5. Establish reporting frequency per KPI category → verify: step output matches expected outcome
+6. Configure dashboard displays and trend analysis → verify: step output matches expected outcome
+7. Define escalation thresholds and alert triggers → verify: step output matches expected outcome
+8. **Validation:** Each KPI has owner, target, data source, and escalation criteria → verify: step output matches expected outcome
 
 ### Core Quality KPIs
 
@@ -231,14 +232,14 @@ Establish and maintain measurable quality objectives per ISO 13485 Clause 5.4.1.
 
 ### Workflow: Annual Quality Objectives Setting
 
-1. Review prior year objective achievement
-2. Analyze quality performance trends and gaps
-3. Align with organizational strategic plan
-4. Draft objectives with measurable targets
-5. Validate resource availability for achievement
-6. Obtain executive approval
-7. Communicate objectives organization-wide
-8. **Validation:** Each objective is measurable, has owner, target, and timeline
+1. Review prior year objective achievement → verify: step output matches expected outcome
+2. Analyze quality performance trends and gaps → verify: step output matches expected outcome
+3. Align with organizational strategic plan → verify: step output matches expected outcome
+4. Draft objectives with measurable targets → verify: step output matches expected outcome
+5. Validate resource availability for achievement → verify: step output matches expected outcome
+6. Obtain executive approval → verify: step output matches expected outcome
+7. Communicate objectives organization-wide → verify: step output matches expected outcome
+8. **Validation:** Each objective is measurable, has owner, target, and timeline → verify: step output matches expected outcome
 
 ### Quality Objective Structure
 
@@ -295,14 +296,14 @@ Assess and improve organizational quality culture.
 
 ### Workflow: Annual Quality Culture Assessment
 
-1. Design or select quality culture survey instrument
-2. Define survey population (all employees or sample)
-3. Communicate survey purpose and confidentiality
-4. Administer survey with 2-week response window
-5. Analyze results by department, role, and tenure
-6. Identify strengths and improvement areas
-7. Develop action plan for culture gaps
-8. **Validation:** Response rate >60%; action plan addresses bottom 3 scores
+1. Design or select quality culture survey instrument → verify: step output matches expected outcome
+2. Define survey population (all employees or sample) → verify: step output matches expected outcome
+3. Communicate survey purpose and confidentiality → verify: step output matches expected outcome
+4. Administer survey with 2-week response window → verify: step output matches expected outcome
+5. Analyze results by department, role, and tenure → verify: step output matches expected outcome
+6. Identify strengths and improvement areas → verify: step output matches expected outcome
+7. Develop action plan for culture gaps → verify: step output matches expected outcome
+8. **Validation:** Response rate >60%; action plan addresses bottom 3 scores → verify: package installed + import succeeds
 
 ### Quality Culture Dimensions
 
@@ -352,14 +353,14 @@ Monitor and maintain regulatory compliance across jurisdictions.
 
 ### Compliance Monitoring Workflow
 
-1. Maintain regulatory requirement register
-2. Subscribe to regulatory update services
-3. Assess impact of regulatory changes monthly
-4. Update affected processes within 90 days of effective date
+1. Maintain regulatory requirement register → verify: step output matches expected outcome
+2. Subscribe to regulatory update services → verify: step output matches expected outcome
+3. Assess impact of regulatory changes monthly → verify: step output matches expected outcome
+4. Update affected processes within 90 days of effective date → verify: step output matches expected outcome
 5. Verify training completion for regulatory changes
-6. Document compliance status in management review
-7. Maintain inspection readiness checklist
-8. **Validation:** All applicable requirements mapped; no expired registrations
+6. Document compliance status in management review → verify: step output matches expected outcome
+7. Maintain inspection readiness checklist → verify: file content matches expected shape
+8. **Validation:** All applicable requirements mapped; no expired registrations → verify: step output matches expected outcome
 
 ### Regulatory Authority Interface
 
@@ -486,3 +487,40 @@ immediately    Yes─┴─No
 | [capa-officer](../capa-officer/) | CAPA system oversight |
 | [qms-audit-expert](../qms-audit-expert/) | Internal audit program |
 | [quality-documentation-manager](../quality-documentation-manager/) | Document control oversight |
+
+## When NOT to use
+
+- Task is unrelated to quality manager qmr — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Quality Manager Qmr needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for quality manager qmr
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving quality manager qmr
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

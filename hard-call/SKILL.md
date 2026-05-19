@@ -1,6 +1,7 @@
 ---
 name: "hard-call"
-description: "/em -hard-call — Framework for Decisions With No Good Options"
+description: "/em -hard-call — Framework for Decisions With No Good Options Triggers: 'use hard-call', 'hard call', 'hard-call task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # /em:hard-call — Framework for Decisions With No Good Options
@@ -17,10 +18,10 @@ These decisions don't have a right answer. They have a less wrong answer. This f
 
 Not because the data is unclear. Often, the data is clear. They're hard because:
 
-1. **Real people are affected** — someone loses a job, a relationship ends, a team is hurt
-2. **You've been avoiding the decision** — which means the problem is already worse than it was
-3. **Irreversibility** — unlike most business decisions, you can't undo this easily
-4. **You have skin in the game** — your judgment about the right call is clouded by your feelings about it
+1. **Real people are affected** — someone loses a job, a relationship ends, a team is hurt → verify: step output matches expected outcome
+2. **You've been avoiding the decision** — which means the problem is already worse than it was → verify: file content matches expected shape
+3. **Irreversibility** — unlike most business decisions, you can't undo this easily → verify: step output matches expected outcome
+4. **You have skin in the game** — your judgment about the right call is clouded by your feelings about it → verify: step output matches expected outcome
 
 The longer you avoid a hard call, the worse the situation usually gets. The company that needed a 10% cut 6 months ago now needs a 25% cut. The co-founder conversation that should have happened at month 4 is happening at month 14.
 
@@ -155,3 +156,40 @@ You know you've been avoiding a hard call if:
 Every month you wait, the problem compounds. The co-founder who's not working out becomes more entrenched. The product line that needs to die consumes more resources. The person who needs to be let go affects the people around them.
 
 Make the call. Make it clearly. Make it with dignity.
+
+## When NOT to use
+
+- Task is unrelated to hard call — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Hard Call needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for hard call
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving hard call
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

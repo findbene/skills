@@ -1,6 +1,6 @@
 ---
 name: stitch-html-components
-description: Converts Stitch designs into clean, platform-agnostic HTML5 + CSS — semantic markup, CSS custom properties for theming, dark mode via prefers-color-scheme, mobile-first responsive, zero framework dependencies. Works in browsers, WebViews, Capacitor, and Ionic.
+description: "Converts Stitch designs into clean, platform-agnostic HTML5 + CSS — semantic markup, CSS custom propert. Triggers: 'use stitch-html-components', 'stitch html components', 'stitch-html-components task."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -28,13 +28,13 @@ Use this skill when:
 
 ## Step 1: Retrieve the design
 
-1. **Namespace discovery** — `list_tools` to find the Stitch MCP prefix
-2. **Fetch metadata** — `[prefix]:get_screen` for the design JSON
-3. **Download HTML** — GCS URLs need the reliable downloader:
+1. **Namespace discovery** — `list_tools` to find the Stitch MCP prefix → verify: diff matches intended change
+2. **Fetch metadata** — `[prefix]:get_screen` for the design JSON → verify: diff matches intended change
+3. **Download HTML** — GCS URLs need the reliable downloader: → verify: file content matches expected shape
    ```bash
    bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"
    ```
-4. **Visual audit** — check `screenshot.downloadUrl` before rewriting
+4. **Visual audit** — check `screenshot.downloadUrl` before rewriting → verify: file content matches expected shape
 
 ## Step 2: File structure
 
@@ -286,9 +286,9 @@ button, a, [role="button"] {
 ## Step 7: Minimal JavaScript
 
 Keep JS to an absolute minimum. The only things that need JS:
-1. Theme toggle (dark/light)
-2. Mobile menu open/close
-3. Accordion/tabs interactive behavior
+1. Theme toggle (dark/light) → verify: step output matches expected outcome
+2. Mobile menu open/close → verify: file content matches expected shape
+3. Accordion/tabs interactive behavior → verify: step output matches expected outcome
 
 ```js
 // js/main.js
@@ -337,8 +337,47 @@ If this HTML will be embedded in a Capacitor or Ionic app:
 - Run `stitch-a11y` after for an accessibility pass
 - Run `stitch-animate` to add CSS-only transitions (zero JS needed for most animations)
 
+## When NOT to use
+
+- Target is Next.js / Vite / Svelte / SwiftUI / React Native — use the matching `stitch-*-components` skill
+- User already has a chosen framework with a router and build pipeline
+- App needs server-side data fetching, auth flows, or routing complexity
+- A11y-only pass is needed on existing HTML — use `stitch-a11y`
+- Pure prototyping in Figma/Stitch only, no code output requested
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "I'll inline the Stitch HTML verbatim" | Stitch output has inline styles and non-semantic divs; you must rewrite to semantic HTML + CSS custom properties |
+| "Dark mode can wait" | Tokens must be defined in both light and dark from the start — retrofitting later doubles the work |
+| "Don't need the GCS downloader script, I'll curl it" | Stitch URLs are signed and time-limited; `scripts/fetch-stitch.sh` handles retries and content-type |
+| "JS for theme toggle is fine, ship it" | Skill mandates JS only for theme toggle + mobile menu — anything more belongs in a framework skill |
+
+## Output Contract
+
+Finished output must contain:
+- `index.html` (or per-screen `.html` files) with semantic markup — no `<div>` soup
+- `css/tokens.css` with both light and dark custom properties
+- `css/base.css` (reset + typography) and `css/components.css` (component styles)
+- `js/main.js` strictly limited to theme toggle and mobile menu — no other behavior
+- Mobile-first responsive layout (verified at 375px width minimum)
+- WCAG AA contrast on all token pairings (light AND dark)
+- No framework imports — opens in any browser with no build step
+
+## Examples
+
+**Example 1 — Capacitor mobile shell**
+- Input: "Wrap this Stitch login + dashboard screen for a Capacitor iOS app"
+- Action: `list_tools` → fetch screens → `bash scripts/fetch-stitch.sh` for each → produce `login.html`, `dashboard.html`, shared `tokens.css` with dark mode → ensure 44px tap targets
+- Output: 2 HTML files + 3 CSS files + 1 JS file, opens in iOS WebView, dark mode follows `prefers-color-scheme`
+
+**Example 2 — Static marketing site**
+- Input: "Build the Stitch landing page as static HTML for our CMS"
+- Action: Fetch Stitch screen → produce semantic landing HTML (header/main/section/footer) → tokens.css with brand colors → components.css for cards/CTAs → no JS except mobile menu
+- Output: `index.html` + CSS bundle, embeds cleanly in WordPress/Ghost, Lighthouse perf >95
+
+
 ## References
 
-- `resources/mobile-template.html` — Full mobile HTML boilerplate
-- `resources/architecture-checklist.md` — Pre-ship checklist
-- `scripts/fetch-stitch.sh` — Reliable GCS HTML downloader
+See `references/details.md` for extended sections.

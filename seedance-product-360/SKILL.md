@@ -1,6 +1,7 @@
 ---
 name: seedance-product-360
-description: Generate product 360° turntable, multi-angle showcase, and product reveal video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants a product rotation video, turntable showcase, product reveal, 360 view, multi-angle product display, product beauty shot, hero product video, or unboxing reveal. Triggers on: product 360, turntable, product rotation, multi-angle, product reveal, product showcase, hero shot, beauty shot, product spin, unboxing, or any request to showcase a physical product from multiple angles. Use even for "show my product from all sides" or "make a product video."
+description: "Generate product 360° turntable, multi-angle showcase, and product reveal video prompts for Seedance 2.0 on H. Triggers: 'use seedance-product-360', 'seedance product 360', 'seedance-product-360 task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Product 360° Turntable & Multi-Angle Showcase — Seedance 2.0 on Higgsfield
@@ -53,29 +54,29 @@ The first 2 seconds determine if viewers engage. These hooks trigger immediate v
 
 ### 10+ Hook Styles
 
-1. **Particle Materialization** — Product emerges from a cloud of particles or dust, slowly solidifying. Perfect for tech, jewelry, luxury goods. `"Product materializes from golden particles, coalescing from mist into perfect form."`
+1. **Particle Materialization** — Product emerges from a cloud of particles or dust, slowly solidifying. Perfect for tech, jewelry, luxury goods. `"Product materializes from golden particles, coalescing from mist into perfect form."` → verify: step output matches expected outcome
 
-2. **Dramatic Spotlight Snap** — Single harsh spotlight suddenly illuminates the product in darkness, revealing hero details instantly. Luxury watch/jewelry staple. `"Spotlight snaps on, product gleams in sharp light, shadow recedes."`
+2. **Dramatic Spotlight Snap** — Single harsh spotlight suddenly illuminates the product in darkness, revealing hero details instantly. Luxury watch/jewelry staple. `"Spotlight snaps on, product gleams in sharp light, shadow recedes."` → verify: step output matches expected outcome
 
-3. **Crash & Shockwave** — Product crashes down from above with impact, creating subtle dust/motion blur. Implies robustness, drama, premium engineering. `"Product crashes onto surface, shockwave ripples outward, comes to rest."`
+3. **Crash & Shockwave** — Product crashes down from above with impact, creating subtle dust/motion blur. Implies robustness, drama, premium engineering. `"Product crashes onto surface, shockwave ripples outward, comes to rest."` → verify: step output matches expected outcome
 
-4. **Unwrap / Peel Reveal** — Packaging peels away, tissue unfolds, protective layer retracts. Unboxing energy. `"Protective wrapping peels back, revealing pristine product beneath."`
+4. **Unwrap / Peel Reveal** — Packaging peels away, tissue unfolds, protective layer retracts. Unboxing energy. `"Protective wrapping peels back, revealing pristine product beneath."` → verify: step output matches expected outcome
 
-5. **Impossible-Angle Macro-to-Wide** — Start extreme close-up (micro detail, texture, material), then pull out to full product view. Creates "wow" moment. `"Macro shot of leather stitching pulls back, revealing full luxury bag."`
+5. **Impossible-Angle Macro-to-Wide** — Start extreme close-up (micro detail, texture, material), then pull out to full product view. Creates "wow" moment. `"Macro shot of leather stitching pulls back, revealing full luxury bag."` → verify: output exists + parses without error
 
-6. **Self-Assembly** — Product components float, snap into place, assemble themselves with mechanical precision. Tech/modular products. `"Modular segments float and lock together, forming complete device."`
+6. **Self-Assembly** — Product components float, snap into place, assemble themselves with mechanical precision. Tech/modular products. `"Modular segments float and lock together, forming complete device."` → verify: step output matches expected outcome
 
-7. **Exploded View Snap-Together** — All parts visible and separated, then snap together with satisfying mechanical sound. Complexity > simplicity narrative. `"All components visible in space, rapidly snap into tight assembly."`
+7. **Exploded View Snap-Together** — All parts visible and separated, then snap together with satisfying mechanical sound. Complexity > simplicity narrative. `"All components visible in space, rapidly snap into tight assembly."` → verify: step output matches expected outcome
 
-8. **Liquid Pour / Transparency Bloom** — Transparent product fills with color, liquid component appears, frosting effect. Beauty/beverage products. `"Perfume fills bottle with color, liquid settles, light refracts through glass."`
+8. **Liquid Pour / Transparency Bloom** — Transparent product fills with color, liquid component appears, frosting effect. Beauty/beverage products. `"Perfume fills bottle with color, liquid settles, light refracts through glass."` → verify: step output matches expected outcome
 
-9. **Slow-Motion Lift** — Product gracefully lifts from surface in slow motion, floating into rotation. Elegant, premium, weightless. `"Product slowly lifts from surface, floating into smooth rotation."`
+9. **Slow-Motion Lift** — Product gracefully lifts from surface in slow motion, floating into rotation. Elegant, premium, weightless. `"Product slowly lifts from surface, floating into smooth rotation."` → verify: step output matches expected outcome
 
-10. **Spin-to-Reveal** — Half rotation (180°) that reveals hidden side detail, embossing, or branding. Efficient surprise. `"Half-rotation reveals embossed detail on back panel."`
+10. **Spin-to-Reveal** — Half rotation (180°) that reveals hidden side detail, embossing, or branding. Efficient surprise. `"Half-rotation reveals embossed detail on back panel."` → verify: step output matches expected outcome
 
-11. **Zoom & Pan Transition** — Camera zooms into texture, then pans to full product. Material storytelling opener. `"Camera dives into brushed metal surface, pulls back to reveal entire watch."`
+11. **Zoom & Pan Transition** — Camera zooms into texture, then pans to full product. Material storytelling opener. `"Camera dives into brushed metal surface, pulls back to reveal entire watch."` → verify: file content matches expected shape
 
-12. **Halo Light Flare** — Gorgeous light reflection or flare appears around product, emphasizing shine/luxury. Jewelry default. `"Brilliant light flare cascades across diamond surface, illuminating facets."`
+12. **Halo Light Flare** — Gorgeous light reflection or flare appears around product, emphasizing shine/luxury. Jewelry default. `"Brilliant light flare cascades across diamond surface, illuminating facets."` → verify: step output matches expected outcome
 
 ---
 
@@ -119,12 +120,12 @@ Lighting tells the story before the product even rotates.
 ### Detail Progression Strategy
 Build a visual narrative of discovery.
 
-1. **Establish:** Reveal the product in its hero context and lighting.
-2. **Hero Angle:** Show the most important 45° view.
-3. **Rotation:** Slow 360° to show all sides and materials.
-4. **Details:** Macro shots of textures, stitching, seams, features.
-5. **Context:** Show product in use, in lifestyle setting, or packaged.
-6. **Close:** Return to hero angle with final light flourish.
+1. **Establish:** Reveal the product in its hero context and lighting. → verify: step output matches expected outcome
+2. **Hero Angle:** Show the most important 45° view. → verify: step output matches expected outcome
+3. **Rotation:** Slow 360° to show all sides and materials. → verify: step output matches expected outcome
+4. **Details:** Macro shots of textures, stitching, seams, features. → verify: step output matches expected outcome
+5. **Context:** Show product in use, in lifestyle setting, or packaged. → verify: step output matches expected outcome
+6. **Close:** Return to hero angle with final light flourish. → verify: step output matches expected outcome
 
 ---
 
@@ -263,32 +264,32 @@ Use this structure as your foundation for all product videos:
 Choose 1–3 primary movements per video. Mix and match for variety.
 
 ### Full Rotations (360°)
-1. **Slow Full Rotation** — 15+ seconds for complete 360°. Viewers absorb every angle. Use for: jewelry, watches, luxury bags, complex products.
-2. **Medium Full Rotation** — 6–8 seconds for 360°. Balanced viewing and discovery. Use for: electronics, fashion, shoes.
-3. **Fast Full Rotation** — 2–4 seconds for 360°. Dynamic, modern, energetic. Use for: tech gadgets, dynamic products.
-4. **Spin + Float** — 360° rotation while product slowly ascends or descends. Adds dimension and elegance. Use for: luxury goods, product reveals.
+1. **Slow Full Rotation** — 15+ seconds for complete 360°. Viewers absorb every angle. Use for: jewelry, watches, luxury bags, complex products. → verify: step output matches expected outcome
+2. **Medium Full Rotation** — 6–8 seconds for 360°. Balanced viewing and discovery. Use for: electronics, fashion, shoes. → verify: step output matches expected outcome
+3. **Fast Full Rotation** — 2–4 seconds for 360°. Dynamic, modern, energetic. Use for: tech gadgets, dynamic products. → verify: step output matches expected outcome
+4. **Spin + Float** — 360° rotation while product slowly ascends or descends. Adds dimension and elegance. Use for: luxury goods, product reveals. → verify: step output matches expected outcome
 
 ### Partial Rotations
-5. **Half Rotation (180°)** — Rotate from front to back, emphasizing hidden side. Efficient, reveals surprise detail. Use for: products with asymmetrical interesting sides.
-6. **Quarter Rotation (90°)** — Hero angle to side view. Brief but informative. Use for: shoes, bags, profile-specific products.
-7. **Continuous Orbital** — Camera orbits around stationary product at 45° angle (360° around and behind). Different from product rotation—camera moves. Use for: furniture, large products, architecture-like showcase.
+5. **Half Rotation (180°)** — Rotate from front to back, emphasizing hidden side. Efficient, reveals surprise detail. Use for: products with asymmetrical interesting sides. → verify: step output matches expected outcome
+6. **Quarter Rotation (90°)** — Hero angle to side view. Brief but informative. Use for: shoes, bags, profile-specific products. → verify: step output matches expected outcome
+7. **Continuous Orbital** — Camera orbits around stationary product at 45° angle (360° around and behind). Different from product rotation—camera moves. Use for: furniture, large products, architecture-like showcase. → verify: step output matches expected outcome
 
 ### Dynamic Camera Movements
-8. **Push-In Macro** — Camera pushes close to product, ending in macro detail (texture, stitching, engravings). Reveals craftsmanship. Use for: luxury goods, detailed products.
-9. **Pull-Back Reveal** — Start macro close-up, pull back to show full product. Inverse of push-in. Creates "ah-ha!" moment. Use for: products with hidden details or complex micro-features.
-10. **Dolly Slide (Horizontal)** — Camera slides left-to-right or right-to-left, maintaining distance. Shows product profile and proportion. Use for: shoes, bags, linear products.
-11. **Tilt Up / Tilt Down** — Camera tilts upward while product rotates (or vice versa). Adds dimension and elegance. Use for: tall products, watches, jewelry.
-12. **Dutch Tilt Rotation** — Product rotates while camera is tilted at 25–35° angle. Dynamic, modern, energetic. Use for: tech, fashion, dynamic brands.
+8. **Push-In Macro** — Camera pushes close to product, ending in macro detail (texture, stitching, engravings). Reveals craftsmanship. Use for: luxury goods, detailed products. → verify: git status clean
+9. **Pull-Back Reveal** — Start macro close-up, pull back to show full product. Inverse of push-in. Creates "ah-ha!" moment. Use for: products with hidden details or complex micro-features. → verify: output exists + parses without error
+10. **Dolly Slide (Horizontal)** — Camera slides left-to-right or right-to-left, maintaining distance. Shows product profile and proportion. Use for: shoes, bags, linear products. → verify: step output matches expected outcome
+11. **Tilt Up / Tilt Down** — Camera tilts upward while product rotates (or vice versa). Adds dimension and elegance. Use for: tall products, watches, jewelry. → verify: step output matches expected outcome
+12. **Dutch Tilt Rotation** — Product rotates while camera is tilted at 25–35° angle. Dynamic, modern, energetic. Use for: tech, fashion, dynamic brands. → verify: step output matches expected outcome
 
 ### Combination Movements
-13. **Spin-to-Stop-Pan** — Product spins 360°, stops at hero angle, then camera pans closer or orbits around it. Shows all views, then emphasizes best view. Use for: products with clear hero angle.
-14. **Multi-Speed Rotation** — Start slow (hero angle emphasis), accelerate mid-rotation (excitement), return to slow (finale). Builds narrative and engagement. Use for: all product categories.
-15. **Floating Rotation** — Product rotates while slowly floating up and back (away from camera), creating depth. Use for: jewelry, watches, luxury cosmetics.
-16. **Overhead Spin** — Top-down camera angle, product spins 360° (like spinning on a turntable). Shows top detail, proportions, footprint. Use for: watches, rings, small products, flat products.
-17. **Boom-Up Rotation** — Product rotates while camera booms up (rises vertically). Shows bottom detail to top detail over rotation. Use for: shoes, products with interesting soles or bases.
-18. **Zoom Pan Transition** — Zoom into specific detail, hold, then pan/pull to show that detail in context of full product. Use for: products with feature callouts.
-19. **Parallax Orbit** — Camera orbits around product while rotating slightly itself. Creates 3D depth, sophisticated feel. Use for: luxury, watches, jewelry.
-20. **Pendulum Swing** — Product rotates side-to-side (45° left to 45° right) rather than full 360°. Highlights front and sides. Quick, efficient. Use for: bags, cosmetics, frontal-focused products.
+13. **Spin-to-Stop-Pan** — Product spins 360°, stops at hero angle, then camera pans closer or orbits around it. Shows all views, then emphasizes best view. Use for: products with clear hero angle. → verify: step output matches expected outcome
+14. **Multi-Speed Rotation** — Start slow (hero angle emphasis), accelerate mid-rotation (excitement), return to slow (finale). Builds narrative and engagement. Use for: all product categories. → verify: step output matches expected outcome
+15. **Floating Rotation** — Product rotates while slowly floating up and back (away from camera), creating depth. Use for: jewelry, watches, luxury cosmetics. → verify: step output matches expected outcome
+16. **Overhead Spin** — Top-down camera angle, product spins 360° (like spinning on a turntable). Shows top detail, proportions, footprint. Use for: watches, rings, small products, flat products. → verify: step output matches expected outcome
+17. **Boom-Up Rotation** — Product rotates while camera booms up (rises vertically). Shows bottom detail to top detail over rotation. Use for: shoes, products with interesting soles or bases. → verify: step output matches expected outcome
+18. **Zoom Pan Transition** — Zoom into specific detail, hold, then pan/pull to show that detail in context of full product. Use for: products with feature callouts. → verify: step output matches expected outcome
+19. **Parallax Orbit** — Camera orbits around product while rotating slightly itself. Creates 3D depth, sophisticated feel. Use for: luxury, watches, jewelry. → verify: output exists + parses without error
+20. **Pendulum Swing** — Product rotates side-to-side (45° left to 45° right) rather than full 360°. Highlights front and sides. Quick, efficient. Use for: bags, cosmetics, frontal-focused products. → verify: step output matches expected outcome
 
 ---
 
@@ -386,7 +387,7 @@ Structure: Start front, rotate through 360° using side images, reveal back, mac
 4. **Back**
 5. **45° Left**
 6. **Left Side**
-7. **Detail + Lifestyle** (2 images combined)
+7. **Detail + Lifestyle** (2 images combined) → verify: step output matches expected outcome
 
 Structure: Comprehensive 360° with intermediate angles, detail, and context.
 
@@ -399,7 +400,7 @@ Structure: Comprehensive 360° with intermediate angles, detail, and context.
 6. **Back-Left 30°**
 7. **Left Side**
 8. **Front-Left 30°**
-9. **Detail/Material + Lifestyle** (macro and context)
+9. **Detail/Material + Lifestyle** (macro and context) → verify: step output matches expected outcome
 
 Structure: Cinematic 360° with smooth angle progression, then detailed close-ups and lifestyle.
 
@@ -414,32 +415,32 @@ Structure: Cinematic 360° with smooth angle progression, then detailed close-up
 ## Background & Environment Library
 
 ### Studio Setups
-1. **Seamless White** — Pure white background and surface. Maximum separation, minimal distraction. Best for: electronics, cosmetics, clean aesthetic.
-2. **Seamless Black** — Pure black background and surface. Maximum contrast, luxury feel. Best for: jewelry, watches, luxury goods.
-3. **Gradient Neutral** — Subtle gradient from light to dark (or vice versa). Depth without distraction. Best for: all categories, most versatile.
-4. **Soft Gradient with Shadow** — Gradient background with subtle product shadow underneath. Grounds product, adds dimension. Best for: fashion, lifestyle.
-5. **Reflective Surface** — Shiny black, white, or metallic surface beneath product. Product reflection doubles visual impact. Best for: luxury, watches, automotive.
+1. **Seamless White** — Pure white background and surface. Maximum separation, minimal distraction. Best for: electronics, cosmetics, clean aesthetic. → verify: step output matches expected outcome
+2. **Seamless Black** — Pure black background and surface. Maximum contrast, luxury feel. Best for: jewelry, watches, luxury goods. → verify: step output matches expected outcome
+3. **Gradient Neutral** — Subtle gradient from light to dark (or vice versa). Depth without distraction. Best for: all categories, most versatile. → verify: step output matches expected outcome
+4. **Soft Gradient with Shadow** — Gradient background with subtle product shadow underneath. Grounds product, adds dimension. Best for: fashion, lifestyle. → verify: step output matches expected outcome
+5. **Reflective Surface** — Shiny black, white, or metallic surface beneath product. Product reflection doubles visual impact. Best for: luxury, watches, automotive. → verify: step output matches expected outcome
 
 ### Lifestyle Contexts
-6. **Desk / Workspace** — Product positioned on desk with computer, notebooks, coffee. Communicates productivity, daily use. Best for: tech accessories, cosmetics, office products.
-7. **Luxury Background** — Marble, leather, wood, or gold textures. Communicates premium positioning. Best for: jewelry, watches, luxury goods, cosmetics.
-8. **Lifestyle Flat-Lay** — Product surrounded by complementary items (flowers, fabric, props). Communicates lifestyle integration. Best for: fashion, beauty, home goods.
-9. **Hands In Context** — Product held by hands, worn by model, or in-use. Shows scale and function. Best for: jewelry, watches, cosmetics, fashion, tech.
-10. **Outdoor / Natural** — Product in garden, on wood, on stone, in natural light. Communicates eco-friendly, natural, authentic. Best for: fashion, jewelry, home goods.
+6. **Desk / Workspace** — Product positioned on desk with computer, notebooks, coffee. Communicates productivity, daily use. Best for: tech accessories, cosmetics, office products. → verify: step output matches expected outcome
+7. **Luxury Background** — Marble, leather, wood, or gold textures. Communicates premium positioning. Best for: jewelry, watches, luxury goods, cosmetics. → verify: step output matches expected outcome
+8. **Lifestyle Flat-Lay** — Product surrounded by complementary items (flowers, fabric, props). Communicates lifestyle integration. Best for: fashion, beauty, home goods. → verify: step output matches expected outcome
+9. **Hands In Context** — Product held by hands, worn by model, or in-use. Shows scale and function. Best for: jewelry, watches, cosmetics, fashion, tech. → verify: step output matches expected outcome
+10. **Outdoor / Natural** — Product in garden, on wood, on stone, in natural light. Communicates eco-friendly, natural, authentic. Best for: fashion, jewelry, home goods. → verify: step output matches expected outcome
 
 ### Abstract & Texture Surfaces
-11. **Brushed Metal** — Brushed aluminum or steel surface. Communicates tech, precision. Best for: electronics, tech hardware.
-12. **Concrete / Industrial** — Raw concrete or industrial surface. Communicates modern, edgy, contemporary. Best for: tech, fashion, furniture.
-13. **Wood Grain** — Natural or stained wood surface. Communicates warmth, authenticity, craftsmanship. Best for: watches, jewelry, home goods, fashion.
-14. **Fabric Texture** — Linen, canvas, or textile surface. Communicates softness, luxury, tactile. Best for: jewelry, cosmetics, fashion, beauty.
-15. **Marble / Stone** — Polished or matte stone surface. Communicates luxury, timelessness, premium. Best for: jewelry, watches, cosmetics, home goods.
+11. **Brushed Metal** — Brushed aluminum or steel surface. Communicates tech, precision. Best for: electronics, tech hardware. → verify: step output matches expected outcome
+12. **Concrete / Industrial** — Raw concrete or industrial surface. Communicates modern, edgy, contemporary. Best for: tech, fashion, furniture. → verify: step output matches expected outcome
+13. **Wood Grain** — Natural or stained wood surface. Communicates warmth, authenticity, craftsmanship. Best for: watches, jewelry, home goods, fashion. → verify: step output matches expected outcome
+14. **Fabric Texture** — Linen, canvas, or textile surface. Communicates softness, luxury, tactile. Best for: jewelry, cosmetics, fashion, beauty. → verify: step output matches expected outcome
+15. **Marble / Stone** — Polished or matte stone surface. Communicates luxury, timelessness, premium. Best for: jewelry, watches, cosmetics, home goods. → verify: step output matches expected outcome
 
 ### Color & Mood Environments
-16. **Monochromatic** — Single-color background, surface, and lighting. Minimalist, focused. Best for: luxury, tech, contemporary brands.
-17. **Complementary Colors** — Background in color that complements product color. Enhances visual appeal. Best for: fashion, beauty, vibrant products.
-18. **Warm Neutral** — Beige, tan, cream tones. Communicates comfort, warmth, approachability. Best for: beauty, fashion, home goods.
-19. **Cool Neutral** — Gray, pale blue, white tones. Communicates clarity, modernity, professionalism. Best for: tech, electronics, corporate products.
-20. **Dark Luxury** — Deep black, dark blue, or charcoal. Maximum contrast, premium feel. Best for: jewelry, watches, luxury goods, automobiles.
+16. **Monochromatic** — Single-color background, surface, and lighting. Minimalist, focused. Best for: luxury, tech, contemporary brands. → verify: step output matches expected outcome
+17. **Complementary Colors** — Background in color that complements product color. Enhances visual appeal. Best for: fashion, beauty, vibrant products. → verify: step output matches expected outcome
+18. **Warm Neutral** — Beige, tan, cream tones. Communicates comfort, warmth, approachability. Best for: beauty, fashion, home goods. → verify: step output matches expected outcome
+19. **Cool Neutral** — Gray, pale blue, white tones. Communicates clarity, modernity, professionalism. Best for: tech, electronics, corporate products. → verify: step output matches expected outcome
+20. **Dark Luxury** — Deep black, dark blue, or charcoal. Maximum contrast, premium feel. Best for: jewelry, watches, luxury goods, automobiles. → verify: step output matches expected outcome
 
 ---
 
@@ -448,12 +449,12 @@ Structure: Cinematic 360° with smooth angle progression, then detailed close-up
 Text overlays communicate key information and drive e-commerce conversion. Use Seedance 2.0 on Higgsfield's text animation capabilities.
 
 ### Text Animation Styles
-1. **Fade-In / Fade-Out** — Text appears 2–3 seconds into video, fades out before finale. Clean, minimal distraction.
-2. **Slide-In** — Text slides from edge of frame, pauses at center, slides out. Dynamic, directional.
-3. **Type-On** — Text types onto screen letter-by-letter. Draws eye, emphasizes importance.
-4. **Scale-Grow** — Text scales up from tiny to full size. Dramatic entry, high impact.
-5. **Glow-Reveal** — Text glows and reveals itself. Luxurious, premium feel.
-6. **Callout-Pop** — Text pops onto screen with small scale-bounce animation. Energetic, fun.
+1. **Fade-In / Fade-Out** — Text appears 2–3 seconds into video, fades out before finale. Clean, minimal distraction. → verify: step output matches expected outcome
+2. **Slide-In** — Text slides from edge of frame, pauses at center, slides out. Dynamic, directional. → verify: step output matches expected outcome
+3. **Type-On** — Text types onto screen letter-by-letter. Draws eye, emphasizes importance. → verify: step output matches expected outcome
+4. **Scale-Grow** — Text scales up from tiny to full size. Dramatic entry, high impact. → verify: step output matches expected outcome
+5. **Glow-Reveal** — Text glows and reveals itself. Luxurious, premium feel. → verify: step output matches expected outcome
+6. **Callout-Pop** — Text pops onto screen with small scale-bounce animation. Energetic, fun. → verify: step output matches expected outcome
 
 ### Text Positioning
 - **Bottom Third** — Standard position, non-intrusive. Best for most products.
@@ -492,19 +493,19 @@ Text overlays communicate key information and drive e-commerce conversion. Use S
 Audio elevates product videos from generic to memorable. Use Seedance 2.0 on Higgsfield's audio integration.
 
 ### Product-Specific Sounds
-1. **Mechanical Precision** — For watches, electronics, tech: Subtle ticking, beeping, whirring. Communicates function and engineering.
-2. **Luxury Reveal** — For jewelry, cosmetics: Soft whoosh, gentle chime, crystal-clear bell tone. Communicates elegance and premium.
-3. **Material Interactions** — For fashion, home goods: Subtle fabric rustle, wood creak, leather shift. Communicates authenticity.
-4. **Unboxing Satisfaction** — For packaging reveals: Paper crinkle, tape removal, box opening. ASMR-adjacent, deeply satisfying.
-5. **Impact / Drop** — For crash hooks: Subtle thud, shockwave, brief sustain. Communicates impact and robustness.
-6. **Particle / Assembly** — For particle reveals: Soft sizzle, harmonic tone, layered whisper. Communicates magic and precision.
+1. **Mechanical Precision** — For watches, electronics, tech: Subtle ticking, beeping, whirring. Communicates function and engineering. → verify: step output matches expected outcome
+2. **Luxury Reveal** — For jewelry, cosmetics: Soft whoosh, gentle chime, crystal-clear bell tone. Communicates elegance and premium. → verify: step output matches expected outcome
+3. **Material Interactions** — For fashion, home goods: Subtle fabric rustle, wood creak, leather shift. Communicates authenticity. → verify: step output matches expected outcome
+4. **Unboxing Satisfaction** — For packaging reveals: Paper crinkle, tape removal, box opening. ASMR-adjacent, deeply satisfying. → verify: file content matches expected shape
+5. **Impact / Drop** — For crash hooks: Subtle thud, shockwave, brief sustain. Communicates impact and robustness. → verify: step output matches expected outcome
+6. **Particle / Assembly** — For particle reveals: Soft sizzle, harmonic tone, layered whisper. Communicates magic and precision. → verify: step output matches expected outcome
 
 ### Ambient Soundscapes
-1. **Silence / Minimal** — Pure product and breathing room. Best for: luxury, minimalist, high-end products.
-2. **Ambient Electronic** — Subtle, non-intrusive pads and textures. Best for: tech, modern, contemporary products.
-3. **Warm Ambient** — Soft, organic sounds (wind chimes, gentle strings). Best for: beauty, wellness, lifestyle.
-4. **Industrial Ambient** — Subtle mechanical hum, precision tones. Best for: automotive, engineering-focused products.
-5. **Nature Ambient** — Subtle birds, water, wind. Best for: eco-friendly, natural, outdoor products.
+1. **Silence / Minimal** — Pure product and breathing room. Best for: luxury, minimalist, high-end products. → verify: step output matches expected outcome
+2. **Ambient Electronic** — Subtle, non-intrusive pads and textures. Best for: tech, modern, contemporary products. → verify: step output matches expected outcome
+3. **Warm Ambient** — Soft, organic sounds (wind chimes, gentle strings). Best for: beauty, wellness, lifestyle. → verify: step output matches expected outcome
+4. **Industrial Ambient** — Subtle mechanical hum, precision tones. Best for: automotive, engineering-focused products. → verify: step output matches expected outcome
+5. **Nature Ambient** — Subtle birds, water, wind. Best for: eco-friendly, natural, outdoor products. → verify: step output matches expected outcome
 
 ### Music & Sonic Branding
 - **Luxury Signature:** 3–5 second branded sonic motif (chime, bell, harmonic note) that plays at start and end.
@@ -903,20 +904,20 @@ Multi-speed rotation builds narrative from serenity to dynamism, then returns to
 ## Output Instructions for Seedance 2.0 on Higgsfield Generation
 
 ### Step 1: Prepare Your Input
-1. **Product Images:** Gather 1–9 high-quality images. Different angles (front, side, back, detail, lifestyle) are ideal.
-2. **Product Description:** Material, dimensions, price, key features, brand name, target audience (luxury, casual, technical, lifestyle).
-3. **Intended Platform:** Amazon, Shopify, Instagram, website, etc. (Affects format, duration, pacing).
-4. **Brand Aesthetic:** Luxury, modern, energetic, serene, playful, editorial, minimalist, etc.
-5. **Key Message:** What single value proposition should the video communicate? (Craftsmanship, innovation, beauty, durability, functionality.)
+1. **Product Images:** Gather 1–9 high-quality images. Different angles (front, side, back, detail, lifestyle) are ideal. → verify: step output matches expected outcome
+2. **Product Description:** Material, dimensions, price, key features, brand name, target audience (luxury, casual, technical, lifestyle). → verify: step output matches expected outcome
+3. **Intended Platform:** Amazon, Shopify, Instagram, website, etc. (Affects format, duration, pacing). → verify: step output matches expected outcome
+4. **Brand Aesthetic:** Luxury, modern, energetic, serene, playful, editorial, minimalist, etc. → verify: diff matches intended change
+5. **Key Message:** What single value proposition should the video communicate? (Craftsmanship, innovation, beauty, durability, functionality.) → verify: step output matches expected outcome
 
 ### Step 2: Build Your Prompt (Using This Skill's Templates)
-1. **Choose Hook Style:** Pick 1–2 from the 2-Second Hook Framework. Match to product category and brand aesthetic.
-2. **Select Rotation & Movement:** Choose 2–3 camera movements from the Rotation & Camera Movement Library.
-3. **Define Lighting:** Reference the Product Category Lighting Guide. Match lighting setup to material and mood.
-4. **Plan Detail Progression:** What 2–3 macro details most effectively communicate quality? (Stitching, grain, facets, etc.)
-5. **Choose Background:** Reference the Background & Environment Library. Select 1 primary environment (studio, lifestyle, abstract).
-6. **Draft Text Overlays:** What 3–5 pieces of key info (name, material, price, feature, CTA) should display, and when?
-7. **Select Audio Approach:** Silence and minimal product sounds? Ambient underscore? Branded sonic signature?
+1. **Choose Hook Style:** Pick 1–2 from the 2-Second Hook Framework. Match to product category and brand aesthetic. → verify: step output matches expected outcome
+2. **Select Rotation & Movement:** Choose 2–3 camera movements from the Rotation & Camera Movement Library. → verify: step output matches expected outcome
+3. **Define Lighting:** Reference the Product Category Lighting Guide. Match lighting setup to material and mood. → verify: step output matches expected outcome
+4. **Plan Detail Progression:** What 2–3 macro details most effectively communicate quality? (Stitching, grain, facets, etc.) → verify: step output matches expected outcome
+5. **Choose Background:** Reference the Background & Environment Library. Select 1 primary environment (studio, lifestyle, abstract). → verify: step output matches expected outcome
+6. **Draft Text Overlays:** What 3–5 pieces of key info (name, material, price, feature, CTA) should display, and when? → verify: step output matches expected outcome
+7. **Select Audio Approach:** Silence and minimal product sounds? Ambient underscore? Branded sonic signature? → verify: step output matches expected outcome
 
 ### Step 3: Compose Your Complete Seedance 2.0 on Higgsfield Prompt
 Use the structure from "Master Template" section. Include:
@@ -929,22 +930,22 @@ Use the structure from "Master Template" section. Include:
 - Special techniques or material focus (1–2 sentences)
 
 ### Step 4: Generate & Refine
-1. **Submit Prompt:** Paste your full prompt into Seedance 2.0 on Higgsfield interface.
-2. **Review Output:** Watch generated video. Check:
+1. **Submit Prompt:** Paste your full prompt into Seedance 2.0 on Higgsfield interface. → verify: step output matches expected outcome
+2. **Review Output:** Watch generated video. Check: → verify: output exists + parses without error
    - Hook engages in first 2 seconds?
    - Rotation smooth and jitter-free?
    - Lighting consistent and flattering?
    - Details visible and compelling?
    - Text readable and well-timed?
    - Audio balanced and appropriate?
-3. **Refine:** If rotation too fast, adjust "Rotation Speed: Slow" instead of "Medium." If details unclear, increase macro shot duration or zoom factor. Regenerate as needed.
+3. **Refine:** If rotation too fast, adjust "Rotation Speed: Slow" instead of "Medium." If details unclear, increase macro shot duration or zoom factor. Regenerate as needed. → verify: output exists + parses without error
 
 ### Step 5: Export & Optimize
-1. **Format:** Export in format specific to destination platform (16:9 for Amazon/YouTube, 1:1 for Instagram, 9:16 for TikTok).
-2. **Bitrate:** 5000 kbps for web (MP4), 8000+ kbps for professional (ProRes).
+1. **Format:** Export in format specific to destination platform (16:9 for Amazon/YouTube, 1:1 for Instagram, 9:16 for TikTok). → verify: step output matches expected outcome
+2. **Bitrate:** 5000 kbps for web (MP4), 8000+ kbps for professional (ProRes). → verify: step output matches expected outcome
 3. **File Size:** Verify file meets platform limits (Amazon: 500MB, Shopify: 100MB optimized).
 4. **Audio:** Verify stereo, 48kHz AAC.
-5. **Testing:** Download and preview on target device (phone for social, desktop for e-commerce).
+5. **Testing:** Download and preview on target device (phone for social, desktop for e-commerce). → verify: file content matches expected shape
 
 ### Step 6: Platform-Specific Optimizations
 - **Amazon:** Add secondary title or A+ content describing video. Ensure video highlights key search terms (material, color, fit, etc.).
@@ -986,3 +987,33 @@ Every choice—from hook style to lighting angle to text placement—should serv
 **Remember:** The best product videos make viewers *want to touch the product*. Light it, reveal it, and contextualize it with intention. Every second counts. Every frame must earn its place.
 
 *Happy creating.*
+
+## When NOT to use
+
+- Task is unrelated to seedance product 360 — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Product 360 needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance product 360
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

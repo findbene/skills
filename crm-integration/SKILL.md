@@ -1,6 +1,7 @@
 ---
 name: crm-integration
-description: "CRM integration specialist for Salesforce, HubSpot, and other CRMs covering data sync, pipeline management, and customer data operations. Use this skill any time CRM data needs to be accessed or updated, HubSpot or Salesforce integrations need to be built, or CRM automations need to be created. Trigger immediately on: \"CRM\", \"HubSpot\", \"Salesforce\", \"CRM integration\", \"pipeline management\", \"customer data\", \"contact\", \"deal stage\", \"CRM sync\", \"HubSpot API\", \"Salesforce API\", \"CRM automation\", \"lead management\", \"CRM webhook\". If someone says \"update HubSpot\" or \"sync data with the CRM\" this skill MUST trigger."
+description: 'CRM integration specialist for Salesforce, HubSpot, and other CRMs covering data sync, pipeline management, and customer data operations. Triggers: "use crm-integration", "crm integration", "crm task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # CRM Integration & Customer Management
@@ -49,10 +50,50 @@ RFM is valuable because it uses actual purchase behavior rather than demographic
 
 ## Best Practices
 
-1. **Single source of truth** — Sync data bidirectionally
-2. **Deduplication** — Merge duplicate contacts on import
-3. **Data hygiene** — Regular cleanup and validation
-4. **Privacy compliance** — Respect opt-outs and GDPR
-5. **Activity tracking** — Log all touchpoints
+1. **Single source of truth** — Sync data bidirectionally → verify: step output matches expected outcome
+2. **Deduplication** — Merge duplicate contacts on import → verify: step output matches expected outcome
+3. **Data hygiene** — Regular cleanup and validation → verify: step output matches expected outcome
+4. **Privacy compliance** — Respect opt-outs and GDPR → verify: step output matches expected outcome
+5. **Activity tracking** — Log all touchpoints → verify: step output matches expected outcome
 6. **Integration testing** — Verify sync reliability
-7. **Audit trail** — Track all data changes
+7. **Audit trail** — Track all data changes → verify: findings count > 0 OR clean signal returned
+
+## When NOT to use
+
+- Pure marketing-automation flows (email sequences) — use `email-sequence` or `marketing-ops`
+- Customer-support ticket routing — use `customer-service-ai` or `support-ticket-triage`
+- Sales-pipeline coaching/strategy — use `sales-coach` or `deal-strategist`
+- Pure data warehouse / ETL into BI — use `data-engineer` or `snowflake-development`
+- CRM admin tasks (user management, layouts) inside the CRM UI — out of scope
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Create then update without upsert" | Race conditions create duplicate contacts; always upsert by email |
+| "Ignore inbound webhooks, we'll batch nightly" | Stale views in CRM = sales acting on wrong data; webhooks for state changes |
+| "Skip retry on failed sync" | Lost data forever; status + retry queue is mandatory |
+| "GDPR is the privacy team's problem" | Opt-out flags must be respected at sync layer or you ship a violation |
+
+## Output Contract
+
+Done when:
+- Customer entity model defined with required + optional fields
+- CRM provider chosen and SDK wired (`jsforce` for Salesforce, `@hubspot/api-client` for HubSpot)
+- Bidirectional sync paths defined (inbound webhook + outbound API)
+- Upsert-by-email pattern used to prevent dupes
+- Retry queue + error log for failed syncs
+- Segmentation rules / RFM scoring implemented if required
+- GDPR/CCPA opt-out flags honored end-to-end
+
+## Examples
+
+### Example 1 — HubSpot two-way sync
+- Input: "Sync our app's user signups + activity into HubSpot"
+- Action: Outbound: on signup, upsert HubSpot contact by email; on activity (PUT /events) attach engagement; Inbound: subscribe to `contact.updated` and `deal.closed` webhooks to update our DB; retry queue for transient errors
+- Output: Sync module with upsert helpers, webhook handlers, retry queue, GDPR opt-out propagation
+
+### Example 2 — RFM segmentation pipeline
+- Input: "We want champions / at-risk / hibernating tiers"
+- Action: Compute Recency / Frequency / Monetary per customer from purchase history, 1-5 scale each, map to named segments, write back as `tags[]` to CRM
+- Output: Nightly job, segment-write-back, dashboard query for tier distribution

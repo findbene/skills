@@ -1,6 +1,7 @@
 ---
 name: n8n-code-python
-description: Write Python code in n8n Code nodes. Use this skill when the user explicitly wants Python in an n8n Code node — for standard library operations like statistics, regex, hashing, base64, or date math. Always consult this skill before writing Python for n8n: it covers the critical limitation (no external libraries — no requests, pandas, numpy), correct _input/_json/_node syntax, return format requirements, and the most common Python-specific mistakes. Note — JavaScript handles 95% of n8n use cases better; only use Python when the user specifically needs it or a Python standard library capability.
+description: "Write Python code in n8n Code nodes. Use this skill when the user explicitly wants Python in an n8n Code node — for standard. Triggers: 'use n8n-code-python', 'n8n code python', 'n8n-code-python task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # n8n Python Code Node (Beta)
@@ -39,9 +40,9 @@ return [
 ```
 
 **Three rules before writing any code:**
-1. Return `[{"json": {...}}]` — list of dicts with `"json"` key
-2. Webhook data lives under `_json["body"]`, not `_json` directly
-3. No external libraries — standard library only
+1. Return `[{"json": {...}}]` — list of dicts with `"json"` key → verify: step output matches expected outcome
+2. Webhook data lives under `_json["body"]`, not `_json` directly → verify: step output matches expected outcome
+3. No external libraries — standard library only → verify: step output matches expected outcome
 
 ---
 
@@ -239,3 +240,40 @@ data = _node['HTTP Request'].first()['json']
 - **`references/COMMON_PATTERNS.md`** — 10 Python-specific production patterns
 - **`references/ERROR_PATTERNS.md`** — Error messages and fixes specific to Python Code nodes
 - **`references/STANDARD_LIBRARY.md`** — Complete standard library reference for n8n Python
+
+## When NOT to use
+
+- Task is unrelated to n8n code python — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | N8N Code Python needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for n8n code python
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving n8n code python
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

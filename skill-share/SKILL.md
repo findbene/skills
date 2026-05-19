@@ -1,6 +1,7 @@
 ---
 name: skill-share
-description: Creates new Claude skills with proper structure and automatically shares them to Slack for team discovery. Use this skill whenever the user wants to create a new skill, package a skill for distribution, share a skill with teammates, or post a skill announcement to Slack. Apply whenever the user says "create a skill", "share my skill", "build a skill package", or "notify the team about a new skill".
+description: "Creates new Claude skills with proper structure and automatically shares them to Slack for team discovery. Triggers: 'use skill-share', 'use skill share', 'skill share'."
+allowed-tools: Glob, Grep, Read
 license: Complete terms in LICENSE.txt
 ---
 
@@ -48,11 +49,11 @@ This skill is ideal for:
 
 ## How It Works
 
-1. **Initialization**: Provide skill name and description
-2. **Creation**: Skill directory is created with proper structure
-3. **Validation**: Skill metadata is validated for correctness
-4. **Packaging**: Skill is packaged into a distributable format
-5. **Slack Notification**: Skill details are posted to your team's Slack channel
+1. **Initialization**: Provide skill name and description → verify: step output matches expected outcome
+2. **Creation**: Skill directory is created with proper structure → verify: output file exists + no syntax error
+3. **Validation**: Skill metadata is validated for correctness → verify: step output matches expected outcome
+4. **Packaging**: Skill is packaged into a distributable format → verify: step output matches expected outcome
+5. **Slack Notification**: Skill details are posted to your team's Slack channel → verify: step output matches expected outcome
 
 ## Example Usage
 
@@ -78,3 +79,32 @@ This skill leverages Rube for:
 - Write access to skill creation directory
 - Python 3.7+ for skill creation scripts
 - Target Slack channel for skill notifications
+
+## Triggers
+
+create a skill, share my skill, build a skill package, notify the team about a new skill
+
+## When NOT to use
+
+- Task is unrelated to skill share — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Skill Share needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for skill share
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

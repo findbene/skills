@@ -1,6 +1,7 @@
 ---
 name: ad-creative
-description: "Create ad copy, hooks, headlines, and creative briefs for paid advertising across Meta, Google Display, LinkedIn, TikTok, and YouTube — including image ad copy, video scripts, carousel concepts, and creative testing frameworks. Use this whenever the user asks to 'write ad copy,' 'create ad creative,' 'write a Facebook ad,' 'ad headline,' 'ad hook,' 'creative brief for ads,' or 'ad script.' Trigger even when the user shows poor-performing ads and asks what copy or creative angle to test next."
+description: "Create ad copy, hooks, headlines, and creative briefs for paid advertising across Meta, Google Display, LinkedIn, TikTok, and YouTube —. Triggers: 'use ad-creative', 'ad creative', 'ad-creative task'."
+allowed-tools: Bash, Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -129,10 +130,10 @@ For image and video ad creative, use generative AI tools and code-based video re
 - **Cost comparison** — Pricing for 100+ ad variations across tools
 
 **Recommended workflow for scaled production:**
-1. Generate hero creative with AI tools (exploratory, high-quality)
-2. Build Remotion templates based on winning patterns
-3. Batch produce variations with Remotion using data feeds
-4. Iterate — AI for new angles, Remotion for scale
+1. Generate hero creative with AI tools (exploratory, high-quality) → verify: output exists + parses without error
+2. Build Remotion templates based on winning patterns → verify: step output matches expected outcome
+3. Batch produce variations with Remotion using data feeds → verify: output exists + parses without error
+4. Iterate — AI for new angles, Remotion for scale → verify: step output matches expected outcome
 
 ---
 
@@ -254,14 +255,14 @@ Organize by angle, with character counts:
 ## Angle: [Pain Point — Manual Reporting]
 
 ### Headlines (30 char max)
-1. "Stop Building Reports by Hand" (29)
-2. "Automate Your Weekly Reports" (28)
-3. "Reports Done in 5 Min, Not 5 Hr" (31) <- OVER LIMIT, trimmed below
+1. "Stop Building Reports by Hand" (29) → verify: step output matches expected outcome
+2. "Automate Your Weekly Reports" (28) → verify: step output matches expected outcome
+3. "Reports Done in 5 Min, Not 5 Hr" (31) <- OVER LIMIT, trimmed below → verify: step output matches expected outcome
    -> "Reports in 5 Min, Not 5 Hrs" (27)
 
 ### Descriptions (90 char max)
-1. "Marketing teams save 10+ hours/week with automated reporting. Start free." (73)
-2. "Connect your data sources once. Get automated reports forever. No code required." (80)
+1. "Marketing teams save 10+ hours/week with automated reporting. Start free." (73) → verify: step output matches expected outcome
+2. "Connect your data sources once. Get automated reports forever. No code required." (80) → verify: step output matches expected outcome
 ```
 
 ### Bulk CSV Output
@@ -360,3 +361,40 @@ node tools/clis/google-ads.js reports get --type ad_performance --date-range las
 - **ab-test-setup**: For structuring creative tests with statistical rigor
 - **marketing-psychology**: For psychological principles behind high-performing creative
 - **copy-editing**: For polishing ad copy before launch
+
+## When NOT to use
+
+- Task is unrelated to ad creative — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ad Creative needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ad creative
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ad creative
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,4 +1,9 @@
 ---
+name: git-worktree-manager
+description: 'Git Worktree Manager. Triggers: "use git-worktree-manager", "git workflow worktree manager", "git worktree manager".'
+allowed-tools: Bash, Glob, Grep, Read
+---
+---
 name: "git-worktree-manager"
 description: "Manage Git worktrees for parallel feature development - branch isolation, port allocation, environment sync, and worktree cleanup. Use when running multiple features simultaneously, testing branches in parallel, or avoiding git stash juggling. Trigger on: 'git worktree', 'parallel branches', 'work on multiple features', 'isolated branch', 'worktree setup', 'parallel development', 'run two branches', 'git worktree add'."
 
@@ -35,10 +40,10 @@ This skill is optimized for multi-agent workflows where each agent or terminal s
 
 ### 1. Create a Fully-Prepared Worktree
 
-1. Pick a branch name and worktree name.
-2. Run the manager script (creates branch if missing).
-3. Review generated port map.
-4. Start app using allocated ports.
+1. Pick a branch name and worktree name. → verify: step output matches expected outcome
+2. Run the manager script (creates branch if missing). → verify: output exists + parses without error
+3. Review generated port map. → verify: output exists + parses without error
+4. Start app using allocated ports. → verify: step output matches expected outcome
 
 ```bash
 python scripts/worktree_manager.py \
@@ -70,9 +75,9 @@ Each worktree contains `.worktree-ports.json` with assigned ports.
 
 ### 3. Cleanup with Safety Checks
 
-1. Scan all worktrees and stale age.
-2. Inspect dirty trees and branch merge status.
-3. Remove only merged + clean worktrees, or force explicitly.
+1. Scan all worktrees and stale age. → verify: findings count > 0 OR clean signal returned
+2. Inspect dirty trees and branch merge status. → verify: step output matches expected outcome
+3. Remove only merged + clean worktrees, or force explicitly. → verify: step output matches expected outcome
 
 ```bash
 python scripts/worktree_cleanup.py --repo . --stale-days 14 --format text
@@ -113,32 +118,32 @@ Both tools support stdin JSON and `--input` file mode for automation pipelines.
 
 ## Common Pitfalls
 
-1. Creating worktrees inside the main repo directory
-2. Reusing `localhost:3000` across all branches
-3. Sharing one database URL across isolated feature branches
-4. Removing a worktree with uncommitted changes
-5. Forgetting to prune old metadata after branch deletion
-6. Assuming merged status without checking against the target branch
+1. Creating worktrees inside the main repo directory → verify: step output matches expected outcome
+2. Reusing `localhost:3000` across all branches → verify: step output matches expected outcome
+3. Sharing one database URL across isolated feature branches → verify: step output matches expected outcome
+4. Removing a worktree with uncommitted changes → verify: git status clean
+5. Forgetting to prune old metadata after branch deletion → verify: command exit code 0
+6. Assuming merged status without checking against the target branch → verify: step output matches expected outcome
 
 ## Best Practices
 
-1. One branch per worktree, one agent per worktree.
-2. Keep worktrees short-lived; remove after merge.
-3. Use a deterministic naming pattern (`wt-<topic>`).
-4. Persist port mappings in file, not memory or terminal notes.
-5. Run cleanup scan weekly in active repos.
-6. Use `--format json` for machine flows and `--format text` for human review.
-7. Never force-remove dirty worktrees unless changes are intentionally discarded.
+1. One branch per worktree, one agent per worktree. → verify: step output matches expected outcome
+2. Keep worktrees short-lived; remove after merge. → verify: step output matches expected outcome
+3. Use a deterministic naming pattern (`wt-<topic>`). → verify: step output matches expected outcome
+4. Persist port mappings in file, not memory or terminal notes. → verify: step output matches expected outcome
+5. Run cleanup scan weekly in active repos. → verify: command exit code 0
+6. Use `--format json` for machine flows and `--format text` for human review. → verify: step output matches expected outcome
+7. Never force-remove dirty worktrees unless changes are intentionally discarded. → verify: step output matches expected outcome
 
 ## Validation Checklist
 
 Before claiming setup complete:
 
-1. `git worktree list` shows expected path + branch.
-2. `.worktree-ports.json` exists and contains unique ports.
-3. `.env` files copied successfully (if present in source repo).
-4. Dependency install command exits with code `0` (if enabled).
-5. Cleanup scan reports no unintended stale dirty trees.
+1. `git worktree list` shows expected path + branch. → verify: step output matches expected outcome
+2. `.worktree-ports.json` exists and contains unique ports. → verify: step output matches expected outcome
+3. `.env` files copied successfully (if present in source repo). → verify: step output matches expected outcome
+4. Dependency install command exits with code `0` (if enabled). → verify: dependency resolves + import works
+5. Cleanup scan reports no unintended stale dirty trees. → verify: findings count > 0 OR clean signal returned
 
 ## References
 
@@ -159,10 +164,10 @@ Use this quick selector before creating a new worktree:
 
 ### Before Creation
 
-1. Confirm main repo has clean baseline or intentional WIP commits.
-2. Confirm target branch naming convention.
-3. Confirm required base branch exists (`main`/`develop`).
-4. Confirm no reserved local ports are already occupied by non-repo services.
+1. Confirm main repo has clean baseline or intentional WIP commits. → verify: git status clean
+2. Confirm target branch naming convention. → verify: step output matches expected outcome
+3. Confirm required base branch exists (`main`/`develop`). → verify: step output matches expected outcome
+4. Confirm no reserved local ports are already occupied by non-repo services. → verify: file content matches expected shape
 
 ### After Creation
 
@@ -190,3 +195,40 @@ Use this quick selector before creating a new worktree:
 - If dependency install fails: keep worktree created, mark status and continue manual recovery.
 - If env copy fails: continue with warning and explicit missing file list.
 - If port allocation collides with external service: rerun with adjusted base ports.
+
+## When NOT to use
+
+- Task is unrelated to git worktree manager — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Git Worktree Manager needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for git worktree manager
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving git worktree manager
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

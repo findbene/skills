@@ -1,6 +1,7 @@
 ---
 name: meeting-insights-analyzer
-description: Analyzes meeting transcripts and recordings to uncover behavioral patterns, communication insights, and actionable feedback. Use this skill whenever the user wants to improve their communication, analyze their meeting behavior, understand their speaking patterns, get feedback on how they facilitate meetings, find out when they avoid conflict or dominate conversations, or track communication skill improvements over time. Apply whenever the user shares meeting transcripts or says "analyze my meetings", "how do I communicate", "when do I avoid conflict", or "review my facilitation style".
+description: 'Analyzes meeting transcripts and recordings to uncover behavioral patterns, communication insights, and actionab. Triggers: "use meeting-insights-analyzer", "meeting insights analyzer", "meeting task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Meeting Insights Analyzer
@@ -19,33 +20,33 @@ This skill transforms your meeting transcripts into actionable insights about yo
 
 ## What This Skill Does
 
-1. **Pattern Recognition**: Identifies recurring behaviors across meetings like:
+1. **Pattern Recognition**: Identifies recurring behaviors across meetings like: → verify: step output matches expected outcome
    - Conflict avoidance or indirect communication
    - Speaking ratios and turn-taking
    - Question-asking vs. statement-making patterns
    - Active listening indicators
    - Decision-making approaches
 
-2. **Communication Analysis**: Evaluates communication effectiveness:
+2. **Communication Analysis**: Evaluates communication effectiveness: → verify: step output matches expected outcome
    - Clarity and directness
    - Use of filler words and hedging language
    - Tone and sentiment patterns
    - Meeting control and facilitation
 
-3. **Actionable Feedback**: Provides specific, timestamped examples with:
+3. **Actionable Feedback**: Provides specific, timestamped examples with: → verify: step output matches expected outcome
    - What happened
    - Why it matters
    - How to improve
 
-4. **Trend Tracking**: Compares patterns over time when analyzing multiple meetings
+4. **Trend Tracking**: Compares patterns over time when analyzing multiple meetings → verify: step output matches expected outcome
 
 ## How to Use
 
 ### Basic Setup
 
-1. Download your meeting transcripts to a folder (e.g., `~/meetings/`)
-2. Navigate to that folder in Claude Code
-3. Ask for the analysis you want
+1. Download your meeting transcripts to a folder (e.g., `~/meetings/`) → verify: file readable + content matches expected shape
+2. Navigate to that folder in Claude Code → verify: step output matches expected outcome
+3. Ask for the analysis you want → verify: step output matches expected outcome
 
 ### Quick Start Examples
 
@@ -65,11 +66,11 @@ Compare my facilitation style between these two meeting folders.
 
 ```
 Analyze all transcripts in this folder and:
-1. Identify when I interrupted others
-2. Calculate my speaking ratio
-3. Find moments I avoided giving direct feedback
-4. Track my use of filler words
-5. Show examples of good active listening
+1. Identify when I interrupted others → verify: step output matches expected outcome
+2. Calculate my speaking ratio → verify: step output matches expected outcome
+3. Find moments I avoided giving direct feedback → verify: step output matches expected outcome
+4. Track my use of filler words → verify: step output matches expected outcome
+5. Show examples of good active listening → verify: step output matches expected outcome
 ```
 
 ## Instructions
@@ -176,15 +177,15 @@ When a user requests meeting analysis:
    
    ## Communication Strengths
    
-   1. [Strength 1 with example]
-   2. [Strength 2 with example]
-   3. [Strength 3 with example]
+   1. [Strength 1 with example] → verify: step output matches expected outcome
+   2. [Strength 2 with example] → verify: step output matches expected outcome
+   3. [Strength 3 with example] → verify: step output matches expected outcome
    
    ## Growth Opportunities
    
-   1. **[Area 1]**: [Specific, actionable advice]
-   2. **[Area 2]**: [Specific, actionable advice]
-   3. **[Area 3]**: [Specific, actionable advice]
+   1. **[Area 1]**: [Specific, actionable advice] → verify: step output matches expected outcome
+   2. **[Area 2]**: [Specific, actionable advice] → verify: step output matches expected outcome
+   3. **[Area 3]**: [Specific, actionable advice] → verify: step output matches expected outcome
    
    ## Speaking Statistics
    
@@ -198,7 +199,7 @@ When a user requests meeting analysis:
    [3-5 concrete actions to improve communication]
    ```
 
-6. **Offer Follow-Up Options**
+6. **Offer Follow-Up Options** → verify: step output matches expected outcome
    - Track these same metrics in future meetings
    - Deep dive into specific meetings or patterns
    - Compare to industry benchmarks
@@ -244,10 +245,10 @@ today."
 
 ## Recommendations
 
-1. **Name the issue directly** in the first sentence
-2. **Remove hedging words** like "maybe," "kind of," "sort of"
-3. **Ask specific questions** instead of hinting
-4. **Schedule difficult conversations** instead of raising them casually
+1. **Name the issue directly** in the first sentence → verify: step output matches expected outcome
+2. **Remove hedging words** like "maybe," "kind of," "sort of" → verify: step output matches expected outcome
+3. **Ask specific questions** instead of hinting → verify: user confirms
+4. **Schedule difficult conversations** instead of raising them casually → verify: step output matches expected outcome
 ```
 
 ### Example 2: Leadership Facilitation
@@ -298,11 +299,11 @@ today."
 
 ### Best Practices
 
-1. **Consistent naming**: Use `YYYY-MM-DD - Meeting Name.txt` format
-2. **Regular analysis**: Review monthly or quarterly for trends
-3. **Specific queries**: Ask about one behavior at a time for depth
-4. **Privacy**: Keep sensitive meeting data local
-5. **Action-oriented**: Focus on one improvement area at a time
+1. **Consistent naming**: Use `YYYY-MM-DD - Meeting Name.txt` format → verify: step output matches expected outcome
+2. **Regular analysis**: Review monthly or quarterly for trends → verify: step output matches expected outcome
+3. **Specific queries**: Ask about one behavior at a time for depth → verify: user confirms
+4. **Privacy**: Keep sensitive meeting data local → verify: step output matches expected outcome
+5. **Action-oriented**: Focus on one improvement area at a time → verify: step output matches expected outcome
 
 ## Common Analysis Requests
 
@@ -325,3 +326,30 @@ today."
 - Analyzing customer calls for sales or support patterns
 - Studying negotiation tactics and outcomes
 
+## When NOT to use
+
+- Task is unrelated to meeting insights analyzer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Meeting Insights Analyzer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

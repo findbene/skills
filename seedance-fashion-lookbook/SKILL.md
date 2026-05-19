@@ -1,6 +1,7 @@
 ---
 name: seedance-fashion-lookbook
-description: Generate fashion lookbook, model showcase, and style video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants fashion video content, lookbook videos, model walks, outfit showcases, style guides, fashion campaigns, runway clips, streetwear content, or any fashion/clothing video. Triggers on: fashion video, lookbook, model showcase, outfit, style guide, fashion campaign, runway, streetwear, collection launch, fashion ad, clothing video, OOTD, fashion film, or any fashion/model video request. Use even for "show off this outfit" or "fashion content for my brand."
+description: "Generate fashion lookbook, model showcase, and style video prompts for Seedance 2.0 on Higgsfi. Triggers: 'use seedance-fashion-lookbook', 'seedance fashion lookbook', 'seedance-fashion-lookbook task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield Fashion Lookbook Skill
@@ -931,11 +932,11 @@ When you need to pack multiple outfits into a short 15-second video, **pacing an
 - **Seconds 14–15:** Final pose in Outfit 3 or ensemble shot
 
 ### Transition Tactics for Speed:
-1. **Flash Cuts:** 0.3–0.5 seconds per outfit. Instant, no transition effect.
-2. **Spin Transitions:** Model spins off-camera, re-enters in new outfit. Masks change seamlessly.
-3. **Rapid Zoom Cuts:** Zoom in on detail (shoe, bag) of Outfit 1. Zoom out to reveal Outfit 2. Fast, dynamic.
-4. **Light Shifts:** Lighting changes during transition, covering outfit swap with color temperature shift.
-5. **Environment Change Cuts:** Model in studio for Outfit 1, cuts to outdoor for Outfit 2. Environmental change masks outfit change.
+1. **Flash Cuts:** 0.3–0.5 seconds per outfit. Instant, no transition effect. → verify: step output matches expected outcome
+2. **Spin Transitions:** Model spins off-camera, re-enters in new outfit. Masks change seamlessly. → verify: user confirms
+3. **Rapid Zoom Cuts:** Zoom in on detail (shoe, bag) of Outfit 1. Zoom out to reveal Outfit 2. Fast, dynamic. → verify: step output matches expected outcome
+4. **Light Shifts:** Lighting changes during transition, covering outfit swap with color temperature shift. → verify: step output matches expected outcome
+5. **Environment Change Cuts:** Model in studio for Outfit 1, cuts to outdoor for Outfit 2. Environmental change masks outfit change. → verify: user confirms
 
 ### Seedance 2.0 on Higgsfield Prompt Structure for Multi-Look Video:
 ```
@@ -1159,17 +1160,17 @@ Fast, energetic music (120+ BPM). Beats align with cuts and transitions.
 When you receive a fashion video prompt request or use this skill to generate Seedance 2.0 on Higgsfield prompts, follow these output guidelines:
 
 ### Output Format
-1. **Skill Trigger:** Identify what the user requested (fashion video, lookbook, model showcase, etc.).
-2. **Platform Assumption:** Ask user what platform if not specified, OR assume multi-platform (16:9 + 9:16 versions recommended).
-3. **Prompt Structure:** Use the Master Template provided above.
-4. **Seedance 2.0 on Higgsfield Specification:** Always specify in your prompt:
+1. **Skill Trigger:** Identify what the user requested (fashion video, lookbook, model showcase, etc.). → verify: step output matches expected outcome
+2. **Platform Assumption:** Ask user what platform if not specified, OR assume multi-platform (16:9 + 9:16 versions recommended). → verify: user confirms
+3. **Prompt Structure:** Use the Master Template provided above. → verify: step output matches expected outcome
+4. **Seedance 2.0 on Higgsfield Specification:** Always specify in your prompt: → verify: step output matches expected outcome
    - Duration (15s, 30s, 60s)
    - Aspect ratio(s) (16:9, 9:16, 1:1)
    - Frame rate (24fps for cinematic, 30fps for clean, 60fps for slow-motion)
    - Any specific motion control needs
-5. **Comprehensive Details:** Include all sections: outfit description, model direction, environment/lighting, motion sequence, transitions, audio/vibe, CTA.
-6. **2-Second Hook:** Always emphasize the opening hook (proven attention-stopping techniques).
-7. **Platform Optimization Note:** If using specific platform, include platform-specific optimizations.
+5. **Comprehensive Details:** Include all sections: outfit description, model direction, environment/lighting, motion sequence, transitions, audio/vibe, CTA. → verify: step output matches expected outcome
+6. **2-Second Hook:** Always emphasize the opening hook (proven attention-stopping techniques). → verify: file content matches expected shape
+7. **Platform Optimization Note:** If using specific platform, include platform-specific optimizations. → verify: step output matches expected outcome
 
 ### What NOT to Include
 - Vague descriptions ("nice outfit," "good lighting")
@@ -1188,22 +1189,22 @@ When you receive a fashion video prompt request or use this skill to generate Se
 
 ### Revision & Refinement
 If user revises request:
-1. Identify what changed (outfit details, vibe, platform, duration).
-2. Update only affected sections (don't rebuild entire prompt unless major revision).
-3. Maintain consistency with rest of prompt.
-4. Re-emphasize any elements affected by change.
+1. Identify what changed (outfit details, vibe, platform, duration). → verify: step output matches expected outcome
+2. Update only affected sections (don't rebuild entire prompt unless major revision). → verify: step output matches expected outcome
+3. Maintain consistency with rest of prompt. → verify: step output matches expected outcome
+4. Re-emphasize any elements affected by change. → verify: step output matches expected outcome
 
 ### Example Output (User Says "Fashion Video of My New Dress"):
 ```
 I'll create a Seedance 2.0 on Higgsfield fashion video prompt for your new dress.
 
 To refine the prompt, I need:
-1. Describe the dress (color, fabric, silhouette, fit, styling)
-2. What vibe/mood? (luxury, casual, edgy, romantic, etc.)
-3. Model direction? (confident, playful, sultry, approachable?)
-4. Where should it be filmed? (studio, street, nature, etc.)
-5. What platform? (Instagram, TikTok, YouTube, multi-platform?)
-6. Any specific music mood or audio preference?
+1. Describe the dress (color, fabric, silhouette, fit, styling) → verify: step output matches expected outcome
+2. What vibe/mood? (luxury, casual, edgy, romantic, etc.) → verify: step output matches expected outcome
+3. Model direction? (confident, playful, sultry, approachable?) → verify: step output matches expected outcome
+4. Where should it be filmed? (studio, street, nature, etc.) → verify: step output matches expected outcome
+5. What platform? (Instagram, TikTok, YouTube, multi-platform?) → verify: step output matches expected outcome
+6. Any specific music mood or audio preference? → verify: step output matches expected outcome
 
 Once you provide these details, I'll craft a comprehensive Seedance 2.0 on Higgsfield prompt featuring:
 - A stopping-power 2-second hook
@@ -1221,11 +1222,11 @@ Ready when you are!
 
 Seedance 2.0 on Higgsfield is the gold standard for fashion video generation because:
 
-1. **Motion Rendering:** Seedance 2.0 on Higgsfield excels at rendering natural, fluid motion—how fabric moves, how models walk, how light plays across garments.
-2. **Lighting Precision:** You can specify lighting down to angle, temperature, and quality. Seedance 2.0 on Higgsfield delivers.
-3. **Frame-Perfect Control:** Every frame can be choreographed. Transitions, pacing, and timing are exact.
-4. **Fashion-Native:** Seedance 2.0 on Higgsfield was built with fashion in mind. Fabric physics, silhouette emphasis, and detail clarity are optimized.
-5. **Scalability:** From 15-second shorts to 60-second cinematic campaigns, Seedance 2.0 on Higgsfield adapts perfectly.
+1. **Motion Rendering:** Seedance 2.0 on Higgsfield excels at rendering natural, fluid motion—how fabric moves, how models walk, how light plays across garments. → verify: step output matches expected outcome
+2. **Lighting Precision:** You can specify lighting down to angle, temperature, and quality. Seedance 2.0 on Higgsfield delivers. → verify: step output matches expected outcome
+3. **Frame-Perfect Control:** Every frame can be choreographed. Transitions, pacing, and timing are exact. → verify: step output matches expected outcome
+4. **Fashion-Native:** Seedance 2.0 on Higgsfield was built with fashion in mind. Fabric physics, silhouette emphasis, and detail clarity are optimized. → verify: step output matches expected outcome
+5. **Scalability:** From 15-second shorts to 60-second cinematic campaigns, Seedance 2.0 on Higgsfield adapts perfectly. → verify: step output matches expected outcome
 
 Fashion is a visual medium of movement, light, and emotion. Seedance 2.0 on Higgsfield is the platform that understands this and delivers exceptional results every time.
 
@@ -1234,3 +1235,33 @@ Fashion is a visual medium of movement, light, and emotion. Seedance 2.0 on Higg
 **Last Updated:** 2026-04-09
 **Platform:** Seedance 2.0 on Higgsfield
 **Skill Category:** Fashion, Video Generation, Content Creation
+
+## When NOT to use
+
+- Task is unrelated to seedance fashion lookbook — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Fashion Lookbook needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance fashion lookbook
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

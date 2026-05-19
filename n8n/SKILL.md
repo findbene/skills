@@ -1,6 +1,7 @@
 ---
 name: n8n
-description: "n8n workflow automation expert for designing, building, debugging, and optimizing n8n pipelines with 400+ integrations. Use this skill any time n8n workflows need to be built or fixed, nodes need to be configured, webhook triggers need to be set up, workflow errors need to be diagnosed, or n8n expressions need to be written. Trigger immediately on: \"n8n\", \"n8n workflow\", \"automation workflow\", \"n8n node\", \"workflow builder\", \"n8n trigger\", \"webhook workflow\", \"n8n expression\", \"workflow error\", \"n8n credential\", \"n8n REST API\", \"custom n8n node\", \"n8n schedule\", \"workflow automation\". If someone says \"build me an n8n workflow\" or \"my n8n workflow is broken\" this skill MUST trigger."
+description: "n8n workflow automation expert for designing, building, debugging, and optimizing n8n pipelines with 400+ integrations. Triggers: 'use n8n', 'n8n', 'n8n task'."
+allowed-tools: Glob, Grep, Read
 version: 1.0.0
 triggers:
   - n8n workflow
@@ -124,3 +125,44 @@ n8n is the **primary workflow automation layer** for the AI Agency project. Use 
 - Error alerts to Slack/email when Agent Auditor scores drop below threshold
 - Lead qualification notifications to Biniyam
 - Supabase write operations for pipeline run logs
+
+## Triggers
+
+\\\"n8n\\\", \\\"n8n workflow\\\", \\\"automation workflow\\\", \\\"n8n node\\\", \\\"workflow builder\\\", \\\"n8n trigger\\\", \\\"webhook workflow\\\", \\\"n8n expression\\\", \\\"workflow error\\\", \\\"n8n credential\\\", \\\"n8n REST API\\\", \\\"custom n8n no
+
+## When NOT to use
+
+- Task is unrelated to n8n — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | N8N needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for n8n
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving n8n
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

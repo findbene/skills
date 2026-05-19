@@ -1,6 +1,7 @@
 ---
 name: "agenthub"
-description: "Multi-agent collaboration plugin that spawns N parallel subagents competing on the same task via git worktree isolation. Agents work independently, results are evaluated by metric or LLM judge, and the best branch is merged. Use when: user wants multiple approaches tried in parallel — code optimization, content variation, research exploration, or any task that benefits from parallel competition. Requires: a git repo."
+description: "Multi-agent collaboration plugin that spawns N parallel subagents competing on the same task via git worktree isolation. Triggers: 'use agenthub', 'agenthub', 'agenthub task'."
+allowed-tools: Bash, Glob, Grep, Read, Task
 license: MIT
 metadata:
   version: 2.1.2
@@ -104,11 +105,11 @@ You are agent-{i} in hub session {session-id}.
 Your task: {task description}
 
 Instructions:
-1. Read your assignment at .agenthub/board/dispatch/{seq}-agent-{i}.md
-2. Work in your worktree — make changes, run tests, iterate
-3. Commit all changes with descriptive messages
-4. Write your result summary to .agenthub/board/results/agent-{i}-result.md
-5. Exit when done
+1. Read your assignment at .agenthub/board/dispatch/{seq}-agent-{i}.md → verify: file content matches expected shape
+2. Work in your worktree — make changes, run tests, iterate → verify: command exit code 0
+3. Commit all changes with descriptive messages → verify: git status clean
+4. Write your result summary to .agenthub/board/results/agent-{i}-result.md → verify: output exists + parses without error
+5. Exit when done → verify: step output matches expected outcome
 ```
 
 Agents do NOT see each other's work. They do NOT communicate with each other. They only write to the board for the coordinator to read.
@@ -195,9 +196,9 @@ The ranker runs the eval command in each agent's worktree directory and parses t
 Best for: code quality, readability, architecture decisions.
 
 The coordinator reads each agent's diff (`git diff base...agent-branch`) and ranks by:
-1. Correctness (does it solve the task?)
-2. Simplicity (fewer lines changed preferred)
-3. Quality (clean execution, good structure)
+1. Correctness (does it solve the task?) → verify: user confirms
+2. Simplicity (fewer lines changed preferred) → verify: step output matches expected outcome
+3. Quality (clean execution, good structure) → verify: step output matches expected outcome
 
 ### Hybrid
 
@@ -255,3 +256,40 @@ clawhub install agenthub
 - **autoresearch-agent** — Single-agent optimization loop (use AgentHub when you want N agents competing)
 - **self-improving-agent** — Self-modifying agent (use AgentHub when you want external competition)
 - **git-worktree-manager** — Git worktree utilities (AgentHub uses worktrees internally)
+
+## When NOT to use
+
+- Task is unrelated to agenthub — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Agenthub needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for agenthub
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving agenthub
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

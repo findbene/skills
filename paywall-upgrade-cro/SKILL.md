@@ -1,6 +1,7 @@
 ---
 name: paywall-upgrade-cro
-description: "Optimize paywall and upgrade prompts to convert free users to paid — designing paywall placement, upgrade copy, pricing presentation, and in-app upgrade flows. Use this whenever the user mentions 'paywall optimization,' 'upgrade conversion,' 'free to paid conversion,' 'improve paywall,' 'in-app upgrade prompts,' or 'how do I convert more free users to paid.' Trigger even when the user says 'we have lots of free users but nobody upgrades' without using paywall terminology."
+description: "Optimize paywall and upgrade prompts to convert free users to paid — designing paywall placement, upgrade copy,. Triggers: 'use paywall-upgrade-cro', 'paywall upgrade cro', 'paywall-upgrade-cro task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -18,9 +19,9 @@ Before providing recommendations, understand:
 
 1. **Upgrade Context** - Freemium → Paid? Trial → Paid? Tier upgrade? Feature upsell? Usage limit?
 
-2. **Product Model** - What's free? What's behind paywall? What triggers prompts? Current conversion rate?
+2. **Product Model** - What's free? What's behind paywall? What triggers prompts? Current conversion rate? → verify: step output matches expected outcome
 
-3. **User Journey** - When does this appear? What have they experienced? What are they trying to do?
+3. **User Journey** - When does this appear? What have they experienced? What are they trying to do? → verify: step output matches expected outcome
 
 ---
 
@@ -78,19 +79,19 @@ After X days of free use:
 
 ## Paywall Screen Components
 
-1. **Headline** - Focus on what they get: "Unlock [Feature] to [Benefit]"
+1. **Headline** - Focus on what they get: "Unlock [Feature] to [Benefit]" → verify: step output matches expected outcome
 
-2. **Value Demonstration** - Preview, before/after, "With Pro you could..."
+2. **Value Demonstration** - Preview, before/after, "With Pro you could..." → verify: step output matches expected outcome
 
-3. **Feature Comparison** - Highlight key differences, current plan marked
+3. **Feature Comparison** - Highlight key differences, current plan marked → verify: step output matches expected outcome
 
-4. **Pricing** - Clear, simple, annual vs. monthly options
+4. **Pricing** - Clear, simple, annual vs. monthly options → verify: step output matches expected outcome
 
-5. **Social Proof** - Customer quotes, "X teams use this"
+5. **Social Proof** - Customer quotes, "X teams use this" → verify: step output matches expected outcome
 
-6. **CTA** - Specific and value-oriented: "Start Getting [Benefit]"
+6. **CTA** - Specific and value-oriented: "Start Getting [Benefit]" → verify: step output matches expected outcome
 
-7. **Escape Hatch** - Clear "Not now" or "Continue with Free"
+7. **Escape Hatch** - Clear "Not now" or "Continue with Free" → verify: step output matches expected outcome
 
 ---
 
@@ -211,11 +212,11 @@ What you've accomplished:
 ## Task-Specific Questions
 
 1. What's your current free → paid conversion rate?
-2. What triggers upgrade prompts today?
-3. What features are behind the paywall?
-4. What's your "aha moment" for users?
-5. What pricing model? (per seat, usage, flat)
-6. Mobile app, web app, or both?
+2. What triggers upgrade prompts today? → verify: step output matches expected outcome
+3. What features are behind the paywall? → verify: step output matches expected outcome
+4. What's your "aha moment" for users? → verify: step output matches expected outcome
+5. What pricing model? (per seat, usage, flat) → verify: step output matches expected outcome
+6. Mobile app, web app, or both? → verify: step output matches expected outcome
 
 ---
 
@@ -225,3 +226,44 @@ What you've accomplished:
 - **page-cro**: For public pricing page optimization
 - **onboarding-cro**: For driving to aha moment before upgrade
 - **ab-test-setup**: For testing paywall variations
+
+## Triggers
+
+paywall optimization,' 'upgrade conversion,' 'free to paid conversion,' 'improve paywall,' 'in-app upgrade prompts,' or 'how do I convert more free users to paid.'
+
+## When NOT to use
+
+- Task is unrelated to paywall upgrade cro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Paywall Upgrade Cro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for paywall upgrade cro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving paywall upgrade cro
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

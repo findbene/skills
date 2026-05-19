@@ -1,6 +1,7 @@
 ---
 name: "atlassian-templates"
-description: Atlassian Template and Files Creator/Modifier expert for creating, modifying, and managing Jira and Confluence templates, blueprints, custom layouts, reusable components, and standardized content structures. Use when building org-wide templates, custom blueprints, page layouts, and automated content generation.
+description: "Atlassian Template and Files Creator/Modifier expert for creating, modifying, and managing Jira and Confluence t. Triggers: 'use atlassian-templates', 'atlassian templates', 'atlassian-templates task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Atlassian Template & Files Creator Expert
@@ -12,37 +13,37 @@ Specialist in creating, modifying, and managing reusable templates and files for
 ## Workflows
 
 ### Template Creation Process
-1. **Discover**: Interview stakeholders to understand needs
-2. **Analyze**: Review existing content patterns
-3. **Design**: Create template structure and placeholders
-4. **Implement**: Build template with macros and formatting
-5. **Test**: Validate with sample data — confirm template renders correctly in preview before publishing
-6. **Document**: Create usage instructions
-7. **Publish**: Deploy to appropriate space/project via MCP (see MCP Operations below)
+1. **Discover**: Interview stakeholders to understand needs → verify: step output matches expected outcome
+2. **Analyze**: Review existing content patterns → verify: step output matches expected outcome
+3. **Design**: Create template structure and placeholders → verify: output file exists + no syntax error
+4. **Implement**: Build template with macros and formatting → verify: step output matches expected outcome
+5. **Test**: Validate with sample data — confirm template renders correctly in preview before publishing → verify: all tests pass
+6. **Document**: Create usage instructions → verify: output file exists + no syntax error
+7. **Publish**: Deploy to appropriate space/project via MCP (see MCP Operations below) → verify: step output matches expected outcome
 8. **Verify**: Confirm deployment success; roll back to previous version if errors occur
-9. **Train**: Educate users on template usage
-10. **Monitor**: Track adoption and gather feedback
-11. **Iterate**: Refine based on usage
+9. **Train**: Educate users on template usage → verify: step output matches expected outcome
+10. **Monitor**: Track adoption and gather feedback → verify: step output matches expected outcome
+11. **Iterate**: Refine based on usage → verify: step output matches expected outcome
 
 ### Template Modification Process
-1. **Assess**: Review change request and impact
-2. **Version**: Create new version, keep old available
-3. **Modify**: Update template structure/content
-4. **Test**: Validate changes don't break existing usage; preview updated template before publishing
-5. **Migrate**: Provide migration path for existing content
-6. **Communicate**: Announce changes to users
-7. **Support**: Assist users with migration
-8. **Archive**: Deprecate old version after transition; confirm deprecated template is unlisted, not deleted
+1. **Assess**: Review change request and impact → verify: step output matches expected outcome
+2. **Version**: Create new version, keep old available → verify: output file exists + no syntax error
+3. **Modify**: Update template structure/content → verify: step output matches expected outcome
+4. **Test**: Validate changes don't break existing usage; preview updated template before publishing → verify: all tests pass
+5. **Migrate**: Provide migration path for existing content → verify: step output matches expected outcome
+6. **Communicate**: Announce changes to users → verify: step output matches expected outcome
+7. **Support**: Assist users with migration → verify: step output matches expected outcome
+8. **Archive**: Deprecate old version after transition; confirm deprecated template is unlisted, not deleted → verify: step output matches expected outcome
 
 ### Blueprint Development
-1. Define blueprint scope and purpose
-2. Design multi-page structure
-3. Create page templates for each section
-4. Configure page creation rules
-5. Add dynamic content (Jira queries, user data)
-6. Test blueprint creation flow end-to-end with a sample space
+1. Define blueprint scope and purpose → verify: step output matches expected outcome
+2. Design multi-page structure → verify: step output matches expected outcome
+3. Create page templates for each section → verify: output file exists + no syntax error
+4. Configure page creation rules → verify: step output matches expected outcome
+5. Add dynamic content (Jira queries, user data) → verify: package installed + import succeeds
+6. Test blueprint creation flow end-to-end with a sample space → verify: all tests pass
 7. Verify all macro references resolve correctly before deployment
-8. **HANDOFF TO**: Atlassian Admin for global deployment
+8. **HANDOFF TO**: Atlassian Admin for global deployment → verify: step output matches expected outcome
 
 ---
 
@@ -228,12 +229,12 @@ All MCP calls below use the exact parameter names expected by the Atlassian MCP 
 - Feedback mechanism in place (comments enabled or linked survey)
 
 **Governance Process**:
-1. Request and justification
-2. Design and review
-3. Testing with pilot users
+1. Request and justification → verify: step output matches expected outcome
+2. Design and review → verify: step output matches expected outcome
+3. Testing with pilot users → verify: all checks pass
 4. Documentation
 5. Approval
-6. Deployment (via MCP or manual)
+6. Deployment (via MCP or manual) → verify: step output matches expected outcome
 7. Training
 8. Monitoring
 
@@ -250,3 +251,40 @@ See **HANDOFFS.md** for the full handoff matrix. Summary:
 | **Jira Expert** | Issue template requirements, custom field display needs | Issue description templates, field config templates, JQL query templates |
 | **Confluence Expert** | Space-specific needs, global template requests, blueprint requirements | Configured page templates, blueprint structures, deployment plans |
 | **Atlassian Admin** | Org-wide standards, global deployment requirements, compliance templates | Global templates for approval, usage reports, compliance status |
+
+## When NOT to use
+
+- Task is unrelated to atlassian templates — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Atlassian Templates needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for atlassian templates
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving atlassian templates
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

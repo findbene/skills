@@ -1,6 +1,7 @@
 ---
 name: seedance-brand-story
-description: Generate brand storytelling and narrative video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants to create a brand story video, company origin story, mission video, about us video, brand film, corporate narrative, founder story, brand anthem, company culture video, or emotional brand content. Triggers on: brand story, brand video, company story, origin story, about us, mission video, brand film, brand anthem, corporate video, company culture, founder story, brand narrative, or any request for brand/company storytelling video. Use even for "tell our company story" or "make a video about our mission."
+description: "Generate brand storytelling and narrative video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-brand-story', 'seedance brand story', 'seedance-brand-story task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Brand Storytelling & Narrative Video Content for Seedance 2.0 on Higgsfield
@@ -1149,3 +1150,32 @@ Use these frameworks, prompts, and strategies to create brand narratives that st
 
 Your story is waiting to be told. Now go tell it with Seedance 2.0 on Higgsfield.
 
+## When NOT to use
+
+- Task is unrelated to seedance brand story — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Brand Story needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance brand story
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

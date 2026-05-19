@@ -1,9 +1,7 @@
 ---
 name: "browserstack"
-description: >-
-  Run tests on BrowserStack. Use when user mentions "browserstack",
-  "cross-browser", "cloud testing", "browser matrix", "test on safari",
-  "test on firefox", or "browser compatibility".
+description: 'Run tests on BrowserStack. Use when user mentions "browserstack", "cross-browser", "cloud testing", "browser matrix", "test on safari", "test on firefox", or "browser compatibility". Triggers: ''use browserstack'', ''browserstack'', ''browserstack task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # BrowserStack Integration
@@ -27,8 +25,8 @@ If not set, inform the user how to get them from [browserstack.com/accounts/sett
 ```
 
 Steps:
-1. Check current `playwright.config.ts`
-2. Add BrowserStack connect options:
+1. Check current `playwright.config.ts` → verify: all checks pass
+2. Add BrowserStack connect options: → verify: dependency resolves + import works
 
 ```typescript
 // Add to playwright.config.ts
@@ -90,7 +88,7 @@ export default defineConfig({
 });
 ```
 
-3. Add npm script: `"test:e2e:cloud": "npx playwright test --project='chrome@*' --project='firefox@*' --project='webkit@*'"`
+3. Add npm script: `"test:e2e:cloud": "npx playwright test --project='chrome@*' --project='firefox@*' --project='webkit@*'"` → verify: dependency resolves + import works
 
 ### 2. Run Tests on BrowserStack
 
@@ -100,14 +98,14 @@ export default defineConfig({
 
 Steps:
 1. Verify credentials are set
-2. Run tests with BrowserStack projects:
+2. Run tests with BrowserStack projects: → verify: command exit code 0
    ```bash
    BROWSERSTACK_USERNAME=$BROWSERSTACK_USERNAME \
    BROWSERSTACK_ACCESS_KEY=$BROWSERSTACK_ACCESS_KEY \
    npx playwright test --project='chrome@*' --project='firefox@*'
    ```
-3. Monitor execution
-4. Report results per browser
+3. Monitor execution → verify: step output matches expected outcome
+4. Report results per browser → verify: step output matches expected outcome
 
 ### 3. Get Build Results
 
@@ -116,15 +114,15 @@ Steps:
 ```
 
 Steps:
-1. Call `browserstack_get_builds` MCP tool
-2. Get latest build's sessions
-3. For each session:
+1. Call `browserstack_get_builds` MCP tool → verify: step output matches expected outcome
+2. Get latest build's sessions → verify: all checks pass
+3. For each session: → verify: step output matches expected outcome
    - Status (pass/fail)
    - Browser and OS
    - Duration
    - Video URL
    - Log URLs
-4. Format as summary table
+4. Format as summary table → verify: step output matches expected outcome
 
 ### 4. Check Available Browsers
 
@@ -133,9 +131,9 @@ Steps:
 ```
 
 Steps:
-1. Call `browserstack_get_browsers` MCP tool
-2. Filter for Playwright-compatible browsers
-3. Display available browser/OS combinations
+1. Call `browserstack_get_browsers` MCP tool → verify: step output matches expected outcome
+2. Filter for Playwright-compatible browsers → verify: step output matches expected outcome
+3. Display available browser/OS combinations → verify: step output matches expected outcome
 
 ### 5. Local Testing
 
@@ -144,9 +142,9 @@ Steps:
 ```
 
 For testing localhost or staging behind firewall:
-1. Install BrowserStack Local: `npm install -D browserstack-local`
-2. Add local tunnel to config
-3. Provide setup instructions
+1. Install BrowserStack Local: `npm install -D browserstack-local` → verify: dependency resolves + import works
+2. Add local tunnel to config → verify: dependency resolves + import works
+3. Provide setup instructions → verify: step output matches expected outcome
 
 ## MCP Tools Used
 
@@ -166,3 +164,40 @@ For testing localhost or staging behind firewall:
 - Per-browser pass/fail status
 - Links to BrowserStack dashboard for video/screenshots
 - Any browser-specific failures highlighted
+
+## When NOT to use
+
+- Task is unrelated to browserstack — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Browserstack needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for browserstack
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving browserstack
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

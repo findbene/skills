@@ -1,6 +1,7 @@
 ---
 name: changelog-generator
-description: Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Use this skill whenever the user asks for a changelog, release notes, commit summary, version history, app store update description, or wants to document what changed in a release. Apply whenever the user says "write a changelog", "generate release notes", or "what changed since last version" — do not write changelogs manually when this skill can automate it.
+description: 'Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and trans. Triggers: "use changelog-generator", "changelog generator", "changelog task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Changelog Generator
@@ -19,12 +20,12 @@ This skill transforms technical git commits into polished, user-friendly changel
 
 ## What This Skill Does
 
-1. **Scans Git History**: Analyzes commits from a specific time period or between versions
-2. **Categorizes Changes**: Groups commits into logical categories (features, improvements, bug fixes, breaking changes, security)
+1. **Scans Git History**: Analyzes commits from a specific time period or between versions → verify: git status clean
+2. **Categorizes Changes**: Groups commits into logical categories (features, improvements, bug fixes, breaking changes, security) → verify: git status clean
 3. **Translates Technical → User-Friendly**: Converts developer commits into customer language
-4. **Formats Professionally**: Creates clean, structured changelog entries
-5. **Filters Noise**: Excludes internal commits (refactoring, tests, etc.)
-6. **Follows Best Practices**: Applies changelog guidelines and your brand voice
+4. **Formats Professionally**: Creates clean, structured changelog entries → verify: output exists + parses without error
+5. **Filters Noise**: Excludes internal commits (refactoring, tests, etc.) → verify: all checks pass
+6. **Follows Best Practices**: Applies changelog guidelines and your brand voice → verify: step output matches expected outcome
 
 ## How to Use
 
@@ -102,3 +103,27 @@ guidelines from CHANGELOG_STYLE.md
 - Generating email updates for users
 - Creating social media announcement posts
 
+## When NOT to use
+
+- Task is unrelated to changelog generator — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Changelog Generator needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for changelog generator
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

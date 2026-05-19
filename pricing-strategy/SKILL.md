@@ -1,6 +1,7 @@
 ---
 name: pricing-strategy
-description: "Design, optimize, and test pricing models and strategies — including pricing model selection, tier design, pricing psychology, competitive pricing analysis, price increase communication, and freemium vs. trial decisions. Use this whenever the user asks about 'pricing strategy,' 'how should I price my product,' 'pricing model,' 'freemium vs. paid,' 'should I raise prices,' 'tier design,' or 'pricing page.' Trigger even when the user shares churn data that suggests a pricing problem without explicitly mentioning pricing."
+description: "Design, optimize, and test pricing models and strategies — including pricing model selection, tier design, pricing psycho. Triggers: 'use pricing-strategy', 'pricing strategy', 'pricing-strategy task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -122,10 +123,10 @@ Ask: "As a customer uses more of [metric], do they get more value?"
 ### Van Westendorp Method
 
 Four questions that identify acceptable price range:
-1. Too expensive (wouldn't consider)
-2. Too cheap (question quality)
-3. Expensive but might consider
-4. A bargain
+1. Too expensive (wouldn't consider) → verify: step output matches expected outcome
+2. Too cheap (question quality) → verify: step output matches expected outcome
+3. Expensive but might consider → verify: step output matches expected outcome
+4. A bargain → verify: step output matches expected outcome
 
 Analyze intersections to find optimal pricing zone.
 
@@ -211,12 +212,12 @@ Identifies which features customers value most:
 
 ## Task-Specific Questions
 
-1. What pricing research have you done?
-2. What's your current ARPU and conversion rate?
-3. What's your primary value metric?
-4. Who are your main pricing personas?
-5. Are you self-serve, sales-led, or hybrid?
-6. What pricing changes are you considering?
+1. What pricing research have you done? → verify: step output matches expected outcome
+2. What's your current ARPU and conversion rate? → verify: step output matches expected outcome
+3. What's your primary value metric? → verify: step output matches expected outcome
+4. Who are your main pricing personas? → verify: step output matches expected outcome
+5. Are you self-serve, sales-led, or hybrid? → verify: step output matches expected outcome
+6. What pricing changes are you considering? → verify: step output matches expected outcome
 
 ---
 
@@ -229,3 +230,40 @@ Identifies which features customers value most:
 - **ab-test-setup**: For testing pricing changes
 - **revops**: For deal desk processes and pipeline pricing
 - **sales-enablement**: For proposal templates and pricing presentations
+
+## When NOT to use
+
+- Task is unrelated to pricing strategy — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Pricing Strategy needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for pricing strategy
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving pricing strategy
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

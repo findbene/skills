@@ -1,6 +1,7 @@
 ---
 name: pika-tools
-description: "Pika Labs AI video generation via fal.ai for creating short video clips, effects, and visual content with AI. Use this skill any time AI videos need to be generated using Pika, short video clips need to be created with AI, or Pika 2.2 video generation capabilities are needed. Trigger immediately on: \"Pika\", \"Pika Labs\", \"Pika video\", \"pika-tools\", \"generate video with Pika\", \"AI video Pika\", \"Pika 2.2\", \"Pika MCP\", \"video generation Pika\", \"fal.ai Pika\", \"Pika clip\". If someone says \"generate a video with Pika\" or \"use Pika to create a clip\" this skill MUST trigger."
+description: 'Pika Labs AI video generation via fal.ai for creating short video clips, effects, and visual content with AI. Triggers: "use pika-tools", "pika tools", "pika task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Pika Labs Tools
@@ -88,3 +89,40 @@ pika_result(response_url="https://queue.fal.run/...")
 - Synchronous tools poll every 5 seconds until completion (30-90 sec typical)
 - For batch work, use `pika_submit` + `pika_status` to manage multiple jobs
 - Requires a fal.ai API key set as `FAL_KEY` in MCP server config
+
+## When NOT to use
+
+- Task is unrelated to pika tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Pika Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for pika tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving pika tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

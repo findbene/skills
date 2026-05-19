@@ -1,6 +1,7 @@
 ---
 name: "senior-fullstack"
-description: Fullstack development toolkit with project scaffolding for Next.js, FastAPI, MERN, and Django stacks, code quality analysis with security and complexity scoring, and stack selection guidance. Use when the user asks to "scaffold a new project", "create a Next.js app", "set up FastAPI with React", "analyze code quality", "audit my codebase", "what stack should I use", "generate project boilerplate", or mentions fullstack development, project setup, or tech stack comparison.
+description: 'Fullstack development toolkit with project scaffolding for Next.js, FastAPI, MERN, and Django stacks, code quality ana. Triggers: "use senior-fullstack", "consult senior fullstack", "senior fullstack.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Senior Fullstack
@@ -158,7 +159,7 @@ Total Lines: 12,500
   High Complexity Files: 3
 
 --- RECOMMENDATIONS ---
-1. [P0] SECURITY
+1. [P0] SECURITY → verify: step output matches expected outcome
    Issue: Potential hardcoded secret detected
    Action: Remove or secure sensitive data at line 42
 ```
@@ -169,11 +170,11 @@ Total Lines: 12,500
 
 ### Workflow 1: Start New Project
 
-1. Choose appropriate stack based on requirements (see Stack Decision Matrix)
-2. Scaffold project structure
+1. Choose appropriate stack based on requirements (see Stack Decision Matrix) → verify: step output matches expected outcome
+2. Scaffold project structure → verify: step output matches expected outcome
 3. Verify scaffold: confirm `package.json` (or `requirements.txt`) exists
-4. Run initial quality check — address any P0 issues before proceeding
-5. Set up development environment
+4. Run initial quality check — address any P0 issues before proceeding → verify: command exit code 0
+5. Set up development environment → verify: step output matches expected outcome
 
 ```bash
 # 1. Scaffold project
@@ -198,10 +199,10 @@ npm run dev
 
 ### Workflow 2: Audit Existing Codebase
 
-1. Run code quality analysis
-2. Review security findings — fix all P0 (critical) issues immediately
-3. Re-run analyzer to confirm P0 issues are resolved
-4. Create tickets for P1/P2 issues
+1. Run code quality analysis → verify: command exit code 0
+2. Review security findings — fix all P0 (critical) issues immediately → verify: diff matches intended change
+3. Re-run analyzer to confirm P0 issues are resolved → verify: command exit code 0
+4. Create tickets for P1/P2 issues → verify: output file exists + no syntax error
 
 ```bash
 # 1. Full analysis
@@ -283,3 +284,40 @@ See `references/tech_stack_guide.md` for detailed comparison.
 | Auth complexity | Use Auth.js or Clerk |
 | Type errors | Enable strict mode in tsconfig |
 | CORS issues | Configure middleware properly |
+
+## When NOT to use
+
+- Task is unrelated to senior fullstack — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Senior Fullstack needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for senior fullstack
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving senior fullstack
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

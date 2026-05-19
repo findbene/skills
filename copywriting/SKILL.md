@@ -1,6 +1,7 @@
 ---
 name: copywriting
-description: "Write, rewrite, or improve marketing copy for any page or section — homepage, landing pages, pricing pages, feature pages, about pages, hero sections, CTAs, headlines, taglines, and value propositions. Use this whenever the user says 'write copy for,' 'improve this copy,' 'rewrite this page,' 'help me with my headline,' 'my copy is weak,' 'write a CTA,' 'value proposition help,' or shows you a page and asks how to make it better. Trigger even when the user just pastes a URL or page text and asks for improvements without explicitly saying 'copywriting."
+description: "Write, rewrite, or improve marketing copy for any page or section — homepage, landing pages, pricing pages, feature pages, about pages,. Triggers: 'use copywriting', 'copywriting', 'copywriting task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -62,12 +63,12 @@ Each section should advance one argument. Build a logical flow down the page.
 
 ### Core Principles
 
-1. **Simple over complex** — "Use" not "utilize," "help" not "facilitate"
-2. **Specific over vague** — Avoid "streamline," "optimize," "innovative"
-3. **Active over passive** — "We generate reports" not "Reports are generated"
-4. **Confident over qualified** — Remove "almost," "very," "really"
-5. **Show over tell** — Describe the outcome instead of using adverbs
-6. **Honest over sensational** — Fabricated statistics or testimonials erode trust and create legal liability
+1. **Simple over complex** — "Use" not "utilize," "help" not "facilitate" → verify: step output matches expected outcome
+2. **Specific over vague** — Avoid "streamline," "optimize," "innovative" → verify: step output matches expected outcome
+3. **Active over passive** — "We generate reports" not "Reports are generated" → verify: output exists + parses without error
+4. **Confident over qualified** — Remove "almost," "very," "really" → verify: step output matches expected outcome
+5. **Show over tell** — Describe the outcome instead of using adverbs → verify: step output matches expected outcome
+6. **Honest over sensational** — Fabricated statistics or testimonials erode trust and create legal liability → verify: output exists + parses without error
 
 ### Quick Quality Check
 
@@ -250,3 +251,40 @@ For headlines and CTAs, provide 2-3 options:
 - **email-sequence**: For email copywriting
 - **popup-cro**: For popup and modal copy
 - **ab-test-setup**: To test copy variations
+
+## When NOT to use
+
+- Task is unrelated to copywriting — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Copywriting needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for copywriting
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving copywriting
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

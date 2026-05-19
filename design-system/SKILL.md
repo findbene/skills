@@ -1,7 +1,7 @@
 ---
 name: design-system
-description: "Design system architecture for token systems, component specifications, and scalable UI consistency across products. Use this skill any time a design system needs to be built or maintained, design tokens need to be structured, component libraries need to be specified, or UI consistency needs to be enforced through a shared system. Trigger immediately on: \"design system\", \"design tokens\", \"component library\", \"token architecture\", \"UI system\", \"design consistency\", \"component spec\", \"design language\", \"Storybook\", \"design primitives\", \"theme\", \"CSS variables\", \"design infrastructure\", \"token management\". If someone says \"build a design system\" or \"create design tokens for this\" this skill MUST trigger."
-argument-hint: "[component or token]"
+description: "Design system architecture for token systems, component specifications, and scalable UI consistency across products. Triggers: 'use design-system', 'design system', 'design-system task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   author: claudekit
@@ -149,20 +149,20 @@ python scripts/search-slides.py "cta" --context --position 9 --prev-emotion frus
 ### Contextual Decision Flow
 
 ```
-1. Parse goal/context
+1. Parse goal/context → verify: step output matches expected outcome
         ↓
 2. Search slide-strategies.csv → Get strategy + emotion beats
         ↓
-3. For each slide:
+3. For each slide: → verify: step output matches expected outcome
    a. Query slide-layout-logic.csv → layout + break_pattern
    b. Query slide-typography.csv → type scale
    c. Query slide-color-logic.csv → color treatment
    d. Query slide-backgrounds.csv → image if needed
    e. Apply animation class from slide-animations.css
         ↓
-4. Generate HTML with design tokens
+4. Generate HTML with design tokens → verify: output exists + parses without error
         ↓
-5. Validate with slide-token-validator.py
+5. Validate with slide-token-validator.py → verify: all checks pass
 ```
 
 ### Pattern Breaking (Duarte Sparkline)
@@ -177,12 +177,12 @@ System calculates pattern breaks at 1/3 and 2/3 positions.
 ### Slide Requirements
 
 **ALL slides MUST:**
-1. Import `assets/design-tokens.css` - single source of truth
-2. Use CSS variables: `var(--color-primary)`, `var(--slide-bg)`, etc.
-3. Use Chart.js for charts (NOT CSS-only bars)
-4. Include navigation (keyboard arrows, click, progress bar)
-5. Center align content
-6. Focus on persuasion/conversion
+1. Import `assets/design-tokens.css` - single source of truth → verify: step output matches expected outcome
+2. Use CSS variables: `var(--color-primary)`, `var(--slide-bg)`, etc. → verify: step output matches expected outcome
+3. Use Chart.js for charts (NOT CSS-only bars) → verify: step output matches expected outcome
+4. Include navigation (keyboard arrows, click, progress bar) → verify: step output matches expected outcome
+5. Center align content → verify: step output matches expected outcome
+6. Focus on persuasion/conversion → verify: step output matches expected outcome
 
 ### Chart.js Integration
 
@@ -236,9 +236,51 @@ assets/designs/slides/claudekit-pitch-251223.html
 
 ## Best Practices
 
-1. Never use raw hex in components - always reference tokens
-2. Semantic layer enables theme switching (light/dark)
-3. Component tokens enable per-component customization
-4. Use HSL format for opacity control
-5. Document every token's purpose
+1. Never use raw hex in components - always reference tokens → verify: step output matches expected outcome
+2. Semantic layer enables theme switching (light/dark) → verify: step output matches expected outcome
+3. Component tokens enable per-component customization → verify: step output matches expected outcome
+4. Use HSL format for opacity control → verify: step output matches expected outcome
+5. Document every token's purpose → verify: step output matches expected outcome
 6. **Slides must import design-tokens.css and use var() exclusively**
+
+## When NOT to use
+
+- User wants brand-agnostic design → use generic `frontend-design` skill instead
+- Different brand requested → use the matching `design-<brand>` skill
+- User needs plain Tailwind/CSS without brand language → skip design-* skills
+- Building production replica of System itself (trademark / IP risk)
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll pick close hex values instead of exact" | Brand voltage must match exact — close hex breaks brand recognition |
+| "Tailwind defaults are close enough" | Brand radii/shadows/spacing are non-default; defaults break the look |
+| "Skip DESIGN.md, just match vibes" | Tokens encode the rules; vibes drift |
+| "Apply brand color everywhere" | Brand uses CTA/accent voltage sparingly — uniform application kills hierarchy |
+
+## Output Contract
+
+Done-state:
+- All color values traceable to `DESIGN.md` `colors:` block
+- Typography scale uses brand font + brand weight ladder from `typography:`
+- Component radii, shadows, spacing match `components:` tokens
+- No `dos_donts:` rule violated in generated output
+- CSS variables exposed for downstream re-theming
+
+## Examples
+
+### Example 1 — Marketing hero
+- Input: "Build a marketing hero in System style"
+- Action: read `DESIGN.md`, apply brand background/typography/CTA radius + brand voltage color, follow whitespace guidance from spec
+- Output: hero section using exact brand tokens, ready to drop into Next.js or HTML
+
+### Example 2 — Card grid
+- Input: "Card grid that looks like System"
+- Action: pull card radius from `components:`, shadow from `shadows:`, gap from `spacing:`, hover state from `dos_donts:` guidance
+- Output: grid with brand-correct card chrome, no default Tailwind leakage
+
+## Triggers
+
+\\\"design system\\\", \\\"design tokens\\\", \\\"component library\\\", \\\"token architecture\\\", \\\"UI system\\\", \\\"design consistency\\\", \\\"component spec\\\", \\\"design language\\\", \\\"Storybook\\\", \\\"design primitives\\\", \\\"theme\\\", \\\"CSS"
+argument-hint: "[component or token]

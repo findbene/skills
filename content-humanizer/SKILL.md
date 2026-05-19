@@ -1,6 +1,7 @@
 ---
 name: "content-humanizer"
-description: "Makes AI-generated content sound genuinely human — not just cleaned up, but alive. Use when content feels robotic, uses too many AI clichés, lacks personality, or reads like it was written by committee. Triggers: 'this sounds like AI', 'make it more human', 'add personality', 'it feels generic', 'sounds robotic', 'fix AI writing', 'inject our voice'. NOT for initial content creation (use content-production). NOT for SEO optimization (use content-production Mode 3)."
+description: "Makes AI-generated content sound genuinely human — not just cleaned up, but alive. Triggers: 'use content-humanizer', 'content humanizer', 'content-humanizer task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -259,3 +260,43 @@ When auditing: name the pattern → explain why it reads as AI → give the spec
 - **copywriting**: Use for conversion copy — landing pages, CTAs, headlines. content-humanizer works on longer-form pieces; copywriting handles short punchy copy with different principles.
 - **content-strategy**: Use when deciding what content to create. NOT for voice or draft execution.
 - **ai-seo**: Use after humanizing, to optimize for AI search citation. Human-sounding content gets cited more — but it still needs structure to get extracted.
+
+## When NOT to use
+
+- Initial draft creation — use `content-research-writer` or `content-creator`
+- Short conversion copy (CTAs, headlines, ads) — use `copywriting` or `ad-creative`
+- Pure SEO optimization on a clean draft — use `seo-content` or `ai-seo`
+- Content strategy / topic planning — use `content-strategy`
+- Internal docs that don't need a brand voice (changelogs, runbooks) — different bar
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Just delete 'delve' and we're good" | Surface cleanup ≠ humanization; rebuild the voice or it still reads AI |
+| "Skip marketing-context.md, I know the brand" | Improvised voices drift; the context file is the blueprint |
+| "Use a Hemingway-style shortening pass on everything" | Voice should match brand, not a generic style |
+| "Polish only — the structure's fine" | AI structure is half the tell; sentence rhythm + opener patterns must change |
+
+## Output Contract
+
+Done when:
+- Mode 1 audit named the specific AI tells with severity (🔴/🟡/🟢)
+- Mode 2 removed filler/hedges and fixed sentence-rhythm patterns
+- Mode 3 injected brand voice from `marketing-context.md` (or asked for an example)
+- Specific replaces generic (named examples, numbers, opinions)
+- No "delve", "tapestry", "in today's world", "it is important to note"
+- Sentence-length variation (no monotone rhythm)
+- Has a point of view — the writer has stakes
+
+## Examples
+
+### Example 1 — Blog post draft to humanize
+- Input: User pastes a 1200-word AI-drafted blog post about pricing
+- Action: Mode 1 audit lists 8 tells with severity; Mode 2 rewrites: drop 4 hedges, swap 3 generic claims for specific numbers, vary sentence length; Mode 3 injects brand voice (direct, slightly irreverent per marketing-context.md)
+- Output: Revised post + audit doc; reads like a person with an opinion, not a content farm
+
+### Example 2 — Voice injection only (other modes already done)
+- Input: "I already humanized this, just inject our voice"
+- Action: Skip Mode 1+2, read `marketing-context.md`, rewrite for brand-specific cadence + lexicon + perspective; flag confidence per paragraph
+- Output: Brand-voiced version with confidence tags 🟢/🟡/🔴 per section, notes on which lines need user input

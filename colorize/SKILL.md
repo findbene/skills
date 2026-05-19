@@ -1,6 +1,7 @@
 ---
 name: colorize
-description: Add strategic color to features that are too monochromatic or lack visual interest, making interfaces more engaging and expressive. Use when the user mentions the design looking gray, dull, lacking warmth, needing more color, or wanting a more vibrant or expressive palette.
+description: "Add strategic color to features that are too monochromatic or lack visual interest, making interfaces more engaging and expressive. Triggers: 'use colorize', 'colorize', 'colorize task'."
+allowed-tools: Glob, Grep, Read
 version: 2.1.1
 user-invocable: true
 argument-hint: "[target]"
@@ -141,3 +142,47 @@ Test that colorization improves the experience:
 - **Not overwhelming**: Is color balanced and purposeful?
 
 Remember: Color is emotional and powerful. Use it to create warmth, guide attention, communicate meaning, and express personality. But restraint and strategy matter more than saturation and variety. Be colorful, but be intentional.
+
+## Triggers
+
+the design looking gray, dull, lacking warmth, needing more color, or wanting a more vibrant or expressive palette
+
+## When NOT to use
+
+- Design already has a strong color system — use `design-system` or refine within it
+- Pure monochrome is intentional (editorial, brutalist) — adding color destroys the aesthetic
+- A11y-critical app needing higher contrast first — use `a11y-audit`
+- Brand override — use `brand-guidelines` with exact tokens
+- Charts/data viz only — use `data-viz-recharts` for color choices that survive perceptual ordering
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Purple-to-blue gradient is safe" | The most over-used AI palette; immediately reads as generic |
+| "Saturate every color +20%" | Visual noise; restraint is the strategy |
+| "Use 8 colors for richness" | 2-4 colors beyond neutrals; more = chaos |
+| "Pure `#f5f5f5` for background" | Tinted neutrals (warm or cool OKLCH) feel more intentional |
+
+## Output Contract
+
+Done when:
+- `/impeccable` context-gathering ran (existing brand colors included)
+- Palette ≤4 colors beyond neutrals
+- 60/30/10 distribution chosen (dominant / accent / detail)
+- Semantic colors mapped (success/error/warning/info)
+- OKLCH used for harmonious scales
+- WCAG-AA contrast verified for all text on color
+- No purple-blue AI-default gradients
+
+## Examples
+
+### Example 1 — Gray SaaS dashboard
+- Input: "Dashboard looks dead, all gray"
+- Action: Apply tinted neutrals (warm OKLCH), pick one brand-aligned dominant accent (60%), one secondary (30%) for status, one tertiary (10%) for delight; semantic mapping for chart states; verify contrast
+- Output: Tinted palette tokens, dashboard repainted with intentional 60/30/10, WCAG-AA preserved
+
+### Example 2 — Marketing site needs warmth
+- Input: "Landing page is monochrome and cold"
+- Action: Introduce warm primary (oklch 70% chroma), tint backgrounds, color icons + CTA, leave 90% surface neutral, headers in dominant color
+- Output: Restyled landing with intentional warmth, single dominant color, no gradient slop

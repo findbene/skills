@@ -1,6 +1,7 @@
 ---
 name: agentic-workspace-setup
-description: "Agent-friendly project workspace setup covering .agentic/ directory creation, progress.md, plan.md, discovery.md, and context recovery infrastructure. Use this skill any time a new project needs to be set up for agentic development, the .agentic/ workspace is missing, or context recovery files need to be created. Trigger immediately on: \".agentic\", \"workspace setup\", \"agentic workspace\", \"progress.md\", \"plan.md\", \"discovery.md\", \"context recovery\", \"project setup\", \"agentic project\", \"new project setup\", \"agent workspace\", \"session tracking\". If someone says \"set up this project for agent development\" this skill MUST trigger."
+description: 'Agent-friendly project workspace setup covering .agentic/ directory creation, progress.md, plan.md, discovery.md, an. Triggers: "use agentic-workspace-setup", "agentic workspace setup", "agentic task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Agentic Workspace Setup
@@ -67,16 +68,53 @@ This is the lifeline for context recovery. When the context window compacts or a
 
 ## Agent-First Project Setup Principles
 
-1. **90% of effort in planning, 10% in execution** — Spend most time in research, discovery, and planning phases
-2. **Context documents over context window** — Store important information in external files, not in chat history
-3. **Breadcrumb references** — Files should reference each other so agents can navigate between related context
-4. **Agent-centric validation** — Discuss in the planning phase what tools the agent has to validate its own work
+1. **90% of effort in planning, 10% in execution** — Spend most time in research, discovery, and planning phases → verify: step output matches expected outcome
+2. **Context documents over context window** — Store important information in external files, not in chat history → verify: step output matches expected outcome
+3. **Breadcrumb references** — Files should reference each other so agents can navigate between related context → verify: file content matches expected shape
+4. **Agent-centric validation** — Discuss in the planning phase what tools the agent has to validate its own work → verify: all checks pass
 
 ## Quick Start
 
 When starting a new project:
-1. Create a `.agentic/` directory (or project-level equivalent)
-2. Begin discovery phase — ask the user comprehensive questions
-3. Deploy parallel research subagents
-4. Synthesize into plan with user approval
-5. Begin implementation with progress tracking
+1. Create a `.agentic/` directory (or project-level equivalent) → verify: output exists + parses without error
+2. Begin discovery phase — ask the user comprehensive questions → verify: user confirms
+3. Deploy parallel research subagents → verify: step output matches expected outcome
+4. Synthesize into plan with user approval → verify: step output matches expected outcome
+5. Begin implementation with progress tracking → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to agentic workspace setup — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Agentic Workspace Setup needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for agentic workspace setup
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving agentic workspace setup
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

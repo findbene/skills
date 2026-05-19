@@ -1,6 +1,7 @@
 ---
 name: raffle-winner-picker
-description: Picks random winners from lists, spreadsheets, or Google Sheets for giveaways, raffles, and contests. Use this skill whenever the user wants to randomly select a winner, run a giveaway, pick raffle winners at an event, randomly assign participants, or fairly distribute limited spots. Apply whenever the user says "pick a random winner", "run a raffle", "select someone from this list", or "who wins the giveaway" — use cryptographically random selection rather than arbitrary manual picking.
+description: "Picks random winners from lists, spreadsheets, or Google Sheets for giveaways, raffles, and contests. Trigger: pick a random winner, run a raffle, select someone from this list, who wins the giveaway"
+allowed-tools: Glob, Grep, Read
 ---
 
 # Raffle Winner Picker
@@ -18,12 +19,12 @@ This skill randomly selects winners from lists, spreadsheets, or Google Sheets f
 
 ## What This Skill Does
 
-1. **Random Selection**: Uses cryptographically random selection
-2. **Multiple Sources**: Works with CSV, Excel, Google Sheets, or plain lists
-3. **Multiple Winners**: Can pick one or multiple winners
-4. **Duplicate Prevention**: Ensures the same person can't win twice
-5. **Transparent Results**: Shows the selection process clearly
-6. **Winner Details**: Displays all relevant information about winners
+1. **Random Selection**: Uses cryptographically random selection → verify: step output matches expected outcome
+2. **Multiple Sources**: Works with CSV, Excel, Google Sheets, or plain lists → verify: step output matches expected outcome
+3. **Multiple Winners**: Can pick one or multiple winners → verify: step output matches expected outcome
+4. **Duplicate Prevention**: Ensures the same person can't win twice → verify: step output matches expected outcome
+5. **Transparent Results**: Shows the selection process clearly → verify: step output matches expected outcome
+6. **Winner Details**: Displays all relevant information about winners → verify: step output matches expected outcome
 
 ## How to Use
 
@@ -115,22 +116,22 @@ Pick 1 winner and 3 runner-ups from the list
 ## Example Workflows
 
 ### Social Media Giveaway
-1. Export entries from Google Form to Sheets
-2. "Pick a random winner from [Sheet URL]"
+1. Export entries from Google Form to Sheets → verify: step output matches expected outcome
+2. "Pick a random winner from [Sheet URL]" → verify: step output matches expected outcome
 3. Verify winner details
-4. Announce publicly with timestamp
+4. Announce publicly with timestamp → verify: step output matches expected outcome
 
 ### Event Raffle
-1. Create CSV of attendee names and emails
-2. "Pick 10 random winners from attendees.csv"
-3. Export winner list
-4. Email winners directly
+1. Create CSV of attendee names and emails → verify: output file exists + no syntax error
+2. "Pick 10 random winners from attendees.csv" → verify: step output matches expected outcome
+3. Export winner list → verify: step output matches expected outcome
+4. Email winners directly → verify: step output matches expected outcome
 
 ### Team Assignment
-1. Have list of participants
-2. "Randomly split this list into 4 equal teams"
-3. Review assignments
-4. Share team rosters
+1. Have list of participants → verify: step output matches expected outcome
+2. "Randomly split this list into 4 equal teams" → verify: step output matches expected outcome
+3. Review assignments → verify: step output matches expected outcome
+4. Share team rosters → verify: step output matches expected outcome
 
 ## Tips
 
@@ -157,3 +158,27 @@ Pick 1 winner and 3 runner-ups from the list
 - Focus group participant selection
 - Random prize distribution at events
 
+## When NOT to use
+
+- Task is unrelated to raffle winner picker — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Raffle Winner Picker needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for raffle winner picker
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

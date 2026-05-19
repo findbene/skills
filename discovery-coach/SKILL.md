@@ -1,6 +1,7 @@
 ---
 name: discovery-coach
-description: Elite discovery call methodology coach covering SPIN Selling, Gap Selling, Sandler Pain Funnel, upfront contracts, and 30-minute call structure. Use this skill any time Biniyam is preparing for a first call with a prospect, structuring qualification questions, debriefing a call, figuring out why a prospect went cold, or wanting to know what to ask and in what order. Trigger immediately on: "discovery call", "first call", "prospect call", "what questions should I ask", "how do I qualify", "call prep", "call debrief", "they went cold after the call", "I have a call with", "meeting with a prospect", "intro call". If someone says "I'm getting on a call with a potential client" this skill MUST trigger.
+description: 'Elite discovery call methodology coach covering SPIN Selling, Gap Selling, Sandler Pain Funnel, upfront contracts, and 30-minute c. Triggers: "use discovery-coach", "discovery coach", "discovery task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Discovery Coach
@@ -77,12 +78,12 @@ information. Any of those is fine. Does that work?"
 
 ### Discovery Phase (18 min) — 60-70% on Current State
 Must know before pitching:
-1. What is broken? (in their words)
-2. Why is it broken? (root cause, not symptom)
-3. What does it cost? (dollars, time, risk, people)
-4. Who else cares? (stakeholder map)
-5. Why now? (trigger event)
-6. What happens if they do nothing?
+1. What is broken? (in their words) → verify: step output matches expected outcome
+2. Why is it broken? (root cause, not symptom) → verify: step output matches expected outcome
+3. What does it cost? (dollars, time, risk, people) → verify: step output matches expected outcome
+4. Who else cares? (stakeholder map) → verify: step output matches expected outcome
+5. Why now? (trigger event) → verify: step output matches expected outcome
+6. What happens if they do nothing? → verify: step output matches expected outcome
 
 ### Tailored Pitch (6 min)
 Only after understanding their situation:
@@ -111,3 +112,40 @@ The buyer should talk 60% of the time or more. If you're talking more than 40%, 
 
 ## Silence is a Tool
 After asking a hard question, wait. The buyer's first answer is the surface answer. The answer after the pause is the real one.
+
+## When NOT to use
+
+- Task is unrelated to discovery coach — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Discovery Coach needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for discovery coach
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving discovery coach
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

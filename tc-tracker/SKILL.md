@@ -1,6 +1,7 @@
 ---
 name: "tc-tracker"
-description: "Use when the user asks to track technical changes, create change records, manage TC lifecycles, or hand off work between AI sessions. Covers init/create/update/status/resume/close/export workflows for structured code change documentation."
+description: 'Use when the user asks to track technical changes, create change records, manage TC lifecycles, or hand off work between AI sessions. Triggers: "use tc-tracker", "tc tracker", "tc task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # TC Tracker
@@ -156,14 +157,14 @@ The handoff block lives at `session_context.handoff` inside each TC and is the s
 
 ## Validation Rules (Always Enforced)
 
-1. **State machine** — only valid transitions are allowed.
-2. **Sequential IDs** — `revision_history` uses `R1, R2, R3...`; `test_cases` uses `T1, T2, T3...`.
-3. **Append-only history** — revision entries are never modified or deleted.
-4. **Approval consistency** — `approved=true` requires `approved_by` and `approved_date`.
-5. **TC ID format** — must match `TC-NNN-MM-DD-YY-slug`.
-6. **Sub-TC ID format** — must match `TC-NNN.A` or `TC-NNN.A.N`.
-7. **Atomic writes** — JSON is written to `.tmp` then renamed.
-8. **Registry stats** — recomputed on every registry write.
+1. **State machine** — only valid transitions are allowed. → verify: step output matches expected outcome
+2. **Sequential IDs** — `revision_history` uses `R1, R2, R3...`; `test_cases` uses `T1, T2, T3...`. → verify: all checks pass
+3. **Append-only history** — revision entries are never modified or deleted. → verify: step output matches expected outcome
+4. **Approval consistency** — `approved=true` requires `approved_by` and `approved_date`. → verify: step output matches expected outcome
+5. **TC ID format** — must match `TC-NNN-MM-DD-YY-slug`. → verify: step output matches expected outcome
+6. **Sub-TC ID format** — must match `TC-NNN.A` or `TC-NNN.A.N`. → verify: step output matches expected outcome
+7. **Atomic writes** — JSON is written to `.tmp` then renamed. → verify: output exists + parses without error
+8. **Registry stats** — recomputed on every registry write. → verify: output exists + parses without error
 
 ## Non-Blocking Bookkeeping Pattern
 
@@ -205,3 +206,40 @@ For onboarding an existing project with undocumented history, build a `retro_cha
 - [references/tc-schema.md](references/tc-schema.md) — Full JSON schema for TC records and the registry.
 - [references/lifecycle.md](references/lifecycle.md) — State machine, valid transitions, and recovery flows.
 - [references/handoff-format.md](references/handoff-format.md) — Session handoff structure and best practices.
+
+## When NOT to use
+
+- Task is unrelated to tc tracker — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Tc Tracker needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for tc tracker
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving tc tracker
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

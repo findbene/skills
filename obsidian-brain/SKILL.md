@@ -1,6 +1,7 @@
 ---
 name: obsidian-brain
-description: "Obsidian vault connector bridging Claude Code sessions with Biniyam persistent second-brain memory at C:/Users/findb/OneDrive/Documents/Obsidian_Biniyam/. Use this skill any time Obsidian context needs to be loaded at session start, memories or decisions need to be saved to the vault, project progress needs to be synced, or the vault needs to be searched for relevant knowledge. Trigger immediately on: \"Obsidian\", \"check Obsidian\", \"save to Obsidian\", \"update my vault\", \"Obsidian brain\", \"load from vault\", \"write to my notes\", \"my second brain\", \"vault\", \"session memory\", \"load context\", \"save this to memory\", \"obsidian-brain\". If any session starts or someone says \"save this to memory\" this skill MUST trigger."
+description: 'Obsidian vault connector bridging Claude Code sessions with Biniyam persistent second-brain memory at C:/Users/findb/OneDrive. Triggers: "use obsidian-brain", "manage obsidian brain", "obsidian brain.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Obsidian Brain
@@ -80,10 +81,10 @@ source: claude-code
 Run this when starting any session on a project:
 
 ```
-1. Read 03-Projects/<project>/claude-memory.md  (Claude's persistent memory for that project)
-2. Read 03-Projects/<project>/_decisions.md      (key architectural decisions)
-3. Grep VAULT/03-Projects/<project>/ for recent notes (last 7 days by date frontmatter)
-4. Read 00-Inbox/ — any unprocessed notes for the project
+1. Read 03-Projects/<project>/claude-memory.md  (Claude's persistent memory for that project) → verify: file content matches expected shape
+2. Read 03-Projects/<project>/_decisions.md      (key architectural decisions) → verify: file content matches expected shape
+3. Grep VAULT/03-Projects/<project>/ for recent notes (last 7 days by date frontmatter) → verify: step output matches expected outcome
+4. Read 00-Inbox/ — any unprocessed notes for the project → verify: file content matches expected shape
 ```
 
 Combine what you find with `.agentic/progress.md` for a complete session orientation.
@@ -208,11 +209,11 @@ Review inbox notes at the start of the next session and file them properly.
 
 ### Session Start (RECALL)
 ```
-1. Read 03-Projects/<project>/claude-memory.md
-2. Read 03-Projects/<project>/_decisions.md
-3. Scan 00-Inbox/ for anything flagged for this project
-4. Merge with .agentic/progress.md
-5. Summarize state to user in 3-5 bullets
+1. Read 03-Projects/<project>/claude-memory.md → verify: file readable + content matches expected shape
+2. Read 03-Projects/<project>/_decisions.md → verify: file readable + content matches expected shape
+3. Scan 00-Inbox/ for anything flagged for this project → verify: step output matches expected outcome
+4. Merge with .agentic/progress.md → verify: step output matches expected outcome
+5. Summarize state to user in 3-5 bullets → verify: step output matches expected outcome
 ```
 
 ### During Session (CAPTURE)
@@ -222,10 +223,10 @@ Review inbox notes at the start of the next session and file them properly.
 
 ### Session End (SYNC)
 ```
-1. Append session summary to claude-memory.md
-2. Write daily note to 03-Projects/<project>/Daily/<date>.md
-3. Update .agentic/progress.md (this is still the authoritative recovery doc)
-4. Clear anything from 00-Inbox that belongs in the project folder
+1. Append session summary to claude-memory.md → verify: step output matches expected outcome
+2. Write daily note to 03-Projects/<project>/Daily/<date>.md → verify: output file exists + no syntax error
+3. Update .agentic/progress.md (this is still the authoritative recovery doc) → verify: step output matches expected outcome
+4. Clear anything from 00-Inbox that belongs in the project folder → verify: step output matches expected outcome
 ```
 
 ---
@@ -278,3 +279,45 @@ Daily notes:   VAULT\03-Projects\<project>\Daily\YYYY-MM-DD.md
 Cross-project: VAULT\01-Notes\Work\Claude-Brain\
 Inbox:         VAULT\00-Inbox\
 ```
+
+## When NOT to use
+
+- Task is unrelated to obsidian brain — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Obsidian Brain needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for obsidian brain
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

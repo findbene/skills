@@ -1,6 +1,7 @@
 ---
 name: synthesia-tools
-description: "Synthesia AI avatar video creation via MCP for generating corporate videos, training content, and multi-language video dubbing. Use this skill any time Synthesia needs to be used for avatar videos, corporate video production needs AI avatars, or video translation and dubbing with Synthesia is required. Trigger immediately on: \"Synthesia\", \"Synthesia video\", \"AI presenter\", \"corporate video AI\", \"Synthesia avatar\", \"video dubbing Synthesia\", \"Synthesia MCP\", \"generate Synthesia video\", \"Synthesia template\", \"AI training video\", \"talking head Synthesia\". If someone says \"create a video with Synthesia\" or \"use Synthesia for this presentation\" this skill MUST trigger."
+description: 'Synthesia AI avatar video creation via MCP for generating corporate videos, training content, and multi-language video dubbing. Triggers: "use synthesia-tools", "synthesia tools", "synthesia task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Synthesia Tools
@@ -88,3 +89,42 @@ synthesia_get_dubbing(dubbingId="...")
 - Dubbing preserves lip sync and avatar motion while changing language
 - Requires `SYNTHESIA_API_KEY` env var — get from Synthesia dashboard
 - Great for creating multilingual wedding welcome videos
+
+## When NOT to use
+
+- Avatar video generation via HeyGen — use `heygen-tools`
+- Live-action shot video — use `video-use` or `pika-tools`
+- Programmatic React-based video — use `remotion`
+- Image generation for thumbnails — use `nano-banana-pro`
+- Audio-only voiceover — use `elevenlabs-tools` or `resemble-tools`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Skip waiting for video completion, return immediately" | Video render is async — without `synthesia_wait_for_video` you get nothing usable |
+| "Use a personal avatar without consent" | Custom avatars require recorded consent; do not bypass |
+| "Hard-code script with `$variables` and skip templates" | Templates are the maintainable pattern for repeatable content; use them |
+| "API key in code" | Always in `SYNTHESIA_API_KEY` env var; never commit |
+
+## Output Contract
+
+Finished output must contain:
+- Video creation call with avatar, voice, language, script explicit
+- Polling step via `synthesia_wait_for_video` until status = complete
+- Download URL captured and stored or sent on
+- Optional: template ID + variables instead of raw script (more maintainable)
+- Error path: handle quota exceeded, invalid avatar, language not supported
+- `.env` reference for `SYNTHESIA_API_KEY` (never inlined)
+
+## Examples
+
+**Example 1 — Generate a single corporate welcome video**
+- Input: "Create a welcome video for new hires, avatar Anna, 60s English script"
+- Action: `synthesia_create_video` with avatar=Anna, voice=English-US, script → `synthesia_wait_for_video` → return download URL
+- Output: MP4 download URL, video ID, runtime ~3-8 min
+
+**Example 2 — Dub an existing English training video to 5 languages**
+- Input: "Translate this training video to Spanish, French, German, Japanese, Brazilian Portuguese"
+- Action: For each target → call dubbing API with source video + target language → poll completion → collect 5 download URLs
+- Output: 5 MP4 URLs, original lip-sync preserved, completion report

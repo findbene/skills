@@ -1,13 +1,7 @@
 ---
 name: obsidian-skills
-description: >
-  Work with Obsidian vaults and files — Obsidian Flavored Markdown (.md), Bases database views (.base),
-  JSON Canvas mind maps (.canvas), and the Obsidian CLI for vault automation and plugin development.
-  Also includes Defuddle for extracting clean markdown from web pages (prefer over WebFetch for articles).
-  Use this skill whenever the user is working inside an Obsidian vault, mentions wikilinks, callouts,
-  embeds, frontmatter, .base files, .canvas files, Bases formulas/views/filters, or asks to read a URL
-  cleanly. Trigger immediately on: wikilinks, [[note]], ![[embed]], callouts, Obsidian properties,
-  .base file, .canvas file, Bases, JSON Canvas, obsidian cli, defuddle, vault, parse URL.
+description: 'Work with Obsidian vaults and files — Obsidian Flavored Markdown (.md), Bases database views (.base), JSON Canvas mind map. Triggers: "use obsidian-skills", "manage obsidian skills", "obsidian skills.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Obsidian Skills
@@ -83,11 +77,11 @@ Use `--copy` on any command to copy output to clipboard. Use `silent` to suppres
 
 After changing plugin or theme code:
 
-1. Reload the plugin:
+1. Reload the plugin: → verify: file content matches expected shape
    ```bash
    obsidian plugin:reload id=my-plugin
    ```
-2. Check for errors:
+2. Check for errors: → verify: all checks pass
    ```bash
    obsidian dev:errors
    ```
@@ -96,7 +90,7 @@ After changing plugin or theme code:
    obsidian dev:screenshot path=screenshot.png
    obsidian dev:dom selector=".workspace-leaf" text
    ```
-4. Check console:
+4. Check console: → verify: all checks pass
    ```bash
    obsidian dev:console level=error
    ```
@@ -155,3 +149,40 @@ Load these on demand — only when working on the relevant file type.
   - [`references/functions-reference.md`](references/functions-reference.md) — Complete function reference for all Bases types
 - [`references/json-canvas.md`](references/json-canvas.md) — Nodes, edges, groups, colors, layout, validation
   - [`references/canvas-examples.md`](references/canvas-examples.md) — Full canvas examples: mind maps, project boards, flowcharts
+
+## When NOT to use
+
+- Task is unrelated to obsidian skills — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Obsidian Skills needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for obsidian skills
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving obsidian skills
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

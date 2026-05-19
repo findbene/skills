@@ -1,6 +1,7 @@
 ---
 name: "marketing-demand-acquisition"
-description: Creates demand generation campaigns, optimizes paid ad spend across LinkedIn, Google, and Meta, develops SEO strategies, and structures partnership programs for Series A+ startups scaling internationally. Use when planning marketing strategy, growth marketing, advertising campaigns, PPC optimization, lead generation, pipeline generation, or startup marketing budgets. Covers multi-channel acquisition (Google Ads, LinkedIn Ads, Meta Ads), CAC analysis, MQL/SQL workflows, attribution modeling, technical SEO, and co-marketing partnerships for hybrid PLG/Sales-Led motions in EU/US/Canada markets.
+description: "Creates demand generation campaigns, optimizes paid ad spend across LinkedIn, Google,. Triggers: 'use marketing-demand-acquisition', 'marketing demand acquisition', 'marketing-demand-acquisition task."
+allowed-tools: Glob, Grep, Read
 triggers:
   - demand gen
   - demand generation
@@ -66,12 +67,12 @@ Acquisition playbook for Series A+ startups scaling internationally (EU/US/Canad
 
 ### Campaign Planning Workflow
 
-1. Define objective, budget, duration, audience
-2. Select channels based on funnel stage
-3. Create campaign in HubSpot with proper UTM structure
-4. Configure lead scoring and assignment rules
-5. Launch with test budget, validate tracking
-6. **Validation:** UTM parameters appear in HubSpot contact records
+1. Define objective, budget, duration, audience → verify: step output matches expected outcome
+2. Select channels based on funnel stage → verify: step output matches expected outcome
+3. Create campaign in HubSpot with proper UTM structure → verify: output exists + parses without error
+4. Configure lead scoring and assignment rules → verify: step output matches expected outcome
+5. Launch with test budget, validate tracking → verify: all checks pass
+6. **Validation:** UTM parameters appear in HubSpot contact records → verify: step output matches expected outcome
 
 ### UTM Structure
 
@@ -98,21 +99,21 @@ utm_term={keyword}         // [paid search only]
 
 ### LinkedIn Ads Setup
 
-1. Create campaign group for initiative
+1. Create campaign group for initiative → verify: output exists + parses without error
 2. Structure: Awareness → Consideration → Conversion campaigns
-3. Target: Director+, 50-5000 employees, relevant industries
-4. Start $50/day per campaign
-5. Scale 20% weekly if CAC < target
-6. **Validation:** LinkedIn Insight Tag firing on all pages
+3. Target: Director+, 50-5000 employees, relevant industries → verify: step output matches expected outcome
+4. Start $50/day per campaign → verify: step output matches expected outcome
+5. Scale 20% weekly if CAC < target → verify: step output matches expected outcome
+6. **Validation:** LinkedIn Insight Tag firing on all pages → verify: step output matches expected outcome
 
 ### Google Ads Setup
 
 1. Prioritize: Brand → Competitor → Solution → Category keywords
-2. Structure ad groups with 5-10 tightly themed keywords
-3. Create 3 responsive search ads per ad group (15 headlines, 4 descriptions)
-4. Maintain negative keyword list (100+)
-5. Start Manual CPC, switch to Target CPA after 50+ conversions
-6. **Validation:** Conversion tracking firing, search terms reviewed weekly
+2. Structure ad groups with 5-10 tightly themed keywords → verify: step output matches expected outcome
+3. Create 3 responsive search ads per ad group (15 headlines, 4 descriptions) → verify: output exists + parses without error
+4. Maintain negative keyword list (100+) → verify: step output matches expected outcome
+5. Start Manual CPC, switch to Target CPA after 50+ conversions → verify: step output matches expected outcome
+6. **Validation:** Conversion tracking firing, search terms reviewed weekly → verify: step output matches expected outcome
 
 ### Budget Allocation (Series A, $40k/month)
 
@@ -152,20 +153,20 @@ See [campaign-templates.md](references/campaign-templates.md) for detailed struc
 
 ### On-Page Optimization
 
-1. URL: Include primary keyword, 3-5 words
-2. Title tag: Primary keyword + brand (60 chars)
-3. Meta description: CTA + value prop (155 chars)
-4. H1: Match search intent (one per page)
-5. Content: 2000-3000 words for comprehensive topics
-6. Internal links: 3-5 relevant pages
-7. **Validation:** Google Search Console shows page indexed, no errors
+1. URL: Include primary keyword, 3-5 words → verify: step output matches expected outcome
+2. Title tag: Primary keyword + brand (60 chars) → verify: step output matches expected outcome
+3. Meta description: CTA + value prop (155 chars) → verify: step output matches expected outcome
+4. H1: Match search intent (one per page) → verify: step output matches expected outcome
+5. Content: 2000-3000 words for comprehensive topics → verify: step output matches expected outcome
+6. Internal links: 3-5 relevant pages → verify: step output matches expected outcome
+7. **Validation:** Google Search Console shows page indexed, no errors → verify: step output matches expected outcome
 
 ### Link Building Priorities
 
-1. Digital PR (original research, industry reports)
-2. Guest posting (DA 40+ sites only)
-3. Partner co-marketing (complementary SaaS)
-4. Community engagement (Reddit, Quora)
+1. Digital PR (original research, industry reports) → verify: step output matches expected outcome
+2. Guest posting (DA 40+ sites only) → verify: step output matches expected outcome
+3. Partner co-marketing (complementary SaaS) → verify: step output matches expected outcome
+4. Community engagement (Reddit, Quora) → verify: step output matches expected outcome
 
 ---
 
@@ -182,20 +183,20 @@ See [campaign-templates.md](references/campaign-templates.md) for detailed struc
 
 ### Partnership Workflow
 
-1. Identify partners with overlapping ICP, no competition
-2. Outreach with specific integration/co-marketing proposal
-3. Define success metrics, revenue model, term
-4. Create co-branded assets and partner tracking
-5. Enable partner sales team with demo training
-6. **Validation:** Partner UTM tracking functional, leads routing correctly
+1. Identify partners with overlapping ICP, no competition → verify: step output matches expected outcome
+2. Outreach with specific integration/co-marketing proposal → verify: step output matches expected outcome
+3. Define success metrics, revenue model, term → verify: step output matches expected outcome
+4. Create co-branded assets and partner tracking → verify: output exists + parses without error
+5. Enable partner sales team with demo training → verify: step output matches expected outcome
+6. **Validation:** Partner UTM tracking functional, leads routing correctly → verify: step output matches expected outcome
 
 ### Affiliate Program Setup
 
-1. Select platform (PartnerStack, Impact, Rewardful)
-2. Configure commission structure (20-30% recurring)
-3. Create affiliate enablement kit (assets, links, content)
-4. Recruit through outbound, inbound, events
-5. **Validation:** Test affiliate link tracks through to conversion
+1. Select platform (PartnerStack, Impact, Rewardful) → verify: step output matches expected outcome
+2. Configure commission structure (20-30% recurring) → verify: step output matches expected outcome
+3. Create affiliate enablement kit (assets, links, content) → verify: output exists + parses without error
+4. Recruit through outbound, inbound, events → verify: step output matches expected outcome
+5. **Validation:** Test affiliate link tracks through to conversion → verify: all checks pass
 
 See [international-playbooks.md](references/international-playbooks.md) for regional tactics.
 
@@ -214,10 +215,10 @@ See [international-playbooks.md](references/international-playbooks.md) for regi
 ### HubSpot Attribution Setup
 
 1. Navigate to Marketing → Reports → Attribution
-2. Select W-Shaped model for hybrid motion
-3. Define conversion event (deal created)
-4. Set 90-day lookback window
-5. **Validation:** Run report for past 90 days, all channels show data
+2. Select W-Shaped model for hybrid motion → verify: step output matches expected outcome
+3. Define conversion event (deal created) → verify: output exists + parses without error
+4. Set 90-day lookback window → verify: step output matches expected outcome
+5. **Validation:** Run report for past 90 days, all channels show data → verify: command exit code 0
 
 ### Weekly Metrics Dashboard
 
@@ -310,3 +311,40 @@ Required:
 - **content-strategy**: For content-driven demand generation.
 - **email-sequence**: For nurture sequences in the demand funnel.
 - **campaign-analytics**: For measuring demand gen effectiveness.
+
+## When NOT to use
+
+- Task is unrelated to marketing demand acquisition — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Marketing Demand Acquisition needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for marketing demand acquisition
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving marketing demand acquisition
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

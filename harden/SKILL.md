@@ -1,6 +1,7 @@
 ---
 name: harden
-description: Make interfaces production-ready: error handling, empty states, onboarding flows, i18n, text overflow, and edge case management. Use when the user asks to harden, make production-ready, handle edge cases, add error states, design empty states, improve onboarding, or fix overflow and i18n issues.
+description: "Make interfaces production-ready: error handling, empty states, onboarding flows, i18n, text overflow, and edge case management. Triggers: 'use harden', 'harden', 'harden task'."
+allowed-tools: Glob, Grep, Read
 version: 2.1.1
 user-invocable: true
 argument-hint: "[target]"
@@ -387,3 +388,45 @@ Test thoroughly with edge cases:
 - **Empty**: Remove all data, test empty states
 
 Remember: You're hardening for production reality, not demo perfection. Expect users to input weird data, lose connection mid-flow, and use your product in unexpected ways. Build resilience into every component.
+
+## When NOT to use
+
+- Task is unrelated to harden — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Harden needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for harden
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

@@ -1,6 +1,7 @@
 ---
 name: marketing-psychology
-description: "Apply psychological principles, mental models, and behavioral science to marketing strategy, copy, pricing, and UX. Use this whenever the user mentions psychology, mental models, cognitive bias, persuasion, behavioral science, why people buy, decision-making, consumer behavior, anchoring, social proof, scarcity, loss aversion, framing, nudge, or pricing psychology. Even if the user does not mention 'psychology' explicitly, trigger when they're asking how to make marketing more effective or why customers behave a certain way."
+description: "Apply psychological principles, mental models, and behavioral science to marketing strategy, copy, pricing, a. Triggers: 'use marketing-psychology', 'marketing psychology', 'marketing-psychology task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,10 +17,10 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Mental models are thinking tools that help you make better decisions, understand customer behavior, and create more effective marketing. When helping users:
 
-1. Identify which mental models apply to their situation
-2. Explain the psychology behind the model
-3. Provide specific marketing applications
-4. Suggest how to implement ethically
+1. Identify which mental models apply to their situation → verify: diff matches intended change
+2. Explain the psychology behind the model → verify: step output matches expected outcome
+3. Provide specific marketing applications → verify: step output matches expected outcome
+4. Suggest how to implement ethically → verify: step output matches expected outcome
 
 ---
 
@@ -366,11 +367,11 @@ See [references/quick-reference.md](references/quick-reference.md).
 
 ## Task-Specific Questions
 
-1. What specific behavior are you trying to influence?
-2. What does your customer believe before encountering your marketing?
+1. What specific behavior are you trying to influence? → verify: step output matches expected outcome
+2. What does your customer believe before encountering your marketing? → verify: step output matches expected outcome
 3. Where in the journey (awareness → consideration → decision) is this?
-4. What's currently preventing the desired action?
-5. Have you tested this with real customers?
+4. What's currently preventing the desired action? → verify: step output matches expected outcome
+5. Have you tested this with real customers? → verify: all checks pass
 
 ---
 
@@ -381,3 +382,45 @@ See [references/quick-reference.md](references/quick-reference.md).
 - **popup-cro**: Use triggers and psychology in popups
 - **pricing-page optimization**: See page-cro for pricing psychology
 - **ab-test-setup**: Test psychological hypotheses
+
+## Triggers
+
+psychology, mental models, cognitive bias, persuasion, behavioral science, why people buy, decision-making, consumer behavior, anchoring, social proof, scarcity, loss aversion, framing, nudge, or pricing psychology. Even
+
+## When NOT to use
+
+- Pure copywriting execution — use `copywriting` after psychology selects the levers
+- Channel mix and growth tactics — use `growth-hacker` or `marketing-strategy-pmm`
+- Pricing model design end-to-end — use `pricing-strategy`
+- A/B test execution — use `ab-test-setup`
+- Dark patterns or anything intentionally deceptive — refuse and flag
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Use scarcity manipulation even if false" | Fake scarcity = dark pattern; tanks trust and is unethical |
+| "Apply 12 biases to one CTA" | Overstuffed psychology dilutes itself; pick 2-3 leveraged ones |
+| "Skip product-marketing-context" | Tailoring is half the value; read the context first |
+| "Borrow what competitors do" | First-principles approach beats copying; ask why |
+
+## Output Contract
+
+Done when:
+- `product-marketing-context.md` read if present
+- 2-4 mental models / biases chosen as primary levers
+- Each lever mapped to specific marketing application (copy, pricing, UX)
+- Ethical implementation explicit — no dark patterns
+- Recommended next-step linked to execution skills (copywriting, page-cro, etc.)
+
+## Examples
+
+### Example 1 — Pricing page underperforming
+- Input: "Our pricing page conversion is low"
+- Action: Apply anchoring (lead with highest tier), decoy effect (3 tiers with middle as target), loss aversion ("includes/excludes" framing), social proof on highest tier; hand off to `page-cro` for execution
+- Output: 4 specific changes mapped to bias; ethical implementation notes; A/B test hypothesis brief
+
+### Example 2 — Email subject lines flat
+- Input: "Open rates dropped 30%"
+- Action: Apply curiosity gap, specificity bias, identity priming; 5 subject-line drafts each leveraging one principle; hand to `copywriting` for refinement
+- Output: 5 testable subject lines with the psychological lever named; testing plan referencing `ab-test-setup`

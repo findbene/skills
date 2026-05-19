@@ -1,6 +1,7 @@
 ---
 name: paid-ads
-description: "Plan, optimize, and troubleshoot paid advertising campaigns across Google Ads, Meta Ads, LinkedIn Ads, and other platforms — including strategy, targeting, bidding, creative direction, and performance analysis. Use this whenever the user asks about 'paid ads,' 'Google Ads,' 'Facebook ads,' 'Meta ads,' 'LinkedIn ads,' 'PPC,' 'ad campaigns,' 'ad performance,' 'why aren't my ads working,' or 'improve ROAS.' Trigger even when the user shares ad performance data and asks for help interpreting it."
+description: "Plan, optimize, and troubleshoot paid advertising campaigns across Google Ads, Meta Ads, LinkedIn Ads, and other platforms — including strategy,. Triggers: 'use paid-ads', 'paid ads', 'paid-ads task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -138,10 +139,10 @@ LI_LeadGen_CMOs-SaaS_Whitepaper_Mar24
 - Bold, readable text overlay (keep under 20%)
 
 ### Video Ads Structure (15-30 sec)
-1. Hook (0-3 sec): Pattern interrupt, question, or bold statement
-2. Problem (3-8 sec): Relatable pain point
-3. Solution (8-20 sec): Show product/benefit
-4. CTA (20-30 sec): Clear next step
+1. Hook (0-3 sec): Pattern interrupt, question, or bold statement → verify: step output matches expected outcome
+2. Problem (3-8 sec): Relatable pain point → verify: step output matches expected outcome
+3. Solution (8-20 sec): Show product/benefit → verify: step output matches expected outcome
+4. CTA (20-30 sec): Clear next step → verify: step output matches expected outcome
 
 **Production tips:**
 - Captions always (85% watch without sound)
@@ -150,10 +151,10 @@ LI_LeadGen_CMOs-SaaS_Whitepaper_Mar24
 - First 3 seconds determine if they watch
 
 ### Creative Testing Hierarchy
-1. Concept/angle (biggest impact)
+1. Concept/angle (biggest impact) → verify: step output matches expected outcome
 2. Hook/headline
-3. Visual style
-4. Body copy
+3. Visual style → verify: step output matches expected outcome
+4. Body copy → verify: step output matches expected outcome
 5. CTA
 
 ---
@@ -171,11 +172,11 @@ LI_LeadGen_CMOs-SaaS_Whitepaper_Mar24
 ### Optimization Levers
 
 **If CPA is too high:**
-1. Check landing page (is the problem post-click?)
-2. Tighten audience targeting
-3. Test new creative angles
-4. Improve ad relevance/quality score
-5. Adjust bid strategy
+1. Check landing page (is the problem post-click?) → verify: all checks pass
+2. Tighten audience targeting → verify: step output matches expected outcome
+3. Test new creative angles → verify: all checks pass
+4. Improve ad relevance/quality score → verify: step output matches expected outcome
+5. Adjust bid strategy → verify: step output matches expected outcome
 
 **If CTR is low:**
 - Creative isn't resonating → test new hooks/angles
@@ -188,10 +189,10 @@ LI_LeadGen_CMOs-SaaS_Whitepaper_Mar24
 - Low relevance score → improve creative fit
 
 ### Bid Strategy Progression
-1. Start with manual or cost caps
-2. Gather conversion data (50+ conversions)
-3. Switch to automated with targets based on historical data
-4. Monitor and adjust targets based on results
+1. Start with manual or cost caps → verify: step output matches expected outcome
+2. Gather conversion data (50+ conversions) → verify: step output matches expected outcome
+3. Switch to automated with targets based on historical data → verify: step output matches expected outcome
+4. Monitor and adjust targets based on results → verify: step output matches expected outcome
 
 ---
 
@@ -282,12 +283,12 @@ Before launching campaigns, ensure proper tracking and account setup.
 
 ## Task-Specific Questions
 
-1. What platform(s) are you currently running or want to start with?
-2. What's your monthly ad budget?
-3. What does a successful conversion look like (and what's it worth)?
-4. Do you have existing creative assets or need to create them?
-5. What landing page will ads point to?
-6. Do you have pixel/conversion tracking set up?
+1. What platform(s) are you currently running or want to start with? → verify: command exit code 0
+2. What's your monthly ad budget? → verify: step output matches expected outcome
+3. What does a successful conversion look like (and what's it worth)? → verify: step output matches expected outcome
+4. Do you have existing creative assets or need to create them? → verify: output exists + parses without error
+5. What landing page will ads point to? → verify: step output matches expected outcome
+6. Do you have pixel/conversion tracking set up? → verify: step output matches expected outcome
 
 ---
 
@@ -313,3 +314,40 @@ For tracking, see also: [ga4.md](../../tools/integrations/ga4.md), [segment.md](
 - **analytics-tracking**: For proper conversion tracking setup
 - **ab-test-setup**: For landing page testing to improve ROAS
 - **page-cro**: For optimizing post-click conversion rates
+
+## When NOT to use
+
+- Task doesn't involve managing paid advertising campaigns → use the matching domain skill instead
+- Simple one-off operation that doesn't need this skill's structure
+- Different toolchain required → check `find-skills` skill for alternatives
+- User explicitly asks to skip skill discipline → respect the override
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the verify step, output looks right" | Eyeballing without verification ships broken outputs |
+| "Generic answer is good enough" | paid ads strategy needs domain-specific decisions, not boilerplate |
+| "I can hold all context in head" | Multi-step state loss creates regressions you won't catch |
+| "Just one more shortcut" | Shortcuts compound — finish discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced and matches user's stated goal
+- All verification steps in process passed
+- Edge cases for managing paid advertising campaigns addressed or explicitly noted
+- Output is reproducible (no hidden state)
+- Hand-off summary provided so user can validate without re-reading entire flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard request involving managing paid advertising campaigns
+- Action: follow the documented numbered process, apply verify clauses per step
+- Output: deliverable that passes the Output Contract
+
+### Example 2 — edge case
+- Input: request with non-standard constraint or partial info
+- Action: detect the gap, ask clarifying question OR document assumption, proceed with adapted process
+- Output: deliverable + explicit note on assumption/limitation

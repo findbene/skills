@@ -1,6 +1,7 @@
 ---
 name: seedance-cinematic
-description: Generate cinematic film-style video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants cinematic, film-like, movie-quality, Hollywood-style, dramatic, or professional film-quality AI video. Triggers on: cinematic, film look, movie scene, dramatic lighting, depth of field, lens flare, anamorphic, letterbox, noir, epic, Steadicam, dolly, crane shot, or any cinematic video generation request. Always use this skill even if the user doesn't explicitly say "cinematic" but describes a film-like aesthetic.
+description: "Generate cinematic film-style video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-cinematic', 'seedance cinematic', 'seedance-cinematic task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield — Cinematic Film-Style Prompt Generator
@@ -1327,3 +1328,33 @@ Use this skill whenever the user describes ANY cinematic intent—whether they s
 **Last Updated:** April 2026
 **Seedance 2.0 on Higgsfield Skill Version:** 2.0
 **Compatibility:** Professional cinematography standards, film-industry terminology, platform optimization
+
+## When NOT to use
+
+- Task is unrelated to seedance cinematic — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Cinematic needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance cinematic
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

@@ -1,6 +1,7 @@
 ---
 name: seedance-anime-action
-description: Generate anime-style video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants anime, Japanese animation style, shonen action, seinen drama, magical girl, mecha, isekai, slice-of-life anime, or any Japanese animation aesthetic. Triggers on: anime, Japanese animation, shonen, seinen, manga style video, anime fight, anime opening, anime ending, sakura, chibi, kawaii, mecha, isekai, or any anime-style request. Use even for "make it look like an anime" or "Japanese cartoon style."
+description: "Generate anime-style video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-anime-action', 'seedance anime action', 'seedance-anime-action task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Anime-Style Video Generation for Seedance 2.0 on Higgsfield
@@ -284,37 +285,37 @@ Each anime genre has a signature visual identity. Master these to match user int
 When describing animated scenes, reference these effects directly in your Seedance 2.0 on Higgsfield prompts:
 
 ### **Motion & Energy**
-1. **Speed Lines (Streaks):** Straight lines radiating from a point or trailing behind motion. Used for fast movement, not blur. Sharp, clean lines.
-2. **Impact Frames:** Single frozen moment of impact with a bright flash or cross-shaped highlight. Holds for 0.2-0.4 seconds.
-3. **Smear Frames:** Rapid motion shown as smeared/stretched image, creating sense of extreme speed. Lasts one frame in animation.
-4. **Motion Blur Trailing:** Subtle motion blur that trails behind fast-moving objects, not covering the object itself.
-5. **Pulsing Glow:** Objects/characters surrounded by expanding and contracting colored light. Indicates power or energy buildup.
-6. **Aura Emission:** Colored energy (electric, fire, ice, ki) radiating from character. Can expand in layers or pulse.
+1. **Speed Lines (Streaks):** Straight lines radiating from a point or trailing behind motion. Used for fast movement, not blur. Sharp, clean lines. → verify: step output matches expected outcome
+2. **Impact Frames:** Single frozen moment of impact with a bright flash or cross-shaped highlight. Holds for 0.2-0.4 seconds. → verify: step output matches expected outcome
+3. **Smear Frames:** Rapid motion shown as smeared/stretched image, creating sense of extreme speed. Lasts one frame in animation. → verify: step output matches expected outcome
+4. **Motion Blur Trailing:** Subtle motion blur that trails behind fast-moving objects, not covering the object itself. → verify: step output matches expected outcome
+5. **Pulsing Glow:** Objects/characters surrounded by expanding and contracting colored light. Indicates power or energy buildup. → verify: step output matches expected outcome
+6. **Aura Emission:** Colored energy (electric, fire, ice, ki) radiating from character. Can expand in layers or pulse. → verify: step output matches expected outcome
 
 ### **Impact & Emotion**
-7. **White Flash (Impact Light):** Sudden bright white overlay covering screen, used to obscure transitions or emphasize impact. Clears in 0.3 seconds.
-8. **Screen Shake:** Entire frame vibrates slightly during impacts or explosions. Conveys force.
-9. **Cross-Shaped Highlight:** Bright cross (+) shape at center of impact point. Adds visual intensity.
-10. **Dramatic Shadow Drop:** Character silhouette darkens dramatically, shadows deepen. Indicates power or danger.
+7. **White Flash (Impact Light):** Sudden bright white overlay covering screen, used to obscure transitions or emphasize impact. Clears in 0.3 seconds. → verify: step output matches expected outcome
+8. **Screen Shake:** Entire frame vibrates slightly during impacts or explosions. Conveys force. → verify: step output matches expected outcome
+9. **Cross-Shaped Highlight:** Bright cross (+) shape at center of impact point. Adds visual intensity. → verify: step output matches expected outcome
+10. **Dramatic Shadow Drop:** Character silhouette darkens dramatically, shadows deepen. Indicates power or danger. → verify: step output matches expected outcome
 
 ### **Particle & Environmental**
-11. **Sakura Petals:** Semi-translucent pink petals floating across frame on invisible wind. Used in romance, nostalgia, or wind-themed scenes.
-12. **Spark Burst:** Hot white/yellow sparks emanating from impact point or mechanical object. Fades quickly.
-13. **Dust Cloud:** Tan/gray particles swirling around motion or impact. Rises and dissipates.
-14. **Water Droplets:** Droplets suspended mid-air or streaming, often with light reflection.
-15. **Fire/Flame Effect:** Stylized flames (not realistic) with bold orange/red/yellow colors. Often depicted with speed lines within the fire.
+11. **Sakura Petals:** Semi-translucent pink petals floating across frame on invisible wind. Used in romance, nostalgia, or wind-themed scenes. → verify: step output matches expected outcome
+12. **Spark Burst:** Hot white/yellow sparks emanating from impact point or mechanical object. Fades quickly. → verify: step output matches expected outcome
+13. **Dust Cloud:** Tan/gray particles swirling around motion or impact. Rises and dissipates. → verify: step output matches expected outcome
+14. **Water Droplets:** Droplets suspended mid-air or streaming, often with light reflection. → verify: step output matches expected outcome
+15. **Fire/Flame Effect:** Stylized flames (not realistic) with bold orange/red/yellow colors. Often depicted with speed lines within the fire. → verify: step output matches expected outcome
 
 ### **Character Reactions**
-16. **Chibi Pop:** Character instantly appears in exaggerated small proportions with oversized expression (anger, shock, cuteness).
-17. **Sweat Drop:** Single glossy droplet on character's head/face, reflecting light. Falls slowly.
-18. **Anger Veins:** Thick vein-like lines appear on character's forehead/body when angry. Purple or dark red.
-19. **Blush Circles:** Large circular blush marks on cheeks. Indicates embarrassment or affection.
-20. **Sparkle Eyes:** Star-shaped or cross-shaped highlights fill eyes, indicating excitement or special emotion.
+16. **Chibi Pop:** Character instantly appears in exaggerated small proportions with oversized expression (anger, shock, cuteness). → verify: step output matches expected outcome
+17. **Sweat Drop:** Single glossy droplet on character's head/face, reflecting light. Falls slowly. → verify: step output matches expected outcome
+18. **Anger Veins:** Thick vein-like lines appear on character's forehead/body when angry. Purple or dark red. → verify: step output matches expected outcome
+19. **Blush Circles:** Large circular blush marks on cheeks. Indicates embarrassment or affection. → verify: step output matches expected outcome
+20. **Sparkle Eyes:** Star-shaped or cross-shaped highlights fill eyes, indicating excitement or special emotion. → verify: step output matches expected outcome
 
 ### **Screen & Digital**
-21. **Screen Tone Overlay:** Entire frame overlays with halftone dots or diagonal line pattern (manga style). Emphasizes emotion or comedy. Brief duration (0.1-0.3 seconds).
-22. **Digital Glitch:** Horizontal lines or pixelated distortion, suggesting malfunction or supernatural event.
-23. **Onomatopoeia Text:** Bold sound effect words appear on screen (Japanese katakana or English: "BOOM", "CRASH", "WHOOSH"). Quick pulsing or zoom-in effect.
+21. **Screen Tone Overlay:** Entire frame overlays with halftone dots or diagonal line pattern (manga style). Emphasizes emotion or comedy. Brief duration (0.1-0.3 seconds). → verify: step output matches expected outcome
+22. **Digital Glitch:** Horizontal lines or pixelated distortion, suggesting malfunction or supernatural event. → verify: step output matches expected outcome
+23. **Onomatopoeia Text:** Bold sound effect words appear on screen (Japanese katakana or English: "BOOM", "CRASH", "WHOOSH"). Quick pulsing or zoom-in effect. → verify: step output matches expected outcome
 
 ---
 
@@ -986,12 +987,12 @@ Anime openings and endings are their own art form. They're not just intros — t
 - **Effects density:** Heavy use of speed lines, impact frames, auras, sparkles, special effects
 
 **OP Structure for Seedance 2.0 on Higgsfield prompts:**
-1. **Hook (0-3 sec):** Title card slam or dramatic opening moment (sound design is CRITICAL)
-2. **Character montage (3-15 sec):** Quick spotlight on each main character with action/personality moment
-3. **Story teaser (15-30 sec):** Brief scene showing setting/conflict, multiple quick cuts
-4. **Climax moment (30-45 sec):** Action sequence or dramatic scene with intense animation
-5. **Team moment (45-60 sec):** Characters together (rare in OP, but sometimes featured)
-6. **Final pose (60-90 sec):** Logo/title reappears, characters in iconic pose, final sting
+1. **Hook (0-3 sec):** Title card slam or dramatic opening moment (sound design is CRITICAL) → verify: file content matches expected shape
+2. **Character montage (3-15 sec):** Quick spotlight on each main character with action/personality moment → verify: step output matches expected outcome
+3. **Story teaser (15-30 sec):** Brief scene showing setting/conflict, multiple quick cuts → verify: step output matches expected outcome
+4. **Climax moment (30-45 sec):** Action sequence or dramatic scene with intense animation → verify: step output matches expected outcome
+5. **Team moment (45-60 sec):** Characters together (rare in OP, but sometimes featured) → verify: step output matches expected outcome
+6. **Final pose (60-90 sec):** Logo/title reappears, characters in iconic pose, final sting → verify: step output matches expected outcome
 
 ### **Ending Sequence (ED) Characteristics**
 - **Duration:** 60-90 seconds
@@ -1004,11 +1005,11 @@ Anime openings and endings are their own art form. They're not just intros — t
 - **Effects:** Fewer speed lines/impact frames, more ambient effects (petals, particles, light)
 
 **ED Structure for Seedance 2.0 on Higgsfield prompts:**
-1. **Soft opening (0-10 sec):** Gradual fade-in, soft music intro, peaceful visual
-2. **Character vignettes (10-40 sec):** Individual character moments (standing alone, looking pensive, doing mundane action)
-3. **Group moment (40-60 sec):** Characters together in peaceful setting (not fighting, just existing)
-4. **Emotional beat (60-75 sec):** Poignant visual (sunset, falling leaves, character looking at sky)
-5. **Fade to credits (75-90 sec):** Credits begin rolling, visuals become abstract or extremely soft focus
+1. **Soft opening (0-10 sec):** Gradual fade-in, soft music intro, peaceful visual → verify: file content matches expected shape
+2. **Character vignettes (10-40 sec):** Individual character moments (standing alone, looking pensive, doing mundane action) → verify: step output matches expected outcome
+3. **Group moment (40-60 sec):** Characters together in peaceful setting (not fighting, just existing) → verify: step output matches expected outcome
+4. **Emotional beat (60-75 sec):** Poignant visual (sunset, falling leaves, character looking at sky) → verify: step output matches expected outcome
+5. **Fade to credits (75-90 sec):** Credits begin rolling, visuals become abstract or extremely soft focus → verify: diff matches intended change
 
 ---
 
@@ -1143,3 +1144,31 @@ Seedance 2.0 on Higgsfield is a tool that, when wielded with knowledge of anime 
 
 **Last Updated:** 2026-04-09
 **For Seedance 2.0 on Higgsfield**
+
+## When NOT to use
+
+- Task is unrelated to seedance anime action — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Anime Action needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

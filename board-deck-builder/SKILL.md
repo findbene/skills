@@ -1,6 +1,7 @@
 ---
 name: "board-deck-builder"
-description: "Assembles comprehensive board and investor update decks by pulling perspectives from all C-suite roles. Use when preparing board meetings, investor updates, quarterly business reviews, or fundraising narratives. Covers structure, narrative framework, bad news delivery, and common mistakes."
+description: "Assembles comprehensive board and investor update decks by pulling perspectives from all C-suite roles. Triggers: 'use board-deck-builder', 'board deck builder', 'board-deck-builder task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -127,10 +128,10 @@ Pick metrics the board actually tracks. Swap out anything they've said they don'
 Boards see 10+ decks per quarter. Yours needs a through-line.
 
 **The 4-Act Structure:**
-1. **Where we said we'd be** (last quarter's targets)
-2. **Where we actually are** (honest assessment)
-3. **Why the gap exists** (one cause per variance, not excuses)
-4. **What we're doing about it** (specific, dated actions)
+1. **Where we said we'd be** (last quarter's targets) → verify: step output matches expected outcome
+2. **Where we actually are** (honest assessment) → verify: step output matches expected outcome
+3. **Why the gap exists** (one cause per variance, not excuses) → verify: step output matches expected outcome
+4. **What we're doing about it** (specific, dated actions) → verify: step output matches expected outcome
 
 This works for good news AND bad news. It's credible because it acknowledges reality.
 
@@ -143,11 +144,11 @@ This works for good news AND bad news. It's credible because it acknowledges rea
 Never bury it. Boards find out eventually. Finding out late makes it worse.
 
 **Framework:**
-1. **State it plainly** — "We missed Q3 ARR target by $300K (12% gap)"
-2. **Own the cause** — "Primary driver was longer-than-expected sales cycle in enterprise segment"
-3. **Show you understand it** — "We analyzed 8 lost/stalled deals; the pattern is X"
-4. **Present the fix** — "We've made 3 changes: [specific, dated changes]"
-5. **Update the forecast** — "Revised Q4 target is $2.6M; here's the bottom-up build"
+1. **State it plainly** — "We missed Q3 ARR target by $300K (12% gap)" → verify: step output matches expected outcome
+2. **Own the cause** — "Primary driver was longer-than-expected sales cycle in enterprise segment" → verify: step output matches expected outcome
+3. **Show you understand it** — "We analyzed 8 lost/stalled deals; the pattern is X" → verify: step output matches expected outcome
+4. **Present the fix** — "We've made 3 changes: [specific, dated changes]" → verify: diff matches intended change
+5. **Update the forecast** — "Revised Q4 target is $2.6M; here's the bottom-up build" → verify: step output matches expected outcome
 
 **What NOT to do:**
 - Don't lead with good news to soften bad news — boards notice and distrust the framing
@@ -177,6 +178,47 @@ Never bury it. Boards find out eventually. Finding out late makes it worse.
 **Quarterly (standard):** Full deck, all sections, 20-30 slides. Sent 48 hours in advance.
 **Monthly (for early-stage):** Condensed — metrics dashboard, financials, pipeline, top risks. 8-12 slides.
 **Fundraising:** Opens with market/vision, closes with ask. See `references/deck-frameworks.md` for Sequoia format.
+
+## When NOT to use
+
+- Internal exec team review (different audience, less ceremonial) — use a leaner exec dashboard
+- Investor pitch deck for net-new fundraise from cold investors — use `pitch-deck`
+- Sales-team or customer-facing presentations — wrong audience and framing
+- Weekly leadership huddle — too much overhead, use a one-pager
+- Board pre-read memo only (no slides) — write a narrative memo, not a deck
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll make up the metric, we don't have it yet" | Boards spot invented numbers; use explicit `[TBD]` placeholders |
+| "Bury the miss in slide 22" | Boards always find it and lose trust in the framing |
+| "30 slides for completeness" | Decks that can't be presented in the room are unread |
+| "Vague ask: 'any help appreciated'" | Specific asks get specific help; vague asks get nothing |
+
+## Output Contract
+
+Done when:
+- Deck follows standard order: Exec Summary → Metrics → Financials → Revenue → Product → Growth → Engineering → People → Risk → Strategic Outlook → Appendix
+- Each section has Headline → Data → Narrative → Ask/Next
+- Every metric has a target and status indicator
+- Variance explanations are one-sentence, cause-not-excuse
+- Bad news is on an early slide, not buried
+- "Asks" are specific, actionable, person-assigned
+- Missing data is shown as `[TBD]`, never invented
+- Cadence-appropriate slide count (20-30 quarterly, 8-12 monthly)
+
+## Examples
+
+### Example 1 — Quarterly deck after a missed target
+- Input: "Build Q3 deck — we missed ARR by $300K"
+- Action: 3-sentence exec summary leading with the miss, metrics dashboard with status icons, financial variance one-liner per row, ARR waterfall showing where the $300K leaked, bad-news framework on slide 4 (state → own → understand → fix → revised forecast), specific asks slide at close
+- Output: 24-slide deck + appendix; bad news framed honestly with dated fixes; asks list with named owners
+
+### Example 2 — Monthly seed-stage update
+- Input: "Monthly update for our 6 angels, we're pre-revenue"
+- Action: Condensed 10-slide format — top 3 metrics that matter pre-revenue (cash, users, key experiment results), product shipped, hires, top 2 risks, 2 specific asks (intro list + advice on a decision)
+- Output: 10 slides + 2-paragraph email summary; honest about runway; asks named with target investor names where applicable
 
 ## References
 - `references/deck-frameworks.md` — SaaS board pack format, Sequoia structure, investor tailoring

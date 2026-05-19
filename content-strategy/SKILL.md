@@ -1,6 +1,7 @@
 ---
 name: content-strategy
-description: "Plan what content to create, decide which topics to cover, build content pillars and topic clusters, prioritize a content roadmap, and identify content gaps. Use this whenever the user asks 'what should I write about,' 'help me plan my content strategy,' 'what topics should my blog cover,' 'content calendar help,' 'content pillars,' 'editorial planning,' or 'I don't know what content to create.' Trigger even when the user says 'we need more content' or 'our blog isn't getting traffic' without explicitly using the word 'strategy."
+description: "Plan what content to create, decide which topics to cover, build content pillars and topic clusters, prioritize a content. Triggers: 'use content-strategy', 'content strategy', 'content-strategy task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -130,10 +131,10 @@ Most of the time, all content can live under `/blog` with good internal linking 
 
 ### How to Identify Pillars
 
-1. **Product-led**: What problems does your product solve?
-2. **Audience-led**: What does your ICP need to learn?
-3. **Search-led**: What topics have volume in your space?
-4. **Competitor-led**: What are competitors ranking for?
+1. **Product-led**: What problems does your product solve? → verify: step output matches expected outcome
+2. **Audience-led**: What does your ICP need to learn? → verify: step output matches expected outcome
+3. **Search-led**: What topics have volume in your space? → verify: step output matches expected outcome
+4. **Competitor-led**: What are competitors ranking for? → verify: step output matches expected outcome
 
 ### Pillar Structure
 
@@ -340,11 +341,11 @@ Visual or structured representation of how content interconnects.
 
 ## Task-Specific Questions
 
-1. What patterns emerge from your last 10 customer conversations?
-2. What questions keep coming up in sales calls?
-3. Where are competitors' content efforts falling short?
-4. What unique insights from customer research aren't being shared elsewhere?
-5. Which existing content drives the most conversions, and why?
+1. What patterns emerge from your last 10 customer conversations? → verify: step output matches expected outcome
+2. What questions keep coming up in sales calls? → verify: step output matches expected outcome
+3. Where are competitors' content efforts falling short? → verify: step output matches expected outcome
+4. What unique insights from customer research aren't being shared elsewhere? → verify: step output matches expected outcome
+5. Which existing content drives the most conversions, and why? → verify: step output matches expected outcome
 
 ---
 
@@ -363,3 +364,40 @@ Visual or structured representation of how content interconnects.
 - **site-architecture**: For page hierarchy, navigation design, and URL structure
 - **email-sequence**: For email-based content
 - **social-content**: For social media content
+
+## When NOT to use
+
+- Task is unrelated to content strategy — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Content Strategy needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for content strategy
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving content strategy
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

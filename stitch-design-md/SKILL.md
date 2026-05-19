@@ -1,6 +1,6 @@
 ---
 name: stitch-design-md
-description: Analyzes a Stitch project's screens and synthesizes a natural-language DESIGN.md — visual atmosphere, color palette with hex values, typography rules, and Stitch-ready prompt snippets. Use this before stitch-loop or any multi-page build to establish design consistency.
+description: "Analyzes a Stitch project's screens and synthesizes a natural-language DESIGN.md — visual atmosphere, color palette with. Triggers: 'use stitch-design-md', 'stitch design md', 'stitch-design-md task'."
 allowed-tools:
   - "stitch*:*"
   - "Read"
@@ -22,208 +22,43 @@ You are an expert **Design Systems Lead**. Your job is to analyze Stitch project
 
 Use `stitch-design-md` first if you're building more Stitch screens. Use `stitch-design-system` when you're converting to code.
 
-## Prerequisites
+## When NOT to use
 
-- Stitch MCP Server configured
-- A Stitch project with at least one designed screen
+- Task is unrelated to stitch design md — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
 
----
+## Red Flags
 
-## Step 1: Retrieve the design
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Design Md needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
 
-### If the user provides a Stitch URL
+## Output Contract
 
-If the user pastes a Stitch design URL like `https://stitch.withgoogle.com/projects/3492931393329678076?node-id=375b1aadc9cb45209bee8ad4f69af450`:
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch design md
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
 
-1. Parse the URL:
-   - `projectId` = segment after `/projects/` and before `?` (e.g. `3492931393329678076`)
-   - `screenId` = query param `node-id` (e.g. `375b1aadc9cb45209bee8ad4f69af450`)
-2. Call `[prefix]:get_screen` with those IDs
-3. Skip ahead to Step 2
+## Examples
 
-### If project/screen IDs are unknown
+### Example 1 — golden path
+- Input: standard user request involving stitch design md
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
 
-1. Run `list_tools` → find the Stitch MCP prefix
-2. Call `[prefix]:list_projects` with `filter: "view=owned"` → select project by title → extract numeric ID
-3. Call `[prefix]:list_screens` with `projects/[projectId]` → pick the representative screen
-4. Call `[prefix]:get_screen` with numeric `projectId` and `screenId`
-5. Call `[prefix]:get_project` with `projects/[projectId]` → get full `designTheme` including:
-   - Core: `colorMode`, `customColor`, `colorVariant`, `roundness`, `spacingScale`
-   - Fonts: `headlineFont`, `bodyFont`, `labelFont`
-   - Colors: `namedColors` (40+ semantic tokens), override colors
-   - Documentation: `designMd` (auto-generated design system — if present, use as foundation for DESIGN.md)
-   - Backgrounds: `backgroundLight`, `backgroundDark`
-
-### Download the assets
-
-```bash
-# Download the HTML for color and Tailwind class analysis
-bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"
-```
-
-Parse the HTML for:
-- Tailwind utility classes (colors, typography, spacing, shadows)
-- Inline `tailwind.config` block (custom tokens)
-- CSS variables
-
----
-
-## Step 2: Analyze the design
-
-Work through these layers systematically:
-
-### 2.1 Project identity
-- Project title and numeric ID (from `name` field)
-- `deviceType` (MOBILE / DESKTOP / TABLET / AGNOSTIC)
-- `designTheme.headlineFont`, `designTheme.bodyFont`, `designTheme.labelFont` (font roles)
-- `designTheme.roundness`, `designTheme.colorMode`, `designTheme.colorVariant`
-- `designTheme.spacingScale` (0=minimal, 1=compact, 2=normal, 3=spacious)
-
-### 2.2 Visual atmosphere
-If `designTheme.description` exists, use it as the starting point. If `designTheme.designMd` exists, it contains a full design system document — extract the creative direction, do's/don'ts, and component philosophy from it.
-
-Then describe the aesthetic in 2–3 sentences. Go beyond generic adjectives — what does it feel like? What editorial or product category does it evoke?
-
-Examples:
-- "Sophisticated minimalist sanctuary — gallery-like spaciousness, photography-first, Scandinavian calm"
-- "High-density productivity tool — information-first, sharp edges, focused contrast"
-- "Warm artisanal brand — handcrafted feel, organic textures, generous breathing room"
-
-### 2.3 Color palette
-
-**If `namedColors` is available from `get_project`:** Use it as the authoritative color source. It provides 40+ semantic tokens (primary, secondary, tertiary, surface hierarchy, error states, inverse variants). Map these directly to palette documentation instead of guessing from HTML.
-
-**If `backgroundLight`/`backgroundDark` are available:** Use them as the canonical background colors for light/dark modes.
-
-For each key color, write:
-```
-[Descriptive name] ([hex]) — [functional role]
-```
-
-Example:
-```
-Deep Muted Teal-Navy (#294056) — Primary actions, links, active states
-Warm Barely-There Cream (#FCFAFA) — Page background
-Charcoal Near-Black (#2C2C2C) — Headlines and product names
-Soft Warm Gray (#6B6B6B) — Body copy and metadata
-```
-
-Aim for 4–6 colors. Include light AND dark mode backgrounds if both present.
-
-### 2.4 Typography
-- Font family name (from `designTheme.font` or Tailwind class)
-- Weight scale (what's used for display, section headers, body, labels)
-- Any notable letter-spacing, line-height, or size conventions
-
-### 2.5 Shape and geometry
-Translate Tailwind classes to descriptive language:
-- `rounded-full` → "Pill-shaped"
-- `rounded-lg` (12px) → "Gently rounded corners"
-- `rounded-md` (8px) → "Subtly rounded corners"
-- `rounded-none` → "Sharp, squared-off edges"
-
-### 2.6 Depth and elevation
-Describe shadow presence and style:
-- `shadow-none` → "Flat, no shadow"
-- `shadow-sm` → "Whisper-soft diffused shadow"
-- `shadow-lg` → "Prominent floating elevation"
-
-### 2.7 Layout principles
-- Max content width, grid columns, breakpoint behavior
-- Base spacing unit (4px / 8px system)
-- Section margins and padding patterns
-- Touch target sizes (if mobile)
-
----
-
-## Step 3: Write DESIGN.md
-
-Use this exact structure:
-
-```markdown
-# Design System: [Project Title]
-**Project ID:** [numeric ID]
-**Device:** [MOBILE / DESKTOP / TABLET / AGNOSTIC]
-
-## 1. Visual Theme & Atmosphere
-[2–3 sentences describing the overall aesthetic and mood]
-
-## 2. Color Palette & Roles
-- **[Descriptive Name]** ([#hex]) — [Functional role]
-- **[Descriptive Name]** ([#hex]) — [Functional role]
-[...4–6 colors total]
-
-## 3. Typography Rules
-**Primary Font:** [Name] — [One-line character description]
-
-- **Display (H1):** [weight], [size range]
-- **Section (H2):** [weight], [size range]
-- **Body:** [weight], line-height [value], [size]
-- **Labels/Captions:** [weight], [size]
-
-## 4. Component Stylings
-- **Buttons:** [shape (Xpx radius)], [color], [padding]; hover [behavior]
-- **Cards/Containers:** [roundness (Xpx)], [background], [shadow]; hover [behavior]
-- **Inputs/Forms:** [border style], [background], [roundness], [focus behavior]
-
-## 5. Layout Principles
-- Max content width: [value]; [grid description]; [column behavior at breakpoints]
-- Base spacing unit: [4px/8px]; section margins [range]; touch targets [size]
-
-## 6. Design System Notes for Stitch Generation
-[This section is copy-paste ready for new Stitch prompts]
-
-When creating new screens:
-- **Atmosphere:** "[Quote the atmosphere description from Section 1]"
-- **Colors:** Always use descriptive name + hex (e.g. "[Name] ([#hex])")
-- **Shape:** "[Describe buttons and cards using the language from Section 4]"
-- **Spacing:** "[Describe the whitespace/density philosophy]"
-- **Font:** [Font name] — [one-line descriptor]
-```
-
----
-
-## Step 4: Integration
-
-Tell the user what to do with it:
-
-```
-## DESIGN.md created
-
-Saved to: ./DESIGN.md
-
-**How to use it:**
-
-1. **More Stitch screens:** Copy Section 6 into the DESIGN SYSTEM block of your next Stitch prompt.
-   This keeps every new screen visually consistent with your existing design.
-
-2. **Multi-page build with stitch-loop:** Include Section 6 in every `next-prompt.md` baton file.
-
-3. **Code conversion:** Hand off to `stitch-design-system` when you're ready to generate
-   `design-tokens.css` and `tailwind-theme.css` for your framework.
-```
-
----
-
-## Best practices
-
-- **Descriptive over technical:** "Ocean-deep Cerulean (#0077B6)" not just "blue"
-- **Functional roles matter:** Don't just name the color — say what it does
-- **Section 6 is the payoff:** This is the copy-paste block that makes every future screen consistent
-- **Be precise:** Exact hex codes always. Vague approximations ("kind of warm beige") are useless
-
-## Common pitfalls
-
-- Leaving `rounded-xl` in the doc instead of translating to "generously rounded corners (12px)"
-- Listing colors without functional roles
-- Skipping the font weight scale (just saying "Manrope" doesn't tell you when to use 400 vs 600)
-- Writing Section 6 without the actual hex codes — useless for Stitch
-
----
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken
 
 ## References
 
-- `examples/usage.md` — Worked examples
-- `examples/DESIGN.md` — Complete sample output for a furniture e-commerce site
-- `docs/color-prompt-guide.md` — 8 ready-to-use color palettes for inspiration
-- `scripts/fetch-stitch.sh` — Reliable HTML downloader for GCS URLs
+Extended sections moved to `references/details.md`.

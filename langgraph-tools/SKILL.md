@@ -1,6 +1,7 @@
 ---
 name: langgraph-tools
-description: "LangGraph and LangChain multi-agent workflow construction via MCP for building stateful agent pipelines and graph-based workflows. Use this skill any time LangGraph agents need to be built, LangChain tools need to be bridged via MCP, stateful agent workflows need to be created, or LangGraph state machines need to be designed. Trigger immediately on: \"LangGraph\", \"LangChain\", \"LangGraph agent\", \"state machine\", \"LangGraph workflow\", \"LangChain tool\", \"graph workflow\", \"LangGraph MCP\", \"agent pipeline\", \"LangGraph state\", \"LangChain agent\", \"LangGraph node\", \"conditional graph\". If someone says \"build a LangGraph workflow\" or \"create a LangChain agent\" this skill MUST trigger."
+description: 'LangGraph and LangChain multi-agent workflow construction via MCP for building stateful agent pipelines and graph-based workflows. Triggers: "use langgraph-tools", "langgraph tools", "langgraph task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # LangGraph Tools
@@ -83,10 +84,10 @@ server_configs = {
 ```
 
 ### Create a Custom LangGraph Agent with MCP Tools
-1. Define MCP server connections in a config dict
-2. Use `MultiServerMCPClient` to load tools from all servers
-3. Pass tools to `create_react_agent` or a custom LangGraph graph
-4. Run the agent with user messages
+1. Define MCP server connections in a config dict → verify: step output matches expected outcome
+2. Use `MultiServerMCPClient` to load tools from all servers → verify: file content matches expected shape
+3. Pass tools to `create_react_agent` or a custom LangGraph graph → verify: output exists + parses without error
+4. Run the agent with user messages → verify: command exit code 0
 
 ## Integration with Claude Code
 
@@ -101,3 +102,40 @@ Since this is a client library (not an MCP server), it doesn't appear in setting
 - Each `MultiServerMCPClient` context manager starts/stops MCP server subprocesses
 - STDIO transport spawns the server as a subprocess; HTTP connects to running servers
 - Tool schemas are automatically converted from MCP format to LangChain format
+
+## When NOT to use
+
+- Task is unrelated to langgraph tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Langgraph Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for langgraph tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving langgraph tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

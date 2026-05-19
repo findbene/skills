@@ -1,6 +1,6 @@
 ---
 name: stitch-ideate
-description: Conversational design ideation agent that researches trends, explores visual directions, and refines ideas through adaptive questioning — then produces a rich PRD document and auto-generates Stitch screens. Your design buddy that thinks deeply before designing.
+description: "Conversational design ideation agent that researches trends, explores visual directions, and refines ideas through adaptive questi. Triggers: 'use stitch-ideate', 'stitch ideate', 'stitch-ideate task."
 allowed-tools:
   - "AskUserQuestion"
   - "WebSearch"
@@ -78,28 +78,28 @@ Research is not a separate phase — it's woven into the ideation flow. Use `Web
 When the user's request contains a research intent, execute the research FIRST, then use findings to inform the ideation phases:
 
 **Pattern: "Analyze the top 3 [X] and design a version for me"**
-1. `WebSearch` for "best [X] apps UI design"
-2. `WebFetch` the top 3 results to extract visual patterns
-3. Summarize what you found: common patterns, differentiators, gaps
-4. Use findings to propose informed design directions in Phase 3
+1. `WebSearch` for "best [X] apps UI design" → verify: step output matches expected outcome
+2. `WebFetch` the top 3 results to extract visual patterns → verify: step output matches expected outcome
+3. Summarize what you found: common patterns, differentiators, gaps → verify: step output matches expected outcome
+4. Use findings to propose informed design directions in Phase 3 → verify: step output matches expected outcome
 
 **Pattern: "Look at current trends in [X] and generate options"**
-1. `WebSearch` for "[X] design trends 2025 2026"
-2. Extract 3-4 trend themes (e.g., "bento grids are everywhere", "glassmorphism is back")
-3. Map each trend to a concrete design direction with colors and typography
-4. Present as Phase 3 options
+1. `WebSearch` for "[X] design trends 2025 2026" → verify: step output matches expected outcome
+2. Extract 3-4 trend themes (e.g., "bento grids are everywhere", "glassmorphism is back") → verify: step output matches expected outcome
+3. Map each trend to a concrete design direction with colors and typography → verify: step output matches expected outcome
+4. Present as Phase 3 options → verify: step output matches expected outcome
 
 **Pattern: "Find a color palette that conveys [mood]"**
-1. `WebSearch` for "[mood] color palette UI design"
-2. `WebFetch` 2-3 palette resources (Coolors, Realtime Colors, Muzli)
-3. Curate 3 palettes with hex values, each capturing a different interpretation of the mood
-4. Present with previews showing the palette applied to a sample layout
+1. `WebSearch` for "[mood] color palette UI design" → verify: step output matches expected outcome
+2. `WebFetch` 2-3 palette resources (Coolors, Realtime Colors, Muzli) → verify: step output matches expected outcome
+3. Curate 3 palettes with hex values, each capturing a different interpretation of the mood → verify: step output matches expected outcome
+4. Present with previews showing the palette applied to a sample layout → verify: step output matches expected outcome
 
 **Pattern: "How can I improve [specific UI problem]"**
-1. `WebSearch` for "[UI pattern] best practices UX"
-2. `WebFetch` relevant UX articles or case studies
-3. Synthesize 3 concrete improvement suggestions with visual descriptions
-4. Offer to generate each as a Stitch screen for comparison
+1. `WebSearch` for "[UI pattern] best practices UX" → verify: step output matches expected outcome
+2. `WebFetch` relevant UX articles or case studies → verify: step output matches expected outcome
+3. Synthesize 3 concrete improvement suggestions with visual descriptions → verify: step output matches expected outcome
+4. Offer to generate each as a Stitch screen for comparison → verify: output exists + parses without error
 
 ### Research output format
 
@@ -190,9 +190,9 @@ After answers: Confirm the audience and reference points:
 This phase runs automatically between Phase 2 and Phase 3. No user interaction needed — just research and synthesis.
 
 **What to research (pick 2-3 based on context):**
-1. **Competitor/reference sites** — `WebFetch` the marketing pages of apps the user mentioned in Phase 2. Extract: color schemes, layout patterns, typography choices, density level.
-2. **Category trends** — `WebSearch` for "[product category] UI design trends 2025 2026". Extract: emerging patterns, popular aesthetics, what's getting praise.
-3. **Mood-specific palettes** — if the user expressed a mood ("calm", "powerful", "playful"), search for color palettes that convey it.
+1. **Competitor/reference sites** — `WebFetch` the marketing pages of apps the user mentioned in Phase 2. Extract: color schemes, layout patterns, typography choices, density level. → verify: step output matches expected outcome
+2. **Category trends** — `WebSearch` for "[product category] UI design trends 2025 2026". Extract: emerging patterns, popular aesthetics, what's getting praise. → verify: step output matches expected outcome
+3. **Mood-specific palettes** — if the user expressed a mood ("calm", "powerful", "playful"), search for color palettes that convey it. → verify: step output matches expected outcome
 
 **Present research briefly:**
 > "Before I propose directions, I did some research:
@@ -395,8 +395,8 @@ The PRD format matches what Stitch's own Ideate agent produces — Stitch can co
 When you send a complete PRD (all screen specifications, design system, build guide) as a single prompt to `generate_screen_from_text`, Stitch parses the entire document and generates **multiple screens in one call** — not just one. A PRD with 8 screen specs will typically produce 5-7 screens automatically. This is the same behavior as the web UI's Ideate → "generate all" flow.
 
 **Single direction mode:**
-1. Send the **entire PRD** as the prompt to `generate_screen_from_text`
-2. Stitch generates up to 10 screens per call from a multi-screen PRD
+1. Send the **entire PRD** as the prompt to `generate_screen_from_text` → verify: output exists + parses without error
+2. Stitch generates up to 10 screens per call from a multi-screen PRD → verify: output exists + parses without error
 3. **Two possible outcomes:**
 
    **A. Response returns with `output_components`** (ideal path):
@@ -411,16 +411,16 @@ When you send a complete PRD (all screen specifications, design system, build gu
    - Once screens appear, check which PRD screens are missing
    - Generate missing screens individually with a focused prompt that references the PRD's design system and the specific screen specification
 
-4. Once all screens are generated, present the full list to the user with screenshot URLs
+4. Once all screens are generated, present the full list to the user with screenshot URLs → verify: output exists + parses without error
 
 **Multi-direction mode:**
 
 Each direction needs its own project (to keep designs organized) and its own full PRD submission. Through the MCP, we call `generate_screen_from_text` 3 times — one per PRD in its own project. Each call generates the full set of screens for that direction.
 
-1. Create 3 projects: "[Product] — [Direction A]", "[Product] — [Direction B]", "[Product] — [Direction C]"
-2. Submit each full PRD to its respective project via `generate_screen_from_text`
-3. Wait for all 3 to complete (check with `stitch-mcp-list-screens` — allow 2-5 minutes per direction)
-4. Collect screenshots from all 3 projects and present comparison:
+1. Create 3 projects: "[Product] — [Direction A]", "[Product] — [Direction B]", "[Product] — [Direction C]" → verify: output exists + parses without error
+2. Submit each full PRD to its respective project via `generate_screen_from_text` → verify: output exists + parses without error
+3. Wait for all 3 to complete (check with `stitch-mcp-list-screens` — allow 2-5 minutes per direction) → verify: all checks pass
+4. Collect screenshots from all 3 projects and present comparison: → verify: step output matches expected outcome
    > "Here are your 3 directions:
    > - **[Direction A name]:** [X screens generated] — [project link or screenshot URLs]
    > - **[Direction B name]:** [X screens generated] — [project link or screenshot URLs]
@@ -428,7 +428,7 @@ Each direction needs its own project (to keep designs organized) and its own ful
    >
    > Which direction wins?"
 5. User picks a winner → that project becomes the working project
-6. If any screens are missing from the winning direction, generate them individually
+6. If any screens are missing from the winning direction, generate them individually → verify: output exists + parses without error
 
 > **Why 3 separate calls, not `generate_variants`?** Variants modify aspects of an existing design — they can't produce designs from fundamentally different PRDs with different design systems, typography, and visual language. To get 3 truly distinct directions, we need 3 separate generations.
 
@@ -470,12 +470,12 @@ After generation, hand off to the **orchestrator's Step 5b** (post-generation it
 
 The PRD file follows `resources/prd-template.md` exactly. The key sections are:
 
-1. **Product Overview** — pitch, audience, device, design direction, inspiration
-2. **Screens** — bullet list of all screens
-3. **Key Flows** — 1-2 primary user journeys with numbered steps
-4. **Design System** (collapsible) — color palette, typography, visual effects, CSS tokens
-5. **Screen Specifications** (collapsible) — per-screen layout, elements, states, interactions
-6. **Build Guide** (collapsible) — stack recommendation and build order
+1. **Product Overview** — pitch, audience, device, design direction, inspiration → verify: step output matches expected outcome
+2. **Screens** — bullet list of all screens → verify: step output matches expected outcome
+3. **Key Flows** — 1-2 primary user journeys with numbered steps → verify: step output matches expected outcome
+4. **Design System** (collapsible) — color palette, typography, visual effects, CSS tokens → verify: step output matches expected outcome
+5. **Screen Specifications** (collapsible) — per-screen layout, elements, states, interactions → verify: step output matches expected outcome
+6. **Build Guide** (collapsible) — stack recommendation and build order → verify: step output matches expected outcome
 
 ---
 
@@ -520,3 +520,38 @@ After ideation completes, the orchestrator picks up at Step 4 (project creation)
 
 - `resources/prd-template.md` — Full PRD document template matching Stitch Ideate output format
 - `examples/usage.md` — Complete ideation session walkthrough
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Ideate needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch ideate
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

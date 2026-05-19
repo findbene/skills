@@ -1,6 +1,7 @@
 ---
 name: "confluence-expert"
-description: Atlassian Confluence expert for creating and managing spaces, knowledge bases, and documentation. Configures space permissions and hierarchies, creates page templates with macros, sets up documentation taxonomies, designs page layouts, and manages content governance. Use when users need to build or restructure a Confluence space, design page hierarchies with permission structures, author or standardise documentation templates, embed Jira reports in pages, run knowledge base audits, or establish documentation standards and collaborative workflows.
+description: "Atlassian Confluence expert for creating and managing spaces, knowledge bases, and documentation. Triggers: 'use confluence-expert', 'confluence expert', 'confluence-expert task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Atlassian Confluence Expert
@@ -47,16 +48,16 @@ add_label({ pageId: "789012", label: "archived" })
 ## Workflows
 
 ### Space Creation
-1. Determine space type (Team, Project, Knowledge Base, Personal)
-2. Create space with clear name and description
-3. Set space homepage with overview
-4. Configure space permissions:
+1. Determine space type (Team, Project, Knowledge Base, Personal) → verify: step output matches expected outcome
+2. Create space with clear name and description → verify: output file exists + no syntax error
+3. Set space homepage with overview → verify: step output matches expected outcome
+4. Configure space permissions: → verify: step output matches expected outcome
    - View, Edit, Create, Delete
    - Admin privileges
-5. Create initial page tree structure
-6. Add space shortcuts for navigation
+5. Create initial page tree structure → verify: output file exists + no syntax error
+6. Add space shortcuts for navigation → verify: package installed + import succeeds
 7. **Verify**: Navigate to the space URL and confirm the homepage loads; check that a non-admin test user sees the correct permission level
-8. **HANDOFF TO**: Teams for content population
+8. **HANDOFF TO**: Teams for content population → verify: step output matches expected outcome
 
 ### Page Architecture
 **Best Practices**:
@@ -85,24 +86,24 @@ Space Home
 ```
 
 ### Template Creation
-1. Identify repeatable content pattern
-2. Create page with structure and placeholders
-3. Add instructions in placeholders
-4. Format with appropriate macros
-5. Save as template
-6. Share with space or make global
+1. Identify repeatable content pattern → verify: step output matches expected outcome
+2. Create page with structure and placeholders → verify: output file exists + no syntax error
+3. Add instructions in placeholders → verify: package installed + import succeeds
+4. Format with appropriate macros → verify: step output matches expected outcome
+5. Save as template → verify: step output matches expected outcome
+6. Share with space or make global → verify: step output matches expected outcome
 7. **Verify**: Create a test page from the template and confirm all placeholders render correctly before sharing with the team
-8. **USE**: References for advanced template patterns
+8. **USE**: References for advanced template patterns → verify: step output matches expected outcome
 
 ### Documentation Strategy
-1. **Assess** current documentation state
-2. **Define** documentation goals and audience
-3. **Organize** content taxonomy and structure
-4. **Create** templates and guidelines
-5. **Migrate** existing documentation
-6. **Train** teams on best practices
-7. **Monitor** usage and adoption
-8. **REPORT TO**: Senior PM on documentation health
+1. **Assess** current documentation state → verify: step output matches expected outcome
+2. **Define** documentation goals and audience → verify: step output matches expected outcome
+3. **Organize** content taxonomy and structure → verify: step output matches expected outcome
+4. **Create** templates and guidelines → verify: output file exists + no syntax error
+5. **Migrate** existing documentation → verify: step output matches expected outcome
+6. **Train** teams on best practices → verify: step output matches expected outcome
+7. **Monitor** usage and adoption → verify: step output matches expected outcome
+8. **REPORT TO**: Senior PM on documentation health → verify: step output matches expected outcome
 
 ### Knowledge Base Management
 **Article Types**:
@@ -373,3 +374,40 @@ const example = "code here";
 
 - **Jira Expert** (`project-management/jira-expert/`) — Jira issue macros and linking complement Confluence docs
 - **Atlassian Templates** (`project-management/atlassian-templates/`) — Template patterns for Confluence content creation
+
+## When NOT to use
+
+- Task is unrelated to confluence expert — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Confluence Expert needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for confluence expert
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving confluence expert
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

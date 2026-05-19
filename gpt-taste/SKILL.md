@@ -1,6 +1,7 @@
 ---
 name: gpt-taste
-description: Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
+description: "Elite UX/UI & Advanced GSAP Motion Engineer. Triggers: 'use gpt-taste', 'gpt taste', 'gpt-taste task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # CORE DIRECTIVE: AWWWARDS-LEVEL DESIGN ENGINEERING
@@ -33,9 +34,9 @@ The Hero must breathe. It must NOT be a narrow, 6-line text wall.
 - **The Container Width Fix:** You MUST use ultra-wide containers for the H1 (e.g., `max-w-5xl`, `max-w-6xl`, `w-full`). Allow the words to flow horizontally.
 - **The Line Limit:** The H1 MUST NEVER exceed 2 to 3 lines. 4, 5, or 6 lines is a catastrophic failure. Make the font size smaller (`clamp(3rem, 5vw, 5.5rem)`) and the container wider to ensure this.
 - **Hero Layout Options (Randomly Assigned via Python):**
-  1. *Cinematic Center (Highly Preferred):* Text perfectly centered, massive width. Below the text, exactly two high-contrast CTAs. Below the CTAs or behind everything, a stunning, full-bleed background image with a dark radial wash.
-  2. *Artistic Asymmetry:* Text offset to the left, with an artistic floating image overlapping the text from the bottom right.
-  3. *Editorial Split:* Text left, image right, but with massive negative space.
+  1. *Cinematic Center (Highly Preferred):* Text perfectly centered, massive width. Below the text, exactly two high-contrast CTAs. Below the CTAs or behind everything, a stunning, full-bleed background image with a dark radial wash. → verify: step output matches expected outcome
+  2. *Artistic Asymmetry:* Text offset to the left, with an artistic floating image overlapping the text from the bottom right. → verify: step output matches expected outcome
+  3. *Editorial Split:* Text left, image right, but with massive negative space. → verify: diff matches intended change
 - **Button Contrast:** Buttons must be perfectly legible. Dark background = white text. Light background = dark text. Invisible text is a failure.
 - **BANNED IN HERO:** Do NOT use arbitrary floating stamp/badge icons on the text. Do NOT use pill-tags under the hero. Do NOT place raw data/stats in the hero.
 
@@ -66,9 +67,50 @@ Select components from this arsenal based on your randomization:
 
 ## 8. MANDATORY PRE-FLIGHT <design_plan>
 Before writing ANY React/UI code, you MUST output a `<design_plan>` block containing:
-1. **Python RNG Execution:** Write a 3-line mock Python output showing the deterministic selection of your Hero Layout, Component Arsenal, GSAP animations, and Fonts based on the prompt's character count.
-2. **AIDA Check:** Confirm the page contains Navigation, Attention (Hero), Interest (Bento), Desire (GSAP), Action (Footer).
-3. **Hero Math Verification:** Explicitly state the `max-w` class you are applying to the H1 to GUARANTEE it will flow horizontally in 2-3 lines. Confirm NO stamp icons or spam tags exist.
-4. **Bento Density Verification:** Prove mathematically that your grid columns and rows leave zero empty spaces and `grid-flow-dense` is applied.
-5. **Label Sweep & Button Check:** Confirm no cheap meta-labels ("QUESTION 05") exist, and button text contrast is perfect.
+1. **Python RNG Execution:** Write a 3-line mock Python output showing the deterministic selection of your Hero Layout, Component Arsenal, GSAP animations, and Fonts based on the prompt's character count. → verify: output exists + parses without error
+2. **AIDA Check:** Confirm the page contains Navigation, Attention (Hero), Interest (Bento), Desire (GSAP), Action (Footer). → verify: step output matches expected outcome
+3. **Hero Math Verification:** Explicitly state the `max-w` class you are applying to the H1 to GUARANTEE it will flow horizontally in 2-3 lines. Confirm NO stamp icons or spam tags exist. → verify: diff matches intended change
+4. **Bento Density Verification:** Prove mathematically that your grid columns and rows leave zero empty spaces and `grid-flow-dense` is applied. → verify: step output matches expected outcome
+5. **Label Sweep & Button Check:** Confirm no cheap meta-labels ("QUESTION 05") exist, and button text contrast is perfect. → verify: step output matches expected outcome
 Only output the UI code after this rigorous verification is complete.
+
+## When NOT to use
+
+- Plain CRUD admin UI — overkill; use `frontend-design` or `shadcn-ui`
+- B2B compliance / enterprise UI where bold motion is inappropriate — use `design-system`
+- Mobile-native code (SwiftUI / RN) — use mobile skills, GSAP web techniques do not transfer
+- Pure HTML email — motion + custom fonts do not render in email clients
+- Documentation site / blog where readability dominates — use `typeset` / `design-md`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Use Inter, it is safe" | Skill explicitly bans Inter — use Satoshi, Cabinet Grotesk, Outfit, or Geist |
+| "Pick the same layout as last time, it works" | Skill mandates Python-driven randomization to break LLM defaults |
+| "QUESTION 05 is a fine label" | Banned cheap meta-label pattern; use voice-driven labeling instead |
+| "Empty grid spaces are fine" | Bento grids must mathematically tile — `grid-flow-dense` and balanced spans required |
+
+## Output Contract
+
+Finished output must contain:
+- `<design_plan>` block simulating Python randomization with deterministic seed
+- 1 Hero Architecture, 1 Typography Stack (non-Inter), 3 Component Architectures, 2 GSAP Paradigms documented
+- Premium Nav Bar at top
+- AIDA section structure: Attention → Interest → Desire → Action
+- Generous vertical padding between sections (`py-32 md:py-48`)
+- GSAP-powered motion (scroll-pinned, text-reveals, etc.)
+- Mathematically tiled bento grid with `grid-flow-dense`
+- No banned tokens (Inter, Lucide thick, harsh shadows, edge-glued navbar)
+
+## Examples
+
+**Example 1 — Hero for an AI startup**
+- Input: "Build a landing for a vector-search SaaS"
+- Action: Simulate randomization (seed from prompt) → Hero: split-screen with vertical type → Typography: Satoshi + Cabinet Grotesk → Components: bento + scroll-pinned features + gradient orbs → GSAP: ScrollTrigger pin + SplitText reveal
+- Output: Full HTML/CSS/JS with GSAP scroll story, no banned defaults
+
+**Example 2 — Portfolio site for a designer**
+- Input: "Make a portfolio for a brand designer, editorial feel"
+- Action: Randomize → Hero: asymmetric editorial → Typography: PP Editorial New + Geist → Components: marquee + horizontal-scroll case studies + magnetic cursor links → GSAP: horizontal scroll + text-mask
+- Output: HTML/CSS/JS with editorial layout, horizontal scrolling, magnetic effects

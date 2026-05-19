@@ -1,6 +1,7 @@
 ---
 name: "ux-researcher-designer"
-description: UX research and design toolkit for Senior UX Designer/Researcher including data-driven persona generation, journey mapping, usability testing frameworks, and research synthesis. Use for user research, persona creation, journey mapping, and design validation.
+description: "UX research and design toolkit for Senior UX Designer/Researcher including data-driven persona generati. Triggers: 'use ux-researcher-designer', 'ux researcher designer', 'ux-researcher-designer task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # UX Researcher & Designer
@@ -51,7 +52,7 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Prepare user data**
+1. **Prepare user data** → verify: step output matches expected outcome
 
    Required format (JSON):
    ```json
@@ -69,7 +70,7 @@ Use this skill when you need to:
    ]
    ```
 
-2. **Run persona generator**
+2. **Run persona generator** → verify: command exit code 0
    ```bash
    # Human-readable output
    python scripts/persona_generator.py
@@ -78,7 +79,7 @@ Use this skill when you need to:
    python scripts/persona_generator.py json
    ```
 
-3. **Review generated components**
+3. **Review generated components** → verify: output file exists + no syntax error
 
    | Component | What to Check |
    |-----------|---------------|
@@ -88,13 +89,13 @@ Use this skill when you need to:
    | Frustrations | Do they include frequency counts? |
    | Design implications | Can designers act on these? |
 
-4. **Validate persona**
+4. **Validate persona** → verify: step output matches expected outcome
 
    - Show to 3-5 real users: "Does this sound like you?"
    - Cross-check with support tickets
    - Verify against analytics data
 
-5. **Reference:** See `references/persona-methodology.md` for validity criteria
+5. **Reference:** See `references/persona-methodology.md` for validity criteria → verify: step output matches expected outcome
 
 ---
 
@@ -104,7 +105,7 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Define scope**
+1. **Define scope** → verify: step output matches expected outcome
 
    | Element | Description |
    |---------|-------------|
@@ -114,7 +115,7 @@ Use this skill when you need to:
    | End | Success criteria |
    | Timeframe | Hours/days/weeks |
 
-2. **Gather journey data**
+2. **Gather journey data** → verify: step output matches expected outcome
 
    Sources:
    - User interviews (ask "walk me through...")
@@ -122,14 +123,14 @@ Use this skill when you need to:
    - Analytics (funnel, drop-offs)
    - Support tickets
 
-3. **Map the stages**
+3. **Map the stages** → verify: step output matches expected outcome
 
    Typical B2B SaaS stages:
    ```
    Awareness → Evaluation → Onboarding → Adoption → Advocacy
    ```
 
-4. **Fill in layers for each stage**
+4. **Fill in layers for each stage** → verify: step output matches expected outcome
 
    ```
    Stage: [Name]
@@ -140,11 +141,11 @@ Use this skill when you need to:
    └── Opportunities: Where can we improve?
    ```
 
-5. **Identify opportunities**
+5. **Identify opportunities** → verify: step output matches expected outcome
 
    Priority Score = Frequency × Severity × Solvability
 
-6. **Reference:** See `references/journey-mapping-guide.md` for templates
+6. **Reference:** See `references/journey-mapping-guide.md` for templates → verify: step output matches expected outcome
 
 ---
 
@@ -154,7 +155,7 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Define research questions**
+1. **Define research questions** → verify: step output matches expected outcome
 
    Transform vague goals into testable questions:
 
@@ -164,7 +165,7 @@ Use this skill when you need to:
    | "Do users like it?" | "Will users choose Design A or B?" |
    | "Does it make sense?" | "Can users find settings without hints?" |
 
-2. **Select method**
+2. **Select method** → verify: step output matches expected outcome
 
    | Method | Participants | Duration | Best For |
    |--------|--------------|----------|----------|
@@ -172,7 +173,7 @@ Use this skill when you need to:
    | Unmoderated remote | 10-20 | 15-20 min | Quick validation |
    | Guerrilla | 3-5 | 5-10 min | Rapid feedback |
 
-3. **Design tasks**
+3. **Design tasks** → verify: step output matches expected outcome
 
    Good task format:
    ```
@@ -183,7 +184,7 @@ Use this skill when you need to:
 
    Task progression: Warm-up → Core → Secondary → Edge case → Free exploration
 
-4. **Define success metrics**
+4. **Define success metrics** → verify: step output matches expected outcome
 
    | Metric | Target |
    |--------|--------|
@@ -192,13 +193,13 @@ Use this skill when you need to:
    | Error rate | <15% |
    | Satisfaction | >4/5 |
 
-5. **Prepare moderator guide**
+5. **Prepare moderator guide** → verify: step output matches expected outcome
 
    - Think-aloud instructions
    - Non-leading prompts
    - Post-task questions
 
-6. **Reference:** See `references/usability-testing-frameworks.md` for full guide
+6. **Reference:** See `references/usability-testing-frameworks.md` for full guide → verify: all tests pass
 
 ---
 
@@ -208,7 +209,7 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Code the data**
+1. **Code the data** → verify: step output matches expected outcome
 
    Tag each data point:
    - `[GOAL]` - What they want to achieve
@@ -217,7 +218,7 @@ Use this skill when you need to:
    - `[CONTEXT]` - When/where they use product
    - `[QUOTE]` - Direct user words
 
-2. **Cluster similar patterns**
+2. **Cluster similar patterns** → verify: step output matches expected outcome
 
    ```
    User A: Uses daily, advanced features, shortcuts
@@ -228,7 +229,7 @@ Use this skill when you need to:
    Cluster 2: C (Casual User)
    ```
 
-3. **Calculate segment sizes**
+3. **Calculate segment sizes** → verify: step output matches expected outcome
 
    | Cluster | Users | % | Viability |
    |---------|-------|---|-----------|
@@ -236,7 +237,7 @@ Use this skill when you need to:
    | Business Users | 15 | 30% | Primary persona |
    | Casual Users | 12 | 24% | Secondary persona |
 
-4. **Extract key findings**
+4. **Extract key findings** → verify: step output matches expected outcome
 
    For each theme:
    - Finding statement
@@ -245,7 +246,7 @@ Use this skill when you need to:
    - Business impact
    - Recommendation
 
-5. **Prioritize opportunities**
+5. **Prioritize opportunities** → verify: step output matches expected outcome
 
    | Factor | Score 1-5 |
    |--------|-----------|
@@ -254,7 +255,7 @@ Use this skill when you need to:
    | Breadth | How many users affected? |
    | Solvability | Can we fix this? |
 
-6. **Reference:** See `references/persona-methodology.md` for analysis framework
+6. **Reference:** See `references/persona-methodology.md` for analysis framework → verify: step output matches expected outcome
 
 ---
 
@@ -417,3 +418,40 @@ Detailed reference guides in `references/`:
 
 - **UI Design System** (`product-team/ui-design-system/`) — Research findings inform design system decisions
 - **Product Manager Toolkit** (`product-team/product-manager-toolkit/`) — Customer interview analysis complements persona research
+
+## When NOT to use
+
+- Task is unrelated to ux researcher designer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ux Researcher Designer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ux researcher designer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ux researcher designer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

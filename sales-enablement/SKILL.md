@@ -1,6 +1,7 @@
 ---
 name: sales-enablement
-description: "Create sales enablement materials and strategies — battle cards, objection handling guides, pitch decks, one-pagers, case studies, demo scripts, and sales playbooks that help reps close more deals. Use this whenever the user asks for 'sales enablement,' 'battle card,' 'objection handling,' 'sales collateral,' 'pitch deck,' 'sales one-pager,' 'demo script,' 'how to handle competitor objections,' or 'what to give the sales team.' Trigger even when the user says 'our sales team needs better materials' without specifying what type."
+description: "Create sales enablement materials and strategies — battle cards, objection handling guides, pitch decks, one-pagers, case. Triggers: 'use sales-enablement', 'sales enablement', 'sales-enablement task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -58,17 +59,17 @@ Every claim connects to revenue, efficiency, or risk reduction. Features mean no
 
 ### 10-12 Slide Framework
 
-1. **Current World Problem** — The pain your buyer lives with today
-2. **Cost of the Problem** — What inaction costs (time, money, risk)
-3. **The Shift Happening** — Market or technology change creating urgency
-4. **Your Approach** — How you solve it differently
-5. **Product Walkthrough** — 3-4 key workflows, not a feature tour
-6. **Proof Points** — Metrics, logos, analyst recognition
-7. **Case Study** — One customer story told well
-8. **Implementation / Timeline** — How they get from here to live
-9. **ROI / Value** — Expected return and payback period
-10. **Pricing Overview** — Transparent, tiered if applicable
-11. **Next Steps / CTA** — Clear action with timeline
+1. **Current World Problem** — The pain your buyer lives with today → verify: step output matches expected outcome
+2. **Cost of the Problem** — What inaction costs (time, money, risk) → verify: step output matches expected outcome
+3. **The Shift Happening** — Market or technology change creating urgency → verify: step output matches expected outcome
+4. **Your Approach** — How you solve it differently → verify: step output matches expected outcome
+5. **Product Walkthrough** — 3-4 key workflows, not a feature tour → verify: step output matches expected outcome
+6. **Proof Points** — Metrics, logos, analyst recognition → verify: step output matches expected outcome
+7. **Case Study** — One customer story told well → verify: step output matches expected outcome
+8. **Implementation / Timeline** — How they get from here to live → verify: step output matches expected outcome
+9. **ROI / Value** — Expected return and payback period → verify: step output matches expected outcome
+10. **Pricing Overview** — Transparent, tiered if applicable → verify: step output matches expected outcome
+11. **Next Steps / CTA** — Clear action with timeline → verify: step output matches expected outcome
 
 ### Deck Principles
 
@@ -98,11 +99,11 @@ Every claim connects to revenue, efficiency, or risk reduction. Features mean no
 
 ### Structure
 
-1. **Problem statement** — The pain in one sentence
-2. **Your solution** — What you do and how
-3. **3 differentiators** — Why you vs. alternatives
-4. **Proof point** — One strong metric or customer quote
-5. **CTA** — Clear next step with contact info
+1. **Problem statement** — The pain in one sentence → verify: step output matches expected outcome
+2. **Your solution** — What you do and how → verify: step output matches expected outcome
+3. **3 differentiators** — Why you vs. alternatives → verify: step output matches expected outcome
+4. **Proof point** — One strong metric or customer quote → verify: step output matches expected outcome
+5. **CTA** — Clear next step with contact info → verify: step output matches expected outcome
 
 ### Design Principles
 
@@ -132,11 +133,11 @@ Every claim connects to revenue, efficiency, or risk reduction. Features mean no
 
 For each objection, document:
 
-1. **Objection statement** — Exactly how reps hear it
-2. **Why they say it** — The real concern behind the words
-3. **Response approach** — How to acknowledge and redirect
-4. **Proof point** — Specific evidence that addresses the concern
-5. **Follow-up question** — Keep the conversation moving forward
+1. **Objection statement** — Exactly how reps hear it → verify: step output matches expected outcome
+2. **Why they say it** — The real concern behind the words → verify: step output matches expected outcome
+3. **Response approach** — How to acknowledge and redirect → verify: step output matches expected outcome
+4. **Proof point** — Specific evidence that addresses the concern → verify: step output matches expected outcome
+5. **Follow-up question** — Keep the conversation moving forward → verify: step output matches expected outcome
 
 ### Two Formats
 
@@ -188,11 +189,11 @@ For each objection, document:
 
 ### Script Structure
 
-1. **Opening** (2 min) — Context setting, agenda, confirm goals for the call
-2. **Discovery recap** (3 min) — Summarize what you learned, confirm priorities
-3. **Solution walkthrough** (15-20 min) — 3-4 key workflows mapped to their pain
-4. **Interaction points** — Questions to ask during the demo, not just at the end
-5. **Close** (5 min) — Summarize value, propose next steps with timeline
+1. **Opening** (2 min) — Context setting, agenda, confirm goals for the call → verify: file content matches expected shape
+2. **Discovery recap** (3 min) — Summarize what you learned, confirm priorities → verify: step output matches expected outcome
+3. **Solution walkthrough** (15-20 min) — 3-4 key workflows mapped to their pain → verify: step output matches expected outcome
+4. **Interaction points** — Questions to ask during the demo, not just at the end → verify: user confirms
+5. **Close** (5 min) — Summarize value, propose next steps with timeline → verify: step output matches expected outcome
 
 ### Talk Track Types
 
@@ -221,12 +222,12 @@ Marketing case studies tell a story. Sales case studies arm reps with fast-acces
 
 ### Structure
 
-1. **Customer profile** — Industry, company size, buyer role
-2. **Challenge** — What they were struggling with (2-3 sentences)
-3. **Solution** — What they implemented (1-2 sentences)
-4. **Results** — 3 specific metrics (before/after)
-5. **Pull quote** — One sentence from the customer
-6. **Tags** — Industry, use case, company size, persona
+1. **Customer profile** — Industry, company size, buyer role → verify: step output matches expected outcome
+2. **Challenge** — What they were struggling with (2-3 sentences) → verify: step output matches expected outcome
+3. **Solution** — What they implemented (1-2 sentences) → verify: step output matches expected outcome
+4. **Results** — 3 specific metrics (before/after) → verify: step output matches expected outcome
+5. **Pull quote** — One sentence from the customer → verify: step output matches expected outcome
+6. **Tags** — Industry, use case, company size, persona → verify: step output matches expected outcome
 
 ### Organization
 
@@ -241,11 +242,11 @@ Organize case studies so reps can find the right one instantly:
 
 ### Structure
 
-1. **Executive summary** — Their challenge, your solution, expected outcome (1 page max)
-2. **Proposed solution** — What you'll deliver, mapped to their requirements
-3. **Implementation plan** — Timeline, milestones, responsibilities
-4. **Investment** — Pricing, payment terms, what's included
-5. **Next steps** — How to move forward, decision timeline
+1. **Executive summary** — Their challenge, your solution, expected outcome (1 page max) → verify: step output matches expected outcome
+2. **Proposed solution** — What you'll deliver, mapped to their requirements → verify: step output matches expected outcome
+3. **Implementation plan** — Timeline, milestones, responsibilities → verify: step output matches expected outcome
+4. **Investment** — Pricing, payment terms, what's included → verify: step output matches expected outcome
+5. **Next steps** — How to move forward, decision timeline → verify: step output matches expected outcome
 
 ### Customization Guidance
 
@@ -331,11 +332,11 @@ Deliver the right format for each asset type:
 
 If context is missing, ask:
 
-1. What collateral do you need? (deck, one-pager, objection doc, etc.)
-2. Who will use it? (AE, SDR, champion, prospect)
-3. What sales stage is it for? (prospecting, discovery, demo, negotiation, close)
-4. Who is the target persona? (title, seniority, department)
-5. What are the top 3 objections you hear most?
+1. What collateral do you need? (deck, one-pager, objection doc, etc.) → verify: step output matches expected outcome
+2. Who will use it? (AE, SDR, champion, prospect) → verify: step output matches expected outcome
+3. What sales stage is it for? (prospecting, discovery, demo, negotiation, close) → verify: step output matches expected outcome
+4. Who is the target persona? (title, seniority, department) → verify: step output matches expected outcome
+5. What are the top 3 objections you hear most? → verify: step output matches expected outcome
 
 ---
 
@@ -357,3 +358,40 @@ For partner sales enablement, see the [tools registry](../../tools/REGISTRY.md):
 - **revops**: For lead lifecycle, scoring, routing, and pipeline management
 - **pricing-strategy**: For pricing decisions and packaging
 - **product-marketing-context**: For foundational positioning and messaging
+
+## When NOT to use
+
+- Task is unrelated to sales enablement — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Sales Enablement needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for sales enablement
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving sales enablement
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

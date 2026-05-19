@@ -1,6 +1,7 @@
 ---
 name: "capa-officer"
-description: CAPA system management for medical device QMS. Covers root cause analysis, corrective action planning, effectiveness verification, and CAPA metrics. Use for CAPA investigations, 5-Why analysis, fishbone diagrams, root cause determination, corrective action tracking, effectiveness verification, or CAPA program optimization.
+description: "CAPA system management for medical device QMS. Covers root cause analysis, corrective action planning, effectiveness verification, an. Triggers: 'use capa-officer', 'capa officer', 'capa-officer task."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - CAPA investigation
   - root cause analysis
@@ -38,14 +39,14 @@ Corrective and Preventive Action (CAPA) management within Quality Management Sys
 
 Conduct systematic CAPA investigation from initiation through closure:
 
-1. Document trigger event with objective evidence
-2. Assess significance and determine CAPA necessity
-3. Form investigation team with relevant expertise
-4. Collect data and evidence systematically
-5. Select and apply appropriate RCA methodology
-6. Identify root cause(s) with supporting evidence
-7. Develop corrective and preventive actions
-8. **Validation:** Root cause explains all symptoms; if eliminated, problem would not recur
+1. Document trigger event with objective evidence → verify: step output matches expected outcome
+2. Assess significance and determine CAPA necessity → verify: step output matches expected outcome
+3. Form investigation team with relevant expertise → verify: step output matches expected outcome
+4. Collect data and evidence systematically → verify: step output matches expected outcome
+5. Select and apply appropriate RCA methodology → verify: diff matches intended change
+6. Identify root cause(s) with supporting evidence → verify: step output matches expected outcome
+7. Develop corrective and preventive actions → verify: step output matches expected outcome
+8. **Validation:** Root cause explains all symptoms; if eliminated, problem would not recur → verify: step output matches expected outcome
 
 ### CAPA Necessity Determination
 
@@ -185,14 +186,14 @@ Before proceeding to action planning, validate root cause:
 
 Develop effective actions addressing identified root causes:
 
-1. Define immediate containment actions
-2. Develop corrective actions targeting root cause
-3. Identify preventive actions for similar processes
-4. Assign responsibilities and resources
-5. Establish timeline with milestones
-6. Define success criteria and verification method
-7. Document in CAPA action plan
-8. **Validation:** Actions directly address root cause; success criteria are measurable
+1. Define immediate containment actions → verify: step output matches expected outcome
+2. Develop corrective actions targeting root cause → verify: step output matches expected outcome
+3. Identify preventive actions for similar processes → verify: step output matches expected outcome
+4. Assign responsibilities and resources → verify: step output matches expected outcome
+5. Establish timeline with milestones → verify: step output matches expected outcome
+6. Define success criteria and verification method → verify: step output matches expected outcome
+7. Document in CAPA action plan → verify: step output matches expected outcome
+8. **Validation:** Actions directly address root cause; success criteria are measurable → verify: step output matches expected outcome
 
 ### Action Types
 
@@ -250,14 +251,14 @@ QA Manager: _____________ Date: _______
 
 Verify corrective actions achieved intended results:
 
-1. Allow adequate implementation period (minimum 30-90 days)
-2. Collect post-implementation data
-3. Compare to pre-implementation baseline
-4. Evaluate against success criteria
+1. Allow adequate implementation period (minimum 30-90 days) → verify: step output matches expected outcome
+2. Collect post-implementation data → verify: step output matches expected outcome
+3. Compare to pre-implementation baseline → verify: step output matches expected outcome
+4. Evaluate against success criteria → verify: step output matches expected outcome
 5. Verify no recurrence during verification period
-6. Document verification evidence
-7. Determine CAPA effectiveness
-8. **Validation:** All criteria met with objective evidence; no recurrence observed
+6. Document verification evidence → verify: step output matches expected outcome
+7. Determine CAPA effectiveness → verify: step output matches expected outcome
+8. **Validation:** All criteria met with objective evidence; no recurrence observed → verify: step output matches expected outcome
 
 ### Verification Timeline Guidelines
 
@@ -432,3 +433,40 @@ Required CAPA elements:
 | Root cause analysis superficial | Inadequate investigation training |
 | Effectiveness not verified | No verification procedure |
 | Actions do not address root cause | Symptom treatment vs. cause elimination |
+
+## When NOT to use
+
+- Task is unrelated to capa officer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Capa Officer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for capa officer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving capa officer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,4 +1,9 @@
 ---
+name: api-design-reviewer
+description: 'API Design Reviewer. Triggers: "use api-design-reviewer", "build API design reviewer", "api design reviewer".'
+allowed-tools: Bash, Glob, Grep, Read
+---
+---
 name: "api-design-reviewer"
 description: "Review and lint REST API designs for naming conventions, HTTP method correctness, status code compliance, breaking changes, security headers, and documentation gaps - with a scored design report. Use when designing APIs, reviewing API pull requests, or checking for breaking changes before a release. Trigger on: 'review API design', 'API linting', 'REST conventions', 'API breaking changes', 'API review', 'check my API', 'API quality', 'OpenAPI review', 'endpoint design', 'API consistency'."
 
@@ -389,32 +394,69 @@ fi
 
 ## Best Practices Summary
 
-1. **Consistency First**: Maintain consistent naming, response formats, and patterns
-2. **Documentation**: Provide comprehensive, up-to-date API documentation
-3. **Versioning**: Plan for evolution with clear versioning strategies
-4. **Error Handling**: Implement consistent, informative error responses
-5. **Security**: Build security into every layer of the API
-6. **Performance**: Design for scale and efficiency from the start
-7. **Backward Compatibility**: Minimize breaking changes and provide migration paths
-8. **Testing**: Implement comprehensive testing including contract testing
-9. **Monitoring**: Add observability for API usage and performance
-10. **Developer Experience**: Prioritize ease of use and clear documentation
+1. **Consistency First**: Maintain consistent naming, response formats, and patterns → verify: step output matches expected outcome
+2. **Documentation**: Provide comprehensive, up-to-date API documentation → verify: step output matches expected outcome
+3. **Versioning**: Plan for evolution with clear versioning strategies → verify: step output matches expected outcome
+4. **Error Handling**: Implement consistent, informative error responses → verify: step output matches expected outcome
+5. **Security**: Build security into every layer of the API → verify: step output matches expected outcome
+6. **Performance**: Design for scale and efficiency from the start → verify: step output matches expected outcome
+7. **Backward Compatibility**: Minimize breaking changes and provide migration paths → verify: step output matches expected outcome
+8. **Testing**: Implement comprehensive testing including contract testing → verify: all checks pass
+9. **Monitoring**: Add observability for API usage and performance → verify: dependency resolves + import works
+10. **Developer Experience**: Prioritize ease of use and clear documentation → verify: step output matches expected outcome
 
 ## Common Anti-Patterns to Avoid
 
-1. **Verb-based URLs**: Use nouns for resources, not actions
-2. **Inconsistent Response Formats**: Maintain standard response structures
-3. **Over-nesting**: Avoid deeply nested resource hierarchies
-4. **Ignoring HTTP Status Codes**: Use appropriate status codes for different scenarios
-5. **Poor Error Messages**: Provide actionable, specific error information
-6. **Missing Pagination**: Always paginate list endpoints
-7. **No Versioning Strategy**: Plan for API evolution from day one
-8. **Exposing Internal Structure**: Design APIs for external consumption, not internal convenience
-9. **Missing Rate Limiting**: Protect your API from abuse and overload
-10. **Inadequate Testing**: Test all aspects including error cases and edge conditions
+1. **Verb-based URLs**: Use nouns for resources, not actions → verify: step output matches expected outcome
+2. **Inconsistent Response Formats**: Maintain standard response structures → verify: step output matches expected outcome
+3. **Over-nesting**: Avoid deeply nested resource hierarchies → verify: step output matches expected outcome
+4. **Ignoring HTTP Status Codes**: Use appropriate status codes for different scenarios → verify: step output matches expected outcome
+5. **Poor Error Messages**: Provide actionable, specific error information → verify: step output matches expected outcome
+6. **Missing Pagination**: Always paginate list endpoints → verify: step output matches expected outcome
+7. **No Versioning Strategy**: Plan for API evolution from day one → verify: step output matches expected outcome
+8. **Exposing Internal Structure**: Design APIs for external consumption, not internal convenience → verify: step output matches expected outcome
+9. **Missing Rate Limiting**: Protect your API from abuse and overload → verify: file content matches expected shape
+10. **Inadequate Testing**: Test all aspects including error cases and edge conditions → verify: all checks pass
 
 ## Conclusion
 
 The API Design Reviewer skill provides a comprehensive framework for building, reviewing, and maintaining high-quality REST APIs. By following these guidelines and using the provided tools, development teams can create APIs that are consistent, well-documented, secure, and maintainable.
 
 Regular use of the linting, breaking change detection, and scoring tools ensures continuous improvement and helps maintain API quality throughout the development lifecycle.
+
+## When NOT to use
+
+- Task is unrelated to api design reviewer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Api Design Reviewer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for api design reviewer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving api design reviewer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

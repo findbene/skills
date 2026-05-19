@@ -1,6 +1,7 @@
 ---
 name: n8n-node-configuration
-description: Operation-aware node configuration for n8n. Always use this skill when configuring node parameters, understanding required vs optional fields, working with displayOptions property dependencies, choosing how much detail to fetch with get_node, or setting up any node that has multiple resources/operations (Slack, HTTP Request, Airtable, Google Sheets, etc.). Different operations require completely different fields — guessing will produce broken configs. Load this skill whenever you're about to configure a node you haven't configured before, or when a validation error says a field is missing.
+description: "Operation-aware node configuration for n8n. Trigger: configuring node parameters, understanding required vs optional fields, working with displayOptions property dependencies, choosing how much detai."
+allowed-tools: Glob, Grep, Read
 ---
 
 # n8n Node Configuration
@@ -42,7 +43,7 @@ Always follow this sequence when configuring an unfamiliar node:
 1. search_nodes({query: "node name"})          → get nodeType
 2. get_node({nodeType, detail: "standard"})    → see operations + required fields
 3. validate_node({nodeType, config, mode: "minimal"}) → verify required fields
-4. [Fix issues]
+4. [Fix issues] → verify: diff matches intended change
 5. validate_node({nodeType, config, profile: "runtime"}) → full validation
 ```
 
@@ -188,3 +189,40 @@ Use `patchNodeField` (via `n8n_update_partial_workflow`) for surgical edits to a
 
 - **`references/OPERATION_PATTERNS.md`** — Detailed configuration examples for 15+ common nodes (Slack, Gmail, Airtable, Google Sheets, Postgres, HTTP Request, etc.) organized by resource+operation
 - **`references/DEPENDENCIES.md`** — How displayOptions work, reading the schema to predict which fields appear for which operations, and debugging dependency mismatches
+
+## When NOT to use
+
+- Task is unrelated to n8n node configuration — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | N8N Node Configuration needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for n8n node configuration
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving n8n node configuration
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: seedance-fight-scenes
-description: Generate intense fight scene and action sequence video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants fight scenes, combat, martial arts, battles, action choreography, sword fights, hand-to-hand combat, chase scenes, superhero action, or any high-energy action video. Triggers on: fight, combat, battle, martial arts, action scene, choreography, duel, sword fight, kung fu, chase, brawl, punch, kick, weapon combat, superhero fight, or any action/fight request. Use even for "make an intense action video" or "epic battle."
+description: "Generate intense fight scene and action sequence video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-fight-scenes', 'seedance fight scenes', 'seedance-fight-scenes task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield — Fight Scene & Action Prompt Generator
@@ -35,25 +36,25 @@ The opening 2 seconds of a fight must GRAB. These hooks ignite engagement immedi
 
 ### 10+ Essential Fight Hooks
 
-1. **Mid-Action Freeze Frame**: Cut directly into the apex of a strike—fist or blade mid-impact, combatants at maximum extension, muscles coiled. Hold for 0.5 seconds before explosive continuation.
+1. **Mid-Action Freeze Frame**: Cut directly into the apex of a strike—fist or blade mid-impact, combatants at maximum extension, muscles coiled. Hold for 0.5 seconds before explosive continuation. → verify: step output matches expected outcome
 
-2. **Weapon Clash with Spark Explosion**: Two blades (or weapons) collide dead-center screen. Orange sparks burst radially. Camera pulls back slightly as the shockwave rings out.
+2. **Weapon Clash with Spark Explosion**: Two blades (or weapons) collide dead-center screen. Orange sparks burst radially. Camera pulls back slightly as the shockwave rings out. → verify: step output matches expected outcome
 
-3. **Character Charging Directly at Camera**: Aggressor sprints toward the camera with wild intensity, limbs extended. Camera shakes slightly from proximity. Stop just before impact, then cut to the actual fight.
+3. **Character Charging Directly at Camera**: Aggressor sprints toward the camera with wild intensity, limbs extended. Camera shakes slightly from proximity. Stop just before impact, then cut to the actual fight. → verify: step output matches expected outcome
 
-4. **Slow-Motion Punch Impact**: A perfectly centered punch connects with face/body in slow motion (0.25x speed). Show the moment of contact: skin deforming, head whipping back, eyes widening in shock.
+4. **Slow-Motion Punch Impact**: A perfectly centered punch connects with face/body in slow motion (0.25x speed). Show the moment of contact: skin deforming, head whipping back, eyes widening in shock. → verify: step output matches expected outcome
 
-5. **Shockwave from Ground Slam**: Combatant slams fist or body into earth. A visible shockwave radiates outward, kicking up dust in a perfect circle. Secondary character staggers backward.
+5. **Shockwave from Ground Slam**: Combatant slams fist or body into earth. A visible shockwave radiates outward, kicking up dust in a perfect circle. Secondary character staggers backward. → verify: step output matches expected outcome
 
-6. **Blade Unsheathing with Metallic Flash**: Draw a katana, nodachi, or longsword. The blade catches light with a brilliant flash. Auditory: the metallic ring of steel (add in post if needed).
+6. **Blade Unsheathing with Metallic Flash**: Draw a katana, nodachi, or longsword. The blade catches light with a brilliant flash. Auditory: the metallic ring of steel (add in post if needed). → verify: dependency resolves + import works
 
-7. **Aerial Kick Descending**: Combatant launches vertically, leg extended in a perfect axe kick or flying kick. They descend toward opponent at camera's eye level. Ground impact creates visible dust cloud on contact.
+7. **Aerial Kick Descending**: Combatant launches vertically, leg extended in a perfect axe kick or flying kick. They descend toward opponent at camera's eye level. Ground impact creates visible dust cloud on contact. → verify: output exists + parses without error
 
-8. **Dual-Wield Weapon Twirl**: Character spins twin weapons (swords, staffs, nunchaku) in rapid succession—blades blur. Stops in power stance, weapons crossing the chest.
+8. **Dual-Wield Weapon Twirl**: Character spins twin weapons (swords, staffs, nunchaku) in rapid succession—blades blur. Stops in power stance, weapons crossing the chest. → verify: step output matches expected outcome
 
-9. **Rope/Chain Snap**: Whip or chain weapon snaps through frame with violent acceleration. Auditory crack required (post-production). Can precede grapple or wrapping move.
+9. **Rope/Chain Snap**: Whip or chain weapon snaps through frame with violent acceleration. Auditory crack required (post-production). Can precede grapple or wrapping move. → verify: findings count > 0 OR clean signal returned
 
-10. **Opponent Stumble/Dodge Backward**: One combatant charges; the other pivots explosively and sidesteps. Attacker's momentum carries them past the camera, creating dynamic depth. Chase-cam follows the dodge.
+10. **Opponent Stumble/Dodge Backward**: One combatant charges; the other pivots explosively and sidesteps. Attacker's momentum carries them past the camera, creating dynamic depth. Chase-cam follows the dodge. → verify: step output matches expected outcome
 
 ---
 
@@ -89,10 +90,10 @@ Don't just describe the technique. Describe what happens:
 
 All great fights oscillate: buildup → impact → brief calm → buildup. Map your prompts this way:
 
-1. **Tension Building**: Circling, footwork, feints, breathing, narrowing distance
-2. **Release/Impact**: The strike, block, or collision—2–3 seconds of maximum action
-3. **Recovery**: Brief moment of regrouping, reassessment, repositioning
-4. **Acceleration**: Repeat but escalate intensity
+1. **Tension Building**: Circling, footwork, feints, breathing, narrowing distance → verify: step output matches expected outcome
+2. **Release/Impact**: The strike, block, or collision—2–3 seconds of maximum action → verify: step output matches expected outcome
+3. **Recovery**: Brief moment of regrouping, reassessment, repositioning → verify: step output matches expected outcome
+4. **Acceleration**: Repeat but escalate intensity → verify: step output matches expected outcome
 
 ---
 
@@ -287,35 +288,35 @@ Match camera work to choreography intensity:
 
 ### Dynamic Movement
 
-1. **Dolly Forward**: Push camera directly toward impact point—simulate aggressor momentum
-2. **Dolly Backward**: Pull camera away during grapple/clinch—show spatial relationships
-3. **Lateral Tracking**: Pan side-to-side following lateral movement—maintain subject center
-4. **Orbital Orbit Around Subjects**: Circle combatants during stationary exchanges—reveal positioning
-5. **Whip-Pan**: Rapid horizontal camera swing between combatants—chaotic multi-fighter perspective
-6. **Snap Zoom**: Rapid in/out focus shift—emphasize impact moment
-7. **Reverse Dolly**: Move camera backward while combatant advances forward—deceptive speed perception
+1. **Dolly Forward**: Push camera directly toward impact point—simulate aggressor momentum → verify: git status clean
+2. **Dolly Backward**: Pull camera away during grapple/clinch—show spatial relationships → verify: step output matches expected outcome
+3. **Lateral Tracking**: Pan side-to-side following lateral movement—maintain subject center → verify: step output matches expected outcome
+4. **Orbital Orbit Around Subjects**: Circle combatants during stationary exchanges—reveal positioning → verify: step output matches expected outcome
+5. **Whip-Pan**: Rapid horizontal camera swing between combatants—chaotic multi-fighter perspective → verify: step output matches expected outcome
+6. **Snap Zoom**: Rapid in/out focus shift—emphasize impact moment → verify: step output matches expected outcome
+7. **Reverse Dolly**: Move camera backward while combatant advances forward—deceptive speed perception → verify: step output matches expected outcome
 
 ### Static Positioning
 
-8. **Dutch Angle**: Tilt camera 20–30 degrees off horizontal—dynamic tension, disorientation
-9. **Low Angle (Worm's Eye View)**: Camera at knee/floor level—aggressor towering, power imbalance
-10. **High Angle (Bird's Eye)**: Camera overhead—combatants look smaller, environmental awareness
-11. **Close-Up on Impact**: Extreme tight frame on strike contact—exaggerate impact sensation
-12. **Wide Master Shot**: Full fight visible—spatial relationship clarity, choreography comprehension
+8. **Dutch Angle**: Tilt camera 20–30 degrees off horizontal—dynamic tension, disorientation → verify: step output matches expected outcome
+9. **Low Angle (Worm's Eye View)**: Camera at knee/floor level—aggressor towering, power imbalance → verify: step output matches expected outcome
+10. **High Angle (Bird's Eye)**: Camera overhead—combatants look smaller, environmental awareness → verify: step output matches expected outcome
+11. **Close-Up on Impact**: Extreme tight frame on strike contact—exaggerate impact sensation → verify: step output matches expected outcome
+12. **Wide Master Shot**: Full fight visible—spatial relationship clarity, choreography comprehension → verify: step output matches expected outcome
 
 ### Focus & Exposure
 
-13. **Rack Focus**: Shift sharp focus from background to foreground combatant—draw attention
-14. **Shallow Depth of Field**: Soft background—isolate primary combatant
-15. **Deep Focus**: Sharp focus front to back—show environmental stakes
-16. **Motion Blur**: Intentional blur on fast-moving limbs—emphasize speed
-17. **Slow-Motion Emphasis**: Key impacts in 0.5x–0.25x speed—crystallize moment of contact
+13. **Rack Focus**: Shift sharp focus from background to foreground combatant—draw attention → verify: step output matches expected outcome
+14. **Shallow Depth of Field**: Soft background—isolate primary combatant → verify: step output matches expected outcome
+15. **Deep Focus**: Sharp focus front to back—show environmental stakes → verify: step output matches expected outcome
+16. **Motion Blur**: Intentional blur on fast-moving limbs—emphasize speed → verify: step output matches expected outcome
+17. **Slow-Motion Emphasis**: Key impacts in 0.5x–0.25x speed—crystallize moment of contact → verify: step output matches expected outcome
 
 ### Procedural / Transition
 
-18. **Handheld Shake**: Subtle camera vibration during impacts—physical realism
-19. **Follow Cam (Third-Person Chase)**: Camera trails combatant from behind—immersive running/evading
-20. **POV Cam**: Camera as primary combatant's eyes—subjective intensity
+18. **Handheld Shake**: Subtle camera vibration during impacts—physical realism → verify: step output matches expected outcome
+19. **Follow Cam (Third-Person Chase)**: Camera trails combatant from behind—immersive running/evading → verify: command exit code 0
+20. **POV Cam**: Camera as primary combatant's eyes—subjective intensity → verify: step output matches expected outcome
 
 ---
 
@@ -599,11 +600,11 @@ When multiple combatants engage simultaneously, structure prompts to avoid visua
 
 Instead of simultaneous multi-combatant madness, structure as waves:
 
-1. **Wave 1**: Single attacker initiates
-2. **Defender dispatches** (or stalemates)
-3. **Wave 2**: Two fresh attackers
-4. **Defender adapts strategy** (or looks exhausted)
-5. **Wave 3**: Three simultaneous attackers converge
+1. **Wave 1**: Single attacker initiates → verify: step output matches expected outcome
+2. **Defender dispatches** (or stalemates) → verify: diff matches intended change
+3. **Wave 2**: Two fresh attackers → verify: step output matches expected outcome
+4. **Defender adapts strategy** (or looks exhausted) → verify: step output matches expected outcome
+5. **Wave 3**: Three simultaneous attackers converge → verify: step output matches expected outcome
 6. **Climactic coordination moment**
 
 This creates narrative escalation and visual clarity.
@@ -739,3 +740,33 @@ Now go make extraordinary fight scenes.
 **Document Version**: 1.0
 **Last Updated**: April 2026
 **Designed for**: Seedance 2.0 on Higgsfield
+
+## When NOT to use
+
+- Task is unrelated to seedance fight scenes — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Fight Scenes needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance fight scenes
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

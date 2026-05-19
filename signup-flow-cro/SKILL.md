@@ -1,6 +1,7 @@
 ---
 name: signup-flow-cro
-description: "Optimize the signup and registration flow to reduce abandonment and increase signup completion rates — analyzing each step, reducing friction, improving copy and trust signals, and streamlining the path from 'click CTA' to 'account created.' Use this whenever the user mentions 'signup flow optimization,' 'registration drop-off,' 'signup abandonment,' 'improve signup rate,' or 'people click sign up but don't finish.' Trigger even when analytics show a high drop-off between CTA click and account creation."
+description: "Optimize the signup and registration flow to reduce abandonment and increase signup completion rates — analyzing each step,. Triggers: 'use signup-flow-cro', 'signup flow cro', 'signup-flow-cro task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -138,9 +139,9 @@ Every field reduces conversion. For each field, ask:
 - Save progress (don't lose data on refresh)
 
 **Progressive commitment pattern:**
-1. Email only (lowest barrier)
-2. Password + name
-3. Customization questions (optional)
+1. Email only (lowest barrier) → verify: step output matches expected outcome
+2. Password + name → verify: step output matches expected outcome
+3. Customization questions (optional) → verify: step output matches expected outcome
 
 ---
 
@@ -226,9 +227,9 @@ For each issue found:
 
 ### Recommended Changes
 Organized by:
-1. Quick wins (same-day fixes)
-2. High-impact changes (week-level effort)
-3. Test hypotheses (things to A/B test)
+1. Quick wins (same-day fixes) → verify: diff matches intended change
+2. High-impact changes (week-level effort) → verify: step output matches expected outcome
+3. Test hypotheses (things to A/B test) → verify: all checks pass
 
 ### Form Redesign (if requested)
 - Recommended field set with rationale
@@ -241,24 +242,24 @@ Organized by:
 ## Common Signup Flow Patterns
 
 ### B2B SaaS Trial
-1. Email + Password (or Google auth)
-2. Name + Company (optional: role)
+1. Email + Password (or Google auth) → verify: step output matches expected outcome
+2. Name + Company (optional: role) → verify: step output matches expected outcome
 3. → Onboarding flow
 
 ### B2C App
-1. Google/Apple auth OR Email
+1. Google/Apple auth OR Email → verify: step output matches expected outcome
 2. → Product experience
-3. Profile completion later
+3. Profile completion later → verify: step output matches expected outcome
 
 ### Waitlist/Early Access
-1. Email only
-2. Optional: Role/use case question
+1. Email only → verify: step output matches expected outcome
+2. Optional: Role/use case question → verify: step output matches expected outcome
 3. → Waitlist confirmation
 
 ### E-commerce Account
-1. Guest checkout as default
-2. Account creation optional post-purchase
-3. OR Social auth with single click
+1. Guest checkout as default → verify: step output matches expected outcome
+2. Account creation optional post-purchase → verify: step output matches expected outcome
+3. OR Social auth with single click → verify: step output matches expected outcome
 
 ---
 
@@ -343,11 +344,11 @@ Organized by:
 
 ## Task-Specific Questions
 
-1. What's your current signup completion rate?
-2. Do you have field-level analytics on drop-off?
-3. What data is absolutely required before they can use the product?
-4. Are there compliance or verification requirements?
-5. What happens immediately after signup?
+1. What's your current signup completion rate? → verify: step output matches expected outcome
+2. Do you have field-level analytics on drop-off? → verify: step output matches expected outcome
+3. What data is absolutely required before they can use the product? → verify: step output matches expected outcome
+4. Are there compliance or verification requirements? → verify: step output matches expected outcome
+5. What happens immediately after signup? → verify: step output matches expected outcome
 
 ---
 
@@ -357,3 +358,45 @@ Organized by:
 - **form-cro**: For non-signup forms (lead capture, contact)
 - **page-cro**: For the landing page leading to signup
 - **ab-test-setup**: For testing signup flow changes
+
+## When NOT to use
+
+- Task is unrelated to signup flow cro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Signup Flow Cro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for signup flow cro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

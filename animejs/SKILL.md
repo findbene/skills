@@ -1,6 +1,7 @@
 ---
 name: animejs
-description: Anime.js adapter patterns for HyperFrames. Use when writing Anime.js animations or timelines inside HyperFrames compositions, registering animations on window.__hfAnime, making Anime.js seek-driven and deterministic, or translating Anime.js examples into render-safe HyperFrames HTML.
+description: "Anime.js adapter patterns for HyperFrames. Triggers: 'use animejs', 'animejs', 'animejs task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Anime.js for HyperFrames
@@ -112,3 +113,42 @@ npx hyperframes validate
 
 - HyperFrames adapter source: `packages/core/src/runtime/adapters/animejs.ts`.
 - Anime.js documentation for `autoplay`, `pause()`, and `seek()`: https://animejs.com/documentation/
+
+## When NOT to use
+
+- Complex scene sequencing or long timelines — use GSAP (primary HyperFrames path)
+- Generic web-only Anime.js work outside HyperFrames — just write Anime.js normally
+- React/JSX animations — use Framer Motion or `gsap` adapter instead
+- Animations driven by real-time data (network, time-of-day) — incompatible with seek-driven model
+- CSS-only or pure SVG SMIL animations — no JS adapter needed
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Leave `autoplay: true`, HyperFrames will catch up" | It won't; the composition drifts and frame-exact renders break |
+| "I'll set up the animation in a `setTimeout`/`async` block" | HyperFrames seeks before that fires; nothing animates |
+| "Use `loop: true` for endless rotation" | Render budget needs a finite count; compute from composition duration |
+| "Skip pushing onto `window.__hfAnime`" | Adapter only seeks instances it knows about; unregistered animations sit frozen |
+
+## Output Contract
+
+Done when:
+- All Anime.js instances created synchronously at composition init
+- Every instance has `autoplay: false`
+- Each instance/timeline pushed onto `window.__hfAnime`
+- Durations and loop counts are finite, computed from composition length
+- No wall-clock, network, or unseeded-random dependencies inside callbacks
+- `npx hyperframes lint` and `npx hyperframes validate` pass
+
+## Examples
+
+### Example 1 — Single mark animation flourish
+- Input: User wants a `.mark` element to translate and rotate over 1.2s
+- Action: Create `anime({ targets: ".mark", translateX: 280, rotate: "1turn", duration: 1200, autoplay: false })`, push to `window.__hfAnime`, run validate
+- Output: Composition seeks deterministically; lint/validate green
+
+### Example 2 — Multi-step intro timeline
+- Input: Title slides up, then accent bar scales in 250ms later
+- Action: Build `anime.timeline({ autoplay: false })` with `.add()` for title then `.add(..., 250)` for accent, push timeline to `window.__hfAnime`
+- Output: Timeline seekable, finite duration, GSAP not introduced

@@ -1,6 +1,7 @@
 ---
 name: "x-twitter-growth"
-description: "X/Twitter growth engine for building audience, crafting viral content, and analyzing engagement. Use when the user wants to grow on X/Twitter, write tweets or threads, analyze their X profile, research competitors on X, plan a posting strategy, or optimize engagement. Complements social-content (generic multi-platform) with X-specific depth: algorithm mechanics, thread engineering, reply strategy, profile optimization, and competitive intelligence via web search."
+description: "X/Twitter growth engine for building audience, crafting viral content, and analyzing engagement. Triggers: 'use x-twitter-growth', 'x twitter growth', 'x-twitter-growth task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -56,10 +57,10 @@ Run: `python3 scripts/profile_auditor.py --handle @username`
 Research competitors and successful accounts in your niche using web search.
 
 ### Process
-1. Search `site:x.com "topic" min_faves:100` via Brave to find high-performing content
-2. Identify 5-10 accounts in your niche with strong engagement
-3. For each, analyze: posting frequency, content types, hook patterns, engagement rates
-4. Run: `python3 scripts/competitor_analyzer.py --handles @acc1 @acc2 @acc3`
+1. Search `site:x.com "topic" min_faves:100` via Brave to find high-performing content → verify: step output matches expected outcome
+2. Identify 5-10 accounts in your niche with strong engagement → verify: step output matches expected outcome
+3. For each, analyze: posting frequency, content types, hook patterns, engagement rates → verify: step output matches expected outcome
+4. Run: `python3 scripts/competitor_analyzer.py --handles @acc1 @acc2 @acc3` → verify: command exit code 0
 
 ### What to Extract
 - **Hook patterns** — How do top posts start? Question? Bold claim? Statistic?
@@ -164,25 +165,25 @@ Run: `python3 scripts/tweet_composer.py --type thread --topic "your topic" --aud
 ## Step 5 — Growth Playbook
 
 ### Week 1-2: Foundation
-1. Optimize bio and pinned tweet (Step 1)
-2. Identify 20 accounts in your niche to engage with daily
-3. Reply 10-20 times per day to larger accounts (genuine value only)
-4. Post 2-3 atomic tweets per day testing different formats
-5. Publish 1 thread
+1. Optimize bio and pinned tweet (Step 1) → verify: step output matches expected outcome
+2. Identify 20 accounts in your niche to engage with daily → verify: step output matches expected outcome
+3. Reply 10-20 times per day to larger accounts (genuine value only) → verify: step output matches expected outcome
+4. Post 2-3 atomic tweets per day testing different formats → verify: all checks pass
+5. Publish 1 thread → verify: file content matches expected shape
 
 ### Week 3-4: Pattern Recognition
-1. Review what formats got most engagement
-2. Double down on top 2 content formats
-3. Increase to 3-5 posts per day
-4. Publish 2-3 threads per week
-5. Start quote-tweeting relevant content daily
+1. Review what formats got most engagement → verify: step output matches expected outcome
+2. Double down on top 2 content formats → verify: step output matches expected outcome
+3. Increase to 3-5 posts per day → verify: step output matches expected outcome
+4. Publish 2-3 threads per week → verify: file content matches expected shape
+5. Start quote-tweeting relevant content daily → verify: step output matches expected outcome
 
 ### Month 2+: Scale
-1. Develop 3-5 recurring content series (e.g., "Friday Framework")
-2. Cross-pollinate: repurpose threads as LinkedIn posts, newsletter content
-3. Build reply relationships with 5-10 accounts your size (mutual engagement)
-4. Experiment with spaces/audio if relevant to niche
-5. Run: `python3 scripts/growth_tracker.py --handle @username --period 30d`
+1. Develop 3-5 recurring content series (e.g., "Friday Framework") → verify: step output matches expected outcome
+2. Cross-pollinate: repurpose threads as LinkedIn posts, newsletter content → verify: file content matches expected shape
+3. Build reply relationships with 5-10 accounts your size (mutual engagement) → verify: step output matches expected outcome
+4. Experiment with spaces/audio if relevant to niche → verify: step output matches expected outcome
+5. Run: `python3 scripts/growth_tracker.py --handle @username --period 30d` → verify: command exit code 0
 
 ---
 
@@ -210,12 +211,12 @@ Generates a 2-week posting plan with:
 
 ## Common Pitfalls
 
-1. **Posting links directly** — Always put links in the first reply, never in the tweet body
-2. **Thread tweet 1 is weak** — If the hook doesn't stop scrolling, nothing else matters
-3. **Inconsistent posting** — Algorithm rewards daily consistency over occasional bangers
-4. **Only broadcasting** — Replies and engagement are 50%+ of growth, not just posting
-5. **Generic bio** — "Helping people do things" tells nobody anything
-6. **Copying formats without adapting** — What works for tech Twitter doesn't work for marketing Twitter
+1. **Posting links directly** — Always put links in the first reply, never in the tweet body → verify: step output matches expected outcome
+2. **Thread tweet 1 is weak** — If the hook doesn't stop scrolling, nothing else matters → verify: file content matches expected shape
+3. **Inconsistent posting** — Algorithm rewards daily consistency over occasional bangers → verify: step output matches expected outcome
+4. **Only broadcasting** — Replies and engagement are 50%+ of growth, not just posting → verify: step output matches expected outcome
+5. **Generic bio** — "Helping people do things" tells nobody anything → verify: step output matches expected outcome
+6. **Copying formats without adapting** — What works for tech Twitter doesn't work for marketing Twitter → verify: step output matches expected outcome
 
 ## Related Skills
 
@@ -224,3 +225,42 @@ Generates a 2-week posting plan with:
 - `social-media-analyzer` — Cross-platform analytics
 - `content-production` — Long-form content that feeds X threads
 - `copywriting` — Headline and hook writing techniques
+
+## When NOT to use
+
+- LinkedIn / Instagram / TikTok content — use `linkedin-creator`, `instagram-curator`, etc.
+- Cross-platform content calendar — use `social-content` or `social-media-manager`
+- Twitter advertising / promoted tweets — use `paid-ads` or `ads`
+- Engagement metrics analysis only — use `social-media-analyzer`
+- Pure copywriting (no platform specifics) — use `copywriting`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Post the link in the main tweet for clicks" | Algorithm demotes tweets with outbound links; use "link in replies" pattern |
+| "Long threads of 30 tweets get more reach" | Optimal length is 5-12 tweets; >15 tweets drop completion rate sharply |
+| "Buy followers / use engagement pods" | Algorithmically detected, suppresses reach permanently; grow with genuine engagement |
+| "Skip the audit, just start posting" | Without profile + voice audit, growth is incoherent — load `scripts/profile_auditor.py` first |
+
+## Output Contract
+
+Finished output must contain:
+- Profile audit (bio, banner, pinned tweet, voice) before any content work
+- Content plan with proportional mix (educational threads, commentary, replies, hooks)
+- Hook tested against curiosity/specificity/contrarian heuristics
+- Thread architecture: hook tweet, 1-idea-per-tweet body, payoff tweet, CTA
+- Posting cadence recommendation aligned to user's time zone audience
+- Engagement plan (which accounts to reply to, in what proportion)
+
+## Examples
+
+**Example 1 — Audit and 30-day growth plan**
+- Input: "Audit my account @example and give me a 30-day growth plan"
+- Action: Run `scripts/profile_auditor.py @example` → score bio/banner/pinned → analyze last 50 tweets for voice consistency → produce 30-day plan with daily targets
+- Output: Audit report (3 fixes), 30-day calendar (1 thread/wk, 3 commentary/day, 10 replies/day), 5 hook templates tailored to niche
+
+**Example 2 — Write a viral thread**
+- Input: "Write a thread about lessons from shipping a SaaS to $10K MRR"
+- Action: Craft hook (specific number + contrarian angle) → 8-tweet body with one lesson per tweet → payoff with biggest mistake → CTA to follow
+- Output: Hook + 9 tweets ready to schedule, each under 280 chars, with rationale for each lesson's placement

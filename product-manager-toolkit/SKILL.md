@@ -1,6 +1,7 @@
 ---
 name: "product-manager-toolkit"
-description: Comprehensive toolkit for product managers including RICE prioritization, customer interview analysis, PRD templates, discovery frameworks, and go-to-market strategies. Use for feature prioritization, user research synthesis, requirement documentation, and product strategy development.
+description: "Comprehensive toolkit for product managers including RICE prioritization, customer interview analysi. Triggers: 'use product-manager-toolkit', 'product manager toolkit', 'product-manager-toolkit task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Product Manager Toolkit
@@ -42,10 +43,10 @@ python scripts/customer_interview_analyzer.py interview_transcript.txt
 ```
 
 ### For PRD Creation
-1. Choose template from `references/prd_templates.md`
-2. Fill sections based on discovery work
-3. Review with engineering for feasibility
-4. Version control in project management tool
+1. Choose template from `references/prd_templates.md` → verify: step output matches expected outcome
+2. Fill sections based on discovery work → verify: step output matches expected outcome
+3. Review with engineering for feasibility → verify: step output matches expected outcome
+4. Version control in project management tool → verify: step output matches expected outcome
 
 ---
 
@@ -350,3 +351,40 @@ python scripts/customer_interview_analyzer.py interview.txt json
 
 - `references/prd_templates.md` - PRD templates for different contexts
 - `references/frameworks.md` - Detailed framework documentation (RICE, MoSCoW, Kano, JTBD, etc.)
+
+## When NOT to use
+
+- Task is unrelated to product manager toolkit — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Product Manager Toolkit needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for product manager toolkit
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving product manager toolkit
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

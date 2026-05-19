@@ -1,6 +1,7 @@
 ---
 name: programmatic-seo
-description: "Plan and build programmatic SEO systems — large-scale content generation from structured data, template-based page creation, location pages, comparison pages, and use-case pages at scale. Use this whenever the user mentions 'programmatic SEO,' 'thousands of pages,' 'template-based content,' 'location pages at scale,' 'comparison pages,' 'use-case pages,' or 'automated content generation for SEO.' Trigger even when the user says they want to create many similar pages quickly without explicitly knowing the term 'programmatic SEO."
+description: "Plan and build programmatic SEO systems — large-scale content generation from structured data, template-based page creati. Triggers: 'use programmatic-seo', 'programmatic seo', 'programmatic-seo task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -42,11 +43,11 @@ Before designing a programmatic SEO strategy, understand:
 
 ### 2. Proprietary Data Wins
 Hierarchy of data defensibility:
-1. Proprietary (you created it)
-2. Product-derived (from your users)
-3. User-generated (your community)
-4. Licensed (exclusive access)
-5. Public (anyone can use—weakest)
+1. Proprietary (you created it) → verify: output exists + parses without error
+2. Product-derived (from your users) → verify: step output matches expected outcome
+3. User-generated (your community) → verify: output exists + parses without error
+4. Licensed (exclusive access) → verify: step output matches expected outcome
+5. Public (anyone can use—weakest) → verify: step output matches expected outcome
 
 ### 3. Clean URL Structure
 **Use subfolders, not subdomains** — subfolders consolidate domain authority while subdomains split it:
@@ -221,12 +222,12 @@ Watch for: Thin content warnings, Ranking drops, Manual actions, Crawl errors
 
 ## Task-Specific Questions
 
-1. What keyword patterns are you targeting?
-2. What data do you have (or can acquire)?
-3. How many pages are you planning?
-4. What does your site authority look like?
-5. Who currently ranks for these terms?
-6. What's your technical stack?
+1. What keyword patterns are you targeting? → verify: step output matches expected outcome
+2. What data do you have (or can acquire)? → verify: step output matches expected outcome
+3. How many pages are you planning? → verify: step output matches expected outcome
+4. What does your site authority look like? → verify: step output matches expected outcome
+5. Who currently ranks for these terms? → verify: step output matches expected outcome
+6. What's your technical stack? → verify: step output matches expected outcome
 
 ---
 
@@ -236,3 +237,44 @@ Watch for: Thin content warnings, Ranking drops, Manual actions, Crawl errors
 - **schema-markup**: For adding structured data
 - **site-architecture**: For page hierarchy, URL structure, and internal linking
 - **competitor-alternatives**: For comparison page frameworks
+
+## Triggers
+
+programmatic SEO,' 'thousands of pages,' 'template-based content,' 'location pages at scale,' 'comparison pages,' 'use-case pages,' or 'automated cont...
+
+## When NOT to use
+
+- Task is unrelated to programmatic seo — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Programmatic Seo needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for programmatic seo
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving programmatic seo
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

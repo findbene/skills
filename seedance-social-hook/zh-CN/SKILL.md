@@ -1,6 +1,6 @@
 ---
 name: seedance-social-hook
-description: 使用 Seedance 2.0（Higgsfield）为 TikTok、Instagram Reels 和 YouTube Shorts 生成病毒式社交媒体钩子视频提示。在用户想要创建令人停下滚动的钩子、病毒式短视频、引人注目的开场白、TikTok 内容、Reels 内容、Shorts 内容或任何社交媒体优化视频时使用。在以下情况下触发：社交媒体视频、TikTok、Instagram Reels、YouTube Shorts、病毒视频、钩子、滚动停止器、短视频、趋势、参与、浏览量或任何社交媒体视频内容请求。即使是"做一些能获得浏览量的东西"或"病毒式内容"也适用。
+description: 使用 Seedance 2.0（Higgsfield）为 TikTok、Instagram Reels 和 YouTube Shorts 生成病毒式社交媒体钩子视频提示。在用户想要创建令人停下滚动的钩子、病毒式短视频、引人注目的开场白、TikTok 内容、Reels 内容、Shorts 内容或任何社交媒体优化视频时使用。在以下情况下触发：社交媒体视频、TikTok、Instagram Reels、YouTube Shorts、病毒视频、钩子、滚动停止器、短视频、趋势、参与、浏览量或任何社交...
 ---
 
 # 病毒钩子的艺术：令人停下滚动的社交媒体视频完全指南

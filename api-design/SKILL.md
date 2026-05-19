@@ -1,6 +1,7 @@
 ---
 name: api-design
-description: "REST and GraphQL API design specialist for endpoint structure, versioning, status codes, authentication, pagination, error handling, and OpenAPI documentation. Use this skill any time a new API is being designed, API contracts need to be defined, REST vs GraphQL decisions need to be made, or existing APIs need to be reviewed for quality. Trigger immediately on: \"API design\", \"REST API\", \"GraphQL\", \"endpoint structure\", \"API versioning\", \"status codes\", \"API pagination\", \"API contract\", \"API documentation\", \"API review\", \"OpenAPI\", \"Swagger\", \"API schema\", \"authentication header\". If someone says \"how should I design my API?\" or \"review my API endpoints\" this skill MUST trigger."
+description: 'REST and GraphQL API design specialist for endpoint structure, versioning, status codes, authentication, pagination, error handling, and O. Triggers: "use api-design", "build API design", "api design.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # API Design Best Practices
@@ -124,3 +125,43 @@ X-RateLimit-Remaining: 95
 X-RateLimit-Reset: 1640000000
 Retry-After: 60
 ```
+
+## When NOT to use
+
+- Internal-only RPC between trusted services where gRPC/typed clients beat REST
+- One-off webhook receiver — match the producer's contract, don't redesign
+- Pure data-layer schema design — use `database-schema-designer`
+- Microservice boundary decisions — use `backend-architect`
+- Frontend-only mocks with no real backend — sketch types in code, not a full API spec
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Verbs in URLs are fine: `/api/getUsers`" | The HTTP method is the verb; verbs in paths break REST conventions and tooling |
+| "Return 200 with `{ error }` body for failures" | Breaks every client retry/error library; use proper 4xx/5xx codes |
+| "No versioning yet, we'll add it later" | Breaking changes without a version path either freeze the API or break clients silently |
+| "Offset pagination works fine for our 10M-row table" | Offset N scans N rows; performance dies past page 100. Use cursors. |
+
+## Output Contract
+
+Done when:
+- Resource URLs use plural nouns, lowercase-hyphenated, no trailing slash
+- HTTP methods map cleanly to GET/POST/PUT/PATCH/DELETE semantics
+- Status codes used per the table; no 200-with-error-body patterns
+- Error response envelope is consistent across endpoints with `code` + `message` + optional `details`
+- Pagination strategy chosen (offset vs cursor) and documented
+- Versioning strategy declared (URL or header) and applied
+- OpenAPI / spec file generated or updated to match
+
+## Examples
+
+### Example 1 — Design CRUD endpoints for a new "projects" resource
+- Input: "Add a projects API for our app"
+- Action: Define `GET/POST /api/v1/projects`, `GET/PATCH/DELETE /api/v1/projects/:id`, nested `GET /api/v1/projects/:id/members`; cursor pagination for list; error envelope; Bearer auth; OpenAPI stub generated
+- Output: Endpoint table, request/response Zod-style schemas, status code matrix, OpenAPI 3 fragment
+
+### Example 2 — Audit an existing API for breaking-change risk
+- Input: "We want to add a required field to /users — what's the right path?"
+- Action: Identify breaking-change rule, recommend `/api/v2/users` with new required field OR feature flag via header; document deprecation timeline for v1
+- Output: Migration plan with timeline, header-version fallback, OpenAPI v1 + v2 split, deprecation `Sunset` header wired

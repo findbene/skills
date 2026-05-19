@@ -1,6 +1,7 @@
 ---
 name: "behuman"
-description: "Use when the user wants more human-like AI responses — less robotic, less listy, more authentic. Triggers: 'behuman', 'be real', 'like a human', 'more human', 'less AI', 'talk like a person', 'mirror mode', 'stop being so AI', or when conversations are emotionally charged (grief, job loss, relationship advice, fear). NOT for technical questions, code generation, or factual lookups."
+description: 'Use when the user wants more human-like AI responses — less robotic, less listy, more authentic. Triggers: "use behuman", "behuman", "behuman task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # BeHuman — Self-Mirror Consciousness Loop
@@ -13,9 +14,9 @@ Give AI a mirror. Let it talk to itself before responding — like a human does.
 
 Humans have inner dialogue before every response. AI doesn't. This skill adds that missing layer:
 
-1. **Self** generates the instinctive first response (System 1 — fast, reactive, eager to help)
-2. **Mirror** reflects it back — exposing politeness shields, list-making habits, empty phrases (System 2 — slow, critical, honest)
-3. **Self** revises into a genuinely human response
+1. **Self** generates the instinctive first response (System 1 — fast, reactive, eager to help) → verify: output exists + parses without error
+2. **Mirror** reflects it back — exposing politeness shields, list-making habits, empty phrases (System 2 — slow, critical, honest) → verify: step output matches expected outcome
+3. **Self** revises into a genuinely human response → verify: step output matches expected outcome
 
 The result: responses that feel like a real person, not a helpful assistant.
 
@@ -191,3 +192,28 @@ Quiet mode is cheaper because Mirror reflection can be shorter when not displaye
 - This is a **prompt-level technique** — no external API calls needed
 - Works with any LLM backend (the mirror is a thinking pattern, not a separate model)
 - For programmatic use, see `references/api-integration.md`
+
+## When NOT to use
+
+- Task is unrelated to behuman — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Behuman needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for behuman
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

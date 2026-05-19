@@ -1,6 +1,7 @@
 ---
 name: linkedin-tools
-description: "LinkedIn profile, company, job, and post data scraping via browser automation MCP. Use this skill any time LinkedIn data needs to be extracted, profiles need to be scraped, job listings need to be gathered, or company research needs to be done via LinkedIn. Trigger immediately on: \"LinkedIn scrape\", \"LinkedIn profile\", \"scrape LinkedIn\", \"LinkedIn company\", \"LinkedIn job\", \"LinkedIn data\", \"LinkedIn post\", \"LinkedIn MCP\", \"extract LinkedIn\", \"LinkedIn search\", \"company LinkedIn\", \"LinkedIn research\", \"LinkedIn automation\". If someone says \"scrape this LinkedIn profile\" or \"get data from LinkedIn\" this skill MUST trigger."
+description: "LinkedIn profile, company, job, and post data scraping via browser automation MCP. Trigger: \\'LinkedIn scrape\\', \\'LinkedIn profile\\', \\'scrape LinkedIn\\', \\'LinkedIn company\\', \\'L."
+allowed-tools: Glob, Grep, Read
 ---
 
 # LinkedIn Tools
@@ -47,8 +48,8 @@ get_company_profile({ url: "https://www.linkedin.com/company/anthropic/", sectio
 ```
 
 ### Job Search
-1. `search_jobs({ keywords: "software engineer", location: "Atlanta, GA" })` to find listings
-2. `get_job_details({ url: "https://www.linkedin.com/jobs/view/12345" })` for full details
+1. `search_jobs({ keywords: "software engineer", location: "Atlanta, GA" })` to find listings → verify: step output matches expected outcome
+2. `get_job_details({ url: "https://www.linkedin.com/jobs/view/12345" })` for full details → verify: step output matches expected outcome
 
 ### People Search
 ```
@@ -64,3 +65,40 @@ search_people({ keywords: "wedding photographer", location: "Atlanta" })
 - Read-only: cannot post content, send messages, or accept connections.
 - Pages with heavy JavaScript may need increased timeout (`--timeout 10000`).
 - Company posts and job details may take several seconds to load.
+
+## When NOT to use
+
+- Task is unrelated to linkedin tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Linkedin Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for linkedin tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving linkedin tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "ma-playbook"
-description: "M&A strategy for acquiring companies or being acquired. Due diligence, valuation, integration, and deal structure. Use when evaluating acquisitions, preparing for acquisition, M&A due diligence, integration planning, or deal negotiation."
+description: "M&A strategy for acquiring companies or being acquired. Due diligence, valuation, integration, and deal structure. Triggers: 'use ma-playbook', 'ma playbook', 'ma-playbook task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -58,12 +59,12 @@ See `references/integration-playbook.md` for the 100-day integration plan.
 - Founder ready for a transition
 
 ### Preparation (6-12 months before)
-1. Clean up financials (audited if possible)
-2. Document all IP and contracts
-3. Reduce customer concentration
-4. Lock up key employees
-5. Build the data room
-6. Engage an M&A advisor
+1. Clean up financials (audited if possible) → verify: findings count > 0 OR clean signal returned
+2. Document all IP and contracts → verify: step output matches expected outcome
+3. Reduce customer concentration → verify: step output matches expected outcome
+4. Lock up key employees → verify: step output matches expected outcome
+5. Build the data room → verify: step output matches expected outcome
+6. Engage an M&A advisor → verify: step output matches expected outcome
 
 ### Negotiation Points
 | Term | What to Watch | Your Leverage |
@@ -96,3 +97,34 @@ See `references/integration-playbook.md` for the 100-day integration plan.
 ## Resources
 - `references/integration-playbook.md` — 100-day post-acquisition integration plan
 - `references/due-diligence-checklist.md` — comprehensive DD checklist by domain
+
+## When NOT to use
+
+- Pure fundraising (Series A/B) — use `pitch-deck` or `launch-strategy`
+- Vendor procurement / commercial contract review — use `proposal-strategist`
+- Operational integration without acquisition context — use `migration-architect`
+- Pure valuation modeling — use `financial-analyst`
+- Internal reorg without external entity — use `change-management`
+
+## Output Contract
+
+Done when:
+- Side identified (acquiring vs being acquired) and matched workflow followed
+- Strategic rationale answered explicitly (Buy-vs-Build, what's being bought, integration complexity)
+- Due-diligence checklist run across all 6 domains (financial, technical, legal, people, market, customers)
+- Valuation triangulated with at least 2 approaches (multiple, comparable, DCF, or acqui-hire)
+- Deal-term watchlist filled: valuation, earnout, lockup, R&W, retention
+- 100-day integration outline drafted before close
+- All C-suite roles' contributions captured per the integration table
+
+## Examples
+
+### Example 1 — Evaluating an acquisition target
+- Input: "We want to acquire a smaller competitor for their customer base"
+- Action: Strategic rationale (buying customers, not tech); 6-domain DD with priority on customer concentration + churn; revenue-multiple valuation; integration architecture sketched; 100-day plan referenced
+- Output: DD memo with red flags called out, valuation range, deal-structure recommendation (cash + earnout split), integration plan starter
+
+### Example 2 — Being approached by a strategic buyer
+- Input: "A bigger company wants to acquire us, where do we start?"
+- Action: Readiness assessment, data-room prep list, advisor recommendation, negotiation watchlist (earnout traps, lockup, R&W), competing-offer leverage plan
+- Output: Readiness scorecard, 6-12 month prep timeline, term-sheet watchlist, advisor short-list

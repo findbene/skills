@@ -1,6 +1,7 @@
 ---
 name: "culture-architect"
-description: "Build, measure, and evolve company culture as operational behavior — not wall posters. Covers mission/vision/values workshops, values-to-behaviors translation, culture code creation, culture health assessment, and cultural rituals by stage. Use when building company values, assessing culture health, designing cultural rituals, creating culture codes, handling culture clashes, or when user mentions culture, values, culture debt, founder culture, or culture code."
+description: "Build, measure, and evolve company culture as operational behavior — not wall posters. Triggers: 'use culture-architect', 'culture architect', 'culture-architect task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -60,13 +61,13 @@ This is the work. Every value needs behavioral anchors or it's decoration.
 A culture code is a public document that describes how you operate. It should scare off the wrong people and attract the right ones.
 
 **Structure:**
-1. Who we are (mission + context)
-2. Who thrives here (specific behaviors, not adjectives)
-3. Who doesn't thrive here (honest — this is the useful part)
-4. How we make decisions
-5. How we communicate
-6. How we grow people
-7. What we expect of leaders
+1. Who we are (mission + context) → verify: step output matches expected outcome
+2. Who thrives here (specific behaviors, not adjectives) → verify: step output matches expected outcome
+3. Who doesn't thrive here (honest — this is the useful part) → verify: step output matches expected outcome
+4. How we make decisions → verify: step output matches expected outcome
+5. How we communicate → verify: step output matches expected outcome
+6. How we grow people → verify: step output matches expected outcome
+7. What we expect of leaders → verify: step output matches expected outcome
 
 See `templates/culture-code-template.md` for a complete template.
 
@@ -80,11 +81,11 @@ See `templates/culture-code-template.md` for a complete template.
 Run quarterly. 8–12 questions. Anonymous. See `references/culture-playbook.md` for survey design.
 
 **Core areas to measure:**
-1. Psychological safety — "Can I raise a concern without fear?"
-2. Clarity — "Do I know how my work connects to company goals?"
-3. Fairness — "Are decisions made consistently and transparently?"
-4. Growth — "Am I learning and being challenged here?"
-5. Trust in leadership — "Do I believe what leadership tells me?"
+1. Psychological safety — "Can I raise a concern without fear?" → verify: step output matches expected outcome
+2. Clarity — "Do I know how my work connects to company goals?" → verify: step output matches expected outcome
+3. Fairness — "Are decisions made consistently and transparently?" → verify: step output matches expected outcome
+4. Growth — "Am I learning and being challenged here?" → verify: step output matches expected outcome
+5. Trust in leadership — "Do I believe what leadership tells me?" → verify: step output matches expected outcome
 
 **Score interpretation:**
 | Score | Signal | Action |
@@ -165,3 +166,31 @@ Rituals are the delivery mechanism for culture. What works at 10 people breaks a
 ## Detailed References
 - `references/culture-playbook.md` — Netflix analysis, survey design, ritual examples, M&A playbook
 - `templates/culture-code-template.md` — Culture code document template
+
+## When NOT to use
+
+- Task is unrelated to culture architect — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for culture architect
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving culture architect
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

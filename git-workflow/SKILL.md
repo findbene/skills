@@ -1,6 +1,7 @@
 ---
 name: git-workflow
-description: "Git best practices for commits, branching, PRs, merge strategies, conflict resolution, and collaborative workflows. Use this skill any time git operations need guidance, commit messages need to be written, branches need to be created, PRs need to be structured, or git conflicts need to be resolved. Trigger immediately on: \"git commit\", \"commit message\", \"branch\", \"pull request\", \"PR\", \"merge\", \"rebase\", \"git conflict\", \"conventional commit\", \"git workflow\", \"git history\", \"cherry pick\", \"git tag\", \"undo commit\". If someone asks about git operations or needs help with a commit message this skill MUST trigger."
+description: 'Git best practices for commits, branching, PRs, merge strategies, conflict resolution, and collaborative workflows. Triggers: "use git-workflow", "git workflow workflow", "git workflow".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Git Workflow Best Practices
@@ -128,3 +129,40 @@ git checkout HEAD -- path/to/file
   "lint-staged": { "*.{ts,tsx}": ["eslint --fix", "prettier --write"] }
 }
 ```
+
+## When NOT to use
+
+- Task is unrelated to git workflow — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Git Workflow needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for git workflow
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving git workflow
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,6 @@
 ---
 name: stitch-svelte-components
-description: Converts Stitch designs into Svelte 5 / SvelteKit components using the runes API — scoped CSS with custom properties, built-in transitions, TypeScript, dark mode, and accessible markup.
+description: "Converts Stitch designs into Svelte 5 / SvelteKit components using the runes API — scoped CSS wit. Triggers: 'use stitch-svelte-components', 'stitch svelte components', 'stitch-svelte-components task."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -29,13 +29,13 @@ Use this skill when:
 
 ## Step 1: Retrieve the Stitch design
 
-1. **Namespace discovery** — Run `list_tools` to find the Stitch MCP prefix. Use it for all subsequent calls.
-2. **Fetch screen metadata** — Call `[prefix]:get_screen` to retrieve design JSON.
-3. **Download HTML** — Use the reliable downloader:
+1. **Namespace discovery** — Run `list_tools` to find the Stitch MCP prefix. Use it for all subsequent calls. → verify: command exit code 0
+2. **Fetch screen metadata** — Call `[prefix]:get_screen` to retrieve design JSON. → verify: diff matches intended change
+3. **Download HTML** — Use the reliable downloader: → verify: file content matches expected shape
    ```bash
    bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"
    ```
-4. **Visual reference** — Check `screenshot.downloadUrl` before writing code.
+4. **Visual reference** — Check `screenshot.downloadUrl` before writing code. → verify: file content matches expected shape
 
 ## Step 2: SvelteKit file conventions
 
@@ -250,13 +250,13 @@ Svelte's compiler warns about missing accessibility attributes — treat all com
 
 ## Step 7: Execution steps
 
-1. **Environment check** — If `node_modules` missing, run `npm install`.
-2. **Data layer** — Create `src/lib/data/mockData.ts` from design content.
-3. **Component drafting** — Use `resources/component-template.svelte` as base. Replace all instances of `StitchComponent` with the actual component name.
-4. **CSS tokens** — Add color tokens to `src/app.css`. If using `stitch-design-system`, import its generated `design-tokens.css` instead.
-5. **Wiring** — Update `src/routes/+page.svelte` to import and use the new components. Import from `$lib/components/`.
-6. **Quality check** — Run through `resources/architecture-checklist.md`.
-7. **Dev verification** — Run `npm run dev`. Toggle dark mode. Test keyboard navigation.
+1. **Environment check** — If `node_modules` missing, run `npm install`. → verify: command exit code 0
+2. **Data layer** — Create `src/lib/data/mockData.ts` from design content. → verify: output file exists + no syntax error
+3. **Component drafting** — Use `resources/component-template.svelte` as base. Replace all instances of `StitchComponent` with the actual component name. → verify: step output matches expected outcome
+4. **CSS tokens** — Add color tokens to `src/app.css`. If using `stitch-design-system`, import its generated `design-tokens.css` instead. → verify: output file exists + no syntax error
+5. **Wiring** — Update `src/routes/+page.svelte` to import and use the new components. Import from `$lib/components/`. → verify: step output matches expected outcome
+6. **Quality check** — Run through `resources/architecture-checklist.md`. → verify: command exit code 0
+7. **Dev verification** — Run `npm run dev`. Toggle dark mode. Test keyboard navigation. → verify: command exit code 0
 
 ## Troubleshooting
 
@@ -275,8 +275,47 @@ Svelte's compiler warns about missing accessibility attributes — treat all com
 - **stitch-animate** — Run after for Svelte-specific transition patterns beyond the basics above.
 - **stitch-a11y** — Run after for a full accessibility audit when the design has complex UI patterns.
 
+## When NOT to use
+
+- React, Vue, SwiftUI, or plain HTML target — use the matching `stitch-*-components` skill
+- Project uses Svelte 4 legacy Options API (not runes) — wait for migration or use a Svelte-4 skill
+- Pure design system / token generation — use `stitch-mcp-create-design-system`
+- Animation-only enhancement — use `stitch-animate`
+- WebView mobile app — use `stitch-html-components`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Use `let` for state, it works" | Svelte 5 requires `$state()` rune for reactivity — `let` produces silent reactivity bugs |
+| "Skip scoped styles, use a global stylesheet" | Scoped CSS with custom properties is the recommended pattern — global styles cause leakage |
+| "Use CSS transitions instead of Svelte's built-in transitions" | Svelte's `transition:` directive integrates with the lifecycle — produces smoother UX |
+| "Convert with `export let` props" | Svelte 5 prefers `$props()` rune destructure — `export let` is legacy syntax |
+
+## Output Contract
+
+Finished output must contain:
+- `.svelte` components using the runes API (`$state`, `$props`, `$derived`, `$effect`)
+- Scoped `<style>` blocks using CSS custom properties for theming
+- TypeScript types via `lang="ts"` and `$props<{ ... }>()` syntax
+- Dark mode via CSS variables driven by a class or data-attribute on the root element
+- Accessibility (semantic markup, ARIA labels, focus states)
+- Svelte transitions for entrances/exits where animation is part of the design
+- Component template followed (`resources/component-template.svelte`)
+
+## Examples
+
+**Example 1 — SvelteKit dashboard**
+- Input: "Convert this Stitch dashboard to a SvelteKit app"
+- Action: Fetch screens → produce `+page.svelte` + child components with `$state`/`$props`/`$derived` → scoped styles with CSS variables → dark mode via `data-theme` on `<html>` → semantic markup
+- Output: SvelteKit routes + components, tokens.css, dark mode verified, all reactivity uses runes
+
+**Example 2 — Single Svelte component**
+- Input: "Just the navbar as a Svelte 5 component"
+- Action: Fetch nav block → produce `Navbar.svelte` with `$props()` for items + active state → scoped styles → transition on mobile menu
+- Output: `Navbar.svelte`, typed props, mobile + desktop layout, fly transition on menu open
+
+
 ## References
 
-- `resources/component-template.svelte` — Production-ready Svelte 5 component boilerplate
-- `resources/architecture-checklist.md` — Pre-ship quality checklist
-- `scripts/fetch-stitch.sh` — Reliable GCS HTML downloader
+See `references/details.md` for extended sections.

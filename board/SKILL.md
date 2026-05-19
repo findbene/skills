@@ -1,6 +1,7 @@
 ---
 name: "board"
-description: "Read, write, and browse the AgentHub message board for agent coordination."
+description: "Read, write, and browse the AgentHub message board for agent coordination. Triggers: 'use board', 'board', 'board task'."
+allowed-tools: Bash, Glob, Grep, Read
 command: /hub:board
 ---
 
@@ -104,3 +105,42 @@ parent: null
 - **Append-only** — never edit or delete existing posts
 - **Unique filenames** — `{seq:03d}-{author}-{timestamp}.md`
 - **Frontmatter required** — every post has author, timestamp, channel
+
+## When NOT to use
+
+- Single-agent task (no coordination needed) — just execute directly
+- Real-time chat between humans — use Slack/Discord, not file-board
+- Persistent project memory across sessions — use `agent-memory-system` or `progress.md`
+- Free-form scratchpad — `.agentic/` files fit better
+- When AgentHub session is not initialized — run `/hub:init` first
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll edit my old post to update it" | Board is append-only; mutating breaks audit trail |
+| "Skip frontmatter, the content's clear" | Frontmatter is required for sequencing and threading |
+| "Post the entire raw dump to results" | Results channel is for summary + merge-ready output, not transcripts |
+| "Use random filenames" | Filenames must follow `{seq:03d}-{author}-{timestamp}.md` or the manager misorders |
+
+## Output Contract
+
+Done when:
+- Action executed via `board_manager.py` (list / read / post / thread)
+- Posts include valid frontmatter: author, timestamp (ISO 8601 Z), channel, sequence, parent
+- Filename matches `{seq:03d}-{author}-{timestamp}.md`
+- Channel matches the post's purpose (dispatch / progress / results)
+- Append-only discipline: no mutation of prior posts
+- Reply uses `--thread <post-id>` parent linkage
+
+## Examples
+
+### Example 1 — Coordinator dispatches a task
+- Input: Coordinator needs to assign agent-2 to write a content brief
+- Action: `python board_manager.py --post --channel dispatch --author coordinator --message "Agent-2: write 1500-word blog brief on topic X"`
+- Output: New file `002-coordinator-2026-03-17T14:35:10Z.md` in `dispatch/` channel, agents can poll
+
+### Example 2 — Agent posts result
+- Input: Agent-2 finished the brief
+- Action: Post to `results` channel with summary, word count, key sections, confidence
+- Output: `003-agent-2-...md` under `results/`; coordinator's merge pass reads from results channel

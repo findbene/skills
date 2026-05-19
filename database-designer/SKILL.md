@@ -1,6 +1,7 @@
 ---
 name: "database-designer"
-description: "Use when the user asks to design database schemas, plan data migrations, optimize queries, choose between SQL and NoSQL, or model data relationships."
+description: 'Use when the user asks to design database schemas, plan data migrations, optimize queries, choose between SQL and NoSQL, or mod. Triggers: "use database-designer", "database designer", "database task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Database Designer - POWERFUL Tier Skill
@@ -39,25 +40,25 @@ A comprehensive database design skill that provides expert-level analysis, optim
 ## Best Practices
 
 ### Schema Design
-1. **Use meaningful names**: Clear, consistent naming conventions
-2. **Choose appropriate data types**: Right-sized columns for storage efficiency
-3. **Define proper constraints**: Foreign keys, check constraints, unique indexes
-4. **Consider future growth**: Plan for scale from the beginning
-5. **Document relationships**: Clear foreign key relationships and business rules
+1. **Use meaningful names**: Clear, consistent naming conventions → verify: step output matches expected outcome
+2. **Choose appropriate data types**: Right-sized columns for storage efficiency → verify: step output matches expected outcome
+3. **Define proper constraints**: Foreign keys, check constraints, unique indexes → verify: all checks pass
+4. **Consider future growth**: Plan for scale from the beginning → verify: step output matches expected outcome
+5. **Document relationships**: Clear foreign key relationships and business rules → verify: step output matches expected outcome
 
 ### Performance Optimization
-1. **Index strategically**: Cover common query patterns without over-indexing
-2. **Monitor query performance**: Regular analysis of slow queries
-3. **Partition large tables**: Improve query performance and maintenance
-4. **Use appropriate isolation levels**: Balance consistency with performance
-5. **Implement connection pooling**: Efficient resource utilization
+1. **Index strategically**: Cover common query patterns without over-indexing → verify: step output matches expected outcome
+2. **Monitor query performance**: Regular analysis of slow queries → verify: step output matches expected outcome
+3. **Partition large tables**: Improve query performance and maintenance → verify: step output matches expected outcome
+4. **Use appropriate isolation levels**: Balance consistency with performance → verify: step output matches expected outcome
+5. **Implement connection pooling**: Efficient resource utilization → verify: step output matches expected outcome
 
 ### Security Considerations
-1. **Principle of least privilege**: Grant minimal necessary permissions
-2. **Encrypt sensitive data**: At rest and in transit
-3. **Audit access patterns**: Monitor and log database access
-4. **Validate inputs**: Prevent SQL injection attacks
-5. **Regular security updates**: Keep database software current
+1. **Principle of least privilege**: Grant minimal necessary permissions → verify: step output matches expected outcome
+2. **Encrypt sensitive data**: At rest and in transit → verify: step output matches expected outcome
+3. **Audit access patterns**: Monitor and log database access → verify: findings count > 0 OR clean signal returned
+4. **Validate inputs**: Prevent SQL injection attacks → verify: all checks pass
+5. **Regular security updates**: Keep database software current → verify: step output matches expected outcome
 
 ## Query Generation Patterns
 
@@ -147,10 +148,10 @@ migrations/
 
 Use the expand-contract pattern to avoid locking or breaking running code:
 
-1. **Expand** — add the new column/table (nullable, with default)
-2. **Migrate data** — backfill in batches; dual-write from application
-3. **Transition** — application reads from new column; stop writing to old
-4. **Contract** — drop old column in a follow-up migration
+1. **Expand** — add the new column/table (nullable, with default) → verify: dependency resolves + import works
+2. **Migrate data** — backfill in batches; dual-write from application → verify: output exists + parses without error
+3. **Transition** — application reads from new column; stop writing to old → verify: file content matches expected shape
+4. **Contract** — drop old column in a follow-up migration → verify: step output matches expected outcome
 
 ### Data Backfill Strategies
 
@@ -287,3 +288,40 @@ Fixes:
 Effective database design requires balancing multiple competing concerns: performance, scalability, maintainability, and business requirements. This skill provides the tools and knowledge to make informed decisions throughout the database lifecycle, from initial schema design through production optimization and evolution.
 
 The included tools automate common analysis and optimization tasks, while the comprehensive guides provide the theoretical foundation for making sound architectural decisions. Whether building a new system or optimizing an existing one, these resources provide expert-level guidance for creating robust, scalable database solutions.
+
+## When NOT to use
+
+- Task is unrelated to database designer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Database Designer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for database designer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving database designer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: n8n-code-javascript
-description: Write JavaScript code in n8n Code nodes. Always use this skill when any n8n workflow needs a Code node — for data aggregation, filtering, API calls, format conversion, batch processing, custom transformations, SplitInBatches loops, or any custom JavaScript logic. Use whenever you see $input/$json/$node syntax, $helpers.httpRequest, DateTime/Luxon usage, pairedItem issues, or cross-iteration data problems. Don't try to write n8n Code node JavaScript from memory — consult this skill first to avoid the most common production mistakes.
+description: "Write JavaScript code in n8n Code nodes. Trigger: any n8n workflow needs a Code node — for data aggregation, filtering, API calls, format conversion, batch processing, custom transformations, SplitIn."
+allowed-tools: Glob, Grep, Read
 ---
 
 # n8n JavaScript Code Node
@@ -25,9 +26,9 @@ return items.map(item => ({
 ```
 
 **Three rules before writing any code:**
-1. Always return `[{json: {...}}]` — array of objects with `json` key
-2. Webhook data lives under `$json.body`, not `$json` directly
-3. Use `$input.all()` for "All Items" mode, `$input.item` for "Each Item" mode
+1. Always return `[{json: {...}}]` — array of objects with `json` key → verify: step output matches expected outcome
+2. Webhook data lives under `$json.body`, not `$json` directly → verify: step output matches expected outcome
+3. Use `$input.all()` for "All Items" mode, `$input.item` for "Each Item" mode → verify: step output matches expected outcome
 
 ---
 
@@ -221,3 +222,40 @@ Read these when you need deeper detail:
 - [ ] Null checks on potentially missing fields
 - [ ] Mode is "All Items" unless you specifically need per-item isolation
 - [ ] `pairedItem` included if creating new items
+
+## When NOT to use
+
+- Task is unrelated to n8n code javascript — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | N8N Code Javascript needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for n8n code javascript
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving n8n code javascript
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

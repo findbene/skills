@@ -1,6 +1,7 @@
 ---
 name: auth-rbac-admin
-description: "Secure authentication and RBAC implementation specialist covering JWT, OAuth2, session management, role hierarchies, and permission systems. Use this skill any time authentication needs to be implemented, role-based access control needs to be designed, OAuth or JWT needs to be configured, or user permission systems need to be structured. Trigger immediately on: \"authentication\", \"auth\", \"RBAC\", \"role-based access\", \"JWT\", \"OAuth\", \"session management\", \"permissions\", \"login\", \"authorization\", \"SSO\", \"user roles\", \"access control\", \"API keys\". If someone says \"implement login\" or \"restrict access to this endpoint\" this skill MUST trigger."
+description: 'Secure authentication and RBAC implementation specialist covering JWT, OAuth2, session management, role hierarchies, and permission sys. Triggers: "use auth-rbac-admin", "auth rbac admin", "auth task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Authentication & RBAC Administration
@@ -152,10 +153,51 @@ Log all authentication events (login, logout, failed attempts, password changes,
 
 ## Critical Security Rules
 
-1. Store passwords only as bcrypt/argon2 hashes
-2. Use HTTPS for all authentication endpoints
-3. Implement proper session invalidation on logout
-4. Rotate secrets and tokens regularly
-5. Log all authentication events
-6. Use secure cookie settings (HttpOnly, Secure, SameSite)
-7. Validate and sanitize all input
+1. Store passwords only as bcrypt/argon2 hashes → verify: step output matches expected outcome
+2. Use HTTPS for all authentication endpoints → verify: step output matches expected outcome
+3. Implement proper session invalidation on logout → verify: step output matches expected outcome
+4. Rotate secrets and tokens regularly → verify: step output matches expected outcome
+5. Log all authentication events → verify: step output matches expected outcome
+6. Use secure cookie settings (HttpOnly, Secure, SameSite) → verify: step output matches expected outcome
+7. Validate and sanitize all input → verify: all checks pass
+
+## When NOT to use
+
+- General API design that does not touch auth — use `api-design`
+- Existing managed-auth provider (Auth0, Clerk, Supabase Auth) — match their patterns, don't reinvent
+- Pure infra/secrets management — use `admin-ai-ops` or `secrets-vault-manager`
+- Compliance auditing without code changes — use `security` or `senior-secops`
+- Frontend-only login UI without backend changes — use `frontend-developer`
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Long-lived access tokens, no refresh flow" | A leaked token = persistent breach; 15-min access + refresh is the floor |
+| "Authorize at the route layer only" | Bypass via background jobs, queues, RPC — always also check at the data layer |
+| "Store password with SHA-256, it's fast" | Speed is the problem; bcrypt/argon2 with cost factor is the requirement |
+| "Skip MFA for internal users" | Internal accounts are the most-attacked; MFA non-negotiable for any role with `:write` |
+
+## Output Contract
+
+Done when:
+- Authentication method chosen (session, JWT, OAuth+PKCE) and justified
+- Tokens have short TTLs with refresh rotation if applicable
+- RBAC roles defined with explicit inheritance and least-privilege permissions
+- Permission checks applied at BOTH route middleware AND data layer (RLS or ORM scope)
+- Password hashing uses bcrypt (12+ rounds) or argon2id
+- MFA enrolled for elevated roles
+- Audit log records every auth event
+- Secrets read from env vars, never hardcoded
+
+## Examples
+
+### Example 1 — Adding RBAC to an existing Express app
+- Input: "We have JWT auth, now add admin/manager/user roles"
+- Action: Define role hierarchy with inheritance, add `permissions: string[]` to JWT payload, build `requirePermission()` middleware, add data-layer checks in services (`if (!ctx.canRead(resource)) throw 403`), unit tests for permission boundaries
+- Output: `roles.ts` with hierarchy map, middleware, data-layer guards, test suite covering allow/deny matrix per role
+
+### Example 2 — Designing OAuth login for SaaS
+- Input: "Add 'Sign in with Google' to our app"
+- Action: Use Authorization Code + PKCE; store `client_id` in env, `client_secret` in secrets manager, redirect URI allowlisted; on callback, exchange code → tokens → fetch userinfo → create/lookup user with email-claim verification; HttpOnly+Secure+SameSite=Strict session cookie
+- Output: `/auth/google/login` and `/auth/google/callback` routes, PKCE state validation, audit-log entry for new sign-ins, refresh-token rotation

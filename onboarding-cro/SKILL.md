@@ -1,6 +1,7 @@
 ---
 name: onboarding-cro
-description: "Optimize user onboarding flows to improve activation rates — reducing time-to-value, fixing friction points in the first session, improving onboarding email sequences, and increasing the percentage of trial users who reach the 'aha moment.' Use this whenever the user asks about 'onboarding optimization,' 'trial activation,' 'improving activation rate,' 'users aren't getting to the aha moment,' 'onboarding flow,' or 'trial to paid conversion.' Trigger even when the user says 'people sign up but don't use the product' without using the word 'onboarding."
+description: "Optimize user onboarding flows to improve activation rates — reducing time-to-value, fixing friction points in the first sessio. Triggers: 'use onboarding-cro', 'onboarding cro', 'onboarding-cro task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,9 +17,9 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Before providing recommendations, understand:
 
-1. **Product Context** - What type of product? B2B or B2C? Core value proposition?
-2. **Activation Definition** - What's the "aha moment"? What action indicates a user "gets it"?
-3. **Current State** - What happens after signup? Where do users drop off?
+1. **Product Context** - What type of product? B2B or B2C? Core value proposition? → verify: step output matches expected outcome
+2. **Activation Definition** - What's the "aha moment"? What action indicates a user "gets it"? → verify: step output matches expected outcome
+3. **Current State** - What happens after signup? Where do users drop off? → verify: step output matches expected outcome
 
 ---
 
@@ -135,9 +136,9 @@ Define "stalled" criteria (X days inactive, incomplete setup)
 
 ### Re-engagement Tactics
 
-1. **Email sequence** - Reminder of value, address blockers, offer help
-2. **In-app recovery** - Welcome back, pick up where left off
-3. **Human touch** - For high-value accounts, personal outreach
+1. **Email sequence** - Reminder of value, address blockers, offer help → verify: step output matches expected outcome
+2. **In-app recovery** - Welcome back, pick up where left off → verify: step output matches expected outcome
+3. **Human touch** - For high-value accounts, personal outreach → verify: step output matches expected outcome
 
 ---
 
@@ -204,11 +205,11 @@ When recommending experiments, consider tests for:
 
 ## Task-Specific Questions
 
-1. What action most correlates with retention?
-2. What happens immediately after signup?
-3. Where do users currently drop off?
-4. What's your activation rate target?
-5. Do you have cohort analysis on successful vs. churned users?
+1. What action most correlates with retention? → verify: step output matches expected outcome
+2. What happens immediately after signup? → verify: step output matches expected outcome
+3. Where do users currently drop off? → verify: step output matches expected outcome
+4. What's your activation rate target? → verify: step output matches expected outcome
+5. Do you have cohort analysis on successful vs. churned users? → verify: step output matches expected outcome
 
 ---
 
@@ -218,3 +219,40 @@ When recommending experiments, consider tests for:
 - **email-sequence**: For onboarding email series
 - **paywall-upgrade-cro**: For converting to paid during/after onboarding
 - **ab-test-setup**: For testing onboarding changes
+
+## When NOT to use
+
+- Task is unrelated to onboarding cro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Onboarding Cro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for onboarding cro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving onboarding cro
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

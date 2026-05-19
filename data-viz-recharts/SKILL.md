@@ -1,6 +1,7 @@
 ---
 name: "data-viz-recharts"
-description: "Guides data visualization design using Recharts. Use when building charts, dashboards, analytics views, or any data-driven UI with Recharts or comparable charting libraries. Enforces brand-consistent colors, readable axes, and accessible chart patterns."
+description: 'Guides data visualization design using Recharts. Use when building charts, dashboards, analytics views, or any data. Triggers: "use data-viz-recharts", "process data viz recharts", "data viz recharts.'
+allowed-tools: Glob, Grep, Read
 ---
 
 
@@ -44,3 +45,42 @@ Add `aria-label` to the `<ResponsiveContainer>` describing the chart. Include a 
 ### Animation
 Disable Recharts default animation for dashboard charts that update frequently: `isAnimationActive={false}` on `<Line>`, `<Bar>`, `<Area>`. Use it only for initial load of report-style charts where the animation aids comprehension.
 
+## When NOT to use
+
+- Non-React stack — use `chart.js` / `d3` / native canvas instead
+- Print-quality static charts — use matplotlib/Plotly
+- Maps and geo data — Recharts has no geo support; use Mapbox/Leaflet
+- High-frequency real-time streams (>10Hz) — use canvas-based libs (uPlot, lightweight-charts)
+- Complex network/graph viz — use D3 or vis-network
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Default `#8884d8` is fine" | Reads as tutorial chart; never ships |
+| "Pie chart with 8 slices" | Unreadable; switch to vertical bar chart |
+| "Default Recharts tooltip" | Poor contrast, off-brand; override with custom |
+| "Hardcode 600x300 px container" | Breaks responsive layouts; always wrap in `<ResponsiveContainer>` |
+
+## Output Contract
+
+Done when:
+- Custom `CHART_COLORS` palette defined (OKLCH preferred), not Recharts defaults
+- Chart type selected per data shape (Area/Bar/Scatter/Line)
+- `<XAxis>` + `<YAxis>` with sized tick fonts and tick formatter
+- `<CustomTooltip>` component matching design system
+- `<ResponsiveContainer>` wraps every chart; height standardized
+- `aria-label` describes the chart; pattern/shape secondary signal where needed
+- Animation disabled on frequently-updating dashboards
+
+## Examples
+
+### Example 1 — KPI trend with target line
+- Input: "Weekly revenue chart with $50K target"
+- Action: `<LineChart>` single series, `<ReferenceLine y={50000} stroke="oklch(60% 0.18 30)" strokeDasharray="4 4"/>`, custom tooltip, `tickFormatter` to abbreviate to "$50K", `aria-label` set
+- Output: Component with responsive sizing, target line visible, branded tooltip
+
+### Example 2 — Status breakdown
+- Input: "Show distribution of issue statuses (5 categories)"
+- Action: `<BarChart layout="vertical">` with sorted categories, `<Cell>` per bar using `CHART_COLORS` cycling, axis labels formatted, animation off for dashboard
+- Output: Horizontal-bar component, on-brand palette, no pie chart

@@ -1,6 +1,7 @@
 ---
 name: n8n-validation-expert
-description: Validate and auto-fix n8n workflow configurations. Always use this skill when running validate_node or validate_workflow, interpreting validation errors, deciding whether to fix or ignore a validation message, working around false positives, or using n8n_autofix_workflow. Validation errors in n8n are often non-obvious — what looks like an error can be a false positive, and what looks minor can break the workflow. Load this skill whenever validation is part of the task.
+description: "Validate and auto-fix n8n workflow configurations. Trigger: running validate_node or validate_workflow, interpreting validation errors, deciding whether to fix or ignore a validation message, working."
+allowed-tools: Glob, Grep, Read
 ---
 
 # n8n Validation Expert
@@ -20,9 +21,9 @@ Expert guide for interpreting and fixing n8n validation errors.
 **Standard validation sequence:**
 ```
 1. validate_node({nodeType, config, mode: "minimal"})   → check required fields
-2. [Fix issues]
+2. [Fix issues] → verify: diff matches intended change
 3. validate_node({nodeType, config, profile: "runtime"}) → full runtime check
-4. n8n_create_workflow or n8n_update_partial_workflow
+4. n8n_create_workflow or n8n_update_partial_workflow → verify: output exists + parses without error
 5. validate_workflow({id})                               → end-to-end check
 6. [Fix] → validate_workflow again
 7. Activate
@@ -145,14 +146,14 @@ Always validate again after running auto-fix.
 The most reliable workflow configuration approach:
 
 ```
-1. Scaffold node config with known required fields only
+1. Scaffold node config with known required fields only → verify: step output matches expected outcome
 2. validate_node (minimal) → identify any missing required fields
-3. Add missing fields
+3. Add missing fields → verify: dependency resolves + import works
 4. validate_node (runtime) → catch runtime-specific issues
-5. Fix any runtime issues
-6. Add node to workflow
+5. Fix any runtime issues → verify: command exit code 0
+6. Add node to workflow → verify: dependency resolves + import works
 7. validate_workflow → catch cross-node issues
-8. Test with actual data in n8n UI
+8. Test with actual data in n8n UI → verify: all checks pass
 9. Activate
 ```
 
@@ -162,3 +163,40 @@ The most reliable workflow configuration approach:
 
 - **`references/ERROR_CATALOG.md`** — Complete catalog of every validation error code, message, cause, and fix — organized by error type (required fields, displayOptions, credentials, connections, code)
 - **`references/FALSE_POSITIVES.md`** — Detailed list of warnings that are safe to ignore vs. ones that will cause runtime failures, with context on when each applies
+
+## When NOT to use
+
+- Task is unrelated to n8n validation expert — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | N8N Validation Expert needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for n8n validation expert
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving n8n validation expert
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

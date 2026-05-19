@@ -1,6 +1,7 @@
 ---
 name: "scrum-master"
-description: "Advanced Scrum Master skill for data-driven agile team analysis and coaching. Use when the user asks about sprint planning, velocity tracking, retrospectives, standup facilitation, backlog grooming, story points, burndown charts, blocker resolution, or agile team health. Runs Python scripts to analyse sprint JSON exports from Jira or similar tools: velocity_analyzer.py for Monte Carlo sprint forecasting, sprint_health_scorer.py for multi-dimension health scoring, and retrospective_analyzer.py for action-item and theme tracking. Produces confidence-interval forecasts, health grade reports, and improvement-velocity trends for high-performing Scrum teams."
+description: "Advanced Scrum Master skill for data-driven agile team analysis and coaching. Triggers: 'use scrum-master', 'scrum master', 'scrum-master task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 2.0.0
@@ -122,34 +123,34 @@ Jira and similar tools can export sprint data; map exported fields to this schem
 
 ### Sprint Planning
 
-1. Run velocity analysis: `python velocity_analyzer.py sprint_data.json --format text`
-2. Use the 70% confidence interval as the recommended commitment ceiling for the sprint backlog.
-3. Review the health scorer's Commitment Reliability and Scope Stability scores to calibrate negotiation with the Product Owner.
-4. If Monte Carlo output shows high volatility (CV >20%), surface this to stakeholders with range estimates rather than single-point forecasts.
-5. Document capacity assumptions (leave, dependencies) for retrospective comparison.
+1. Run velocity analysis: `python velocity_analyzer.py sprint_data.json --format text` → verify: command exit code 0
+2. Use the 70% confidence interval as the recommended commitment ceiling for the sprint backlog. → verify: git status clean
+3. Review the health scorer's Commitment Reliability and Scope Stability scores to calibrate negotiation with the Product Owner. → verify: git status clean
+4. If Monte Carlo output shows high volatility (CV >20%), surface this to stakeholders with range estimates rather than single-point forecasts. → verify: step output matches expected outcome
+5. Document capacity assumptions (leave, dependencies) for retrospective comparison. → verify: step output matches expected outcome
 
 ### Daily Standup
 
-1. Track participation and help-seeking patterns — feed ceremony data into `sprint_health_scorer.py` at sprint end.
-2. Log each blocker with date opened; resolution time feeds the Blocker Resolution dimension.
-3. If a blocker is unresolved after 2 days, escalate proactively and note in sprint data.
+1. Track participation and help-seeking patterns — feed ceremony data into `sprint_health_scorer.py` at sprint end. → verify: step output matches expected outcome
+2. Log each blocker with date opened; resolution time feeds the Blocker Resolution dimension. → verify: file readable + content matches expected shape
+3. If a blocker is unresolved after 2 days, escalate proactively and note in sprint data. → verify: step output matches expected outcome
 
 ### Sprint Review
 
-1. Present velocity trend and health score alongside the demo to give stakeholders delivery context.
-2. Capture scope-change requests raised during review; record as scope-change events in sprint data for next scoring cycle.
+1. Present velocity trend and health score alongside the demo to give stakeholders delivery context. → verify: step output matches expected outcome
+2. Capture scope-change requests raised during review; record as scope-change events in sprint data for next scoring cycle. → verify: step output matches expected outcome
 
 ### Sprint Retrospective
 
-1. Run all three scripts before the session:
+1. Run all three scripts before the session: → verify: command exit code 0
    ```bash
    python sprint_health_scorer.py sprint_data.json --format text > health.txt
    python retrospective_analyzer.py sprint_data.json --format text > retro.txt
    ```
-2. Open with the health score and top-flagged dimensions to focus discussion.
-3. Use the retrospective analyzer's action-item completion rate to determine how many new action items the team can realistically absorb (target: ≤3 if completion rate <60%).
-4. Assign each action item an owner and measurable success criterion before closing the session.
-5. Record new action items in `sprint_data.json` for tracking in the next cycle.
+2. Open with the health score and top-flagged dimensions to focus discussion. → verify: file readable + content matches expected shape
+3. Use the retrospective analyzer's action-item completion rate to determine how many new action items the team can realistically absorb (target: ≤3 if completion rate <60%). → verify: step output matches expected outcome
+4. Assign each action item an owner and measurable success criterion before closing the session. → verify: step output matches expected outcome
+5. Record new action items in `sprint_data.json` for tracking in the next cycle. → verify: step output matches expected outcome
 
 ---
 
@@ -220,3 +221,40 @@ Apply stage-specific facilitation (details in `references/team-dynamics-framewor
 ---
 
 *For deep framework references see `references/velocity-forecasting-guide.md` and `references/team-dynamics-framework.md`. For template assets see `assets/sprint_report_template.md` and `assets/team_health_check_template.md`.*
+
+## When NOT to use
+
+- Task is unrelated to scrum master — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Scrum Master needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for scrum master
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving scrum master
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

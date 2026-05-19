@@ -1,6 +1,7 @@
 ---
 name: "code-tour"
-description: "Use when the user asks to create a CodeTour .tour file — persona-targeted, step-by-step walkthroughs that link to real files and line numbers. Trigger for: create a tour, onboarding tour, architecture tour, PR review tour, explain how X works, vibe check, RCA tour, contributor guide, or any structured code walkthrough request."
+description: "Use when the user asks to create a CodeTour .tour file — persona-targeted, step-by-step walkthroughs that link to real files and line numbers. Triggers: 'use code-tour', 'code tour', 'code-tour task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Code Tour
@@ -115,10 +116,10 @@ Save to `.tours/<persona>-<focus>.tour`.
 
 ## Narrative Arc
 
-1. **Orientation** — `file` or `directory` step (never content-only first step — blank in VS Code)
-2. **High-level map** — 1-3 directory steps showing major modules
-3. **Core path** — file/line steps, the heart of the tour
-4. **Closing** — what the reader can now do, suggested follow-ups
+1. **Orientation** — `file` or `directory` step (never content-only first step — blank in VS Code) → verify: step output matches expected outcome
+2. **High-level map** — 1-3 directory steps showing major modules → verify: step output matches expected outcome
+3. **Core path** — file/line steps, the heart of the tour → verify: step output matches expected outcome
+4. **Closing** — what the reader can now do, suggested follow-ups → verify: file content matches expected shape
 
 ## Anti-Patterns
 
@@ -138,3 +139,40 @@ Save to `.tours/<persona>-<focus>.tour`.
 - Related: `engineering/pr-review-expert` — for automated PR review workflows
 - CodeTour extension: [microsoft/codetour](https://github.com/microsoft/codetour)
 - Real-world tours: [coder/code-server](https://github.com/coder/code-server/blob/main/.tours/contributing.tour)
+
+## When NOT to use
+
+- Task is unrelated to code tour — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Code Tour needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for code tour
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving code tour
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: ui-ux-pro-max
-description: "Comprehensive UI/UX design intelligence for web and mobile including 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 tech stacks. Use this skill any time a UI needs to be designed or reviewed, components need styling, color or typography decisions are needed, or UX quality needs improvement. Trigger immediately on: \"design system\", \"color palette\", \"font pairing\", \"glassmorphism\", \"dark mode\", \"accessibility\", \"UX review\", \"landing page design\", \"dashboard UI\", \"component design\", \"responsive layout\", \"animation timing\", \"touch targets\", \"navigation patterns\", \"chart type\", \"UI looks unprofessional\", \"design tokens\", \"shadcn\", \"Tailwind design\", \"mobile UI\". If someone says \"make this look better\" or \"review the UI\" this skill MUST trigger."
+description: 'Comprehensive UI/UX design intelligence for web and mobile including 50+ styles, 161 color palettes, 57 font pairings, 161 produc. Triggers: "use ui-ux-pro-max", "build UI ux pro max", "ui ux pro max.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # UI/UX Pro Max - Design Intelligence
@@ -149,10 +150,10 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<product_type> <industry> <keywo
 ```
 
 This command:
-1. Searches domains in parallel (product, style, color, landing, typography)
-2. Applies reasoning rules from `ui-reasoning.csv` to select best matches
-3. Returns complete design system: pattern, style, colors, typography, effects
-4. Includes anti-patterns to avoid
+1. Searches domains in parallel (product, style, color, landing, typography) → verify: step output matches expected outcome
+2. Applies reasoning rules from `ui-reasoning.csv` to select best matches → verify: step output matches expected outcome
+3. Returns complete design system: pattern, style, colors, typography, effects → verify: step output matches expected outcome
+4. Includes anti-patterns to avoid → verify: step output matches expected outcome
 
 **Example:**
 ```bash
@@ -180,9 +181,9 @@ This also creates:
 - `design-system/pages/dashboard.md` — Page-specific deviations from Master
 
 **How hierarchical retrieval works:**
-1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md`
-2. If the page file exists, its rules **override** the Master file
-3. If not, use `design-system/MASTER.md` exclusively
+1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md` → verify: all tests pass
+2. If the page file exists, its rules **override** the Master file → verify: step output matches expected outcome
+3. If not, use `design-system/MASTER.md` exclusively → verify: step output matches expected outcome
 
 **Context-aware retrieval prompt:**
 ```
@@ -439,3 +440,28 @@ Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 - [ ] Color is not the only indicator
 - [ ] Reduced motion and dynamic text size are supported without layout breakage
 - [ ] Accessibility traits/roles/states (selected, disabled, expanded) are announced correctly
+
+## When NOT to use
+
+- Task is unrelated to ui ux pro max — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ui Ux Pro Max needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ui ux pro max
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

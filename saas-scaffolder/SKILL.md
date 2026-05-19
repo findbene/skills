@@ -1,6 +1,7 @@
 ---
 name: "saas-scaffolder"
-description: "Generates complete, production-ready SaaS project boilerplate including authentication, database schemas, billing integration, API routes, and a working dashboard using Next.js 14+ App Router, TypeScript, Tailwind CSS, shadcn/ui, Drizzle ORM, and Stripe. Use when the user wants to create a new SaaS app, start a subscription-based web project, scaffold a Next.js application, or mentions terms like starter template, boilerplate, new project, or wiring up auth and payments."
+description: 'Generates complete, production-ready SaaS project boilerplate including authentication, database schemas, billing integration, API rout. Triggers: "use saas-scaffolder", "saas scaffolder", "saas task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # SaaS Scaffolder
@@ -291,3 +292,44 @@ For additional guidance, generate the following companion reference files alongs
 - **`CUSTOMIZATION.md`** — Auth providers, database options, ORM alternatives, payment providers, UI themes, and billing models (per-seat, flat-rate, usage-based).
 - **`PITFALLS.md`** — Common failure modes: missing `NEXTAUTH_SECRET`, webhook secret mismatches, Edge runtime conflicts with Drizzle, unextended session types, and migration strategy differences between dev and prod.
 - **`BEST_PRACTICES.md`** — Stripe singleton pattern, server actions for form mutations, idempotent webhook handlers, `Suspense` boundaries for async dashboard data, server-side feature gating via `stripeCurrentPeriodEnd`, and rate limiting on auth routes with Upstash Redis + `@upstash/ratelimit`.
+
+## When NOT to use
+
+- Adding features to an existing SaaS app — use targeted skills (`stripe-integration-expert`, `auth-rbac-admin`)
+- Non-Next.js stack (Rails, Django, Laravel, Remix) — use stack-specific scaffolders
+- Marketing site only (no auth, no billing) — overkill; use `landing-page-generator` or `frontend-design`
+- Mobile app (React Native, SwiftUI) — use mobile scaffolders, not this
+- Microservices boilerplate — different architecture, use backend skills
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Skip `NEXTAUTH_SECRET`, will set later" | App breaks on first auth request; set before any commit |
+| "Use Edge runtime for everything" | Drizzle and some Stripe handlers conflict with Edge; route per-route runtime decision |
+| "Inline secrets to start, remove later" | Once committed, secrets must be rotated; never commit, use `.env.example`s |
+| "Skip rate limiting on auth, add later" | First credential-stuffing attack is the wake-up call; ship with Upstash rate-limit on day 1 |
+
+## Output Contract
+
+Finished output must contain:
+- Complete file tree with Next.js 14+ App Router structure
+- Auth provider configured (NextAuth/Clerk/Supabase) with `NEXTAUTH_SECRET` placeholder
+- Database schema (Drizzle) with users, sessions, billing tables
+- Stripe integration (Checkout + Webhook + Portal) when payments selected
+- `.env.example` with every required variable named (no values)
+- README with setup steps and post-install checklist
+- Working dashboard route with `Suspense` boundaries
+- Rate limiting on `/api/auth/*` via Upstash
+
+## Examples
+
+**Example 1 — Generate a full B2B SaaS starter**
+- Input: `Product: ClickFlow, Description: workflow automation, Auth: clerk, Database: neondb, Payments: stripe, Features: workspaces, api-keys, billing-portal`
+- Action: Emit file tree → Clerk middleware → Drizzle schema (users, workspaces, api_keys, subscriptions) → Stripe Checkout + Webhook + Portal routes → dashboard with subscription gating → README + `.env.example`
+- Output: ~80 files across `app/`, `lib/`, `drizzle/`, `components/`, all wired end-to-end; runs locally with `pnpm dev` after env fill-in
+
+**Example 2 — Minimal indie hacker scaffolder (no payments)**
+- Input: `Product: Notebox, Auth: nextauth, Database: supabase, Payments: none, Features: note-crud`
+- Action: NextAuth Email provider → Supabase + Drizzle schema for notes → dashboard with CRUD → no Stripe code
+- Output: Minimal Next.js app, ~40 files, auth + note CRUD working, ready for deploy to Vercel

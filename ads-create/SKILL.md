@@ -1,6 +1,7 @@
 ---
 name: ads-create
-description: "Campaign concept and copy brief generator for paid advertising. Reads brand-profile.json and optional audit results to produce structured campaign concepts, messaging pillars, and copy briefs. Outputs campaign-brief.md to the current directory. Run after /ads dna and before /ads generate. Triggers on: create campaign, campaign brief, ad concepts, write ad copy, campaign strategy, ad messaging, creative brief, generate concepts."
+description: "Campaign concept and copy brief generator for paid advertising. Reads brand-profile.json and optional audit results to produce structured ca. Triggers: 'use ads-create', 'run ads create', 'ads create."
+allowed-tools: Glob, Grep, Read, Task
 user-invokable: false
 ---
 
@@ -8,14 +9,6 @@ user-invokable: false
 
 Generates structured campaign concepts and platform-specific copy from your brand
 profile and optional audit data. Outputs `campaign-brief.md` for use by `/ads generate`.
-
-## Quick Reference
-
-| Command | What it does |
-|---------|-------------|
-| `/ads create` | Full campaign brief → `campaign-brief.md` |
-| `/ads create --platforms meta google` | Brief for specific platforms only |
-| `/ads create --objective leads` | Brief optimized for lead generation |
 
 ## Process
 
@@ -49,10 +42,10 @@ If `--platforms` or `--objective` flags were provided in the command, use those 
 and skip the corresponding questions below.
 
 Ask (combine into one message; omit any already provided via flags):
-1. **Platforms**: Which ad platforms? (Meta · Google · LinkedIn · TikTok · YouTube · Microsoft · All)
-2. **Objective**: Sales/Revenue · Leads/Demos · App Installs · Brand Awareness · Retargeting
-3. **Offer or brief**: Any specific offer, promotion, or message to highlight? (optional)
-4. **Number of concepts**: How many campaign concepts? (default: 3)
+1. **Platforms**: Which ad platforms? (Meta · Google · LinkedIn · TikTok · YouTube · Microsoft · All) → verify: step output matches expected outcome
+2. **Objective**: Sales/Revenue · Leads/Demos · App Installs · Brand Awareness · Retargeting → verify: package installed + import succeeds
+3. **Offer or brief**: Any specific offer, promotion, or message to highlight? (optional) → verify: step output matches expected outcome
+4. **Number of concepts**: How many campaign concepts? (default: 3) → verify: step output matches expected outcome
 
 ### Step 4: Select Copy Framework
 
@@ -116,82 +109,55 @@ Summary:
   Image briefs: [N] image generation briefs ready
 
 Next steps:
-  1. Review campaign-brief.md and adjust any messaging
-  2. Run `/ads generate` to produce AI images from the briefs
-  3. Upload copy and assets to your ad platforms
+  1. Review campaign-brief.md and adjust any messaging → verify: step output matches expected outcome
+  2. Run `/ads generate` to produce AI images from the briefs → verify: output file exists + no syntax error
+  3. Upload copy and assets to your ad platforms → verify: file readable + content matches expected shape
 ```
-
-## campaign-brief.md Format Specification
-
-The following section headings are a **parsing contract**; agents downstream depend on these exact heading names.
-
-```markdown
-# Campaign Brief: [brand_name]
-**Generated:** [date]
-**Website:** [website_url]
-**Platforms:** [comma-separated list]
-**Objective:** [objective]
-**Concepts:** [N]
-
-## Brand DNA Summary
-[3-sentence synthesis of brand-profile.json: voice, visual identity, target audience]
-
-## Audit Context
-[If audit data found: top 3 weaknesses being addressed]
-[If no audit data: "No audit data; run /ads audit for weakness-targeted concepts"]
-
-## Campaign Concepts
-
-### Concept 1: [Name]
-**Hypothesis:** [why this will work; 1 sentence]
-**Primary Message:** [core message; 1 sentence]
-**Tone:** [voice reading from brand-profile.json]
-**Visual Direction:** [2-3 sentences describing imagery]
-**Target Platforms:** [platforms and rationale]
-**CTA:** [call to action text]
-**Addresses:** [audit finding or "general brand awareness"]
-
-### Concept 2: [Name]
-[same structure]
-
-[repeat for all concepts]
-
-## Copy Deck
-[appended by copy-writer agent; headlines, primary text, CTAs per concept per platform]
-
-## Image Generation Briefs
-
-### Brief 1: [Concept Name]: [Platform]
-**Prompt:** [exact generation prompt]
-**Dimensions:** [WxH]
-**Safe zone notes:** [constraint or "None"]
-
-### Brief 2: [Concept Name]: [Platform]
-**Prompt:** [exact generation prompt]
-**Dimensions:** [WxH]
-**Safe zone notes:** [constraint or "None"]
-
-[one brief per concept × platform combination]
 
 ## Next Steps
-1. Review all concepts and select which to move forward with
-2. Run `/ads generate` to produce images from the briefs above
-3. Adjust CTAs and offers in the copy deck for your specific promotion
-4. Upload final assets to your ad platform managers
+1. Review all concepts and select which to move forward with → verify: step output matches expected outcome
+2. Run `/ads generate` to produce images from the briefs above → verify: output file exists + no syntax error
+3. Adjust CTAs and offers in the copy deck for your specific promotion → verify: step output matches expected outcome
+4. Upload final assets to your ad platform managers → verify: file readable + content matches expected shape
 ```
 
-## Quality Gates
+## When NOT to use
 
-- **Minimum 3 concepts** (unless user requests fewer)
-- **Distinct angles**: no two concepts share the same primary message angle
-- **Platform fit**: concepts targeting TikTok must acknowledge vertical-only format and sound-on context
-- **Offer anchoring**: if the user provided a specific offer, at least 1 concept must lead with it
-- **Image briefs**: every concept must have at least one image brief per requested platform
+- Task is unrelated to ads create — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
 
-## Meta Andromeda Optimization
+## Red Flags
 
-For Meta campaigns: recommend diverse creative concepts (different motivators, visual styles, messaging angles) to maximize Andromeda retrieval. Similarity Score >60% between ads triggers clustering and suppression.
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ads Create needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
 
-## Platform Character Limits
+## Output Contract
 
-Verify platform character limits are current. Meta reduced headline display length on mobile in 2025.
+Done when:
+- Primary deliverable produced matches user's stated goal for ads create
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ads create
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken
+
+## References
+
+Extended sections moved to `references/details.md`.

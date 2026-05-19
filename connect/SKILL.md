@@ -1,6 +1,7 @@
 ---
 name: connect
-description: Connect Claude to any app. Send emails, create issues, post messages, update databases - take real actions across Gmail, Slack, GitHub, Notion, and 1000+ services.
+description: "Connect Claude to any app. Send emails, create issues, post messages, update databases - take real actions across Gmail, Slack, GitHub, Notion, and. Triggers: 'use connect', 'connect', 'connect task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Connect
@@ -85,10 +86,10 @@ Find GitHub issues labeled "bug" from this week, summarize, post to #bugs on Sla
 
 Uses Composio Tool Router:
 
-1. **You ask** Claude to do something
-2. **Tool Router finds** the right tool (1000+ options)
-3. **OAuth handled** automatically
-4. **Action executes** and returns result
+1. **You ask** Claude to do something → verify: step output matches expected outcome
+2. **Tool Router finds** the right tool (1000+ options) → verify: step output matches expected outcome
+3. **OAuth handled** automatically → verify: step output matches expected outcome
+4. **Action executes** and returns result → verify: command exit code 0
 
 ### Code
 
@@ -154,3 +155,28 @@ Connection persists after that.
     <img src="https://img.shields.io/badge/Get_Started_Free-4F46E5?style=for-the-badge" alt="Get Started"/>
   </a>
 </p>
+
+## When NOT to use
+
+- Task is unrelated to connect — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Connect needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for connect
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

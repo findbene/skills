@@ -1,4 +1,9 @@
 ---
+name: mcp-server-builder
+description: 'MCP Server Builder. Triggers: "use mcp-server-builder", "use MCP server builder", "mcp server builder".'
+allowed-tools: Bash, Glob, Grep, Read
+---
+---
 name: "mcp-server-builder"
 description: "Design and generate production-ready MCP servers from OpenAPI specs or API contracts - Python or TypeScript scaffolds with schema validation, naming enforcement, and versioning. Use when exposing REST APIs to LLM agents, replacing browser automation with typed MCP tools, or scaffolding an MCP server for team use. Trigger on: 'build MCP server', 'create MCP', 'MCP tool', 'expose API to Claude', 'MCP from OpenAPI', 'MCP scaffold', 'model context protocol server', 'generate MCP tools'."
 
@@ -35,10 +40,10 @@ The workflow supports both Python and TypeScript MCP implementations and treats 
 
 ### 1. OpenAPI to MCP Scaffold
 
-1. Start from a valid OpenAPI spec.
-2. Generate tool manifest + starter server code.
-3. Review naming and auth strategy.
-4. Add endpoint-specific runtime logic.
+1. Start from a valid OpenAPI spec. → verify: file content matches expected shape
+2. Generate tool manifest + starter server code. → verify: output exists + parses without error
+3. Review naming and auth strategy. → verify: step output matches expected outcome
+4. Add endpoint-specific runtime logic. → verify: command exit code 0
 
 ```bash
 python3 scripts/openapi_to_mcp.py \
@@ -97,21 +102,21 @@ Checks include duplicate names, invalid schema shape, missing descriptions, empt
 
 ## Common Pitfalls
 
-1. Tool names derived directly from raw paths (`get__v1__users___id`)
-2. Missing operation descriptions (agents choose tools poorly)
-3. Ambiguous parameter schemas with no required fields
-4. Mixing transport errors and domain errors in one opaque message
-5. Building tool contracts that expose secret values
-6. Breaking clients by changing schema keys without versioning
+1. Tool names derived directly from raw paths (`get__v1__users___id`) → verify: step output matches expected outcome
+2. Missing operation descriptions (agents choose tools poorly) → verify: step output matches expected outcome
+3. Ambiguous parameter schemas with no required fields → verify: step output matches expected outcome
+4. Mixing transport errors and domain errors in one opaque message → verify: step output matches expected outcome
+5. Building tool contracts that expose secret values → verify: step output matches expected outcome
+6. Breaking clients by changing schema keys without versioning → verify: step output matches expected outcome
 
 ## Best Practices
 
-1. Use `operationId` as canonical tool name when available.
-2. Keep one task intent per tool; avoid mega-tools.
-3. Add concise descriptions with action verbs.
-4. Validate contracts in CI using strict mode.
-5. Keep generated scaffold committed, then customize incrementally.
-6. Pair contract changes with changelog entries.
+1. Use `operationId` as canonical tool name when available. → verify: step output matches expected outcome
+2. Keep one task intent per tool; avoid mega-tools. → verify: user confirms
+3. Add concise descriptions with action verbs. → verify: dependency resolves + import works
+4. Validate contracts in CI using strict mode. → verify: all checks pass
+5. Keep generated scaffold committed, then customize incrementally. → verify: output exists + parses without error
+6. Pair contract changes with changelog entries. → verify: step output matches expected outcome
 
 ## Reference Material
 
@@ -134,12 +139,12 @@ Choose the server approach per constraint:
 
 Before publishing a manifest:
 
-1. Every tool has clear verb-first name.
-2. Every tool description explains intent and expected result.
-3. Every required field is explicitly typed.
-4. Destructive actions include confirmation parameters.
-5. Error payload format is consistent across all tools.
-6. Validator returns zero errors in strict mode.
+1. Every tool has clear verb-first name. → verify: step output matches expected outcome
+2. Every tool description explains intent and expected result. → verify: step output matches expected outcome
+3. Every required field is explicitly typed. → verify: step output matches expected outcome
+4. Destructive actions include confirmation parameters. → verify: step output matches expected outcome
+5. Error payload format is consistent across all tools. → verify: file content matches expected shape
+6. Validator returns zero errors in strict mode. → verify: step output matches expected outcome
 
 ## Testing Strategy
 
@@ -161,3 +166,40 @@ Before publishing a manifest:
 - Do not proxy arbitrary URLs from user-provided input.
 - Redact secrets and auth headers from logs.
 - Rate-limit high-cost tools and add request timeouts.
+
+## When NOT to use
+
+- Task is unrelated to mcp server builder — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Mcp Server Builder needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for mcp server builder
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving mcp server builder
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

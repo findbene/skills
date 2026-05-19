@@ -1,6 +1,7 @@
 ---
 name: customer-support
-description: "AI-powered customer support system implementation for RAG-based knowledge retrieval, ticket handling, and Supabase pgvector-backed support workflows. Use this skill any time customer support systems need to be built, support knowledge bases need to be connected, ticket handling needs to be automated, or customer query pipelines need to be implemented. Trigger immediately on: \"customer support\", \"support system\", \"knowledge base\", \"support ticket\", \"RAG support\", \"support agent\", \"ticket handling\", \"support workflow\", \"FAQ automation\", \"support bot\", \"customer queries\", \"pgvector support\", \"support pipeline\". If someone says \"build a customer support system\" this skill MUST trigger."
+description: "AI-powered customer support system implementation for RAG-based knowledge retrieval, ticket handling, and Supabase pgvect. Triggers: 'use customer-support', 'customer support', 'customer-support task."
+allowed-tools: Glob, Grep, Read
 version: 1.0.0
 triggers:
   - customer support
@@ -167,3 +168,44 @@ def get_ticket_priority(intent: str, customer_tier: str) -> str:
         return "medium"
     return "low"
 ```
+
+## Triggers
+
+\\\"customer support\\\", \\\"support system\\\", \\\"knowledge base\\\", \\\"support ticket\\\", \\\"RAG support\\\", \\\"support agent\\\", \\\"ticket handling\\\", \\\"support workflow\\\", \\\"FAQ automation\\\", \\\"suppo...
+
+## When NOT to use
+
+- Task is unrelated to customer support — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Customer Support needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for customer support
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving customer support
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

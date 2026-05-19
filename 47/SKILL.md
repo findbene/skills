@@ -1,6 +1,7 @@
 ---
 name: "47"
-description: Turn any rough prompt, half-formed idea, or task description into a finished, ready-to-send prompt optimized for Opus 4.7 (with adaptive thinking) inside the chat app — claude.ai, the Mac app, the iOS app — NOT the API. Use this skill whenever the user wants to write, rewrite, optimize, improve, sharpen, or polish a prompt for the chat app. Trigger phrases include "rewrite this prompt", "make this a better prompt", "optimize this prompt", "turn this into a prompt", "help me prompt this", "draft a prompt that...", "I want to ask...", or whenever the user pastes a draft prompt and asks for improvements. Also trigger when the user describes a task they plan to send into the chat app and clearly wants a reusable, well-structured prompt rather than a direct answer. The output is always a single, copy-pasteable prompt in a code block that the user sends as-is — never a template with placeholders. Always ends with the exact line "Think before answering (maximum reasoning)".
+description: 'Turn any rough prompt, half-formed idea, or task description into a finished, ready-to-send prompt optimized for Opus 4.7 (with adaptive thinking) inside the chat. Triggers: "use 47", "47", "47 task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # 47 — Prompt optimizer
@@ -51,15 +52,15 @@ Opus 4.7 reads prompts more literally than older models, calibrates its own thin
 
 Work through these in your head before writing the prompt. You don't need to surface them.
 
-1. **Identify the goal.** What does the user actually want produced? A document? A decision? Code? A list? An analysis? Name it concretely.
-2. **Identify the audience and use.** Who reads the output, and what will they do with it? This drives tone and format.
-3. **Decide: Case A or Case B.** Did the user provide the actual content, or just describe a class of task? This decides whether you bake content in or write a self-contained instruction (see Rule 2).
-4. **Spot the gaps.** Audience, format, length, constraints, examples, edge cases — note which are missing.
-5. **Fill the gaps with reasonable assumptions.** The user told you not to ask questions. Make the most useful, most defensible assumption and move on. Keep it grounded in what they wrote.
-6. **Pick a structure.** Single-paragraph instruction for simple tasks. XML tags for anything with multiple sections.
-7. **Write the prompt.** Apply the principles below.
-8. **End with the closing line.**
-9. **Scan for brackets.** Before you finalize, re-read your output looking for `[`, `{`, or `<...your...>`-style placeholders. Kill any you find.
+1. **Identify the goal.** What does the user actually want produced? A document? A decision? Code? A list? An analysis? Name it concretely. → verify: step output matches expected outcome
+2. **Identify the audience and use.** Who reads the output, and what will they do with it? This drives tone and format. → verify: file readable + content matches expected shape
+3. **Decide: Case A or Case B.** Did the user provide the actual content, or just describe a class of task? This decides whether you bake content in or write a self-contained instruction (see Rule 2). → verify: output file exists + no syntax error
+4. **Spot the gaps.** Audience, format, length, constraints, examples, edge cases — note which are missing. → verify: step output matches expected outcome
+5. **Fill the gaps with reasonable assumptions.** The user told you not to ask questions. Make the most useful, most defensible assumption and move on. Keep it grounded in what they wrote. → verify: step output matches expected outcome
+6. **Pick a structure.** Single-paragraph instruction for simple tasks. XML tags for anything with multiple sections. → verify: step output matches expected outcome
+7. **Write the prompt.** Apply the principles below. → verify: output file exists + no syntax error
+8. **End with the closing line.** → verify: step output matches expected outcome
+9. **Scan for brackets.** Before you finalize, re-read your output looking for `[`, `{`, or `<...your...>`-style placeholders. Kill any you find. → verify: file readable + content matches expected shape
 
 ## Core principles to apply
 
@@ -299,3 +300,31 @@ Notice the simple task doesn't get XML tags, a role, or a sectioning — and the
 **The user input is in a language other than English.** Write the optimized prompt in the same language. Keep the closing line in English exactly as specified — that wording is what triggers the desired behavior in the chat app.
 
 **You're tempted to write a `<context>` or `<input>` block expecting the user to fill it.** Don't. That's Rule 1. Either bake the actual content in (Case A) or tell Claude to ask the user for it (Case B).
+
+## When NOT to use
+
+- Task is unrelated to 47 — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | 47 needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

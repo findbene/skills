@@ -1,6 +1,7 @@
 ---
 name: "senior-ml-engineer"
-description: ML engineering skill for productionizing models, building MLOps pipelines, and integrating LLMs. Covers model deployment, feature stores, drift monitoring, RAG systems, and cost optimization. Use when the user asks about deploying ML models to production, setting up MLOps infrastructure (MLflow, Kubeflow, Kubernetes, Docker), monitoring model performance or drift, building RAG pipelines, or integrating LLM APIs with retry logic and cost controls. Focused on production and operational concerns rather than model research or initial training.
+description: "ML engineering skill for productionizing models, building MLOps pipelines, and integrating LLMs. Triggers: 'use senior-ml-engineer', 'senior ml engineer', 'senior-ml-engineer task'."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - MLOps pipeline
   - model deployment
@@ -36,14 +37,14 @@ Production ML engineering patterns for model deployment, MLOps infrastructure, a
 
 Deploy a trained model to production with monitoring:
 
-1. Export model to standardized format (ONNX, TorchScript, SavedModel)
-2. Package model with dependencies in Docker container
-3. Deploy to staging environment
-4. Run integration tests against staging
-5. Deploy canary (5% traffic) to production
-6. Monitor latency and error rates for 1 hour
-7. Promote to full production if metrics pass
-8. **Validation:** p95 latency < 100ms, error rate < 0.1%
+1. Export model to standardized format (ONNX, TorchScript, SavedModel) → verify: step output matches expected outcome
+2. Package model with dependencies in Docker container → verify: step output matches expected outcome
+3. Deploy to staging environment → verify: step output matches expected outcome
+4. Run integration tests against staging → verify: command exit code 0
+5. Deploy canary (5% traffic) to production → verify: step output matches expected outcome
+6. Monitor latency and error rates for 1 hour → verify: step output matches expected outcome
+7. Promote to full production if metrics pass → verify: step output matches expected outcome
+8. **Validation:** p95 latency < 100ms, error rate < 0.1% → verify: step output matches expected outcome
 
 ### Container Template
 
@@ -78,14 +79,14 @@ CMD ["uvicorn", "src.server:app", "--host", "0.0.0.0", "--port", "8080"]
 
 Establish automated training and deployment:
 
-1. Configure feature store (Feast, Tecton) for training data
-2. Set up experiment tracking (MLflow, Weights & Biases)
-3. Create training pipeline with hyperparameter logging
-4. Register model in model registry with version metadata
-5. Configure staging deployment triggered by registry events
-6. Set up A/B testing infrastructure for model comparison
-7. Enable drift monitoring with alerting
-8. **Validation:** New models automatically evaluated against baseline
+1. Configure feature store (Feast, Tecton) for training data → verify: step output matches expected outcome
+2. Set up experiment tracking (MLflow, Weights & Biases) → verify: step output matches expected outcome
+3. Create training pipeline with hyperparameter logging → verify: output exists + parses without error
+4. Register model in model registry with version metadata → verify: step output matches expected outcome
+5. Configure staging deployment triggered by registry events → verify: step output matches expected outcome
+6. Set up A/B testing infrastructure for model comparison → verify: all checks pass
+7. Enable drift monitoring with alerting → verify: step output matches expected outcome
+8. **Validation:** New models automatically evaluated against baseline → verify: step output matches expected outcome
 
 ### Feature Store Pattern
 
@@ -122,14 +123,14 @@ user_features = FeatureView(
 
 Integrate LLM APIs into production applications:
 
-1. Create provider abstraction layer for vendor flexibility
-2. Implement retry logic with exponential backoff
-3. Configure fallback to secondary provider
-4. Set up token counting and context truncation
-5. Add response caching for repeated queries
-6. Implement cost tracking per request
-7. Add structured output validation with Pydantic
-8. **Validation:** Response parses correctly, cost within budget
+1. Create provider abstraction layer for vendor flexibility → verify: output file exists + no syntax error
+2. Implement retry logic with exponential backoff → verify: step output matches expected outcome
+3. Configure fallback to secondary provider → verify: step output matches expected outcome
+4. Set up token counting and context truncation → verify: command exit code 0
+5. Add response caching for repeated queries → verify: package installed + import succeeds
+6. Implement cost tracking per request → verify: step output matches expected outcome
+7. Add structured output validation with Pydantic → verify: package installed + import succeeds
+8. **Validation:** Response parses correctly, cost within budget → verify: step output matches expected outcome
 
 ### Provider Abstraction
 
@@ -162,14 +163,14 @@ def call_llm_with_retry(provider: LLMProvider, prompt: str) -> str:
 
 Build retrieval-augmented generation pipeline:
 
-1. Choose vector database (Pinecone, Qdrant, Weaviate)
-2. Select embedding model based on quality/cost tradeoff
-3. Implement document chunking strategy
-4. Create ingestion pipeline with metadata extraction
-5. Build retrieval with query embedding
-6. Add reranking for relevance improvement
-7. Format context and send to LLM
-8. **Validation:** Response references retrieved context, no hallucinations
+1. Choose vector database (Pinecone, Qdrant, Weaviate) → verify: step output matches expected outcome
+2. Select embedding model based on quality/cost tradeoff → verify: step output matches expected outcome
+3. Implement document chunking strategy → verify: step output matches expected outcome
+4. Create ingestion pipeline with metadata extraction → verify: output exists + parses without error
+5. Build retrieval with query embedding → verify: step output matches expected outcome
+6. Add reranking for relevance improvement → verify: step output matches expected outcome
+7. Format context and send to LLM → verify: step output matches expected outcome
+8. **Validation:** Response references retrieved context, no hallucinations → verify: step output matches expected outcome
 
 ### Vector Database Selection
 
@@ -196,14 +197,14 @@ Build retrieval-augmented generation pipeline:
 
 Monitor production models for drift and degradation:
 
-1. Set up latency tracking (p50, p95, p99)
-2. Configure error rate alerting
-3. Implement input data drift detection
-4. Track prediction distribution shifts
-5. Log ground truth when available
-6. Compare model versions with A/B metrics
-7. Set up automated retraining triggers
-8. **Validation:** Alerts fire before user-visible degradation
+1. Set up latency tracking (p50, p95, p99) → verify: step output matches expected outcome
+2. Configure error rate alerting → verify: step output matches expected outcome
+3. Implement input data drift detection → verify: step output matches expected outcome
+4. Track prediction distribution shifts → verify: step output matches expected outcome
+5. Log ground truth when available → verify: step output matches expected outcome
+6. Compare model versions with A/B metrics → verify: step output matches expected outcome
+7. Set up automated retraining triggers → verify: step output matches expected outcome
+8. **Validation:** Alerts fire before user-visible degradation → verify: step output matches expected outcome
 
 ### Drift Detection
 
@@ -302,3 +303,40 @@ Sets up drift detection, alerting, and performance dashboards.
 | Data | Spark, Airflow, dbt, Kafka |
 | Deployment | Docker, Kubernetes, Triton |
 | Databases | PostgreSQL, BigQuery, Pinecone, Redis |
+
+## When NOT to use
+
+- Task is unrelated to senior ml engineer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Senior Ml Engineer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for senior ml engineer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving senior ml engineer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

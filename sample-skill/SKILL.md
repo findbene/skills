@@ -1,6 +1,7 @@
 ---
 name: sample-skill
-description: Sample text processor demonstrating basic skill structure and Python stdlib-only tooling.
+description: "Sample text processor demonstrating basic skill structure and Python stdlib-only tooling. Triggers: 'use sample-skill', 'sample skill', 'sample-skill task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Sample Text Processor
@@ -104,9 +105,9 @@ Transformed: "Hello World From The Text Processor"
 
 This skill requires only Python 3.7 or later with the standard library. No external dependencies are required.
 
-1. Clone or download the skill directory
-2. Navigate to the scripts directory
-3. Run the text processor directly with Python
+1. Clone or download the skill directory → verify: file content matches expected shape
+2. Navigate to the scripts directory → verify: step output matches expected outcome
+3. Run the text processor directly with Python → verify: command exit code 0
 
 ```bash
 cd scripts/
@@ -151,11 +152,11 @@ The skill includes comprehensive error handling for:
 
 This skill serves as a reference implementation and contributions are welcome to demonstrate best practices:
 
-1. Follow PEP 8 coding standards
-2. Include comprehensive docstrings
-3. Add test cases with sample data
-4. Update documentation for any new features
-5. Ensure backward compatibility
+1. Follow PEP 8 coding standards → verify: step output matches expected outcome
+2. Include comprehensive docstrings → verify: step output matches expected outcome
+3. Add test cases with sample data → verify: dependency resolves + import works
+4. Update documentation for any new features → verify: step output matches expected outcome
+5. Ensure backward compatibility → verify: step output matches expected outcome
 
 ## Limitations
 
@@ -166,3 +167,42 @@ As a BASIC tier skill, some advanced features are intentionally omitted:
 - Parallel processing for very large datasets
 
 This skill demonstrates the essential structure and quality standards required for BASIC tier skills in the claude-skills ecosystem while remaining simple and focused on core functionality.
+
+## When NOT to use
+
+- Real text processing in production — this is a sample/reference skill only
+- PDF / Word / Excel parsing — use `pdf`, `docx`, `xlsx` skills
+- NLP analysis (sentiment, topic, entity) — use a dedicated NLP skill
+- Large dataset processing — sample skill is single-threaded, single-file
+- Skill-creation guidance — use `skill-creator` instead
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Reach for sample-skill for any text task" | This is a BASIC-tier reference implementation, not a production tool |
+| "Add advanced features to make it production-ready" | Better to fork into a new skill — sample-skill must remain minimal as a reference |
+| "Bring in third-party deps to extend it" | Skill mandates Python stdlib only — adding deps breaks the educational contract |
+| "Skip docstrings since the code is simple" | Sample skill exists to demonstrate documentation standards — docstrings are mandatory |
+
+## Output Contract
+
+Finished output must contain:
+- Pure Python stdlib code (no third-party imports)
+- PEP 8 compliant formatting
+- Comprehensive docstrings on every function/class
+- Dual output (human-readable text + machine-readable JSON)
+- Test cases with sample input data
+- README documenting usage and limitations
+
+## Examples
+
+**Example 1 — Word count + character stats**
+- Input: `sample_skill.process('sample.txt', mode='stats')`
+- Action: Read file with `open()` → tokenize via `re` → count words, chars, lines → format both text and JSON outputs
+- Output: Stats printed to stdout, JSON written to `sample.stats.json`
+
+**Example 2 — Basic transform (uppercase + reverse)**
+- Input: `sample_skill.transform('hello', operations=['upper', 'reverse'])`
+- Action: Apply transformations in order using stdlib methods
+- Output: Returns `"OLLEH"`, no third-party deps, fully testable

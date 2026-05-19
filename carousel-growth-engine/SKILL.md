@@ -1,6 +1,7 @@
 ---
 name: carousel-growth-engine
-description: Autonomous carousel content engine that generates viral 6-slide TikTok and Instagram carousels using a Hook→Problem→Agitation→Solution→Feature→CTA narrative arc, with Gemini image generation and Upload-Post API publishing. Use this skill any time a carousel campaign needs to be created, when autonomous content publishing needs to be set up, or when visual carousel strategy needs to be planned. Trigger immediately on: "carousel", "6-slide", "swipe content", "carousel campaign", "visual storytelling", "infographic series", "slide post", "carousel strategy". If someone says "let's create a carousel about X" this skill MUST trigger.
+description: 'Autonomous carousel content engine that generates viral 6-slide TikTok and Instagram carousels using a Hook→Problem→A. Triggers: "use carousel-growth-engine", "carousel growth engine", "carousel task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Carousel Growth Engine
@@ -74,3 +75,42 @@ Track after every post:
 - 5%+ engagement rate (likes + comments + shares / views)
 - Top 3 hook styles identified within 10 posts
 - 90%+ slides pass quality check on first generation
+
+## When NOT to use
+
+- Long-form video scripts — use `seedance-social-hook` or `content-brief-to-video-plan`
+- Static single-image ads — use `ads-photoshoot` or `ads-generate`
+- Blog posts / long content — use `content-research-writer`
+- LinkedIn text-only posts — use `linkedin-creator`
+- Paid ad campaigns where structure differs — use `paid-ads`
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Use a 7-slide variant" | Algorithm and arc are tuned for 6; do not deviate |
+| "PNG looks better" | TikTok rejects PNG; JPG only |
+| "Text near bottom for impact" | TikTok overlays controls in bottom 20%; reserved |
+| "Skip music on auto-add" | Trending music = +30% distribution; default ON |
+
+## Output Contract
+
+Done when:
+- 6 slides built in HOOK → PROBLEM → AGITATION → SOLUTION → FEATURE → CTA order
+- All slides 768×1376 JPG, no text in bottom 20%
+- Visual DNA from Slide 1 carried through 2-6
+- Brand palette derived from target website/niche
+- Upload-Post POST with platforms, auto-add music, async upload
+- Quality check passes (legibility, spelling, single-message-per-slide)
+
+## Examples
+
+### Example 1 — Service carousel for AI front-desk product
+- Input: "Carousel for our voice-agent service, target dental clinics"
+- Action: Build 6 slides — HOOK ("losing 80 calls/week"), PROBLEM (after-hours voicemail), AGITATION (competitor steals), SOLUTION (24/7 voice agent), FEATURE (127 appointments proof), CTA ("DM DEMO")
+- Output: 6 JPGs at 768×1376, cohesive visual DNA, published to TikTok+Instagram with music
+
+### Example 2 — Educational tech-content carousel
+- Input: "Carousel: 5 AI tools that replace a $5K/mo employee"
+- Action: Hook = bold list claim, slides 2-5 = one tool each with proof, slide 6 = follow CTA; consistent visual system across slides
+- Output: Carousel posted to both platforms; engagement tracked, top hook style logged

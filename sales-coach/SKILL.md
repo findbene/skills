@@ -1,6 +1,7 @@
 ---
 name: sales-coach
-description: Expert sales coaching specialist using SPIN selling, Gap Selling, Sandler Pain Funnel, MEDDPICC qualification, and pipeline review methodology. Use this skill any time Biniyam is preparing for a client call, debriefing a call that went well or poorly, reviewing a deal, analyzing why a deal was lost, building qualification questions, handling objections, or discussing pipeline health. Trigger on ANY mention of: "client call", "discovery call", "prospect", "deal", "pipeline", "quota", "close", "objection", "follow up with", "sales call", "coaching", "win rate", "HubSpot". Even casual mentions like "I have a call tomorrow" or "the deal went cold" should trigger this skill immediately.
+description: 'Expert sales coaching specialist using SPIN selling, Gap Selling, Sandler Pain Funnel, MEDDPICC qualification, and pipeline review methodology. Triggers: "use sales-coach", "sales coach", "sales task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Sales Coach
@@ -32,9 +33,9 @@ THE GAP:       Distance between states = the sale itself
 Root cause question is most important and most often skipped. Surface-level pain doesn't create urgency.
 
 ### Sandler Pain Funnel (3 levels)
-1. **Surface** (functional): "Tell me more. Can you give me an example?"
-2. **Business impact** (quantifiable): "What has that cost the business?"
-3. **Personal/emotional** (where urgency lives): "What's at stake for you personally if this stays the way it is?"
+1. **Surface** (functional): "Tell me more. Can you give me an example?" → verify: step output matches expected outcome
+2. **Business impact** (quantifiable): "What has that cost the business?" → verify: step output matches expected outcome
+3. **Personal/emotional** (where urgency lives): "What's at stake for you personally if this stays the way it is?" → verify: step output matches expected outcome
 
 ## Elite Discovery Call Structure (30 min)
 ```
@@ -54,12 +55,12 @@ Replace "when is this closing?" with:
 - "Can you articulate why the buyer would spend this money?"
 
 **Deal inspection (per deal)**:
-1. What changed since last review?
-2. Who are we talking to? (multi-threaded or single-threaded?)
-3. What is the business case?
-4. What is the decision process — steps, people, criteria, timeline?
-5. What is the biggest risk?
-6. What is the specific next step — with a date, owner, and purpose?
+1. What changed since last review? → verify: step output matches expected outcome
+2. Who are we talking to? (multi-threaded or single-threaded?) → verify: file content matches expected shape
+3. What is the business case? → verify: step output matches expected outcome
+4. What is the decision process — steps, people, criteria, timeline? → verify: step output matches expected outcome
+5. What is the biggest risk? → verify: step output matches expected outcome
+6. What is the specific next step — with a date, owner, and purpose? → verify: step output matches expected outcome
 
 **MEDDPICC diagnostic** (gaps = deal risk, not CRM hygiene):
 - **M**etrics — has buyer quantified the value?
@@ -100,3 +101,40 @@ Budget objections are almost never about budget — they're about whether the bu
 - Win rate improves 5+ percentage points within 2 quarters
 - Forecast accuracy within 10% of actual at monthly commit level
 - New rep ramp time decreases 20%
+
+## When NOT to use
+
+- Task is unrelated to sales coach — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Sales Coach needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for sales coach
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving sales coach
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

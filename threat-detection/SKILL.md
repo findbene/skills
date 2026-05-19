@@ -1,6 +1,7 @@
 ---
 name: "threat-detection"
-description: "Use when hunting for threats in an environment, analyzing IOCs, or detecting behavioral anomalies in telemetry. Covers hypothesis-driven threat hunting, IOC sweep generation, z-score anomaly detection, and MITRE ATT&CK-mapped signal prioritization."
+description: 'Use when hunting for threats in an environment, analyzing IOCs, or detecting behavioral anomalies in telemetry. Triggers: "use threat-detection", "threat detection", "threat task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Threat Detection
@@ -240,22 +241,22 @@ python3 scripts/threat_signal_analyzer.py --mode anomaly \
 ### Workflow 2: Full Threat Hunt (Multi-Day)
 
 **Day 1 — Hypothesis Generation:**
-1. Review threat intelligence feeds for sector-relevant TTPs
-2. Map last 30 days of security alerts to ATT&CK tactics to identify gaps
-3. Score top 5 hypotheses with threat_signal_analyzer.py hunt mode
-4. Prioritize by score — start with highest
+1. Review threat intelligence feeds for sector-relevant TTPs → verify: step output matches expected outcome
+2. Map last 30 days of security alerts to ATT&CK tactics to identify gaps → verify: step output matches expected outcome
+3. Score top 5 hypotheses with threat_signal_analyzer.py hunt mode → verify: step output matches expected outcome
+4. Prioritize by score — start with highest → verify: step output matches expected outcome
 
 **Day 2 — Data Collection and Query Execution:**
-1. Pull relevant telemetry from SIEM (date range: last 14 days)
-2. Run anomaly detection across entity baselines
-3. Execute IOC sweeps for all feeds fresh within 30 days
-4. Review hunt playbooks in `references/hunt-playbooks.md`
+1. Pull relevant telemetry from SIEM (date range: last 14 days) → verify: step output matches expected outcome
+2. Run anomaly detection across entity baselines → verify: command exit code 0
+3. Execute IOC sweeps for all feeds fresh within 30 days → verify: command exit code 0
+4. Review hunt playbooks in `references/hunt-playbooks.md` → verify: step output matches expected outcome
 
 **Day 3 — Triage and Reporting:**
-1. Triage all anomaly findings — confirm or dismiss
-2. Escalate confirmed activity to incident-response
-3. Document new detection rules from hunt findings
-4. Submit false-positive IOCs back to TI provider
+1. Triage all anomaly findings — confirm or dismiss → verify: step output matches expected outcome
+2. Escalate confirmed activity to incident-response → verify: step output matches expected outcome
+3. Document new detection rules from hunt findings → verify: step output matches expected outcome
+4. Submit false-positive IOCs back to TI provider → verify: step output matches expected outcome
 
 ### Workflow 3: Continuous Monitoring (Automated)
 
@@ -279,13 +280,13 @@ fi
 
 ## Anti-Patterns
 
-1. **Hunting without a hypothesis** — Running broad queries across all telemetry without a focused question generates noise, not signal. Every hunt must start with a testable hypothesis scoped to one or two ATT&CK techniques.
-2. **Using stale IOCs** — IOCs older than 30 days generate false positives that train analysts to ignore alerts. Always check IOC freshness before sweeping; exclude stale indicators from automated sweeps.
-3. **Skipping baseline establishment** — Anomaly detection without a valid baseline produces alerts on normal high-volume days. Require 14+ days of baseline data before enabling statistical alerting on any entity type.
-4. **Hunting only known techniques** — Hunting exclusively against documented ATT&CK techniques misses novel adversary behavior. Regularly include open-ended anomaly analysis that can surface unknown TTPs.
-5. **Not closing the feedback loop to detection engineering** — Hunt findings that confirm malicious behavior must produce new detection rules. Hunting that doesn't improve detection coverage has no lasting value.
-6. **Treating every anomaly as a confirmed threat** — High z-scores indicate deviation from baseline, not confirmed malice. All anomalies require human triage to confirm or dismiss before escalation.
-7. **Ignoring honeypot alerts** — Any interaction with a deception asset is a high-fidelity signal. Treating honeypot alerts as noise invalidates the entire deception investment.
+1. **Hunting without a hypothesis** — Running broad queries across all telemetry without a focused question generates noise, not signal. Every hunt must start with a testable hypothesis scoped to one or two ATT&CK techniques. → verify: output exists + parses without error
+2. **Using stale IOCs** — IOCs older than 30 days generate false positives that train analysts to ignore alerts. Always check IOC freshness before sweeping; exclude stale indicators from automated sweeps. → verify: output exists + parses without error
+3. **Skipping baseline establishment** — Anomaly detection without a valid baseline produces alerts on normal high-volume days. Require 14+ days of baseline data before enabling statistical alerting on any entity type. → verify: output exists + parses without error
+4. **Hunting only known techniques** — Hunting exclusively against documented ATT&CK techniques misses novel adversary behavior. Regularly include open-ended anomaly analysis that can surface unknown TTPs. → verify: file content matches expected shape
+5. **Not closing the feedback loop to detection engineering** — Hunt findings that confirm malicious behavior must produce new detection rules. Hunting that doesn't improve detection coverage has no lasting value. → verify: output exists + parses without error
+6. **Treating every anomaly as a confirmed threat** — High z-scores indicate deviation from baseline, not confirmed malice. All anomalies require human triage to confirm or dismiss before escalation. → verify: step output matches expected outcome
+7. **Ignoring honeypot alerts** — Any interaction with a deception asset is a high-fidelity signal. Treating honeypot alerts as noise invalidates the entire deception investment. → verify: all checks pass
 
 ---
 
@@ -297,3 +298,40 @@ fi
 | [red-team](../red-team/SKILL.md) | Red team exercises generate realistic TTPs that inform hunt hypothesis prioritization |
 | [cloud-security](../cloud-security/SKILL.md) | Cloud posture findings (open S3, IAM wildcards) create hunting targets for data exfiltration TTPs |
 | [security-pen-testing](../security-pen-testing/SKILL.md) | Pen test findings identify attack surfaces that threat hunting should monitor post-remediation |
+
+## When NOT to use
+
+- Task is unrelated to threat detection — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Threat Detection needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for threat detection
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving threat detection
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

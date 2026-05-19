@@ -1,6 +1,7 @@
 ---
 name: "playwright-pro"
-description: "Production-grade Playwright testing toolkit. Use when the user mentions Playwright tests, end-to-end testing, browser automation, fixing flaky tests, test migration, CI/CD testing, or test suites. Generate tests, fix flaky failures, migrate from Cypress/Selenium, sync with TestRail, run on BrowserStack. 55 templates, 3 agents, smart reporting."
+description: 'Production-grade Playwright testing toolkit. Use when the user mentions Playwright tests, end-to-end testing, browser automation, f. Triggers: "use playwright-pro", "playwright pro", "playwright task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Playwright Pro
@@ -64,26 +65,26 @@ npx playwright test tests/auth/login.spec.ts --headed
 
 ## Golden Rules
 
-1. `getByRole()` over CSS/XPath — resilient to markup changes
-2. Never `page.waitForTimeout()` — use web-first assertions
-3. `expect(locator)` auto-retries; `expect(await locator.textContent())` does not
-4. Isolate every test — no shared state between tests
-5. `baseURL` in config — zero hardcoded URLs
-6. Retries: `2` in CI, `0` locally
-7. Traces: `'on-first-retry'` — rich debugging without slowdown
-8. Fixtures over globals — `test.extend()` for shared state
-9. One behavior per test — multiple related assertions are fine
-10. Mock external services only — never mock your own app
+1. `getByRole()` over CSS/XPath — resilient to markup changes → verify: step output matches expected outcome
+2. Never `page.waitForTimeout()` — use web-first assertions → verify: step output matches expected outcome
+3. `expect(locator)` auto-retries; `expect(await locator.textContent())` does not → verify: step output matches expected outcome
+4. Isolate every test — no shared state between tests → verify: all checks pass
+5. `baseURL` in config — zero hardcoded URLs → verify: step output matches expected outcome
+6. Retries: `2` in CI, `0` locally → verify: step output matches expected outcome
+7. Traces: `'on-first-retry'` — rich debugging without slowdown → verify: step output matches expected outcome
+8. Fixtures over globals — `test.extend()` for shared state → verify: all checks pass
+9. One behavior per test — multiple related assertions are fine → verify: all checks pass
+10. Mock external services only — never mock your own app → verify: step output matches expected outcome
 
 ## Locator Priority
 
 ```
-1. getByRole()        — buttons, links, headings, form elements
-2. getByLabel()       — form fields with labels
-3. getByText()        — non-interactive text
-4. getByPlaceholder() — inputs with placeholder
-5. getByTestId()      — when no semantic option exists
-6. page.locator()     — CSS/XPath as last resort
+1. getByRole()        — buttons, links, headings, form elements → verify: step output matches expected outcome
+2. getByLabel()       — form fields with labels → verify: step output matches expected outcome
+3. getByText()        — non-interactive text → verify: step output matches expected outcome
+4. getByPlaceholder() — inputs with placeholder → verify: step output matches expected outcome
+5. getByTestId()      — when no semantic option exists → verify: all checks pass
+6. page.locator()     — CSS/XPath as last resort → verify: step output matches expected outcome
 ```
 
 ## What's Included
@@ -122,3 +123,40 @@ See `reference/` directory for:
 - `flaky-tests.md` — Diagnosis commands and quick fixes
 
 See `templates/README.md` for the full template index.
+
+## When NOT to use
+
+- Task is unrelated to playwright pro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Playwright Pro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for playwright pro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving playwright pro
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

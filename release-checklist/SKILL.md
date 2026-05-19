@@ -1,6 +1,7 @@
 ---
 name: release-checklist
-description: "Pre-release safety verification covering 8 phases including security scanning, performance testing, deployment readiness, and rollback planning. Use this skill any time software is about to be released, a deployment is being prepared, a pre-release checklist needs to be run, or release readiness needs to be verified. Trigger immediately on: \"release checklist\", \"pre-release\", \"ready to release\", \"deployment checklist\", \"release process\", \"launch checklist\", \"go live\", \"ready to deploy\", \"release verification\", \"release prep\", \"before we deploy\", \"launch prep\", \"production release\", \"ship it\". If someone says \"we are ready to release\" or \"prepare for deployment\" this skill MUST trigger."
+description: 'Pre-release safety verification covering 8 phases including security scanning, performance testing, deployment readiness, and ro. Triggers: "use release-checklist", "release checklist", "release task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Release Checklist
@@ -84,3 +85,40 @@ npm publish --access public
 git tag -a v1.2.0 -m "Release v1.2.0"
 git push origin v1.2.0
 ```
+
+## When NOT to use
+
+- Task is unrelated to release checklist — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Release Checklist needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for release checklist
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving release checklist
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

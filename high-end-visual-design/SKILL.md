@@ -1,6 +1,7 @@
 ---
 name: high-end-visual-design
-description: Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+description: "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card struct. Triggers: 'use high-end-visual-design', 'high end visual design', 'high-end-visual-design task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Agent Skill: Principal UI/UX Architect & Motion Choreographer (Awwwards-Tier)
@@ -22,16 +23,16 @@ If your generated code includes ANY of the following, the design instantly fails
 Before writing code, silently "roll the dice" and select ONE combination from the following archetypes based on the prompt's context to ensure the output is uniquely tailored but always premium:
 
 ### A. Vibe & Texture Archetypes (Pick 1)
-1. **Ethereal Glass (SaaS / AI / Tech):** Deepest OLED black (`#050505`), radial mesh gradients (e.g., subtle glowing purple/emerald orbs) in the background. Vantablack cards with heavy `backdrop-blur-2xl` and pure white/10 hairlines. Wide geometric Grotesk typography.
-2. **Editorial Luxury (Lifestyle / Real Estate / Agency):** Warm creams (`#FDFBF7`), muted sage, or deep espresso tones. High-contrast Variable Serif fonts for massive headings. Subtle CSS noise/film-grain overlay (`opacity-[0.03]`) for a physical paper feel.
-3. **Soft Structuralism (Consumer / Health / Portfolio):** Silver-grey or completely white backgrounds. Massive bold Grotesk typography. Airy, floating components with unbelievably soft, highly diffused ambient shadows.
+1. **Ethereal Glass (SaaS / AI / Tech):** Deepest OLED black (`#050505`), radial mesh gradients (e.g., subtle glowing purple/emerald orbs) in the background. Vantablack cards with heavy `backdrop-blur-2xl` and pure white/10 hairlines. Wide geometric Grotesk typography. → verify: step output matches expected outcome
+2. **Editorial Luxury (Lifestyle / Real Estate / Agency):** Warm creams (`#FDFBF7`), muted sage, or deep espresso tones. High-contrast Variable Serif fonts for massive headings. Subtle CSS noise/film-grain overlay (`opacity-[0.03]`) for a physical paper feel. → verify: diff matches intended change
+3. **Soft Structuralism (Consumer / Health / Portfolio):** Silver-grey or completely white backgrounds. Massive bold Grotesk typography. Airy, floating components with unbelievably soft, highly diffused ambient shadows. → verify: step output matches expected outcome
 
 ### B. Layout Archetypes (Pick 1)
-1. **The Asymmetrical Bento:** A masonry-like CSS Grid of varying card sizes (e.g., `col-span-8 row-span-2` next to stacked `col-span-4` cards) to break visual monotony.
+1. **The Asymmetrical Bento:** A masonry-like CSS Grid of varying card sizes (e.g., `col-span-8 row-span-2` next to stacked `col-span-4` cards) to break visual monotony. → verify: step output matches expected outcome
    - **Mobile Collapse:** Falls back to a single-column stack (`grid-cols-1`) with generous vertical gaps (`gap-6`). All `col-span` overrides reset to `col-span-1`.
-2. **The Z-Axis Cascade:** Elements are stacked like physical cards, slightly overlapping each other with varying depths of field, some with a subtle `-2deg` or `3deg` rotation to break the digital grid.
+2. **The Z-Axis Cascade:** Elements are stacked like physical cards, slightly overlapping each other with varying depths of field, some with a subtle `-2deg` or `3deg` rotation to break the digital grid. → verify: step output matches expected outcome
    - **Mobile Collapse:** Remove all rotations and negative-margin overlaps below `768px`. Stack vertically with standard spacing. Overlapping elements cause touch-target conflicts on mobile.
-3. **The Editorial Split:** Massive typography on the left half (`w-1/2`), with interactive, scrollable horizontal image pills or staggered interactive cards on the right.
+3. **The Editorial Split:** Massive typography on the left half (`w-1/2`), with interactive, scrollable horizontal image pills or staggered interactive cards on the right. → verify: diff matches intended change
    - **Mobile Collapse:** Converts to a full-width vertical stack (`w-full`). Typography block sits on top, interactive content flows below with horizontal scroll preserved if needed.
 
 **Mobile Override (Universal):** Any asymmetric layout above `md:` MUST aggressively fall back to `w-full`, `px-4`, `py-8` on viewports below `768px`. Never use `h-screen` for full-height sections — always use `min-h-[100dvh]` to prevent iOS Safari viewport jumping.
@@ -77,11 +78,11 @@ Never use default transitions. All motion must simulate real-world mass and spri
 
 ## 7. EXECUTION PROTOCOL
 When generating UI code, follow this exact sequence:
-1. **[SILENT THOUGHT]** Roll the Variance Engine (Section 3). Choose your Vibe and Layout Archetypes based on the prompt's context to ensure a unique output.
-2. **[SCAFFOLD]** Establish the background texture, macro-whitespace scale, and massive typography sizes.
-3. **[ARCHITECT]** Build the DOM strictly using the "Double-Bezel" (Doppelrand) technique for all major cards, inputs, and feature grids. Use exaggerated squircle radii (`rounded-[2rem]`).
-4. **[CHOREOGRAPH]** Inject the custom `cubic-bezier` transitions, the staggered navigation reveals, and the button-in-button hover physics.
-5. **[OUTPUT]** Deliver flawless, pixel-perfect React/Tailwind/HTML code. Do not include basic, generic fallbacks.
+1. **[SILENT THOUGHT]** Roll the Variance Engine (Section 3). Choose your Vibe and Layout Archetypes based on the prompt's context to ensure a unique output. → verify: step output matches expected outcome
+2. **[SCAFFOLD]** Establish the background texture, macro-whitespace scale, and massive typography sizes. → verify: step output matches expected outcome
+3. **[ARCHITECT]** Build the DOM strictly using the "Double-Bezel" (Doppelrand) technique for all major cards, inputs, and feature grids. Use exaggerated squircle radii (`rounded-[2rem]`). → verify: step output matches expected outcome
+4. **[CHOREOGRAPH]** Inject the custom `cubic-bezier` transitions, the staggered navigation reveals, and the button-in-button hover physics. → verify: step output matches expected outcome
+5. **[OUTPUT]** Deliver flawless, pixel-perfect React/Tailwind/HTML code. Do not include basic, generic fallbacks. → verify: step output matches expected outcome
 
 ## 8. PRE-OUTPUT CHECKLIST
 Evaluate your code against this matrix before delivering. This is the last filter.
@@ -96,3 +97,43 @@ Evaluate your code against this matrix before delivering. This is the last filte
 - [ ] All animations use only `transform` and `opacity` — no layout-triggering properties
 - [ ] `backdrop-blur` is only applied to fixed/sticky elements, never to scrolling content
 - [ ] The overall impression reads as "$150k agency build", not "template with nice fonts"
+
+## When NOT to use
+
+- Pure compliance / a11y audit — use `a11y-audit`
+- Admin dashboards where bold aesthetics hurt usability — use `design-system`
+- Mobile-native (SwiftUI/RN) — these web techniques do not transfer
+- Quick MVP / hackathon prototype — overkill; use `frontend-design`
+- Email HTML — premium effects break in mail clients
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Inter looks clean, it is fine" | Skill bans Inter; use Geist, Clash Display, PP Editorial New, Plus Jakarta Sans |
+| "`shadow-md` is the standard Tailwind shadow" | Banned; use highly diffused ambient shadows or none |
+| "Edge-to-edge sticky navbar is conventional" | Banned; float the nav or use minimal split nav |
+| "Use `ease-in-out` for transitions" | Banned linear/ease-in-out; use custom cubic-beziers or spring physics |
+
+## Output Contract
+
+Finished output must contain:
+- Vibe + texture archetype selected with rationale
+- Layout archetype selected
+- Premium typography stack (no banned fonts)
+- No banned shadows, borders, or transitions
+- `transform` + `opacity` only for animation (no layout-triggering properties)
+- `backdrop-blur` restricted to fixed/sticky elements
+- Whitespace, type scale, and motion described as "agency-tier" not generic
+
+## Examples
+
+**Example 1 — Ethereal Glass SaaS landing**
+- Input: "Premium landing for an AI workflow SaaS"
+- Action: Pick Ethereal Glass archetype + Asymmetrical Bento layout + Geist + Clash Display → deep OLED bg with radial gradients → vantablack glass cards with white/10 hairlines → magnetic hover on CTA → SplitText reveal
+- Output: HTML/CSS/JS, premium aesthetic, no banned tokens, performance verified
+
+**Example 2 — Editorial Luxury real-estate site**
+- Input: "Boutique high-end real-estate marketing site"
+- Action: Pick Editorial Luxury + Side-scroll cinemagraph layout + PP Editorial New + warm cream palette → noise overlay → variable serif headings → cinematic transitions
+- Output: HTML/CSS/JS, editorial-grade aesthetic, no harsh shadows, smooth motion via custom easings

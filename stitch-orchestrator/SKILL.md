@@ -1,6 +1,6 @@
 ---
 name: stitch-orchestrator
-description: Master entry point for all Stitch design workflows. Routes from user request → design spec → prompt assembly → screen generation → iteration (edit, variants, design systems) → design system extraction → framework conversion (Next.js, Svelte, HTML, React Native, or SwiftUI) → optional quality pass.
+description: "Master entry point for all Stitch design workflows. Triggers: 'use stitch-orchestrator', 'stitch orchestrator', 'stitch-orchestrator task'."
 allowed-tools:
   - "stitch*:*"
   - "Read"
@@ -131,10 +131,10 @@ If any of these are missing — re-invoke the prompt architect. Don't send vague
 
 ### Step 4: Create or reuse project
 
-1. Call `stitch-mcp-list-projects` to check for existing projects
-2. **If no projects exist:** create one immediately via `stitch-mcp-create-project` — no need to ask
-3. **If projects exist:** show the user the list and ask: "Use an existing project or create new?"
-4. Only create a new project when the user explicitly confirms
+1. Call `stitch-mcp-list-projects` to check for existing projects → verify: all tests pass
+2. **If no projects exist:** create one immediately via `stitch-mcp-create-project` — no need to ask → verify: output file exists + no syntax error
+3. **If projects exist:** show the user the list and ask: "Use an existing project or create new?" → verify: output file exists + no syntax error
+4. Only create a new project when the user explicitly confirms → verify: output file exists + no syntax error
 
 If creating new: Call `stitch-mcp-create-project` → get `projectId` (both numeric and full-path forms)
 
@@ -142,14 +142,14 @@ If creating new: Call `stitch-mcp-create-project` → get `projectId` (both nume
 
 **When reusing an existing project**, read its DesignTheme to keep new screens visually consistent:
 
-1. Call `stitch-mcp-get-project` with `projects/[projectId]`
-2. Extract the `designTheme` from the response
-3. **If `designMd` exists:** this project has a full design system. Pass key values as constraints to the spec generator (Step 2) to override its guesses:
+1. Call `stitch-mcp-get-project` with `projects/[projectId]` → verify: step output matches expected outcome
+2. Extract the `designTheme` from the response → verify: step output matches expected outcome
+3. **If `designMd` exists:** this project has a full design system. Pass key values as constraints to the spec generator (Step 2) to override its guesses: → verify: step output matches expected outcome
    - `headlineFont`, `bodyFont`, `labelFont` → override spec's font selection
    - `colorVariant`, `customColor` → override spec's color derivation
    - `roundness`, `spacingScale` → override spec's geometry
-4. **If `namedColors` exists:** pass the full color map to `stitch-design-system` later (Step 7) — it eliminates HTML parsing for colors
-5. Store the DesignTheme for reference throughout the workflow
+4. **If `namedColors` exists:** pass the full color map to `stitch-design-system` later (Step 7) — it eliminates HTML parsing for colors → verify: step output matches expected outcome
+5. Store the DesignTheme for reference throughout the workflow → verify: step output matches expected outcome
 
 This prevents the spec generator from picking a different font or color scheme for new screens in an established project.
 
@@ -157,9 +157,9 @@ This prevents the spec generator from picking a different font or color scheme f
 
 After selecting a project:
 
-1. Call `stitch-mcp-list-design-systems` with the projectId
-2. If design systems exist: "This project has design system: **[name]**. Apply to new screens?"
-3. If the user accepts: store the `assetId` for use in Step 5b
+1. Call `stitch-mcp-list-design-systems` with the projectId → verify: step output matches expected outcome
+2. If design systems exist: "This project has design system: **[name]**. Apply to new screens?" → verify: diff matches intended change
+3. If the user accepts: store the `assetId` for use in Step 5b → verify: step output matches expected outcome
 4. Optionally offer cleanup: "Want to delete any old projects?" → `stitch-mcp-delete-project`
 
 ### Step 5: Generate the screen
@@ -205,7 +205,7 @@ This loop allows multiple rounds. After A, B, or C completes, always return to t
 
 1. Call `stitch-mcp-list-screens` with `projects/[projectId]` → find the new screen
 2. Call `stitch-mcp-get-screen` with numeric projectId and screenId → get `htmlCode.downloadUrl` and `screenshot.downloadUrl`
-3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"`
+3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"` → verify: file readable + content matches expected shape
 
 Show the user the screenshot URL.
 
@@ -256,14 +256,14 @@ After extracting CSS tokens, offer:
 > This lets you apply the same theme to future screens without re-extracting."
 
 If the user accepts:
-1. Map CSS variables to DesignTheme fields:
+1. Map CSS variables to DesignTheme fields: → verify: step output matches expected outcome
    - `--color-primary` → `customColor`
    - `--color-bg` / `--bg-light` → `backgroundLight`
    - `--bg-dark` → `backgroundDark`
    - `--font-family` → `font` (map to closest enum: e.g., "DM Sans" → `DM_SANS`)
    - `--border-radius` → `roundness` (4px→`ROUND_FOUR`, 8px→`ROUND_EIGHT`, 12px→`ROUND_TWELVE`, 16px+→`ROUND_FULL`)
-2. Call `stitch-mcp-create-design-system` with the mapped values
-3. Store the returned asset name for future use
+2. Call `stitch-mcp-create-design-system` with the mapped values → verify: output file exists + no syntax error
+3. Store the returned asset name for future use → verify: step output matches expected outcome
 
 ### Step 8: Framework conversion
 
@@ -304,8 +304,8 @@ Execute whichever the user selects.
 
 When tools are unavailable, produce a ready-to-use prompt instead.
 
-1. Run Steps 2-3 (spec generation + prompt assembly) exactly as above
-2. Output the assembled prompt in copy-paste format:
+1. Run Steps 2-3 (spec generation + prompt assembly) exactly as above → verify: command exit code 0
+2. Output the assembled prompt in copy-paste format: → verify: step output matches expected outcome
 
 ```
 ## Your Stitch Generation Prompt
@@ -395,6 +395,46 @@ This is the #1 source of bugs. Every MCP tool has specific ID format requirement
 
 ---
 
+## When NOT to use
+
+- User has not mentioned "Stitch" — do not activate silently; route to other design skills
+- User already has Stitch screens and just wants framework code — go directly to `stitch-nextjs-components` / `stitch-react-components` etc., skip orchestration
+- Pure ideation/wireframe with no intent to generate code — use `stitch-ideate` only
+- Edit-only request on existing Stitch screen — use `stitch-mcp-edit-screens`
+- Non-UI design (logo, illustration, branding) — Stitch is for UI surfaces only
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "User said app, must mean Stitch" | Activate only on explicit "Stitch" mention; otherwise default to `frontend-design` or `ui-ux-pro-max` |
+| "Ask the user between every step" | Skill mandates autonomous execution — only ask at major milestones (ideation gate, framework choice) |
+| "Pick GEMINI_3_FLASH to save tokens" | Default to `GEMINI_3_1_PRO`; only drop to Flash when speed matters more than fidelity |
+| "Stitch tools not found, abandon" | Fall back to the Prompt-Only Workflow with documented prompts the user can paste into Stitch UI |
+
+## Output Contract
+
+Finished output must contain:
+- Tool namespace detected and recorded (e.g. `stitch:` or `mcp__stitch__`)
+- Ideation outcome (skipped with reason, OR ran with chosen direction)
+- Stitch project + screen IDs persisted for downstream skills
+- Hand-off to the correct framework-specific skill with a clear brief
+- Final deliverable summary (designs created, code generated, framework used)
+- Progress reported at each major milestone — no silent steps
+
+## Examples
+
+**Example 1 — Full flow: idea to Next.js**
+- Input: "Use Stitch to design and build a settings page for our SaaS"
+- Action: list_tools → preflight passes → score request (low specificity) → run ideation → confirm direction with user → call `stitch-mcp-create-project` + `generate_screen_from_text` with GEMINI_3_1_PRO → hand off to `stitch-nextjs-components`
+- Output: Stitch project URL, screen JSON, Next.js component files committed, summary of design tokens used
+
+**Example 2 — Skip ideation (high specificity)**
+- Input: "Create a Stitch screen for a dashboard, dark mode, neon green #00FF88, Inter font, sidebar nav, data grid"
+- Action: list_tools → score >6 → skip ideation gate → directly generate screen with explicit spec → hand off to `stitch-html-components` (user said plain HTML)
+- Output: Single screen, HTML/CSS files, design tokens documented
+
+
 ## References
 
-- `examples/workflow.md` — Complete end-to-end example (SaaS app design → Next.js code)
+See `references/details.md` for extended sections.

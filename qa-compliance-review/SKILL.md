@@ -1,14 +1,7 @@
 ---
 name: qa-compliance-review
-description: >
-  Performs structured QA and compliance reviews on code, content, documents,
-  workflows, or processes — checking against a defined standard, ruleset, or
-  checklist and producing a prioritized findings report. Use this skill whenever
-  the user wants a QA review, compliance check, quality gate, pre-launch audit,
-  code review against a style guide, content review against brand guidelines, or
-  wants to verify something meets a defined standard. Also trigger when they say
-  "review this before I ship," "does this meet our standards," or "check this
-  against our rules."
+description: 'Performs structured QA and compliance reviews on code, content, documents, workflows, or processes — checking against a defined. Triggers: "use qa-compliance-review", "qa compliance review", "qa task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # QA and Compliance Review
@@ -22,8 +15,8 @@ artifact under review.
 
 Establish two things:
 
-1. **What is being reviewed?** — Code file, document, workflow, process, content piece, etc.
-2. **What standard applies?** — House rules, industry standard, regulatory requirement, or
+1. **What is being reviewed?** — Code file, document, workflow, process, content piece, etc. → verify: step output matches expected outcome
+2. **What standard applies?** — House rules, industry standard, regulatory requirement, or → verify: step output matches expected outcome
    a checklist the user provides.
 
 If no explicit standard is provided, infer the appropriate one from context:
@@ -127,3 +120,40 @@ changed lines and their immediate dependencies. Don't re-audit the whole codebas
 ### Pre-launch checklist
 If the user says "we're about to launch," switch to a structured go/no-go checklist
 format covering: functionality, security, performance, content accuracy, and rollback plan.
+
+## When NOT to use
+
+- Task is unrelated to qa compliance review — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Qa Compliance Review needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for qa compliance review
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving qa compliance review
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

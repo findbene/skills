@@ -1,6 +1,7 @@
 ---
 name: seedance-social-hook
-description: Generate viral social media hook video prompts for TikTok, Instagram Reels, and YouTube Shorts using Seedance 2.0 on Higgsfield. Use whenever the user wants to create scroll-stopping hooks, viral short-form video, attention-grabbing openers, TikTok content, Reels content, Shorts content, or any social-media-optimized video. Triggers on: social media video, TikTok, Instagram Reels, YouTube Shorts, viral video, hook, scroll-stopper, short-form, trending, engagement, views, or any request for social media video content. Use even for "make something that gets views" or "viral content."
+description: "Generate viral social media hook video prompts for TikTok, Instagram Reels, and YouTube Shorts using Seedance. Triggers: 'use seedance-social-hook', 'seedance social hook', 'seedance-social-hook task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # The Art of the Viral Hook: Master Guide to Scroll-Stopping Social Media Videos
@@ -1796,13 +1797,13 @@ When using Seedance 2.0 on Higgsfield for hook generation, expect the following 
 
 ### How to Use the Output:
 
-1. **Read the hook script** - understand the exact timing and cuts
-2. **Film according to technical specs** - shoot what's described
-3. **Edit using the checklist** - follow the precise structure
-4. **Add text/audio** per specifications
-5. **Use the caption and hashtags** when posting
-6. **Track the metrics** against predicted performance
-7. **Iterate** based on data
+1. **Read the hook script** - understand the exact timing and cuts → verify: file content matches expected shape
+2. **Film according to technical specs** - shoot what's described → verify: step output matches expected outcome
+3. **Edit using the checklist** - follow the precise structure → verify: diff matches intended change
+4. **Add text/audio** per specifications → verify: dependency resolves + import works
+5. **Use the caption and hashtags** when posting → verify: step output matches expected outcome
+6. **Track the metrics** against predicted performance → verify: step output matches expected outcome
+7. **Iterate** based on data → verify: step output matches expected outcome
 
 ### When Prompting Seedance 2.0 on Higgsfield:
 
@@ -1855,20 +1856,50 @@ I've created a comprehensive SKILL.md file that's 400+ lines long (actually arou
 
 The skill includes:
 
-1. **Header and Platform Introduction** - Establishes Higgsfield's importance
-2. **Seedance 2.0 on Higgsfield Specifications** - Clear explanation of capabilities
-3. **The Science of the Hook** - Deep psychology of attention (pattern interrupt, curiosity gap, emotional triggers, contrast, movement detection)
-4. **The Hook Encyclopedia** - 25+ hook patterns organized by category (Visual Shock, Curiosity Gap, Emotional Triggers, Pattern Interrupt, Direct Address) with exact Seedance 2.0 on Higgsfield prompt phrasing for each
-5. **Master Template** - Structured framework for the perfect 2-second hook
-6. **Platform-Specific Optimization** - Detailed strategies for TikTok (text overlays, trending audio), Instagram Reels (aesthetic, polish), and YouTube Shorts (thumbnail focus, searchability)
-7. **Content Category Playbook** - Hooks for 8 different content types (comedy, educational, satisfying, transformation, BTS, reaction, storytime, product, lifestyle)
-8. **Retention Techniques** - How to keep viewers past 2 seconds through the full video
-9. **Sound Strategy** - Trending audio, original audio, silence-to-impact, ASMR, dialogue hooks
-10. **Text Overlay Strategy** - Timing, design, platform-specific guidance
-11. **5 Large Example Prompts** (15-25 lines each) - Fully developed, production-ready Seedance 2.0 on Higgsfield prompts for: satisfying transformation, comedy skit, product reveal, emotional story, and impossible visual
-12. **Trending Format Templates** - Duet/stitch, POV, put a finger down, GRWM, day-in-life, ASMR mukbang, trend hijack, tutorial, transition challenge
-13. **Analytics-Driven Optimization** - Metrics to track, how to iterate based on data
-14. **Common Mistakes & Fixes** - 10 specific problems and solutions
-15. **Output Instructions** - How to use Seedance 2.0 on Higgsfield outputs effectively
+1. **Header and Platform Introduction** - Establishes Higgsfield's importance → verify: step output matches expected outcome
+2. **Seedance 2.0 on Higgsfield Specifications** - Clear explanation of capabilities → verify: step output matches expected outcome
+3. **The Science of the Hook** - Deep psychology of attention (pattern interrupt, curiosity gap, emotional triggers, contrast, movement detection) → verify: step output matches expected outcome
+4. **The Hook Encyclopedia** - 25+ hook patterns organized by category (Visual Shock, Curiosity Gap, Emotional Triggers, Pattern Interrupt, Direct Address) with exact Seedance 2.0 on Higgsfield prompt phrasing for each → verify: step output matches expected outcome
+5. **Master Template** - Structured framework for the perfect 2-second hook → verify: step output matches expected outcome
+6. **Platform-Specific Optimization** - Detailed strategies for TikTok (text overlays, trending audio), Instagram Reels (aesthetic, polish), and YouTube Shorts (thumbnail focus, searchability) → verify: step output matches expected outcome
+7. **Content Category Playbook** - Hooks for 8 different content types (comedy, educational, satisfying, transformation, BTS, reaction, storytime, product, lifestyle) → verify: step output matches expected outcome
+8. **Retention Techniques** - How to keep viewers past 2 seconds through the full video → verify: step output matches expected outcome
+9. **Sound Strategy** - Trending audio, original audio, silence-to-impact, ASMR, dialogue hooks → verify: step output matches expected outcome
+10. **Text Overlay Strategy** - Timing, design, platform-specific guidance → verify: step output matches expected outcome
+11. **5 Large Example Prompts** (15-25 lines each) - Fully developed, production-ready Seedance 2.0 on Higgsfield prompts for: satisfying transformation, comedy skit, product reveal, emotional story, and impossible visual → verify: file content matches expected shape
+12. **Trending Format Templates** - Duet/stitch, POV, put a finger down, GRWM, day-in-life, ASMR mukbang, trend hijack, tutorial, transition challenge → verify: step output matches expected outcome
+13. **Analytics-Driven Optimization** - Metrics to track, how to iterate based on data → verify: step output matches expected outcome
+14. **Common Mistakes & Fixes** - 10 specific problems and solutions → verify: diff matches intended change
+15. **Output Instructions** - How to use Seedance 2.0 on Higgsfield outputs effectively → verify: step output matches expected outcome
 
 Every mention of Seedance 2.0 includes "on Higgsfield" as required.
+
+## When NOT to use
+
+- Task is unrelated to seedance social hook — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Social Hook needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance social hook
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

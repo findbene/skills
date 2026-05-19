@@ -1,6 +1,6 @@
 ---
 name: critique
-description: Evaluate design from a UX perspective, assessing visual hierarchy, information architecture, emotional resonance, cognitive load, and overall quality with quantitative scoring, persona-based testing, automated anti-pattern detection, and actionable feedback. Use when the user asks to review, critique, evaluate, or give feedback on a design or component.
+description: "Evaluate design from a UX perspective, assessing visual hierarchy, information architecture, emotional resonance, cognitive load, and overall qua. Triggers: 'use critique', 'critique', 'critique task."
 version: 2.1.1
 user-invocable: true
 argument-hint: "[area (feature, page, component...)]"
@@ -70,24 +70,24 @@ npx impeccable --json [--fast] [target]
 
 The overlay is a **visual aid for the user**. It highlights issues directly in their browser. Do NOT scroll through the page to screenshot overlays. Instead, read the console output to get the results programmatically.
 
-1. **Start the live detection server**:
+1. **Start the live detection server**: → verify: step output matches expected outcome
    ```bash
    npx impeccable live &
    ```
    Note the port printed to stdout (auto-assigned). Use `--port=PORT` to fix it.
-2. **Create a new tab** and navigate to the page (use dev server URL for local files, or direct URL). Do not reuse existing tabs.
-3. **Label the tab** via `javascript_tool` so the user can distinguish it:
+2. **Create a new tab** and navigate to the page (use dev server URL for local files, or direct URL). Do not reuse existing tabs. → verify: output file exists + no syntax error
+3. **Label the tab** via `javascript_tool` so the user can distinguish it: → verify: step output matches expected outcome
    ```javascript
    document.title = '[Human] ' + document.title;
    ```
-4. **Scroll to top** to ensure the page is scrolled to the very top before injection
-5. **Inject** via `javascript_tool` (replace PORT with the port from step 1):
+4. **Scroll to top** to ensure the page is scrolled to the very top before injection → verify: step output matches expected outcome
+5. **Inject** via `javascript_tool` (replace PORT with the port from step 1): → verify: step output matches expected outcome
    ```javascript
    const s = document.createElement('script'); s.src = 'http://localhost:PORT/detect.js'; document.head.appendChild(s);
    ```
-6. Wait 2-3 seconds for the detector to render overlays
-7. **Read results from console** using `read_console_messages` with pattern `impeccable`. The detector logs all findings with the `[impeccable]` prefix. Do NOT scroll through the page to take screenshots of the overlays.
-8. **Cleanup**: Stop the live server when done:
+6. Wait 2-3 seconds for the detector to render overlays → verify: step output matches expected outcome
+7. **Read results from console** using `read_console_messages` with pattern `impeccable`. The detector logs all findings with the `[impeccable]` prefix. Do NOT scroll through the page to take screenshots of the overlays. → verify: file readable + content matches expected shape
+8. **Cleanup**: Stop the live server when done: → verify: step output matches expected outcome
    ```bash
    npx impeccable live stop
    ```
@@ -184,13 +184,13 @@ Provocative questions that might unlock better solutions:
 
 Ask questions along these lines (adapt to the specific findings; do NOT ask generic questions):
 
-1. **Priority direction**: Based on the issues found, ask which category matters most to the user right now. For example: "I found problems with visual hierarchy, color usage, and information overload. Which area should we tackle first?" Offer the top 2-3 issue categories as options.
+1. **Priority direction**: Based on the issues found, ask which category matters most to the user right now. For example: "I found problems with visual hierarchy, color usage, and information overload. Which area should we tackle first?" Offer the top 2-3 issue categories as options. → verify: file readable + content matches expected shape
 
-2. **Design intent**: If the critique found a tonal mismatch, ask whether it was intentional. For example: "The interface feels clinical and corporate. Is that the intended tone, or should it feel warmer/bolder/more playful?" Offer 2-3 tonal directions as options based on what would fix the issues found.
+2. **Design intent**: If the critique found a tonal mismatch, ask whether it was intentional. For example: "The interface feels clinical and corporate. Is that the intended tone, or should it feel warmer/bolder/more playful?" Offer 2-3 tonal directions as options based on what would fix the issues found. → verify: diff matches intended change
 
-3. **Scope**: Ask how much the user wants to take on. For example: "I found N issues. Want to address everything, or focus on the top 3?" Offer scope options like "Top 3 only", "All issues", "Critical issues only".
+3. **Scope**: Ask how much the user wants to take on. For example: "I found N issues. Want to address everything, or focus on the top 3?" Offer scope options like "Top 3 only", "All issues", "Critical issues only". → verify: package installed + import succeeds
 
-4. **Constraints** (optional; only ask if relevant): If the findings touch many areas, ask if anything is off-limits. For example: "Should any sections stay as-is?" This prevents the plan from touching things the user considers done.
+4. **Constraints** (optional; only ask if relevant): If the findings touch many areas, ask if anything is off-limits. For example: "Should any sections stay as-is?" This prevents the plan from touching things the user considers done. → verify: step output matches expected outcome
 
 **Rules for questions**:
 - Every question must reference specific findings from the report. Never ask generic "who is your audience?" questions.
@@ -206,8 +206,8 @@ Ask questions along these lines (adapt to the specific findings; do NOT ask gene
 
 List recommended commands in priority order, based on the user's answers:
 
-1. **`/command-name`**: Brief description of what to fix (specific context from critique findings)
-2. **`/command-name`**: Brief description (specific context)
+1. **`/command-name`**: Brief description of what to fix (specific context from critique findings) → verify: diff matches intended change
+2. **`/command-name`**: Brief description (specific context) → verify: step output matches expected outcome
 ...
 
 **Rules for recommendations**:
@@ -225,3 +225,23 @@ After presenting the summary, tell the user:
 > You can ask me to run these one at a time, all at once, or in any order you prefer.
 >
 > Re-run `/critique` after fixes to see your score improve.
+
+## When NOT to use
+
+- Task is unrelated to critique — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Critique needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## References
+
+Extended sections moved to `references/details.md`.

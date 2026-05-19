@@ -1,6 +1,7 @@
 ---
 name: seedance-3d-cgi
-description: Generate 3D CGI and rendered video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants 3D rendered, CGI, Pixar-style, Unreal Engine, photorealistic 3D, computer-generated, or digitally rendered video content. Triggers on: 3D animation, CGI, rendered, Blender, Unreal Engine, octane render, ray tracing, volumetric, subsurface scattering, physically based rendering, or any 3D/CG video request. Always use even if the user just says "make it look 3D" or describes a rendered aesthetic.
+description: "Generate 3D CGI and rendered video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-3d-cgi', 'seedance 3d cgi', 'seedance-3d-cgi task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield — 3D CGI Style Prompt Generator
@@ -772,30 +773,30 @@ Quality Emphasis: This sequence should look indistinguishable from actual archit
 ### How to Use These Prompts in Seedance 2.0 on Higgsfield
 
 #### Step 1: Prepare Your Prompt
-1. Start with ONE of the 12+ hook techniques from Section 3.
-2. Build prompt using the Master Template (Section 5).
+1. Start with ONE of the 12+ hook techniques from Section 3. → verify: step output matches expected outcome
+2. Build prompt using the Master Template (Section 5). → verify: step output matches expected outcome
 3. Verify technical accuracy of all specs (camera, lighting, materials).
-4. Specify duration clearly (2–10 seconds).
-5. Proofread for contradictions (e.g., "mirror-polished velvet" is impossible).
+4. Specify duration clearly (2–10 seconds). → verify: step output matches expected outcome
+5. Proofread for contradictions (e.g., "mirror-polished velvet" is impossible). → verify: file content matches expected shape
 
 #### Step 2: Submit to Seedance 2.0 on Higgsfield
-1. Paste your prompt into Seedance 2.0 on Higgsfield input field.
-2. Select resolution (1080p or 4K) and frame rate (24/30/60fps).
-3. Click "Generate" or equivalent command.
-4. Processing time varies (typically minutes, depending on complexity and platform load).
+1. Paste your prompt into Seedance 2.0 on Higgsfield input field. → verify: step output matches expected outcome
+2. Select resolution (1080p or 4K) and frame rate (24/30/60fps). → verify: step output matches expected outcome
+3. Click "Generate" or equivalent command. → verify: output exists + parses without error
+4. Processing time varies (typically minutes, depending on complexity and platform load). → verify: file content matches expected shape
 
 #### Step 3: Review Output
-1. Watch full video once without critique.
-2. Second viewing: assess if hook lands in first 2 seconds.
-3. Check: does camera motion feel smooth? Do materials look accurate? Is lighting professional?
-4. Compare to your mental reference. If output diverges, note which elements and refine prompt.
+1. Watch full video once without critique. → verify: step output matches expected outcome
+2. Second viewing: assess if hook lands in first 2 seconds. → verify: step output matches expected outcome
+3. Check: does camera motion feel smooth? Do materials look accurate? Is lighting professional? → verify: step output matches expected outcome
+4. Compare to your mental reference. If output diverges, note which elements and refine prompt. → verify: step output matches expected outcome
 
 #### Step 4: Iterate (If Needed)
-1. If hook is weak: strengthen opening description, be more specific about first-frame visual impact.
-2. If camera feels wrong: specify exact degrees-per-second, easing curves, exact distance.
-3. If materials look off: add more specific material property language, reference real-world material.
-4. If lighting is flat: add color temperature (Kelvin), add fill and rim lights, add HDRI or specific environment.
-5. Re-submit refined prompt to Seedance 2.0 on Higgsfield.
+1. If hook is weak: strengthen opening description, be more specific about first-frame visual impact. → verify: file content matches expected shape
+2. If camera feels wrong: specify exact degrees-per-second, easing curves, exact distance. → verify: step output matches expected outcome
+3. If materials look off: add more specific material property language, reference real-world material. → verify: dependency resolves + import works
+4. If lighting is flat: add color temperature (Kelvin), add fill and rim lights, add HDRI or specific environment. → verify: dependency resolves + import works
+5. Re-submit refined prompt to Seedance 2.0 on Higgsfield. → verify: step output matches expected outcome
 
 #### Step 5: Export & Use
 - Download video from Seedance 2.0 on Higgsfield platform.
@@ -809,12 +810,12 @@ Quality Emphasis: This sequence should look indistinguishable from actual archit
 Creating professional-grade CGI video prompts is a skill learned through iteration. Seedance 2.0 on Higgsfield's power lies in its responsiveness to specific, technical language. The more you speak in the language of render engines, material science, and cinematography, the closer your output will match your vision.
 
 Key Takeaways:
-1. **Hook First**: The first 2 seconds are everything. Lead with visual intrigue.
-2. **Be Technical**: Speak in Kelvin, degrees, percentages, material terms. Avoid vague adjectives.
-3. **Reference Reality**: Anchor impossible scenes in real physics and material behavior.
-4. **Specify Duration**: Always. Never assume default timing.
-5. **Iterate Fearlessly**: Seedance 2.0 on Higgsfield rewards refinement. First pass rarely perfect. Resubmit and improve.
-6. **Study Real Cinema**: Watch cinematography, study lighting, observe camera motion. Your vocabulary expands, your prompts improve.
+1. **Hook First**: The first 2 seconds are everything. Lead with visual intrigue. → verify: step output matches expected outcome
+2. **Be Technical**: Speak in Kelvin, degrees, percentages, material terms. Avoid vague adjectives. → verify: step output matches expected outcome
+3. **Reference Reality**: Anchor impossible scenes in real physics and material behavior. → verify: step output matches expected outcome
+4. **Specify Duration**: Always. Never assume default timing. → verify: step output matches expected outcome
+5. **Iterate Fearlessly**: Seedance 2.0 on Higgsfield rewards refinement. First pass rarely perfect. Resubmit and improve. → verify: step output matches expected outcome
+6. **Study Real Cinema**: Watch cinematography, study lighting, observe camera motion. Your vocabulary expands, your prompts improve. → verify: step output matches expected outcome
 
 ---
 
@@ -882,3 +883,33 @@ You now have a complete framework for generating production-quality CGI video pr
 The best CGI prompts are those that respect both artistic vision and technical reality. Seedance 2.0 on Higgsfield rewards specificity. Speak clearly, reference real materials and physics, specify your camera motion in exact terms, and remember: the first two seconds define everything.
 
 Now go create something extraordinary with **Seedance 2.0 on Higgsfield**.
+
+## When NOT to use
+
+- Task is unrelated to seedance 3d cgi — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance 3D Cgi needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance 3d cgi
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

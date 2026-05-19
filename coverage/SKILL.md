@@ -1,9 +1,7 @@
 ---
 name: "coverage"
-description: >-
-  Analyze test coverage gaps. Use when user says "test coverage",
-  "what's not tested", "coverage gaps", "missing tests", "coverage report",
-  or "what needs testing".
+description: 'Analyze test coverage gaps. Use when user says "test coverage", "what''s not tested", "coverage gaps", "missing tests", "coverage report", or "what needs testing". Triggers: ''use coverage'', ''coverage'', ''coverage task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Analyze Test Coverage Gaps
@@ -61,9 +59,9 @@ Scan all `*.spec.ts` / `*.spec.js` files:
 Rank uncovered areas by business impact:
 
 1. **Critical** — auth, payment, core features → test first
-2. **High** — user-facing CRUD, search, navigation
-3. **Medium** — settings, preferences, edge cases
-4. **Low** — static pages, about, terms
+2. **High** — user-facing CRUD, search, navigation → verify: step output matches expected outcome
+3. **Medium** — settings, preferences, edge cases → verify: step output matches expected outcome
+4. **Low** — static pages, about, terms → verify: step output matches expected outcome
 
 ### 5. Suggest Test Plan
 
@@ -76,12 +74,12 @@ For each gap, recommend:
 ## Recommended Test Plan
 
 ### Priority 1: Critical
-1. /register (4 tests) — use auth/registration template — quick
-2. /forgot-password (3 tests) — use auth/password-reset template — quick
+1. /register (4 tests) — use auth/registration template — quick → verify: all checks pass
+2. /forgot-password (3 tests) — use auth/password-reset template — quick → verify: all checks pass
 
 ### Priority 2: High
-3. /settings (4 tests) — use settings/ templates — medium
-4. Dashboard error states (2 tests) — use dashboard/data-loading template — quick
+3. /settings (4 tests) — use settings/ templates — medium → verify: all checks pass
+4. Dashboard error states (2 tests) — use dashboard/data-loading template — quick → verify: file content matches expected shape
 ```
 
 ### 6. Auto-Generate (Optional)
@@ -96,3 +94,40 @@ If yes, invoke `/pw:generate` for each gap with the recommended template.
 - Coverage percentage estimate
 - Prioritized gap list with effort estimates
 - Option to auto-generate missing tests
+
+## When NOT to use
+
+- Task is unrelated to coverage — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Coverage needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for coverage
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving coverage
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

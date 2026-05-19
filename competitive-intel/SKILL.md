@@ -1,6 +1,7 @@
 ---
 name: "competitive-intel"
-description: "Systematic competitor tracking that feeds CMO positioning, CRO battlecards, and CPO roadmap decisions. Use when analyzing competitors, building sales battlecards, tracking market moves, positioning against alternatives, or when user mentions competitive intelligence, competitive analysis, competitor research, battlecards, win/loss, or market positioning."
+description: "Systematic competitor tracking that feeds CMO positioning, CRO battlecards, and CPO roadmap decisions. Triggers: 'use competitive-intel', 'competitive intel', 'competitive-intel task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -127,12 +128,12 @@ This is the highest-signal competitive data you have. Most companies do it too r
 - Customer success, product team, or external researcher
 
 **Question structure:**
-1. "Walk me through your evaluation process"
-2. "Who else were you considering?"
-3. "What were the top 3 criteria in your decision?"
-4. "Where did [our product] fall short?"
-5. "What was the deciding factor?"
-6. "What would have changed your decision?"
+1. "Walk me through your evaluation process" → verify: step output matches expected outcome
+2. "Who else were you considering?" → verify: step output matches expected outcome
+3. "What were the top 3 criteria in your decision?" → verify: step output matches expected outcome
+4. "Where did [our product] fall short?" → verify: step output matches expected outcome
+5. "What was the deciding factor?" → verify: step output matches expected outcome
+6. "What would have changed your decision?" → verify: step output matches expected outcome
 
 **Aggregate findings monthly:**
 - Win reasons (rank by frequency)
@@ -201,3 +202,35 @@ This is the highest-signal competitive data you have. Most companies do it too r
 ## References
 - `references/ci-playbook.md` — OSINT sources, win/loss framework, positioning map construction
 - `templates/battlecard-template.md` — sales battlecard template
+
+## Triggers
+
+competitive intelligence, competitive analysis, competitor research, battlecards, win/loss, or market positioning
+
+## When NOT to use
+
+- Task is unrelated to competitive intel — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for competitive intel
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving competitive intel
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

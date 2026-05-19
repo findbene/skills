@@ -1,6 +1,6 @@
 ---
 name: stitch-react-components
-description: Converts Stitch designs into modular Vite + React components — TypeScript, theme-mapped Tailwind, dark mode via CSS variables, and clean component architecture. Use this for Vite/React apps without App Router. For Next.js 15 App Router, use stitch-nextjs-components instead.
+description: "Converts Stitch designs into modular Vite + React components — TypeScript, theme-mapped Tailwind, da. Triggers: 'use stitch-react-components', 'stitch react components', 'stitch-react-components task."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -32,8 +32,8 @@ You are a frontend engineer converting Stitch mobile/desktop designs into clean,
 ## Step 1: Retrieve the design
 
 1. Run `list_tools` → find Stitch MCP prefix
-2. Call `[prefix]:get_screen` with numeric `projectId` and `screenId`
-3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"`
+2. Call `[prefix]:get_screen` with numeric `projectId` and `screenId` → verify: diff matches intended change
+3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"` → verify: file content matches expected shape
 4. Check `screenshot.downloadUrl` — verify layout matches expectations
 
 ## Step 2: Project structure
@@ -225,6 +225,46 @@ Then use `stitch-shadcn-ui` skill to replace raw HTML elements with shadcn compo
 | Dark mode not toggling | Verify `useTheme()` is called at component level, not hoisted |
 | Images not showing | Add explicit `width` and `height` or use `className="w-full h-auto"` |
 | Type error on props | Ensure `Readonly<>` wrapper and all required props are provided |
+
+## When NOT to use
+
+- Target uses Next.js App Router — use `stitch-nextjs-components`
+- Target is SwiftUI / React Native / Svelte / plain HTML — use the matching skill
+- No build step desired or WebView target — use `stitch-html-components`
+- shadcn/ui integration is the primary task — use `stitch-shadcn-ui`
+- Animation-heavy walkthrough video output — use `stitch-remotion`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Inline Stitch HTML, wrap in a component" | Output must be idiomatic React with proper props, not divs with inline styles |
+| "Skip TypeScript, JSX is fine" | Skill mandates TS strict — type safety catches the most common Stitch-to-code defects |
+| "Dark mode with a manual className toggle" | Use CSS variables + theme provider; the manual toggle pattern is fragile across pages |
+| "Forget responsive, design was desktop" | Stitch designs must be made responsive with Tailwind breakpoints from `sm:` upward |
+
+## Output Contract
+
+Finished output must contain:
+- TypeScript React components under `src/components/` with `Props` interface and `Readonly<>` wrap
+- Tailwind classes mapped to theme tokens (CSS variables), not hard-coded hex
+- Dark mode via CSS variables driven by class or data-attribute on `<html>`
+- Responsive layout — verified at 375px, 768px, 1280px
+- No inline styles except dynamic computed values
+- Index/barrel exports for the component module
+- Component template followed (`resources/component-template.tsx`)
+
+## Examples
+
+**Example 1 — Convert Stitch dashboard screen to Vite/React**
+- Input: "Convert this Stitch dashboard to a React app, no Next.js"
+- Action: `list_tools` → fetch screen → `bash scripts/fetch-stitch.sh` → produce `Dashboard.tsx`, `StatCard.tsx`, `Chart.tsx` with TS interfaces → Tailwind via CSS variables → theme provider for dark mode
+- Output: 4 TSX files, `tokens.css` with light+dark, `ThemeProvider.tsx`, components render at 375px and 1280px
+
+**Example 2 — Single landing-page component**
+- Input: "Just give me the Hero section from this Stitch screen as a React component"
+- Action: Fetch only the hero block → produce `Hero.tsx` with props for headline/subhead/cta → Tailwind classes → mobile-first
+- Output: `Hero.tsx`, props interface, mobile + desktop verified, dark mode supported
 
 ## References
 

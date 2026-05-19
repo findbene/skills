@@ -1,6 +1,7 @@
 ---
 name: social-content
-description: "Create social media content — posts, captions, threads, hooks, carousels, and platform-specific copy for LinkedIn, Twitter/X, Instagram, TikTok, and Facebook. Use this whenever the user asks to 'write a LinkedIn post,' 'create social media content,' 'write a tweet thread,' 'draft captions,' 'help with my social posts,' or 'I need content for [platform].' Trigger even when the user pastes a blog post or idea and asks to 'turn this into social content' or 'repurpose this for social."
+description: "Create social media content — posts, captions, threads, hooks, carousels, and platform-specific copy for LinkedIn, Twitter/X, I. Triggers: 'use social-content', 'social content', 'social-content task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -69,11 +70,11 @@ Build your content around 3-5 pillars that align with your expertise and audienc
 ### Pillar Development Questions
 
 For each pillar, ask:
-1. What unique perspective do you have?
-2. What questions does your audience ask?
-3. What content has performed well before?
-4. What can you create consistently?
-5. What aligns with business goals?
+1. What unique perspective do you have? → verify: step output matches expected outcome
+2. What questions does your audience ask? → verify: user confirms
+3. What content has performed well before? → verify: step output matches expected outcome
+4. What can you create consistently? → verify: output exists + parses without error
+5. What aligns with business goals? → verify: step output matches expected outcome
 
 ---
 
@@ -121,11 +122,11 @@ Turn one piece of content into many:
 
 ### Repurposing Workflow
 
-1. **Create pillar content** (blog, video, podcast)
-2. **Extract key insights** (3-5 per piece)
-3. **Adapt to each platform** (format and tone)
-4. **Schedule across the week** (spread distribution)
-5. **Update and reshare** (evergreen content can repeat)
+1. **Create pillar content** (blog, video, podcast) → verify: output exists + parses without error
+2. **Extract key insights** (3-5 per piece) → verify: step output matches expected outcome
+3. **Adapt to each platform** (format and tone) → verify: step output matches expected outcome
+4. **Schedule across the week** (spread distribution) → verify: file content matches expected shape
+5. **Update and reshare** (evergreen content can repeat) → verify: step output matches expected outcome
 
 ---
 
@@ -143,12 +144,12 @@ Turn one piece of content into many:
 
 ### Batching Strategy (2-3 hours weekly)
 
-1. Review content pillar topics
-2. Write 5 LinkedIn posts
-3. Write 3 Twitter threads + daily tweets
-4. Create Instagram carousel + Reel ideas
-5. Schedule everything
-6. Leave room for real-time engagement
+1. Review content pillar topics → verify: step output matches expected outcome
+2. Write 5 LinkedIn posts → verify: output exists + parses without error
+3. Write 3 Twitter threads + daily tweets → verify: file content matches expected shape
+4. Create Instagram carousel + Reel ideas → verify: output exists + parses without error
+5. Schedule everything → verify: step output matches expected outcome
+6. Leave room for real-time engagement → verify: step output matches expected outcome
 
 ---
 
@@ -156,10 +157,10 @@ Turn one piece of content into many:
 
 ### Daily Engagement Routine (30 min)
 
-1. Respond to all comments on your posts (5 min)
-2. Comment on 5-10 posts from target accounts (15 min)
-3. Share/repost with added insight (5 min)
-4. Send 2-3 DMs to new connections (5 min)
+1. Respond to all comments on your posts (5 min) → verify: step output matches expected outcome
+2. Comment on 5-10 posts from target accounts (15 min) → verify: step output matches expected outcome
+3. Share/repost with added insight (5 min) → verify: step output matches expected outcome
+4. Send 2-3 DMs to new connections (5 min) → verify: step output matches expected outcome
 
 ### Quality Comments
 
@@ -248,12 +249,12 @@ Turn one piece of content into many:
 
 Instead of guessing, analyze what's working for top creators in your niche:
 
-1. **Find creators** — 10-20 accounts with high engagement
-2. **Collect data** — 500+ posts for analysis
-3. **Analyze patterns** — Hooks, formats, CTAs that work
-4. **Codify playbook** — Document repeatable patterns
-5. **Layer your voice** — Apply patterns with authenticity
-6. **Convert** — Bridge attention to business results
+1. **Find creators** — 10-20 accounts with high engagement → verify: step output matches expected outcome
+2. **Collect data** — 500+ posts for analysis → verify: step output matches expected outcome
+3. **Analyze patterns** — Hooks, formats, CTAs that work → verify: step output matches expected outcome
+4. **Codify playbook** — Document repeatable patterns → verify: step output matches expected outcome
+5. **Layer your voice** — Apply patterns with authenticity → verify: diff matches intended change
+6. **Convert** — Bridge attention to business results → verify: step output matches expected outcome
 
 **For the complete framework**: See [references/reverse-engineering.md](references/reverse-engineering.md)
 
@@ -261,12 +262,12 @@ Instead of guessing, analyze what's working for top creators in your niche:
 
 ## Task-Specific Questions
 
-1. What platform(s) are you focusing on?
-2. What's your current posting frequency?
-3. Do you have existing content to repurpose?
-4. What content has performed well in the past?
-5. How much time can you dedicate weekly?
-6. Are you building personal brand, company brand, or both?
+1. What platform(s) are you focusing on? → verify: step output matches expected outcome
+2. What's your current posting frequency? → verify: step output matches expected outcome
+3. Do you have existing content to repurpose? → verify: step output matches expected outcome
+4. What content has performed well in the past? → verify: step output matches expected outcome
+5. How much time can you dedicate weekly? → verify: step output matches expected outcome
+6. Are you building personal brand, company brand, or both? → verify: step output matches expected outcome
 
 ---
 
@@ -276,3 +277,40 @@ Instead of guessing, analyze what's working for top creators in your niche:
 - **launch-strategy**: For coordinating social with launches
 - **email-sequence**: For nurturing social audience via email
 - **marketing-psychology**: For understanding what drives engagement
+
+## When NOT to use
+
+- Task is unrelated to social content — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Social Content needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for social content
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving social content
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "senior-qa"
-description: Generates unit tests, integration tests, and E2E tests for React/Next.js applications. Scans components to create Jest + React Testing Library test stubs, analyzes Istanbul/LCOV coverage reports to surface gaps, scaffolds Playwright test files from Next.js routes, mocks API calls with MSW, creates test fixtures, and configures test runners. Use when the user asks to "generate tests", "write unit tests", "analyze test coverage", "scaffold E2E tests", "set up Playwright", "configure Jest", "implement testing patterns", or "improve test quality".
+description: "Generates unit tests, integration tests, and E2E tests for React/Next.js applications. Triggers: 'use senior-qa', 'senior qa', 'senior-qa task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Senior QA Engineer
@@ -329,3 +330,42 @@ npx playwright codegen             # Generate tests
 npm test -- --coverage --coverageReporters=lcov,json
 python scripts/coverage_analyzer.py coverage/coverage-final.json
 ```
+
+## When NOT to use
+
+- Backend-only Python/Go/Java services — this skill targets React/Next.js
+- Manual exploratory QA without code output — use a checklist, not this skill
+- Unit-test-only task in a non-JS stack — use language-specific test skills
+- Load/performance testing — use `webapp-testing` or k6/Locust skills
+- Visual regression testing only — use Playwright visual diff directly, this skill is broader
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "100% line coverage = done" | Coverage is a floor signal not a ceiling; assert on behavior + edge cases or you have brittle tests that lock in current bugs |
+| "Skip the happy-path test, just test edges" | Happy path is the regression net; if it breaks silently you ship broken features |
+| "E2E covers everything, unit tests are redundant" | E2E is slow and flaky; keep the pyramid — unit > integration > E2E |
+| "Mock everything to make tests fast" | Over-mocking tests the mocks not the code; mock only at IO boundaries |
+
+## Output Contract
+
+Finished output must contain:
+- Unit tests with describe/it structure, one assertion per concept
+- Render + interaction tests for every component with user-facing behavior
+- At least one failure-path test per component (loading, error, empty states)
+- Coverage report showing branches not just lines (target 80% branch coverage)
+- E2E scaffolding for critical user journeys (auth, checkout, primary action)
+- Accessibility assertions (`jest-axe` or Playwright a11y) where `--include-a11y` requested
+
+## Examples
+
+**Example 1 — New form component**
+- Input: "Generate tests for `src/components/SignupForm.tsx`"
+- Action: Run `test_suite_generator.py src/components/SignupForm.tsx --output __tests__/ --include-a11y` → produce render test, validation tests, submit handler test, error state test, axe a11y test
+- Output: `__tests__/SignupForm.test.tsx` with 7 cases, including 2 failure-path tests and 1 a11y check
+
+**Example 2 — Coverage gap analysis**
+- Input: "Analyze coverage and tell me what to add"
+- Action: Run `coverage_analyzer.py coverage/coverage-final.json --threshold 80` → identify untested branches (error boundaries, edge inputs) → produce prioritized list
+- Output: Coverage report flagging 12 untested branches in 4 files, ranked by risk, with stub tests scaffolded for top 5

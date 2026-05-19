@@ -1,15 +1,6 @@
 ---
 name: seo-technical
-description: >
-  Technical SEO audit across 9 categories: crawlability, indexability, security,
-  URL structure, mobile optimization, Core Web Vitals (LCP/INP/CLS), structured data,
-  JavaScript rendering, and IndexNow protocol. Also covers AI crawler management
-  (GPTBot, ClaudeBot, PerplexityBot) and December 2025 JS SEO guidance. Make sure
-  to use this skill whenever the user mentions: "technical SEO", "crawl issues",
-  "robots.txt", "Core Web Vitals", "INP", "CLS", "LCP", "site speed", "security
-  headers", "canonical issues", "indexing problems", "mobile SEO", "JavaScript SEO",
-  "redirect chains", "crawl budget", "noindex", "hreflang conflicts", or any
-  infrastructure-level SEO concern — not just when they say "technical SEO".
+description: 'Technical SEO audit across 9 categories: crawlability, indexability, security, URL structure, mobile optimization, Core Web Vi. Triggers: "use seo-technical", "optimize seo technical", "seo technical.'
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -127,10 +118,10 @@ Allow: /
 
 Google updated its JavaScript SEO documentation in December 2025 with critical clarifications:
 
-1. **Canonical conflicts:** If a canonical tag in raw HTML differs from one injected by JavaScript, Google may use EITHER one. Ensure canonical tags are identical between server-rendered HTML and JS-rendered output.
-2. **noindex with JavaScript:** If raw HTML contains `<meta name="robots" content="noindex">` but JavaScript removes it, Google MAY still honor the noindex from raw HTML. Serve correct robots directives in the initial HTML response.
-3. **Non-200 status codes:** Google does NOT render JavaScript on pages returning non-200 HTTP status codes. Any content or meta tags injected via JS on error pages will be invisible to Googlebot.
-4. **Structured data in JavaScript:** Product, Article, and other structured data injected via JS may face delayed processing. For time-sensitive structured data (especially e-commerce Product markup), include it in the initial server-rendered HTML.
+1. **Canonical conflicts:** If a canonical tag in raw HTML differs from one injected by JavaScript, Google may use EITHER one. Ensure canonical tags are identical between server-rendered HTML and JS-rendered output. → verify: step output matches expected outcome
+2. **noindex with JavaScript:** If raw HTML contains `<meta name="robots" content="noindex">` but JavaScript removes it, Google MAY still honor the noindex from raw HTML. Serve correct robots directives in the initial HTML response. → verify: step output matches expected outcome
+3. **Non-200 status codes:** Google does NOT render JavaScript on pages returning non-200 HTTP status codes. Any content or meta tags injected via JS on error pages will be invisible to Googlebot. → verify: step output matches expected outcome
+4. **Structured data in JavaScript:** Product, Article, and other structured data injected via JS may face delayed processing. For time-sensitive structured data (especially e-commerce Product markup), include it in the initial server-rendered HTML. → verify: step output matches expected outcome
 
 **Best practice:** Serve critical SEO elements (canonical, meta robots, structured data, title, meta description) in the initial server-rendered HTML rather than relying on JavaScript injection.
 
@@ -173,3 +164,40 @@ If DataForSEO MCP tools are available, use `on_page_instant_pages` for real page
 | robots.txt not found | Note that no robots.txt was detected at the root domain. Recommend creating one with appropriate directives. Continue audit on remaining categories. |
 | HTTPS not configured | Flag as a critical issue. Report whether HTTP is served without redirect, mixed content exists, or SSL certificate is missing/expired. |
 | Core Web Vitals data unavailable | Note that CrUX data is not available (common for low-traffic sites). Suggest using Lighthouse lab data as a proxy and recommend increasing traffic before re-testing. |
+
+## When NOT to use
+
+- Task is unrelated to seo technical — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Technical needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo technical
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo technical
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

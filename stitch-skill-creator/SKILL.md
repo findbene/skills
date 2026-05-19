@@ -1,6 +1,6 @@
 ---
 name: stitch-skill-creator
-description: Meta-skill for creating new stitch-kit skills. Enforces naming conventions, SKILL.md structure, examples format, and the Design-First SOP. Use when adding new framework support, a new domain-specific prompt architect, or any new capability to the stitch-kit plugin.
+description: "Meta-skill for creating new stitch-kit skills. Enforces naming conventions, SKILL.md structure, examples form. Triggers: 'use stitch-skill-creator', 'stitch skill creator', 'stitch-skill-creator task."
 allowed-tools:
   - "Bash"
   - "Read"
@@ -85,8 +85,8 @@ allowed-tools:
 ## Step 1: Retrieve the design
 
 1. Run `list_tools` → find Stitch MCP prefix
-2. Call `[prefix]:get_screen` with numeric `projectId` and `screenId`
-3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"`
+2. Call `[prefix]:get_screen` with numeric `projectId` and `screenId` → verify: diff matches intended change
+3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"` → verify: file content matches expected shape
 
 ## Step 2: [Core conversion / workflow]
 
@@ -242,10 +242,10 @@ The skill name: `stitch-ui-ecommerce-architect`
 
 This skill **does not generate or execute** — it produces a structured Stitch prompt. Pattern:
 
-1. Identify domain-specific components (product card, cart, checkout flow, review stars, etc.)
-2. Define the `[Context] [Layout] [Components]` prompt template for this domain
-3. Reference `stitch-ued-guide` for visual vocabulary
-4. Output is: a ready-to-use prompt for `stitch-mcp-generate-screen-from-text`
+1. Identify domain-specific components (product card, cart, checkout flow, review stars, etc.) → verify: step output matches expected outcome
+2. Define the `[Context] [Layout] [Components]` prompt template for this domain → verify: step output matches expected outcome
+3. Reference `stitch-ued-guide` for visual vocabulary → verify: step output matches expected outcome
+4. Output is: a ready-to-use prompt for `stitch-mcp-generate-screen-from-text` → verify: file content matches expected shape
 
 ---
 
@@ -255,3 +255,28 @@ This skill **does not generate or execute** — it produces a structured Stitch 
 - `docs/mcp-naming-convention.md` — MCP tool naming rules
 - `stitch-nextjs-components/SKILL.md` — reference for a well-structured framework conversion skill
 - `stitch-swiftui-components/SKILL.md` — reference for a mobile platform skill
+
+## When NOT to use
+
+- Task is unrelated to stitch skill creator — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Skill Creator needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch skill creator
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

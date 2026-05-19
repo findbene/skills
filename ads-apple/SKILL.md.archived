@@ -1,0 +1,9 @@
+---
+name: ads-apple
+description: "Apple Ads (formerly Apple Search Ads) deep analysis for mobile app advertisers. Triggers: 'use ads-apple', 'run ads apple', 'ads apple'."
+allowed-tools: Glob, Grep, Read
+user-invokable: false
+---
+Consolidated into `/ads` parent skill. For execution steps:
+1. Read `~/.claude/skills/ads/SKILL.md` — orchestration + context intake
+2. Read `~/.claude/skills/ads/references/modes/apple.md` — apple-specific steps

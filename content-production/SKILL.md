@@ -1,6 +1,7 @@
 ---
 name: "content-production"
-description: "Full content production pipeline — takes a topic from blank page to published-ready piece. Use when you need to execute content: write a blog post, article, or guide end-to-end. Triggers: 'write a post about', 'draft an article', 'create content for', 'help me write', 'I need a blog post'. NOT for content strategy or calendar planning (use content-strategy). NOT for repurposing existing content (use content-repurposing). NOT for social captions only."
+description: 'Full content production pipeline — takes a topic from blank page to published-ready piece. Triggers: "use content-production", "content production", "content task".'
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -55,10 +56,10 @@ You can run all 3 in sequence or jump directly to any mode.
 
 Before writing, understand what already ranks. For the target keyword:
 
-1. Identify the top 5-10 ranking pieces
-2. Map their angles: Are they listicles? How-tos? Opinion pieces? Comparisons?
-3. Find the gap: What's missing from the existing content? What angle is underserved?
-4. Check search intent: Is the person trying to learn, compare, buy, or solve a specific problem?
+1. Identify the top 5-10 ranking pieces → verify: step output matches expected outcome
+2. Map their angles: Are they listicles? How-tos? Opinion pieces? Comparisons? → verify: step output matches expected outcome
+3. Find the gap: What's missing from the existing content? What angle is underserved? → verify: step output matches expected outcome
+4. Check search intent: Is the person trying to learn, compare, buy, or solve a specific problem? → verify: all checks pass
 
 **Intent signals:**
 | SERP Pattern | Intent | What to write |
@@ -112,9 +113,9 @@ Don't over-engineer the outline. If you're stuck on structure for more than 5 mi
 The intro has one job: make the reader believe this piece will answer their question. Get there in 3-4 sentences.
 
 Formula that works:
-1. Name the problem or situation the reader is in
-2. Name what this piece does about it
-3. Optionally: give them a reason to trust you on this topic
+1. Name the problem or situation the reader is in → verify: file content matches expected shape
+2. Name what this piece does about it → verify: step output matches expected outcome
+3. Optionally: give them a reason to trust you on this topic → verify: step output matches expected outcome
 
 **What to avoid:**
 - Starting with "In today's digital landscape..." (everyone does this)
@@ -124,18 +125,18 @@ Formula that works:
 ### Section-by-Section Approach
 
 For each H2 section:
-1. State the main point in the first sentence (don't save it for the end)
-2. Prove it with an example, stat, or comparison
-3. Add one actionable takeaway before moving on
+1. State the main point in the first sentence (don't save it for the end) → verify: step output matches expected outcome
+2. Prove it with an example, stat, or comparison → verify: step output matches expected outcome
+3. Add one actionable takeaway before moving on → verify: dependency resolves + import works
 
 Readers skim. Every section should deliver value on its own.
 
 ### Conclusion
 
 Three elements:
-1. Summary of the core argument (1-2 sentences)
-2. The single most important thing to do next
-3. CTA (if relevant to the goal)
+1. Summary of the core argument (1-2 sentences) → verify: step output matches expected outcome
+2. The single most important thing to do next → verify: step output matches expected outcome
+3. CTA (if relevant to the goal) → verify: step output matches expected outcome
 
 Don't pad the conclusion. If it's done, it's done.
 
@@ -243,3 +244,40 @@ When reviewing drafts: flag issues → explain impact → give specific fix. Don
 - **ai-seo**: Use when optimizing specifically for AI search citation (ChatGPT, Perplexity, AI Overviews) in addition to traditional SEO.
 - **copywriting**: Use for landing pages, CTAs, and conversion copy. NOT for long-form content (that's this skill).
 - **seo-audit**: Use when auditing an existing content library for SEO gaps. NOT for single-piece production.
+
+## When NOT to use
+
+- Task is unrelated to content production — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Content Production needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for content production
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving content production
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

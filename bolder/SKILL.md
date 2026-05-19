@@ -1,6 +1,7 @@
 ---
 name: bolder
-description: Amplify safe or boring designs to make them more visually interesting and stimulating. Increases impact while maintaining usability. Use when the user says the design looks bland, generic, too safe, lacks personality, or wants more visual impact and character.
+description: "Amplify safe or boring designs to make them more visually interesting and stimulating. Increases impact while maintaining usability. Triggers: 'use bolder', 'bolder', 'bolder task'."
+allowed-tools: Glob, Grep, Read
 version: 2.1.1
 user-invocable: true
 argument-hint: "[target]"
@@ -115,3 +116,44 @@ Ensure amplification maintains usability and coherence:
 **The test**: If you showed this to someone and said "AI made this bolder," would they believe you immediately? If yes, you've failed. Bold means distinctive, not "more AI effects."
 
 Remember: Bold design is confident design. It takes risks, makes statements, and creates memorable experiences. But bold without strategy is just loud. Be intentional, be dramatic, be unforgettable.
+
+## When NOT to use
+
+- Financial dashboards, healthcare interfaces, government services — restraint and clarity outweigh drama
+- Work that needs to fit an established brand system — use `brand-guidelines` or `design-system`
+- Designs that already have strong personality — adding bolder breaks coherence
+- A11y-critical surfaces where contrast/motion safety dominates — use `a11y-audit` first
+- When the underlying design is functionally broken — fix function before amplification
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Add a purple-to-blue gradient" | The single most common AI slop pattern; immediately reads as generic |
+| "Glassmorphism makes it feel modern" | Over-used AI default; reads as derivative |
+| "Bigger shadows = bolder" | Generic drop-shadows on rounded rectangles = AI slop; use intentional elevation |
+| "More effects make it bold" | Bold = distinctive; more effects = louder, not bolder |
+
+## Output Contract
+
+Done when:
+- `/impeccable` context-gathering protocol followed
+- One focal point chosen as the hero moment
+- Hierarchy increased via 3-5x scale jumps (not 1.5x)
+- Color strategy with dominant 60% + accents 30%/10%
+- Typography uses distinctive fonts (no system defaults), weight contrast ≥600 delta
+- Spacing dramatized — 100-200px hero gaps where appropriate
+- Accessibility (WCAG contrast, motion safety) preserved
+- "Could this be any AI-bolder output?" test answered no
+
+## Examples
+
+### Example 1 — Boring SaaS marketing hero
+- Input: "Hero is gray, generic, fine but forgettable"
+- Action: Pick one focal headline, scale to display-size (5x body), pair Display Serif heavy + thin sans, dominant brand-accent surface 60%, asymmetric layout breaking grid, intentional grain texture, no purple-blue gradient
+- Output: Re-amplified hero with one hero moment, dramatic scale, asymmetric tension, still WCAG-AA
+
+### Example 2 — Pricing page that needs energy
+- Input: "Pricing cards look like every other SaaS"
+- Action: Increase price-tier delta (one tier as hero card 1.5x size + bold color), distinctive typography, intentional outline accent on featured tier, remove glassmorphism
+- Output: Pricing layout with a clear focal tier, intentional accent color, distinctive but accessible

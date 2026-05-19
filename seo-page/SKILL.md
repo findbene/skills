@@ -1,18 +1,6 @@
 ---
 name: seo-page
-description: >
-  Deep single-page SEO analysis covering all on-page elements: title tag, meta
-  description, heading hierarchy, URL structure, content quality (word count, E-E-A-T
-  signals, readability), technical meta tags (canonical, robots, Open Graph, Twitter
-  Card, hreflang), schema markup detection and generation, image optimization (alt
-  text, file size, format), and Core Web Vitals risk flagging. Produces a scored
-  report (0-100) with Critical/High/Medium/Low prioritized recommendations and
-  ready-to-use JSON-LD code. Make sure to use this skill whenever the user provides
-  a single URL and wants it analyzed, or says: "check this page", "analyze this URL",
-  "why isn't this page ranking", "page SEO review", "on-page SEO", "optimize this
-  page", "what's wrong with this page", "page score", "check my title tag",
-  "meta description check", or asks about any specific element of a single page's
-  SEO — not just full site audits.
+description: 'Deep single-page SEO analysis covering all on-page elements: title tag, meta description, heading hierarchy, URL structure, content quality (. Triggers: "use seo-page", "optimize seo page", "seo page.'
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -101,3 +89,40 @@ If DataForSEO MCP tools are available, use `serp_organic_live_advanced` for real
 | URL unreachable (DNS failure, connection refused) | Report the error clearly. Do not guess page content. Suggest the user verify the URL and try again. |
 | Page requires authentication (401/403) | Report that the page is behind authentication. Suggest the user provide the rendered HTML directly or a publicly accessible URL. |
 | JavaScript-rendered content (empty body in HTML) | Note that key content may be rendered client-side. Analyze the available HTML and flag that results may be incomplete. Suggest using a browser-rendered snapshot if available. |
+
+## When NOT to use
+
+- Task is unrelated to seo page — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Page needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo page
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo page
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

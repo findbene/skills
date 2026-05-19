@@ -1,6 +1,7 @@
 ---
 name: email-sequence
-description: "Write email sequences for any stage of the customer journey — welcome sequences, nurture sequences, onboarding emails, re-engagement campaigns, trial-to-paid sequences, and post-purchase flows. Use this whenever the user asks to 'write an email sequence,' 'email nurture,' 'welcome email series,' 'drip campaign,' 'email automation,' 'trial emails,' or 'onboarding emails.' Trigger even when the user says 'what should we email new signups' without explicitly asking for a sequence."
+description: "Write email sequences for any stage of the customer journey — welcome sequences, nurture sequences, onboarding emails, re-engag. Triggers: 'use email-sequence', 'email sequence', 'email-sequence task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -116,27 +117,27 @@ Consider:
 **Goal**: Activate, build trust, convert
 
 Key emails:
-1. Welcome + deliver promised value (immediate)
-2. Quick win (day 1-2)
-3. Story/Why (day 3-4)
-4. Social proof (day 5-6)
-5. Overcome objection (day 7-8)
-6. Core feature highlight (day 9-11)
-7. Conversion (day 12-14)
+1. Welcome + deliver promised value (immediate) → verify: step output matches expected outcome
+2. Quick win (day 1-2) → verify: step output matches expected outcome
+3. Story/Why (day 3-4) → verify: step output matches expected outcome
+4. Social proof (day 5-6) → verify: step output matches expected outcome
+5. Overcome objection (day 7-8) → verify: step output matches expected outcome
+6. Core feature highlight (day 9-11) → verify: step output matches expected outcome
+7. Conversion (day 12-14) → verify: step output matches expected outcome
 
 ### Lead Nurture Sequence (Pre-Sale)
 **Length**: 6-8 emails over 2-3 weeks
 **Goal**: Build trust, demonstrate expertise, convert
 
 Key emails:
-1. Deliver lead magnet + intro (immediate)
-2. Expand on topic (day 2-3)
-3. Problem deep-dive (day 4-5)
-4. Solution framework (day 6-8)
-5. Case study (day 9-11)
-6. Differentiation (day 12-14)
-7. Objection handler (day 15-18)
-8. Direct offer (day 19-21)
+1. Deliver lead magnet + intro (immediate) → verify: step output matches expected outcome
+2. Expand on topic (day 2-3) → verify: step output matches expected outcome
+3. Problem deep-dive (day 4-5) → verify: step output matches expected outcome
+4. Solution framework (day 6-8) → verify: step output matches expected outcome
+5. Case study (day 9-11) → verify: step output matches expected outcome
+6. Differentiation (day 12-14) → verify: step output matches expected outcome
+7. Objection handler (day 15-18) → verify: step output matches expected outcome
+8. Direct offer (day 19-21) → verify: step output matches expected outcome
 
 ### Re-Engagement Sequence
 **Length**: 3-4 emails over 2 weeks
@@ -144,10 +145,10 @@ Key emails:
 **Goal**: Win back or clean list
 
 Key emails:
-1. Check-in (genuine concern)
-2. Value reminder (what's new)
-3. Incentive (special offer)
-4. Last chance (stay or unsubscribe)
+1. Check-in (genuine concern) → verify: step output matches expected outcome
+2. Value reminder (what's new) → verify: step output matches expected outcome
+3. Incentive (special offer) → verify: step output matches expected outcome
+4. Last chance (stay or unsubscribe) → verify: step output matches expected outcome
 
 ### Onboarding Sequence (Product Users)
 **Length**: 5-7 emails over 14 days
@@ -155,13 +156,13 @@ Key emails:
 **Note**: Coordinate with in-app onboarding—email supports, doesn't duplicate
 
 Key emails:
-1. Welcome + first step (immediate)
-2. Getting started help (day 1)
-3. Feature highlight (day 2-3)
-4. Success story (day 4-5)
-5. Check-in (day 7)
-6. Advanced tip (day 10-12)
-7. Upgrade/expand (day 14+)
+1. Welcome + first step (immediate) → verify: step output matches expected outcome
+2. Getting started help (day 1) → verify: step output matches expected outcome
+3. Feature highlight (day 2-3) → verify: step output matches expected outcome
+4. Success story (day 4-5) → verify: step output matches expected outcome
+5. Check-in (day 7) → verify: step output matches expected outcome
+6. Advanced tip (day 10-12) → verify: step output matches expected outcome
+7. Upgrade/expand (day 14+) → verify: step output matches expected outcome
 
 **For detailed templates**: See [references/sequence-templates.md](references/sequence-templates.md)
 
@@ -213,11 +214,11 @@ Key emails:
 ## Email Copy Guidelines
 
 ### Structure
-1. **Hook**: First line grabs attention
-2. **Context**: Why this matters to them
-3. **Value**: The useful content
-4. **CTA**: What to do next
-5. **Sign-off**: Human, warm close
+1. **Hook**: First line grabs attention → verify: step output matches expected outcome
+2. **Context**: Why this matters to them → verify: step output matches expected outcome
+3. **Value**: The useful content → verify: step output matches expected outcome
+4. **CTA**: What to do next → verify: step output matches expected outcome
+5. **Sign-off**: Human, warm close → verify: step output matches expected outcome
 
 ### Formatting
 - Short paragraphs (1-3 sentences)
@@ -277,11 +278,11 @@ What to measure and benchmarks
 
 ## Task-Specific Questions
 
-1. What triggers entry to this sequence?
-2. What's the primary goal/conversion action?
-3. What do they already know about you?
-4. What other emails are they receiving?
-5. What's your current email performance?
+1. What triggers entry to this sequence? → verify: step output matches expected outcome
+2. What's the primary goal/conversion action? → verify: step output matches expected outcome
+3. What do they already know about you? → verify: file content matches expected shape
+4. What other emails are they receiving? → verify: step output matches expected outcome
+5. What's your current email performance? → verify: step output matches expected outcome
 
 ---
 
@@ -309,3 +310,40 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md). Key email
 - **ab-test-setup**: For testing email elements
 - **popup-cro**: For email capture popups
 - **revops**: For lifecycle stages that trigger email sequences
+
+## When NOT to use
+
+- Task is unrelated to email sequence — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Email Sequence needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for email sequence
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving email sequence
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

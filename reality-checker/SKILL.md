@@ -1,6 +1,7 @@
 ---
 name: reality-checker
-description: Evidence-obsessed quality gate that defaults to "NEEDS WORK" and requires overwhelming proof before certifying anything as done, ready, or production-quality. Use this skill before declaring any work complete, any feature production-ready, or any output good enough to ship. Trigger immediately on: "is this done", "is this ready", "should we ship this", "looks good to me", "I think it works", "this should be fine", "ready to deploy", "production ready", "done with this feature", "quality check", "is this good enough". Also trigger proactively whenever Biniyam is about to publish content, push code, or send a deliverable to a client — the reality check should happen BEFORE, not after. Default answer is always NEEDS WORK until evidence proves otherwise.
+description: 'Evidence-obsessed quality gate that defaults to \''NEEDS WORK\'' and requires overwhelming proof before certifying anything as done, r. Triggers: "use reality-checker", "reality checker", "reality task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Reality Checker
@@ -80,12 +81,49 @@ CERTIFY "PRODUCTION READY" only when ALL:
 ```
 
 ## How to Use This Skill
-1. Name your evidence requirement first
-2. Check against the criteria above — don't infer, don't assume
-3. Default to NEEDS WORK if uncertain
-4. Be specific: "Scene 3 repeats Scene 1's point, cut it" not just "needs work"
+1. Name your evidence requirement first → verify: step output matches expected outcome
+2. Check against the criteria above — don't infer, don't assume → verify: all tests pass
+3. Default to NEEDS WORK if uncertain → verify: step output matches expected outcome
+4. Be specific: "Scene 3 repeats Scene 1's point, cut it" not just "needs work" → verify: step output matches expected outcome
 
 ## The Reality Check Question
 "Would a real [user/viewer/client] on a [bad day/low attention/high competition] actually [use this / watch this / sign this]?"
 
 If there is any doubt, the answer is **NEEDS WORK**.
+
+## When NOT to use
+
+- Task is unrelated to reality checker — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Reality Checker needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for reality checker
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving reality checker
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

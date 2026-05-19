@@ -1,6 +1,7 @@
 ---
 name: prompt-engineering-patterns
-description: Master advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability in production. Use when optimizing prompts, improving LLM outputs, or designing production prompt templates.
+description: 'Master advanced prompt engineering techniques to maximize LLM performance, reliabili. Triggers: "use prompt-engineering-patterns", "engineer prompt engineering patterns", "prompt engineering patterns.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Prompt Engineering Patterns
@@ -156,9 +157,9 @@ Solve this problem step by step.
 Problem: {problem}
 
 Instructions:
-1. Break down the problem into clear steps
-2. Work through each step showing your reasoning
-3. State your final answer
+1. Break down the problem into clear steps → verify: step output matches expected outcome
+2. Work through each step showing your reasoning → verify: step output matches expected outcome
+3. State your final answer → verify: step output matches expected outcome
 4. Verify your answer by checking it against the original problem
 
 Format your response as:
@@ -230,9 +231,9 @@ Article: {text}""",
 
     # Level 3: Add reasoning
     "reasoning": """Read this article carefully.
-1. First, identify the main topic and thesis
-2. Then, extract the key supporting points
-3. Finally, summarize in 3 bullet points
+1. First, identify the main topic and thesis → verify: step output matches expected outcome
+2. Then, extract the key supporting points → verify: step output matches expected outcome
+3. Finally, summarize in 3 bullet points → verify: step output matches expected outcome
 
 Article: {text}
 
@@ -274,10 +275,10 @@ Context: {context}
 Question: {question}
 
 Instructions:
-1. If you can answer confidently (>0.8), provide a direct answer
-2. If you're somewhat confident (0.5-0.8), provide your best answer with caveats
-3. If you're uncertain (<0.5), explain what information is missing
-4. Always provide alternative interpretations if the question is ambiguous
+1. If you can answer confidently (>0.8), provide a direct answer → verify: step output matches expected outcome
+2. If you're somewhat confident (0.5-0.8), provide your best answer with caveats → verify: step output matches expected outcome
+3. If you're uncertain (<0.5), explain what information is missing → verify: step output matches expected outcome
+4. Always provide alternative interpretations if the question is ambiguous → verify: step output matches expected outcome
 
 Respond in JSON:
 {{
@@ -351,10 +352,10 @@ Review criteria:
 - Best practices: Does it follow language idioms?
 
 Output format:
-1. Summary assessment (approve/request changes)
-2. Critical issues (must fix)
-3. Suggestions (nice to have)
-4. Positive feedback (what's done well)"""
+1. Summary assessment (approve/request changes) → verify: step output matches expected outcome
+2. Critical issues (must fix) → verify: diff matches intended change
+3. Suggestions (nice to have) → verify: step output matches expected outcome
+4. Positive feedback (what's done well)""" → verify: step output matches expected outcome
 }
 ```
 
@@ -369,10 +370,10 @@ Context (retrieved from knowledge base):
 {context}
 
 Instructions:
-1. Answer ONLY based on the provided context
-2. If the context doesn't contain the answer, say "I don't have information about that in my knowledge base"
-3. Cite specific passages using [1], [2] notation
-4. If the question is ambiguous, ask for clarification
+1. Answer ONLY based on the provided context → verify: step output matches expected outcome
+2. If the context doesn't contain the answer, say "I don't have information about that in my knowledge base" → verify: step output matches expected outcome
+3. Cite specific passages using [1], [2] notation → verify: step output matches expected outcome
+4. If the question is ambiguous, ask for clarification → verify: user confirms
 
 Question: {question}
 
@@ -442,14 +443,14 @@ response = client.messages.create(
 
 ## Best Practices
 
-1. **Be Specific**: Vague prompts produce inconsistent results
-2. **Show, Don't Tell**: Examples are more effective than descriptions
-3. **Use Structured Outputs**: Enforce schemas with Pydantic for reliability
-4. **Test Extensively**: Evaluate on diverse, representative inputs
-5. **Iterate Rapidly**: Small changes can have large impacts
-6. **Monitor Performance**: Track metrics in production
-7. **Version Control**: Treat prompts as code with proper versioning
-8. **Document Intent**: Explain why prompts are structured as they are
+1. **Be Specific**: Vague prompts produce inconsistent results → verify: output exists + parses without error
+2. **Show, Don't Tell**: Examples are more effective than descriptions → verify: step output matches expected outcome
+3. **Use Structured Outputs**: Enforce schemas with Pydantic for reliability → verify: step output matches expected outcome
+4. **Test Extensively**: Evaluate on diverse, representative inputs → verify: all checks pass
+5. **Iterate Rapidly**: Small changes can have large impacts → verify: step output matches expected outcome
+6. **Monitor Performance**: Track metrics in production → verify: step output matches expected outcome
+7. **Version Control**: Treat prompts as code with proper versioning → verify: step output matches expected outcome
+8. **Document Intent**: Explain why prompts are structured as they are → verify: step output matches expected outcome
 
 ## Common Pitfalls
 
@@ -471,3 +472,40 @@ Track these KPIs for your prompts:
 - **Token Usage**: Average tokens per request
 - **Success Rate**: Percentage of valid, parseable outputs
 - **User Satisfaction**: Ratings and feedback
+
+## When NOT to use
+
+- Task is unrelated to prompt engineering patterns — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Prompt Engineering Patterns needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for prompt engineering patterns
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving prompt engineering patterns
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

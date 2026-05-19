@@ -1,6 +1,7 @@
 ---
 name: accounts
-description: Manage TikTok profile accounts for the video-transcriber scraping workflow. Use this skill whenever the user wants to add a TikTok profile, switch between saved accounts, list configured profiles, remove a profile, or process multiple TikTok profiles at once. Apply whenever the user says "add account", "switch profile", "add TikTok account", "list my profiles", "manage accounts", "switch to a different TikTok", "process multiple profiles", "which account am I using", "add another creator", or "remove a profile". Also trigger when the user wants to configure multi-account scraping or set up batch processing across several TikTok creators. Requires the video-transcriber project at ~/video-transcriber/.
+description: "Manage TikTok profile accounts for the video-transcriber scraping workflow. Triggers: 'use accounts', 'accounts', 'accounts task'."
+allowed-tools: Glob, Grep, Read
 user_invocable: true
 ---
 
@@ -20,11 +21,11 @@ Display:
 
 What would you like to do?
 
-1. **Switch profile** - Change to a different TikTok account
-2. **Add profile** - Add another profile to your list
-3. **List profiles** - See all saved profiles
-4. **Remove profile** - Remove a profile from your list
-5. **Process multiple** - Scrape from multiple profiles at once
+1. **Switch profile** - Change to a different TikTok account → verify: step output matches expected outcome
+2. **Add profile** - Add another profile to your list → verify: package installed + import succeeds
+3. **List profiles** - See all saved profiles → verify: step output matches expected outcome
+4. **Remove profile** - Remove a profile from your list → verify: step output matches expected outcome
+5. **Process multiple** - Scrape from multiple profiles at once → verify: step output matches expected outcome
 
 ---
 
@@ -38,10 +39,10 @@ Ask:
 > Example: `https://www.tiktok.com/@newusername`
 
 Then:
-1. Validate the URL format
-2. Test that the profile exists (quick yt-dlp check)
-3. Save to `accounts.json` as the active profile
-4. Confirm the switch
+1. Validate the URL format → verify: step output matches expected outcome
+2. Test that the profile exists (quick yt-dlp check) → verify: all tests pass
+3. Save to `accounts.json` as the active profile → verify: step output matches expected outcome
+4. Confirm the switch → verify: step output matches expected outcome
 
 #### Option 2: Add Profile
 
@@ -51,9 +52,9 @@ Ask:
 > Example: `https://www.tiktok.com/@anotherusername`
 
 Then:
-1. Validate the URL
-2. Add to `accounts.json` profiles list
-3. Confirm addition
+1. Validate the URL → verify: step output matches expected outcome
+2. Add to `accounts.json` profiles list → verify: package installed + import succeeds
+3. Confirm addition → verify: package installed + import succeeds
 
 #### Option 3: List Profiles
 
@@ -62,13 +63,13 @@ Read `accounts.json` and display:
 ```
 Saved Profiles:
 ---------------
-1. @example_creator (active)
+1. @example_creator (active) → verify: step output matches expected outcome
    https://www.tiktok.com/@example_creator
 
-2. @techcreator
+2. @techcreator → verify: step output matches expected outcome
    https://www.tiktok.com/@techcreator
 
-3. @aiexplainer
+3. @aiexplainer → verify: step output matches expected outcome
    https://www.tiktok.com/@aiexplainer
 ```
 
@@ -85,108 +86,35 @@ Then run `/bulk` for each selected profile sequentially.
 
 ---
 
-## accounts.json Format
+## Triggers
 
-Store profile configuration in project root:
+add account, switch profile, add TikTok account, list my profiles, manage accounts, switch to a different TikTok, process multiple profiles, which account am I using, add another creator, remove a profile
 
-```json
-{
-  "active": "https://www.tiktok.com/@example_creator",
-  "profiles": [
-    {
-      "url": "https://www.tiktok.com/@example_creator",
-      "name": "example_creator",
-      "added": "2024-01-21"
-    },
-    {
-      "url": "https://www.tiktok.com/@techcreator",
-      "name": "techcreator",
-      "added": "2024-01-21"
-    }
-  ]
-}
-```
+## When NOT to use
 
-## Creating/Reading accounts.json
+- Task is unrelated to accounts — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
 
-To read:
-```bash
-cat accounts.json 2>/dev/null || echo '{"active": null, "profiles": []}'
-```
+## Red Flags
 
-To write (use Python for proper JSON handling):
-```bash
-python3 -c "
-import json
-from pathlib import Path
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Accounts needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
 
-accounts_file = Path('accounts.json')
-if accounts_file.exists():
-    data = json.loads(accounts_file.read_text())
-else:
-    data = {'active': None, 'profiles': []}
+## Output Contract
 
-# Modify data as needed...
-# data['active'] = 'NEW_URL'
-# data['profiles'].append({'url': 'URL', 'name': 'NAME', 'added': 'DATE'})
+Done when:
+- Primary deliverable produced matches user's stated goal for accounts
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
 
-accounts_file.write_text(json.dumps(data, indent=2))
-print('Saved!')
-"
-```
+## References
 
-## Integration with Other Commands
-
-When `/bulk` or `/transcribe` runs, check for active profile:
-
-1. If `accounts.json` exists and has an active profile, offer to use it
-2. Otherwise, ask for profile URL as normal
-
-## Validation
-
-Before adding/switching, validate the profile:
-
-```bash
-source .venv/bin/activate && python -c "
-from short_form_scraper.scraper.tiktok import TikTokScraper
-
-url = 'PROFILE_URL_HERE'
-scraper = TikTokScraper(url)
-
-try:
-    videos = list(scraper.get_video_urls(limit=1))
-    if videos:
-        print(f'Valid profile! Found videos.')
-        print(f'Latest: {videos[0].title}')
-    else:
-        print('Profile exists but has no videos.')
-except Exception as e:
-    print(f'Error: Could not access profile - {e}')
-"
-```
-
-## Example Session
-
-User: `/accounts`
-
-Claude:
-**Manage TikTok Profiles**
-
-What would you like to do?
-1. Switch profile
-2. Add profile
-3. List profiles
-4. Remove profile
-5. Process multiple
-
-User: 2
-
-Claude: What TikTok profile URL do you want to add?
-
-User: https://www.tiktok.com/@techreviewer
-
-Claude:
-[Validates profile]
-Added @techreviewer to your profiles!
-
-You now have 2 saved profiles. Run `/accounts` again to switch between them or process multiple at once.
+Extended sections moved to `references/details.md`.

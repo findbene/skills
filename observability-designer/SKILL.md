@@ -1,4 +1,9 @@
 ---
+name: observability-designer
+description: 'Observability Designer (POWERFUL). Triggers: "use observability-designer", "observability designer", "observability task".'
+allowed-tools: Glob, Grep, Read
+---
+---
 name: "observability-designer"
 description: "Design production observability strategies - SLI/SLO frameworks, golden signals monitoring, alert tuning, dashboard generation, and distributed tracing. Covers Prometheus, Grafana, Datadog, and OpenTelemetry across metrics, logs, and traces. Use when building monitoring from scratch, tuning noisy alerts, or creating SLO-based reliability dashboards. Trigger on: 'observability', 'SLI', 'SLO', 'alerting strategy', 'dashboards', 'monitoring design', 'golden signals', 'prometheus', 'grafana', 'datadog', 'opentelemetry', 'distributed tracing', 'alert fatigue'."
 
@@ -266,3 +271,43 @@ Creates comprehensive dashboard specifications:
 - **Customer Satisfaction:** User-reported reliability and performance satisfaction
 
 This comprehensive observability design skill enables organizations to build robust, scalable monitoring and alerting systems that provide actionable insights while maintaining cost efficiency and operational excellence.
+
+## When NOT to use
+
+- Active incident response — use `incident-commander` or `incident-response`
+- Pure DevOps / k8s / CI infra without observability focus — use `admin-ai-ops`
+- Application-level performance debugging single hot path — use `performance-profiler`
+- Security/threat monitoring — use `threat-detection` or `security-engineer`
+- Reading existing dashboards without redesign — out of scope
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Alert on every metric just in case" | Alert fatigue = ignored alerts; only alert on SLO-impacting signals |
+| "Single-window error-rate alert is fine" | Burn-rate alerts (multi-window) catch slow drift; single-window misses |
+| "SLO = SLA, same thing" | SLO = internal target; SLA = external commitment; treat differently |
+| "Log everything at DEBUG in prod" | Cost explosion + signal-to-noise dies; use levels deliberately |
+
+## Output Contract
+
+Done when:
+- SLI/SLO defined per critical user journey
+- Golden signals (latency, traffic, errors, saturation) mapped to dashboards
+- Multi-window burn-rate alerts configured
+- Structured logging schema + correlation IDs across services
+- Distributed tracing strategy with sampling policy
+- Dashboard hierarchy (overview → service → component → instance)
+- Alert quality metrics tracked (precision, MTTD, MTTR)
+
+## Examples
+
+### Example 1 — Designing observability for new microservice
+- Input: "We're launching a new payments service, need observability from day one"
+- Action: Define 3 SLIs (latency p95, error rate, success rate), set SLOs with error budgets, golden-signals dashboard, multi-window burn-rate alerts, structured logs with correlation ID, OTel traces with 10% sampling
+- Output: SLO doc, dashboard JSON, alert rules YAML, log/trace schemas
+
+### Example 2 — Cleaning up alert fatigue
+- Input: "We get 200+ alerts/day, mostly noise"
+- Action: Audit alerts vs SLO impact, kill non-actionable alerts, convert remaining to burn-rate; introduce alert-quality dashboard (precision, MTTR); target <10 actionable alerts/day
+- Output: Alert-cull plan, new burn-rate alerts, on-call rotation impact dashboard

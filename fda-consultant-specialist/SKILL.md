@@ -1,6 +1,7 @@
 ---
 name: "fda-consultant-specialist"
-description: FDA regulatory consultant for medical device companies. Provides 510(k)/PMA/De Novo pathway guidance, QSR (21 CFR 820) compliance, HIPAA assessments, and device cybersecurity. Use when user mentions FDA submission, 510(k), PMA, De Novo, QSR, premarket, predicate device, substantial equivalence, HIPAA medical device, or FDA cybersecurity.
+description: 'FDA regulatory consultant for medical device companies. Provides 510(k)/PMA/De Novo pathway guidance, QSR (21 CFR 82. Triggers: "use fda-consultant-specialist", "fda consultant specialist", "fda task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # FDA Consultant Specialist
@@ -49,11 +50,11 @@ Predicate device exists?
 
 ### Pre-Submission Strategy
 
-1. Identify product code and classification
-2. Search 510(k) database for predicates
-3. Assess substantial equivalence feasibility
-4. Prepare Q-Sub questions for FDA
-5. Schedule Pre-Sub meeting if needed
+1. Identify product code and classification → verify: step output matches expected outcome
+2. Search 510(k) database for predicates → verify: step output matches expected outcome
+3. Assess substantial equivalence feasibility → verify: step output matches expected outcome
+4. Prepare Q-Sub questions for FDA → verify: step output matches expected outcome
+5. Schedule Pre-Sub meeting if needed → verify: step output matches expected outcome
 
 **Reference:** See [fda_submission_guide.md](references/fda_submission_guide.md) for pathway decision matrices and submission requirements.
 
@@ -161,13 +162,13 @@ Step 6: Design Transfer
 
 ### CAPA Process (820.100)
 
-1. **Identify**: Document nonconformity or potential problem
-2. **Investigate**: Perform root cause analysis (5 Whys, Fishbone)
-3. **Plan**: Define corrective/preventive actions
-4. **Implement**: Execute actions, update documentation
+1. **Identify**: Document nonconformity or potential problem → verify: step output matches expected outcome
+2. **Investigate**: Perform root cause analysis (5 Whys, Fishbone) → verify: step output matches expected outcome
+3. **Plan**: Define corrective/preventive actions → verify: step output matches expected outcome
+4. **Implement**: Execute actions, update documentation → verify: command exit code 0
 5. **Verify**: Confirm implementation complete
-6. **Effectiveness**: Monitor for recurrence (30-90 days)
-7. **Close**: Management approval and closure
+6. **Effectiveness**: Monitor for recurrence (30-90 days) → verify: step output matches expected outcome
+7. **Close**: Management approval and closure → verify: step output matches expected outcome
 
 **Reference:** See [qsr_compliance_requirements.md](references/qsr_compliance_requirements.md) for detailed QSR implementation guidance.
 
@@ -212,13 +213,13 @@ Technical (§164.312)
 
 ### Risk Assessment Steps
 
-1. Inventory all systems handling ePHI
-2. Document data flows (collection, storage, transmission)
-3. Identify threats and vulnerabilities
-4. Assess likelihood and impact
-5. Determine risk levels
-6. Implement controls
-7. Document residual risk
+1. Inventory all systems handling ePHI → verify: step output matches expected outcome
+2. Document data flows (collection, storage, transmission) → verify: step output matches expected outcome
+3. Identify threats and vulnerabilities → verify: step output matches expected outcome
+4. Assess likelihood and impact → verify: step output matches expected outcome
+5. Determine risk levels → verify: step output matches expected outcome
+6. Implement controls → verify: step output matches expected outcome
+7. Document residual risk → verify: step output matches expected outcome
 
 **Reference:** See [hipaa_compliance_framework.md](references/hipaa_compliance_framework.md) for implementation checklists and BAA templates.
 
@@ -249,11 +250,11 @@ FDA cybersecurity requirements for connected medical devices.
 
 ### Postmarket Obligations
 
-1. Monitor NVD and ICS-CERT for vulnerabilities
-2. Assess applicability to device components
-3. Develop and test patches
-4. Communicate with customers
-5. Report to FDA per guidance
+1. Monitor NVD and ICS-CERT for vulnerabilities → verify: step output matches expected outcome
+2. Assess applicability to device components → verify: step output matches expected outcome
+3. Develop and test patches → verify: all checks pass
+4. Communicate with customers → verify: step output matches expected outcome
+5. Report to FDA per guidance → verify: step output matches expected outcome
 
 ### Coordinated Vulnerability Disclosure
 
@@ -305,3 +306,40 @@ python scripts/qsr_compliance_checker.py /path/to/project --section 820.30
 # Run HIPAA risk assessment
 python scripts/hipaa_risk_assessment.py /path/to/project --category technical
 ```
+
+## When NOT to use
+
+- Task is unrelated to fda consultant specialist — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Fda Consultant Specialist needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for fda consultant specialist
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving fda consultant specialist
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

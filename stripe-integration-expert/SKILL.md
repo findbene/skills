@@ -1,13 +1,7 @@
 ---
 name: "stripe-integration-expert"
-description: "Integrate Stripe for payments, subscriptions, webhooks, refunds, disputes, and billing portal - including PCI compliance, idempotency keys, webhook signature verification, and billing lifecycle edge cases. Use when adding payment processing, subscription billing, or Stripe-based monetization to an app. Trigger on: 'Stripe integration', 'add payments', 'subscription billing', 'Stripe checkout', 'Stripe webhook', 'payment processing', 'Stripe subscriptions', 'billing integration', 'Stripe setup', 'payment gateway'."
-
-# Stripe Integration Expert
-
-**Tier:** POWERFUL  
-**Category:** Engineering Team  
-**Domain:** Payments / Billing Infrastructure
-
+description: 'Integrate Stripe for payments, subscriptions, webhooks, refunds, disputes, and billing porta. Triggers: ''use stripe-integration-expert'', ''stripe integration expert'', ''stripe-integration-expert task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 ## Overview
@@ -473,3 +467,48 @@ export async function requireActiveSubscription() {
 - **Proration surprises** — always preview proration before upgrade; show user the amount before confirming
 - **Customer portal not configured** — must enable features in Stripe dashboard under Billing → Customer portal settings
 - **Missing metadata on checkout** — always pass `userId` in metadata; can't link subscription to user without it
+
+## When NOT to use
+
+- One-time donation flow with no recurring billing — use Stripe Checkout directly without this skill's full setup
+- Marketplace / Connect / multi-party payments — use a dedicated Stripe Connect skill or build custom
+- PayPal / LemonSqueezy / Paddle integration — use the relevant payments skill, not this one
+- Pure tax calculation question — use Stripe Tax docs directly
+- Frontend Stripe Elements styling only — use a UI design skill
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Skip webhook signature verification, traffic is low" | Webhooks are public endpoints; without signature verification anyone can fake billing events — production security failure |
+| "We will add idempotency keys later" | Adding them after a duplicate-charge incident is too late — required on every state-changing Stripe call from day one |
+| "Test mode is good enough, skip Stripe CLI local forwarding" | Webhook delivery failures are the #1 production billing bug — must test locally with `stripe listen --forward-to` |
+| "Just use one big webhook handler" | Required to handle `customer.subscription.updated`, `invoice.payment_failed`, `customer.subscription.deleted` distinctly — single handler hides state machine bugs |
+
+## Output Contract
+
+Finished output must contain:
+- Webhook handler with explicit signature verification using `stripe.webhooks.constructEvent`
+- Idempotency key passed on every create/update API call
+- Metadata containing `userId` (or tenant id) on every Customer/Subscription/Checkout Session
+- Handlers for at minimum: `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.payment_failed`, `invoice.payment_succeeded`
+- Customer Portal configured with allowed update actions
+- Local test instructions using `stripe listen --forward-to`
+- No secret keys committed — env vars only (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`)
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

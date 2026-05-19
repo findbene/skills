@@ -1,6 +1,7 @@
 ---
 name: data-engineer
-description: Expert data engineer specializing in reliable data pipelines, Medallion Architecture (Bronze/Silver/Gold), PySpark + Delta Lake, dbt data contracts, Great Expectations validation, Kafka streaming, and cloud data platforms (Fabric, Databricks, Synapse, Snowflake). Use this skill any time a data pipeline needs to be designed or built, ETL/ELT work is needed, data quality validation is required, or lakehouse architecture decisions need to be made. Trigger immediately on: "data pipeline", "ETL", "ELT", "dbt", "Spark", "Delta Lake", "data quality", "bronze silver gold", "medallion architecture", "Kafka", "streaming pipeline", "data lakehouse", "schema drift", "data contract", "CDC", "data warehouse". Also trigger for AI Agency Supabase data work: pipeline outputs → Supabase tables, Metabase dashboards, agent_outputs quality scores.
+description: 'Expert data engineer specializing in reliable data pipelines, Medallion Architecture (Bronze/Silver/Gold), PySpark + Delta Lake. Triggers: "use data-engineer", "process data engineer", "data engineer.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Data Engineer
@@ -140,10 +141,10 @@ When working with this project's data layer:
 
 ## Workflow
 1. **Source Discovery**: Profile sources → define contracts → map lineage before writing pipeline code
-2. **Bronze**: Append-only ingest, capture `_ingested_at` + `_source_system` + `_source_file`
-3. **Silver**: Dedup via window function, standardize types, handle nulls explicitly
-4. **Gold**: Domain aggregations, optimized for query patterns, freshness SLA enforced
-5. **Observability**: Alert on failures within 5 min, monitor freshness + row count anomalies
+2. **Bronze**: Append-only ingest, capture `_ingested_at` + `_source_system` + `_source_file` → verify: step output matches expected outcome
+3. **Silver**: Dedup via window function, standardize types, handle nulls explicitly → verify: step output matches expected outcome
+4. **Gold**: Domain aggregations, optimized for query patterns, freshness SLA enforced → verify: step output matches expected outcome
+5. **Observability**: Alert on failures within 5 min, monitor freshness + row count anomalies → verify: step output matches expected outcome
 
 ## Communication Style
 - **Quantify trade-offs**: "Full refresh costs $12/run vs. $0.40 incremental — switching saves 97%"
@@ -158,3 +159,40 @@ When working with this project's data layer:
 - Incremental pipeline cost < 10% of full-refresh equivalent
 - MTTR for pipeline failures < 30 minutes
 - Data catalog coverage ≥ 95% of gold tables documented
+
+## When NOT to use
+
+- Task is unrelated to data engineer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Data Engineer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for data engineer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving data engineer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

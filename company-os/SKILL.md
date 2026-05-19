@@ -1,6 +1,7 @@
 ---
 name: "company-os"
-description: "The meta-framework for how a company runs — the connective tissue between all C-suite roles. Covers operating system selection (EOS, Scaling Up, OKR-native, hybrid), accountability charts, scorecards, meeting pulse, issue resolution, and 90-day rocks. Use when setting up company operations, selecting a management framework, designing meeting rhythms, building accountability systems, implementing OKRs, or when user mentions EOS, Scaling Up, operating system, L10 meetings, rocks, scorecard, accountability chart, or quarterly planning."
+description: "The meta-framework for how a company runs — the connective tissue between all C-suite roles. Triggers: 'use company-os', 'company os', 'company-os task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -61,10 +62,10 @@ CEO
 - Revisit quarterly as you scale. Ownership shifts as the company grows.
 
 **Build it in a workshop:**
-1. List all functions the company performs
-2. Assign one owner per function — no exceptions
-3. Identify gaps (functions nobody owns) and overlaps (functions two people think they own)
-4. Publish it. Update it when something changes.
+1. List all functions the company performs → verify: step output matches expected outcome
+2. Assign one owner per function — no exceptions → verify: step output matches expected outcome
+3. Identify gaps (functions nobody owns) and overlaps (functions two people think they own) → verify: step output matches expected outcome
+4. Publish it. Update it when something changes. → verify: step output matches expected outcome
 
 ### 2. Scorecard
 
@@ -105,13 +106,13 @@ The meeting rhythm that drives the company. Not optional — the pulse is what k
 
 **The L10 meeting (Weekly Leadership Sync):**
 Named for the goal of each meeting being a 10/10. Fixed agenda:
-1. Good news (5 min) — personal + business
-2. Scorecard review (5 min) — flag red items only
-3. Rock review (5 min) — on/off track for each rock
-4. Customer/employee headlines (5 min)
-5. Issues list (60 min) — IDS (see below)
-6. To-dos review (5 min) — last week's commitments
-7. Conclude (5 min) — rate the meeting 1–10, what would make it a 10 next time
+1. Good news (5 min) — personal + business → verify: step output matches expected outcome
+2. Scorecard review (5 min) — flag red items only → verify: step output matches expected outcome
+3. Rock review (5 min) — on/off track for each rock → verify: step output matches expected outcome
+4. Customer/employee headlines (5 min) → verify: step output matches expected outcome
+5. Issues list (60 min) — IDS (see below) → verify: step output matches expected outcome
+6. To-dos review (5 min) — last week's commitments → verify: git status clean
+7. Conclude (5 min) — rate the meeting 1–10, what would make it a 10 next time → verify: step output matches expected outcome
 
 ### 4. Issue Resolution (IDS)
 
@@ -183,9 +184,9 @@ See `references/os-comparison.md` for full comparison. Quick guide:
 Don't implement everything at once. See `references/implementation-guide.md` for the full 90-day plan.
 
 **Quick start (first 30 days):**
-1. Build the accountability chart (1 workshop, 2 hours)
-2. Define 5–10 weekly scorecard metrics (leadership team alignment, 1 hour)
-3. Start the weekly L10 meeting (no prep — just start)
+1. Build the accountability chart (1 workshop, 2 hours) → verify: step output matches expected outcome
+2. Define 5–10 weekly scorecard metrics (leadership team alignment, 1 hour) → verify: step output matches expected outcome
+3. Start the weekly L10 meeting (no prep — just start) → verify: step output matches expected outcome
 
 These three alone will improve coordination more than most companies achieve in a year.
 
@@ -234,3 +235,47 @@ The company OS is the connective tissue. Every other role depends on it:
 ## Detailed References
 - `references/os-comparison.md` — EOS vs Scaling Up vs OKRs vs Holacracy vs hybrid
 - `references/implementation-guide.md` — 90-day implementation plan
+
+## Triggers
+
+EOS, Scaling Up, operating system, L10 meetings, rocks, scorecard, accountability chart, or quarterly planning
+
+## When NOT to use
+
+- One-time tactical decision (hire, fire, deal) — use the relevant C-suite advisor
+- Pure people coaching — use `executive-mentor` or `founder-coach`
+- HR-process design — use `chro-advisor`
+- Tactical sprint planning — use `agile-product-owner` or `senior-pm`
+- Companies <5 people that don't yet need formal operating rhythm
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Shared ownership is fine, Alice and Bob both care" | Shared = none; one owner per outcome |
+| "Skip the scorecard, we'll know" | Without weekly numbers, problems hide until they're crises |
+| "Rocks are aspirational, we'll do what we can" | Rocks are commitments. Aspirational ≠ rock. Pick fewer real ones. |
+| "Pick a framework first, then implement" | Six core components matter more than which named framework — pick after |
+
+## Output Contract
+
+Done when:
+- Accountability chart drafted with one owner per seat
+- Weekly scorecard (5-15 metrics) defined with owners and thresholds
+- Meeting pulse defined (daily / weekly / monthly / quarterly / annual)
+- Quarterly rocks list with 3-5 per leader, measurable, dated
+- Issues list (IDS) process agreed
+- Core values + vision articulated or referenced
+- One operating-system framework chosen (EOS / Scaling Up / OKRs / hybrid) and documented
+
+## Examples
+
+### Example 1 — 25-person startup hitting growing pains
+- Input: "We're at 25 people and everything feels chaotic"
+- Action: Walk six core components, draft accountability chart with single owners, pick 8-metric scorecard, install weekly L10 with IDS, set 3 rocks per leader for the quarter, choose lightweight EOS-flavored model
+- Output: `company-os.md` with chart, scorecard, meeting cadence, rocks, framework choice + 90-day implementation plan
+
+### Example 2 — Diagnostic on recurring issues
+- Input: "Same problems show up in every weekly meeting"
+- Action: Run IDS audit (Identify → Discuss → Solve), check whether issues are being *solved* vs reopened; check accountability chart for ownership gaps causing repeats
+- Output: Issue resolution report; gap list in accountability chart; rotation plan to actually close issues

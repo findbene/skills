@@ -1,9 +1,7 @@
 ---
 name: "skill-tester"
-description: "Validate, test, and score Claude skills for quality before merging or publishing. Use when checking a skill directory structure, auditing SKILL.md frontmatter completeness, validating Python scripts, running tier-classification scoring (BASIC/STANDARD/POWERFUL), or gating skill installation in CI. Trigger on: 'test this skill', 'validate skill', 'score this skill', 'check skill quality', 'skill audit', 'is this skill ready', 'skill tier check', 'skill CI gate'."
-
-# Skill Tester
-
+description: 'Validate, test, and score Claude skills for quality before merging or publishing. Triggers: ''use skill-tester'', ''use skill tester'', ''skill tester''.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 **Name**: skill-tester
@@ -21,9 +19,9 @@ description: "Validate, test, and score Claude skills for quality before merging
 The Skill Tester is a comprehensive meta-skill designed to validate, test, and score the quality of skills within the claude-skills ecosystem. This powerful quality assurance tool ensures that all skills meet the rigorous standards required for BASIC, STANDARD, and POWERFUL tier classifications through automated validation, testing, and scoring mechanisms.
 
 As the gatekeeping system for skill quality, this meta-skill provides three core capabilities:
-1. **Structure Validation** - Ensures skills conform to required directory structures, file formats, and documentation standards
-2. **Script Testing** - Validates Python scripts for syntax, imports, functionality, and output format compliance  
-3. **Quality Scoring** - Provides comprehensive quality assessment across multiple dimensions with letter grades and improvement recommendations
+1. **Structure Validation** - Ensures skills conform to required directory structures, file formats, and documentation standards → verify: step output matches expected outcome
+2. **Script Testing** - Validates Python scripts for syntax, imports, functionality, and output format compliance   → verify: all checks pass
+3. **Quality Scoring** - Provides comprehensive quality assessment across multiple dimensions with letter grades and improvement recommendations → verify: step output matches expected outcome
 
 This skill is essential for maintaining ecosystem consistency, enabling automated CI/CD integration, and supporting both manual and automated quality assurance workflows. It serves as the foundation for pre-commit hooks, pull request validation, and continuous integration processes that maintain the high-quality standards of the claude-skills repository.
 
@@ -387,3 +385,40 @@ The Skill Tester represents a critical infrastructure component for maintaining 
 This meta-skill not only serves as a quality gate but also as a development tool that guides skill authors toward best practices and helps maintain consistency across the entire repository. Through its integration capabilities and comprehensive reporting, it enables both manual and automated quality assurance workflows that scale with the growing claude-skills ecosystem.
 
 The combination of structural validation, runtime testing, and multi-dimensional quality scoring provides unparalleled visibility into skill quality while maintaining the flexibility needed for diverse skill types and complexity levels. As the claude-skills repository continues to grow, the Skill Tester will remain the cornerstone of quality assurance and ecosystem integrity.
+
+## When NOT to use
+
+- Task is unrelated to skill tester — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Skill Tester needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for skill tester
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving skill tester
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

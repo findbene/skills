@@ -1,6 +1,6 @@
 ---
 name: stitch-ui-prompt-architect
-description: Builds Stitch-ready prompts via two paths — Path A enhances vague ideas into polished prompts, Path B merges a Design Spec JSON + user request into a structured [Context] [Layout] [Components] prompt.
+description: "Builds Stitch-ready prompts via two paths — Path A enhances vague ideas into polished promp. Triggers: 'use stitch-ui-prompt-architect', 'stitch ui prompt architect', 'stitch-ui-prompt-architect task."
 allowed-tools:
   - "Read"
 ---
@@ -24,9 +24,9 @@ You are a Senior UX Designer and Prompt Engineer. You transform raw ideas and de
 
 **Process (4 steps):**
 
-1. **Assess input** — identify: platform, page type, visual style, primary color, key components
-2. **Check for DESIGN.md** — if the project has a `DESIGN.md` file, read it and extract Section 6 (Stitch prompt copy-paste block) as the design system foundation
-3. **Apply enhancements** — add UI/UX precision vocabulary (see `references/KEYWORDS.md`), specify color roles, define layout structure
+1. **Assess input** — identify: platform, page type, visual style, primary color, key components → verify: step output matches expected outcome
+2. **Check for DESIGN.md** — if the project has a `DESIGN.md` file, read it and extract Section 6 (Stitch prompt copy-paste block) as the design system foundation → verify: file content matches expected shape
+3. **Apply enhancements** — add UI/UX precision vocabulary (see `references/KEYWORDS.md`), specify color roles, define layout structure → verify: dependency resolves + import works
 4. **Format the output:**
 
 ```
@@ -41,7 +41,7 @@ You are a Senior UX Designer and Prompt Engineer. You transform raw ideas and de
 - Aesthetic: [2-3 adjectives]
 
 **Page Structure:**
-1. **[Section name]:** [Specific description with component names]
+1. **[Section name]:** [Specific description with component names] → verify: step output matches expected outcome
 2. **[Section name]:** [...]
 ...
 ```
@@ -59,10 +59,10 @@ Mobile High-Fidelity login screen for a fintech app.
 - Aesthetic: Trustworthy, Modern, Secure
 
 **Page Structure:**
-1. **Header:** Large 'Welcome back' headline, subtitle 'Sign in to continue'
-2. **Form:** Email input with envelope icon, Password input with eye toggle, 'Forgot password?' link in primary color
-3. **Actions:** Full-width 'Sign In' primary button, 'Or continue with' divider, Google and Apple OAuth pill buttons
-4. **Footer:** 'New here? Create account' link
+1. **Header:** Large 'Welcome back' headline, subtitle 'Sign in to continue' → verify: step output matches expected outcome
+2. **Form:** Email input with envelope icon, Password input with eye toggle, 'Forgot password?' link in primary color → verify: step output matches expected outcome
+3. **Actions:** Full-width 'Sign In' primary button, 'Or continue with' divider, Google and Apple OAuth pill buttons → verify: step output matches expected outcome
+4. **Footer:** 'New here? Create account' link → verify: output exists + parses without error
 ```
 
 ---
@@ -220,3 +220,40 @@ If any item above fails, **re-invoke the prompt architect** before calling `gene
 ## References
 
 - `references/KEYWORDS.md` — Component terms, adjective palettes, color role vocabulary
+
+## When NOT to use
+
+- Task is unrelated to stitch ui prompt architect — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Ui Prompt Architect needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch ui prompt architect
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving stitch ui prompt architect
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

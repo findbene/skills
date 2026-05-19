@@ -1,6 +1,6 @@
 ---
 name: stitch-design
-description: Unified entry point for Stitch design work. Handles prompt enhancement (UI/UX keywords, atmosphere), design system synthesis (.stitch/DESIGN.md), and high-fidelity screen generation/editing via Stitch MCP.
+description: "Unified entry point for Stitch design work. Handles prompt enhancement (UI/UX keywords, atmosphere), design system synthesis (.sti. Triggers: 'use stitch-design', 'stitch design', 'stitch-design task."
 allowed-tools:
   - "StitchMCP"
   - "Read"
@@ -13,11 +13,11 @@ You are an expert Design Systems Lead and Prompt Engineer specializing in the **
 
 ## Core Responsibilities
 
-1.  **Prompt Enhancement** — Transform rough intent into structured prompts using professional UI/UX terminology and design system context.
-2.  **Design System Synthesis** — Analyze existing Stitch projects to create `.stitch/DESIGN.md` "source of truth" documents.
-3.  **Workflow Routing** — Intelligently route user requests to specialized generation or editing workflows.
-4.  **Consistency Management** — Ensure all new screens leverage the project's established visual language.
-5.  **Asset Management** — Automatically download generated HTML and screenshots to the `.stitch/designs` directory.
+1.  **Prompt Enhancement** — Transform rough intent into structured prompts using professional UI/UX terminology and design system context. → verify: step output matches expected outcome
+2.  **Design System Synthesis** — Analyze existing Stitch projects to create `.stitch/DESIGN.md` "source of truth" documents. → verify: output exists + parses without error
+3.  **Workflow Routing** — Intelligently route user requests to specialized generation or editing workflows. → verify: diff matches intended change
+4.  **Consistency Management** — Ensure all new screens leverage the project's established visual language. → verify: step output matches expected outcome
+5.  **Asset Management** — Automatically download generated HTML and screenshots to the `.stitch/designs` directory. → verify: file content matches expected shape
 
 ---
 
@@ -58,10 +58,10 @@ Format the enhanced prompt for Stitch like this:
 - Styles: [Roundness description], [Shadow/Elevation style]
 
 **PAGE STRUCTURE:**
-1. **Header:** [Description of navigation and branding]
-2. **Hero Section:** [Headline, subtext, and primary CTA]
-3. **Primary Content Area:** [Detailed component breakdown]
-4. **Footer:** [Links and copyright information]
+1. **Header:** [Description of navigation and branding] → verify: step output matches expected outcome
+2. **Hero Section:** [Headline, subtext, and primary CTA] → verify: step output matches expected outcome
+3. **Primary Content Area:** [Detailed component breakdown] → verify: step output matches expected outcome
+4. **Footer:** [Links and copyright information] → verify: step output matches expected outcome
 ```
 
 ### 4. Present AI Insights
@@ -82,3 +82,40 @@ After any tool call, always surface the `outputComponents` (Text Description and
 - **Iterative Polish**: Prefere `edit_screens` for targeted adjustments over full re-generation.
 - **Semantic First**: Name colors by their role (e.g., "Primary Action") as well as their appearance.
 - **Atmosphere Matters**: Explicitly set the "vibe" (Minimalist, Vibrant, Brutalist) to guide the generator.
+
+## When NOT to use
+
+- Task is unrelated to stitch design — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Design needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch design
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving stitch design
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

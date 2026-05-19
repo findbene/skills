@@ -1,6 +1,7 @@
 ---
 name: security
-description: "Application and infrastructure security hardening expert. Use this skill any time security vulnerabilities need to be found or fixed, code needs to be hardened against attacks, threat modeling is needed, or security audits must be run. Trigger immediately on: \"security audit\", \"harden\", \"vulnerability\", \"OWASP\", \"XSS\", \"SQL injection\", \"CSRF\", \"secrets management\", \"authentication bypass\", \"authorization flaw\", \"input validation\", \"rate limiting\", \"penetration testing\", \"security review\", \"CVE\", \"dependency scan\", \"zero trust\", \"encryption\", \"secure headers\". If someone says \"is this code secure?\" or \"check for vulnerabilities\" this skill MUST trigger."
+description: "Application and infrastructure security hardening expert. Triggers: 'use security', 'security', 'security task'."
+allowed-tools: Glob, Grep, Read
 version: 1.0.0
 triggers:
   - security review
@@ -43,10 +44,10 @@ Load this skill when the user asks about:
 
 ### Step 1 — Threat Model First
 Before reviewing code, understand:
-1. What assets are valuable? (user data, API keys, payment data, internal systems)
-2. Who are the adversaries? (external attackers, insider threats, automated bots)
-3. What are the attack vectors? (web, API, dependencies, social engineering)
-4. What's the blast radius of a breach?
+1. What assets are valuable? (user data, API keys, payment data, internal systems) → verify: step output matches expected outcome
+2. Who are the adversaries? (external attackers, insider threats, automated bots) → verify: step output matches expected outcome
+3. What are the attack vectors? (web, API, dependencies, social engineering) → verify: step output matches expected outcome
+4. What's the blast radius of a breach? → verify: step output matches expected outcome
 
 ### Step 2 — Layer-by-Layer Review
 Run through all four reference layers:
@@ -85,3 +86,40 @@ Every security fix must be verified:
 - `eval()`, `exec()`, `subprocess.shell=True` with user input — code injection
 - JWT `alg: none` or not verifying signature — auth bypass
 - Missing CORS headers or overly permissive `Access-Control-Allow-Origin: *` on authenticated APIs
+
+## When NOT to use
+
+- Task is unrelated to security — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Security needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for security
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving security
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

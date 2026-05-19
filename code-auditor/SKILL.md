@@ -1,6 +1,7 @@
 ---
 name: code-auditor
-description: "Comprehensive codebase analysis for architecture quality, technical debt, security vulnerabilities, and code health scoring across all files. Use this skill any time a full codebase needs to be audited, technical debt needs to be quantified, architecture health needs to be assessed, or a comprehensive quality report is needed. Trigger immediately on: \"code audit\", \"codebase audit\", \"technical debt\", \"code health\", \"audit the codebase\", \"code quality report\", \"architecture audit\", \"security audit\", \"code smell\", \"full codebase review\", \"refactoring priorities\", \"code quality score\", \"legacy code analysis\", \"codebase assessment\". If someone says \"audit our codebase\" or \"what is the state of our code?\" this skill MUST trigger."
+description: 'Comprehensive codebase analysis for architecture quality, technical debt, security vulnerabilities, and code health scoring across all files. Triggers: "use code-auditor", "code auditor", "code task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Code Auditor
@@ -45,9 +46,9 @@ Check CI/CD automation, security scanning, error tracking, logging, and metrics.
 - **Tech Debt:** ~N hours
 
 ## Top Priorities
-1. [Critical] ...
-2. [High] ...
-3. [High] ...
+1. [Critical] ... → verify: step output matches expected outcome
+2. [High] ... → verify: step output matches expected outcome
+3. [High] ... → verify: step output matches expected outcome
 
 ## Remediation Plan
 | Issue | Effort | Impact | Priority |
@@ -56,3 +57,40 @@ Check CI/CD automation, security scanning, error tracking, logging, and metrics.
 ```
 
 Start with the executive summary — stakeholders need the headline before the details. Then drill into each dimension with specific findings and actionable recommendations.
+
+## When NOT to use
+
+- Task is unrelated to code auditor — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Code Auditor needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for code auditor
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving code auditor
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

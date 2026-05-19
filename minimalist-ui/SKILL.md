@@ -1,6 +1,7 @@
 ---
 name: minimalist-ui
-description: Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
+description: "Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. Triggers: 'use minimalist-ui', 'minimalist ui', 'minimalist-ui task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Protocol: Premium Utilitarian Minimalism UI Architect
@@ -76,10 +77,47 @@ Motion should feel invisible — present but never distracting. The goal is quie
 
 ## 8. Execution Protocol
 When tasked with writing frontend code (HTML, React, Tailwind, Vue) or designing a layout:
-1. Establish the macro-whitespace first. Use massive vertical padding between sections (e.g., `py-24` or `py-32` in Tailwind).
-2. Constrain the main typography content width to `max-w-4xl` or `max-w-5xl`.
-3. Apply the custom typographic hierarchy and monochromatic color variables immediately.
-4. Ensure every card, divider, and border adheres strictly to the `1px solid #EAEAEA` rule.
-5. Add scroll-entry animations to all major content blocks.
-6. Ensure sections have visual depth through imagery, ambient gradients, or subtle textures — no empty flat backgrounds.
-7. Provide code that reflects this high-end, uncluttered, editorial aesthetic natively without requiring manual adjustments.
+1. Establish the macro-whitespace first. Use massive vertical padding between sections (e.g., `py-24` or `py-32` in Tailwind). → verify: step output matches expected outcome
+2. Constrain the main typography content width to `max-w-4xl` or `max-w-5xl`. → verify: step output matches expected outcome
+3. Apply the custom typographic hierarchy and monochromatic color variables immediately. → verify: diff matches intended change
+4. Ensure every card, divider, and border adheres strictly to the `1px solid #EAEAEA` rule. → verify: step output matches expected outcome
+5. Add scroll-entry animations to all major content blocks. → verify: dependency resolves + import works
+6. Ensure sections have visual depth through imagery, ambient gradients, or subtle textures — no empty flat backgrounds. → verify: step output matches expected outcome
+7. Provide code that reflects this high-end, uncluttered, editorial aesthetic natively without requiring manual adjustments. → verify: diff matches intended change
+
+## When NOT to use
+
+- Task is unrelated to minimalist ui — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Minimalist Ui needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for minimalist ui
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving minimalist ui
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

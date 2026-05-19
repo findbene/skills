@@ -1,6 +1,7 @@
 ---
 name: nanobanana-tools
-description: "NanoBanana AI image generation via Google Gemini image model for creating photos, mockups, illustrations, and AI art through MCP. Use this skill any time an AI image needs to be generated via NanoBanana MCP, product mockups need to be created, or visual content needs to be generated with Gemini. Trigger immediately on: \"NanoBanana\", \"generate image\", \"create a photo\", \"AI image\", \"make a mockup\", \"Gemini image\", \"image generation\", \"create visual\", \"generate artwork\", \"nanobanana\", \"AI art\", \"product mockup\", \"create illustration\", \"generate picture\". If someone says \"generate an image\" or \"make a photo of X\" this skill MUST trigger."
+description: 'NanoBanana AI image generation via Google Gemini image model for creating photos, mockups, illustrations, and AI art through MC. Triggers: "use nanobanana-tools", "nanobanana tools", "nanobanana task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # NanoBanana Tools
@@ -50,3 +51,40 @@ generate_image(prompt="A minimalist wedding invitation with gold foil text on iv
 - Generated images work well as placeholders during development
 - For production assets, review and iterate on prompts for best results
 - Combine with ui-to-code skill: generate a mockup, then implement it
+
+## When NOT to use
+
+- Task is unrelated to nanobanana tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Nanobanana Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for nanobanana tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving nanobanana tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,16 +1,7 @@
 ---
 name: epic-design
-description: >
-  Build immersive, cinematic 2.5D interactive websites using scroll storytelling,
-  parallax depth, text animations, and premium scroll effects — no WebGL required.
-  Use this skill for any web design task: landing pages, product sites, hero sections,
-  scroll animations, parallax, sticky sections, section overlaps, floating products
-  between sections, clip-path reveals, text that flies in from sides, words that light
-  up on scroll, curtain drops, iris opens, card stacks, bleed typography, and any
-  site that should feel cinematic or premium. Trigger on phrases like "make it feel
-  alive", "Apple-style animation", "sections that overlap", "product rises between
-  sections", "immersive", "scrollytelling", or any scroll-driven visual effect.
-  Covers 45+ techniques across 8 categories. Always inspects, judges, and plans assets before coding. Use aggressively for ANY web design task.
+description: "Build immersive, cinematic 2.5D interactive websites using scroll storytelling, parallax depth, text animations, and premium scroll effe. Triggers: 'use epic-design', 'epic design', 'epic-design task."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -58,24 +49,24 @@ When troubleshooting performance or animation issues. Use `scripts/validate-laye
 Before writing a single line of code, do ALL of the following in order.
 
 ### A. Extract the brief
-1. What is the product/content? (brand site, portfolio, SaaS, event, etc.)
-2. What mood/feeling? (dark/cinematic, bright/energetic, minimal/luxury, etc.)
-3. How many sections? (hero only, full page, specific section?)
+1. What is the product/content? (brand site, portfolio, SaaS, event, etc.) → verify: step output matches expected outcome
+2. What mood/feeling? (dark/cinematic, bright/energetic, minimal/luxury, etc.) → verify: step output matches expected outcome
+3. How many sections? (hero only, full page, specific section?) → verify: step output matches expected outcome
 
 ### B. Inspect every uploaded image asset
 
 Run `scripts/inspect-assets.py` on every image the user has provided.
 For each image, determine:
 
-1. **Format** — JPEG never has a real alpha channel. PNG may have a fake one.
+1. **Format** — JPEG never has a real alpha channel. PNG may have a fake one. → verify: step output matches expected outcome
 
-2. **Background status** — Use the script output. It will tell you:
+2. **Background status** — Use the script output. It will tell you: → verify: step output matches expected outcome
    - ✅ Clean cutout — real transparency, use directly
    - ⚠️ Solid dark background
    - ⚠️ Solid light/white background
    - ⚠️ Complex/scene background
 
-3. **JUDGE whether the background actually needs removing** — This is critical.
+3. **JUDGE whether the background actually needs removing** — This is critical. → verify: step output matches expected outcome
    Not every image with a background needs it removed. Ask yourself:
 
    BACKGROUND SHOULD BE REMOVED if the image is:
@@ -96,10 +87,10 @@ For each image, determine:
    "float" freely over other content → remove bg. If it fills a space or IS
    the content → keep it.
 
-4. **Inform the user about every image** — whether bg is fine or not.
+4. **Inform the user about every image** — whether bg is fine or not. → verify: step output matches expected outcome
    Use the exact format from `references/asset-pipeline.md` Step 4.
 
-5. **Size and depth assignment** — Decide which depth level each asset belongs
+5. **Size and depth assignment** — Decide which depth level each asset belongs → verify: step output matches expected outcome
    to and resize accordingly. State your decisions to the user before building.
 
 ### C. Compositional planning — visual hierarchy before a single line of code
@@ -307,26 +298,26 @@ All output follows the structured communication standard:
 0b. ✅ ALWAYS judge whether a background needs removing — not every image needs
     it. Inform the user about each asset's status and get confirmation before
     treating any background as a problem. Never auto-remove, never silently ignore.
-1. ✅ Every section has minimum **3 depth layers**
-2. ✅ Every text element uses at least **1 animation technique**
-3. ✅ Every project includes **`prefers-reduced-motion`** fallback
-4. ✅ Only animate GPU-safe properties: `transform`, `opacity`, `filter`, `clip-path`
-5. ✅ Product images always assigned **depth-3** by default
-6. ✅ Background images always **depth-0** with slight blur
-7. ✅ Floating loops on any "hero" element (6–14s, never completely static)
-8. ✅ Every decorative element gets `aria-hidden="true"`
-9. ✅ Mobile gets reduced effects via `pointer: coarse` detection
-10. ✅ `will-change` removed after animations complete
+1. ✅ Every section has minimum **3 depth layers** → verify: step output matches expected outcome
+2. ✅ Every text element uses at least **1 animation technique** → verify: step output matches expected outcome
+3. ✅ Every project includes **`prefers-reduced-motion`** fallback → verify: step output matches expected outcome
+4. ✅ Only animate GPU-safe properties: `transform`, `opacity`, `filter`, `clip-path` → verify: step output matches expected outcome
+5. ✅ Product images always assigned **depth-3** by default → verify: step output matches expected outcome
+6. ✅ Background images always **depth-0** with slight blur → verify: step output matches expected outcome
+7. ✅ Floating loops on any "hero" element (6–14s, never completely static) → verify: step output matches expected outcome
+8. ✅ Every decorative element gets `aria-hidden="true"` → verify: step output matches expected outcome
+9. ✅ Mobile gets reduced effects via `pointer: coarse` detection → verify: step output matches expected outcome
+10. ✅ `will-change` removed after animations complete → verify: step output matches expected outcome
 
 ---
 
 ## Output Format
 
 Always deliver:
-1. **Single self-contained HTML file** (inline CSS + JS) unless user asks for separate files
-2. **CDN imports** for GSAP via jsDelivr: `https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js`
-3. **Comments** explaining every major section and technique used
-4. **Note at top** listing which techniques from the 45-technique catalogue were applied
+1. **Single self-contained HTML file** (inline CSS + JS) unless user asks for separate files → verify: user confirms
+2. **CDN imports** for GSAP via jsDelivr: `https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js` → verify: dependency resolves + import works
+3. **Comments** explaining every major section and technique used → verify: step output matches expected outcome
+4. **Note at top** listing which techniques from the 45-technique catalogue were applied → verify: step output matches expected outcome
 
 ---
 
@@ -350,3 +341,40 @@ Checks: depth attributes, aria-hidden, reduced-motion, alt text, performance lim
 - **page-cro**: Use after the 2.5D site is built to optimize conversion. NOT during the initial build.
 - **senior-architect**: Use when the 2.5D site is part of a larger system architecture. NOT for standalone pages.
 - **accessibility-auditor**: Use to verify full WCAG compliance after build. This skill includes basic reduced-motion handling.
+
+## When NOT to use
+
+- Task is unrelated to epic design — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Epic Design needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for epic design
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving epic design
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

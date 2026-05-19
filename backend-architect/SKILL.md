@@ -1,6 +1,7 @@
 ---
 name: backend-architect
-description: "Senior backend architect for scalable system design, database architecture, microservices patterns, event-driven systems, and performance engineering. Use this skill any time a backend system needs to be architected, microservices boundaries need to be defined, a database strategy needs to be selected, or a scalable backend design needs to be created. Trigger immediately on: \"backend architecture\", \"system design\", \"microservices\", \"event-driven\", \"database selection\", \"scalable backend\", \"service boundary\", \"message queue\", \"backend design\", \"distributed system\", \"architecture review\", \"CQRS\", \"service mesh\", \"backend scalability\". If someone says \"design the backend for this\" or \"how should I architect this?\" this skill MUST trigger."
+description: 'Senior backend architect for scalable system design, database architecture, microservices patterns, event-driven systems, and pe. Triggers: "use backend-architect", "backend architect", "backend task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Backend Architect
@@ -80,3 +81,43 @@ def agent_node(state: PipelineState) -> dict:
 - Database queries: avg < 100ms
 - Security audits: zero critical vulnerabilities
 - Handle 10x normal traffic during peak loads
+
+## When NOT to use
+
+- Single-file endpoint addition that fits an existing pattern — just write it
+- Pure database schema work — use `database-schema-designer`
+- DevOps / infra / Kubernetes — use `admin-ai-ops`
+- Frontend architecture questions — use `frontend-design-system` or `senior-frontend`
+- Greenfield product without product validation — premature architecture wastes effort
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Let's go microservices from day one" | Distributed monolith with 10x ops cost; modular monolith until team or scaling demands it |
+| "Sync HTTP calls between every service" | Tight coupling + cascading failures; use events/queues for non-blocking boundaries |
+| "RLS is optional for our internal data" | Defense in depth requires data-layer authz, especially in multi-tenant Supabase |
+| "Don't index yet, we're early" | First slow query in prod = late index = downtime; index foreign keys at table creation |
+
+## Output Contract
+
+Done when:
+- Service boundaries justified against the bounded-context test
+- Data flow diagram or written description shows reads/writes per service
+- Database schema includes id/created_at/updated_at, indexed foreign keys, RLS enabled
+- API contracts use Pydantic/Zod validation at the boundary
+- Failure modes documented per service: retry, fallback, circuit breaker
+- p95 latency target stated and a measurement path exists
+- Migration/rollback plan if change replaces an existing pattern
+
+## Examples
+
+### Example 1 — Should we split the agent runner into its own service?
+- Input: "Our LangGraph runner is slowing down the main API"
+- Action: Apply bounded-context test (separate scaling profile? separate team? separate failure domain?), confirm yes on scaling, propose extracting runner behind a queue (SQS/Redis), shared Supabase as state store, p95 budget per stage
+- Output: Architecture sketch with queue boundary, state-table schema with RLS, deployment plan, rollback path (feature-flag traffic split)
+
+### Example 2 — Database schema for a multi-tenant feature
+- Input: "Add a `documents` table for our SaaS"
+- Action: Define schema with `tenant_id` foreign key, RLS policy keyed on `auth.uid()`, indexes on `(tenant_id, created_at)` and `(tenant_id, owner_id)`, base columns standardized
+- Output: SQL migration with constraints, RLS policy, indexes, plus FastAPI route example showing the boundary validation

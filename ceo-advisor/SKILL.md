@@ -1,6 +1,7 @@
 ---
 name: "ceo-advisor"
-description: "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Use when planning strategy, preparing board presentations, managing investors, developing organizational culture, making executive decisions, fundraising, or when user mentions CEO, strategic planning, board meetings, investor updates, organizational leadership, or executive strategy."
+description: "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Triggers: 'use ceo-advisor', 'ceo advisor', 'ceo-advisor task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 2.0.0
@@ -47,19 +48,19 @@ See `references/executive_decision_framework.md` for the full Go/No-Go framework
 You're the chief allocator. Every dollar, every person, every hour of engineering time is a bet.
 
 **Capital allocation priorities:**
-1. Keep the lights on (operations, must-haves)
-2. Protect the core (retention, quality, security)
-3. Grow the core (expansion of what works)
-4. Fund new bets (innovation, new products/markets)
+1. Keep the lights on (operations, must-haves) → verify: step output matches expected outcome
+2. Protect the core (retention, quality, security) → verify: step output matches expected outcome
+3. Grow the core (expansion of what works) → verify: step output matches expected outcome
+4. Fund new bets (innovation, new products/markets) → verify: step output matches expected outcome
 
 **Fundraising:** Know your numbers cold. Timing matters more than valuation. See `references/board_governance_investor_relations.md`.
 
 ### 3. Stakeholder Leadership
 You serve multiple masters. Priority order:
-1. Customers (they pay the bills)
-2. Team (they build the product)
-3. Board/Investors (they fund the mission)
-4. Partners (they extend your reach)
+1. Customers (they pay the bills) → verify: step output matches expected outcome
+2. Team (they build the product) → verify: step output matches expected outcome
+3. Board/Investors (they fund the mission) → verify: step output matches expected outcome
+4. Partners (they extend your reach) → verify: step output matches expected outcome
 
 ### 4. Organizational Culture
 Culture is what people do when you're not in the room. It's your job to define it, model it, and enforce it.
@@ -167,3 +168,35 @@ All output passes the Internal Quality Loop before reaching the founder (see `ag
 - `references/executive_decision_framework.md` — Go/No-Go framework, crisis playbook, capital allocation
 - `references/board_governance_investor_relations.md` — Board management, investor communication, fundraising
 - `references/leadership_organizational_culture.md` — Culture development, CEO routines, succession planning
+
+## Triggers
+
+CEO, strategic planning, board meetings, investor updates, organizational leadership, or executive strategy
+
+## When NOT to use
+
+- Task is unrelated to ceo advisor — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ceo advisor
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ceo advisor
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

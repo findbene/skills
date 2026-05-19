@@ -1,6 +1,7 @@
 ---
 name: transcribe
-description: Transcribe one or more specific TikTok video URLs using the video-transcriber pipeline — downloads audio, runs Whisper transcription, and generates organized summaries. Use this skill whenever the user provides a TikTok video URL and wants a transcript, text output, or summary. Apply whenever the user pastes a TikTok URL (any url containing tiktok.com/video or vm.tiktok.com), says "transcribe this video", "get the transcript for", "transcribe this TikTok", "process this URL", "what does this video say", "extract audio from this TikTok", "turn this into text", "transcribe these links", or pastes one or more TikTok video links without specifying a command. Do not ask the user to run a script manually — execute the full pipeline directly. Requires the video-transcriber project at ~/video-transcriber/.
+description: "Transcribe one or more specific TikTok video URLs using the video-transcriber pipeline — downloads audio, runs Whisper transcription, and g. Triggers: 'use transcribe', 'transcribe', 'transcribe task."
+allowed-tools: Bash, Glob, Grep, Read
 user_invocable: true
 ---
 
@@ -101,14 +102,14 @@ Run this for each URL the user provided.
 
 After transcripts are generated, YOU (Claude Code) will:
 
-1. Read each new transcript file from `transcripts/`
-2. Analyze and extract:
+1. Read each new transcript file from `transcripts/` → verify: file readable + content matches expected shape
+2. Analyze and extract: → verify: step output matches expected outcome
    - **Topic**: 2-4 word kebab-case topic name
    - **Summary**: One-sentence summary
    - **Key Tips**: 3-5 actionable bullet points
    - **Details**: Additional context
 
-3. Create summary files in `summaries/{topic}/{slugified-title}.md`:
+3. Create summary files in `summaries/{topic}/{slugified-title}.md`: → verify: output file exists + no syntax error
 
    **IMPORTANT: Filename from Video Title**
    - Extract the video title from the yt-dlp metadata (stored in transcript header as "Title: ...")
@@ -141,7 +142,7 @@ After transcripts are generated, YOU (Claude Code) will:
    {original transcript}
    ```
 
-4. Update INDEX.md with the new summaries
+4. Update INDEX.md with the new summaries → verify: step output matches expected outcome
 
 ### Step 5: Show Results
 
@@ -168,7 +169,36 @@ Claude: [Processes each video, creates transcripts and summaries]
 ## Handling Multiple URLs
 
 When multiple URLs are provided:
-1. Process them sequentially
-2. Report progress: "[1/3] Processing..."
-3. Continue even if one fails
-4. At the end, report success/failure for each
+1. Process them sequentially → verify: step output matches expected outcome
+2. Report progress: "[1/3] Processing..." → verify: step output matches expected outcome
+3. Continue even if one fails → verify: step output matches expected outcome
+4. At the end, report success/failure for each → verify: step output matches expected outcome
+
+## Triggers
+
+transcribe this video, get the transcript for, transcribe this TikTok, process this URL, what does this video say, extract audio from this TikTok, turn this into text, t...
+
+## When NOT to use
+
+- Task is unrelated to transcribe — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Transcribe needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for transcribe
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

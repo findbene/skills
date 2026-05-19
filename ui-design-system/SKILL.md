@@ -1,6 +1,7 @@
 ---
 name: "ui-design-system"
-description: UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer handoff tools. Use for creating design systems, maintaining visual consistency, and facilitating design-dev collaboration.
+description: "UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive d. Triggers: 'use ui-design-system', 'build UI design system', 'ui design system."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # UI Design System
@@ -52,16 +53,16 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Identify brand color and style**
+1. **Identify brand color and style** → verify: step output matches expected outcome
    - Brand primary color (hex format)
    - Style preference: `modern` | `classic` | `playful`
 
-2. **Generate tokens using script**
+2. **Generate tokens using script** → verify: output file exists + no syntax error
    ```bash
    python scripts/design_token_generator.py "#0066CC" modern json
    ```
 
-3. **Review generated categories**
+3. **Review generated categories** → verify: output file exists + no syntax error
    - Colors: primary, secondary, neutral, semantic, surface
    - Typography: fontFamily, fontSize, fontWeight, lineHeight
    - Spacing: 8pt grid-based scale (0-64)
@@ -70,7 +71,7 @@ Use this skill when you need to:
    - Animation: duration, easing
    - Breakpoints: xs through 2xl
 
-4. **Export in target format**
+4. **Export in target format** → verify: step output matches expected outcome
    ```bash
    # CSS custom properties
    python scripts/design_token_generator.py "#0066CC" modern css > design-tokens.css
@@ -82,7 +83,7 @@ Use this skill when you need to:
    python scripts/design_token_generator.py "#0066CC" modern json > design-tokens.json
    ```
 
-5. **Validate accessibility**
+5. **Validate accessibility** → verify: step output matches expected outcome
    - Check color contrast meets WCAG AA (4.5:1 normal, 3:1 large text)
    - Verify semantic colors have contrast colors defined
 
@@ -94,13 +95,13 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Define component hierarchy**
+1. **Define component hierarchy** → verify: step output matches expected outcome
    - Atoms: Button, Input, Icon, Label, Badge
    - Molecules: FormField, SearchBar, Card, ListItem
    - Organisms: Header, Footer, DataTable, Modal
    - Templates: DashboardLayout, AuthLayout
 
-2. **Map tokens to components**
+2. **Map tokens to components** → verify: step output matches expected outcome
 
    | Component | Tokens Used |
    |-----------|-------------|
@@ -109,7 +110,7 @@ Use this skill when you need to:
    | Card | colors, borders, shadows, spacing |
    | Modal | colors, shadows, spacing, z-index, animation |
 
-3. **Define variant patterns**
+3. **Define variant patterns** → verify: step output matches expected outcome
 
    Size variants:
    ```
@@ -125,13 +126,13 @@ Use this skill when you need to:
    ghost: background transparent, text neutral-700
    ```
 
-4. **Document component API**
+4. **Document component API** → verify: step output matches expected outcome
    - Props interface with types
    - Variant options
    - State handling (hover, active, focus, disabled)
    - Accessibility requirements
 
-5. **Reference:** See `references/component-architecture.md`
+5. **Reference:** See `references/component-architecture.md` → verify: step output matches expected outcome
 
 ---
 
@@ -141,7 +142,7 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Define breakpoints**
+1. **Define breakpoints** → verify: step output matches expected outcome
 
    | Name | Width | Target |
    |------|-------|--------|
@@ -152,7 +153,7 @@ Use this skill when you need to:
    | xl | 1024px | Desktops |
    | 2xl | 1280px | Large screens |
 
-2. **Calculate fluid typography**
+2. **Calculate fluid typography** → verify: step output matches expected outcome
 
    Formula: `clamp(min, preferred, max)`
 
@@ -169,7 +170,7 @@ Use this skill when you need to:
    --fluid-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
    ```
 
-3. **Set up responsive spacing**
+3. **Set up responsive spacing** → verify: step output matches expected outcome
 
    | Token | Mobile | Tablet | Desktop |
    |-------|--------|--------|---------|
@@ -178,7 +179,7 @@ Use this skill when you need to:
    | --space-xl | 24px | 32px | 48px |
    | --space-section | 48px | 80px | 120px |
 
-4. **Reference:** See `references/responsive-calculations.md`
+4. **Reference:** See `references/responsive-calculations.md` → verify: step output matches expected outcome
 
 ---
 
@@ -188,7 +189,7 @@ Use this skill when you need to:
 
 **Steps:**
 
-1. **Export tokens in required formats**
+1. **Export tokens in required formats** → verify: step output matches expected outcome
    ```bash
    # For CSS projects
    python scripts/design_token_generator.py "#0066CC" modern css
@@ -200,7 +201,7 @@ Use this skill when you need to:
    python scripts/design_token_generator.py "#0066CC" modern json
    ```
 
-2. **Prepare framework integration**
+2. **Prepare framework integration** → verify: step output matches expected outcome
 
    **React + CSS Variables:**
    ```tsx
@@ -231,19 +232,19 @@ Use this skill when you need to:
    `;
    ```
 
-3. **Sync with Figma**
+3. **Sync with Figma** → verify: step output matches expected outcome
    - Install Tokens Studio plugin
    - Import design-tokens.json
    - Tokens sync automatically with Figma styles
 
-4. **Handoff checklist**
+4. **Handoff checklist** → verify: all tests pass
    - [ ] Token files added to project
    - [ ] Build pipeline configured
    - [ ] Theme/CSS variables imported
    - [ ] Component library aligned
    - [ ] Documentation generated
 
-5. **Reference:** See `references/developer-handoff.md`
+5. **Reference:** See `references/developer-handoff.md` → verify: step output matches expected outcome
 
 ---
 
@@ -377,3 +378,40 @@ Detailed reference guides in `references/`:
 - [ ] Framework integration documented
 - [ ] Design tool synced
 - [ ] Component documentation complete
+
+## When NOT to use
+
+- Task is unrelated to ui design system — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ui Design System needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ui design system
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ui design system
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

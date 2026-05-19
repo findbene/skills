@@ -1,17 +1,18 @@
 ---
 name: artifacts-builder
-description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using React, Tailwind CSS, and shadcn/ui. Use this skill whenever the user wants to build a complex interactive artifact that requires state management, routing, multiple components, or a full shadcn/ui component library — not for simple single-file HTML. Apply whenever the user asks for a dashboard, multi-step form, interactive app, data visualization with filters, or any React-based claude.ai artifact. Make sure to use this instead of hand-writing complex JSX inline when the bundling pipeline is available.
+description: "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using React, Tailwind CSS, and shadcn/. Triggers: 'use artifacts-builder', 'artifacts builder', 'artifacts-builder task."
+allowed-tools: Bash, Glob, Grep, Read
 license: Complete terms in LICENSE.txt
 ---
 
 # Artifacts Builder
 
 To build powerful frontend claude.ai artifacts, follow these steps:
-1. Initialize the frontend repo using `scripts/init-artifact.sh`
-2. Develop your artifact by editing the generated code
-3. Bundle all code into a single HTML file using `scripts/bundle-artifact.sh`
-4. Display artifact to user
-5. (Optional) Test the artifact
+1. Initialize the frontend repo using `scripts/init-artifact.sh` → verify: step output matches expected outcome
+2. Develop your artifact by editing the generated code → verify: output exists + parses without error
+3. Bundle all code into a single HTML file using `scripts/bundle-artifact.sh` → verify: step output matches expected outcome
+4. Display artifact to user → verify: step output matches expected outcome
+5. (Optional) Test the artifact → verify: all checks pass
 
 **Stack**: React 18 + TypeScript + Vite + Parcel (bundling) + Tailwind CSS + shadcn/ui
 
@@ -72,3 +73,44 @@ To test/visualize the artifact, use available tools (including other Skills or b
 ## Reference
 
 - **shadcn/ui components**: https://ui.shadcn.com/docs/components
+
+## Triggers
+
+the user wants to build a complex interactive artifact that requires state management, routing, multiple components, or a full shadcn/ui component library — not for simple single-file HTML. Apply whenever the user as...
+
+## When NOT to use
+
+- Task is unrelated to artifacts builder — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Artifacts Builder needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for artifacts builder
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving artifacts builder
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

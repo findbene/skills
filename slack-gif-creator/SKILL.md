@@ -1,6 +1,7 @@
 ---
 name: slack-gif-creator
-description: Toolkit for creating animated GIFs optimized for Slack, with validators for size constraints and composable animation primitives. This skill applies when users request animated GIFs or emoji animations for Slack from descriptions like "make me a GIF for Slack of X doing Y".
+description: "Toolkit for creating animated GIFs optimized for Slack, with validators for size constraints and composable animation. Triggers: 'use slack-gif-creator', 'slack gif creator', 'slack-gif-creator task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: Complete terms in LICENSE.txt
 ---
 
@@ -37,9 +38,9 @@ Slack has specific requirements for GIFs based on their use:
 
 This skill provides three types of tools:
 
-1. **Validators** - Check if a GIF meets Slack's requirements
-2. **Animation Primitives** - Composable building blocks for motion (shake, bounce, move, kaleidoscope)
-3. **Helper Utilities** - Optional functions for common needs (text, colors, effects)
+1. **Validators** - Check if a GIF meets Slack's requirements → verify: all checks pass
+2. **Animation Primitives** - Composable building blocks for motion (shake, bounce, move, kaleidoscope) → verify: step output matches expected outcome
+3. **Helper Utilities** - Optional functions for common needs (text, colors, effects) → verify: step output matches expected outcome
 
 **Complete creative freedom is available in how these tools are applied.**
 
@@ -522,17 +523,17 @@ draw_emoji_enhanced(frame, '🎉', position=(200, 200), size=80, shadow=True)
 When your GIF is too large:
 
 **For Message GIFs (>2MB):**
-1. Reduce frames (lower FPS or shorter duration)
+1. Reduce frames (lower FPS or shorter duration) → verify: step output matches expected outcome
 2. Reduce colors (128 → 64 colors)
 3. Reduce dimensions (480x480 → 320x320)
-4. Enable duplicate frame removal
+4. Enable duplicate frame removal → verify: step output matches expected outcome
 
 **For Emoji GIFs (>64KB) - be aggressive:**
-1. Limit to 10-12 frames total
-2. Use 32-40 colors maximum
-3. Avoid gradients (solid colors compress better)
-4. Simplify design (fewer elements)
-5. Use `optimize_for_emoji=True` in save method
+1. Limit to 10-12 frames total → verify: step output matches expected outcome
+2. Use 32-40 colors maximum → verify: step output matches expected outcome
+3. Avoid gradients (solid colors compress better) → verify: step output matches expected outcome
+4. Simplify design (fewer elements) → verify: step output matches expected outcome
+5. Use `optimize_for_emoji=True` in save method → verify: step output matches expected outcome
 
 ## Example Composition Patterns
 
@@ -629,11 +630,11 @@ builder.save('scare.gif')
 
 This toolkit provides building blocks, not rigid recipes. To work with a GIF request:
 
-1. **Understand the creative vision** - What should happen? What's the mood?
-2. **Design the animation** - Break it into phases (anticipation, action, reaction)
-3. **Apply primitives as needed** - Shake, bounce, move, effects - mix freely
-4. **Validate constraints** - Check file size, especially for emoji GIFs
-5. **Iterate if needed** - Reduce frames/colors if over size limits
+1. **Understand the creative vision** - What should happen? What's the mood? → verify: step output matches expected outcome
+2. **Design the animation** - Break it into phases (anticipation, action, reaction) → verify: step output matches expected outcome
+3. **Apply primitives as needed** - Shake, bounce, move, effects - mix freely → verify: diff matches intended change
+4. **Validate constraints** - Check file size, especially for emoji GIFs → verify: all checks pass
+5. **Iterate if needed** - Reduce frames/colors if over size limits → verify: step output matches expected outcome
 
 **The goal is creative freedom within Slack's technical constraints.**
 
@@ -644,3 +645,31 @@ To use this toolkit, install these dependencies only if they aren't already pres
 ```bash
 pip install pillow imageio numpy
 ```
+
+## When NOT to use
+
+- Task is unrelated to slack gif creator — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Slack Gif Creator needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

@@ -1,6 +1,7 @@
 ---
 name: seedance-ecommerce-ad
-description: Generate e-commerce product advertisement video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants product ads, e-commerce videos, product showcases, unboxing, product demos, shopping ads, fashion ads, beauty ads, food ads, or any commercial product video for online selling. Triggers on: product ad, e-commerce, product showcase, Amazon video, Shopify ad, Instagram shop, TikTok shop, product commercial, fashion video, beauty ad, food ad, product demo, dropshipping video, or any product promotional video request. Use even for "make a video for my product" or "product promo."
+description: "Generate e-commerce product advertisement video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-ecommerce-ad', 'seedance ecommerce ad', 'seedance-ecommerce-ad task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # E-Commerce Product Advertisement Videos with Seedance 2.0 on Higgsfield
@@ -855,31 +856,31 @@ Technical Specs for Seedance 2.0 on Higgsfield:
 
 ### After Receiving Your Seedance 2.0 on Higgsfield Video
 
-1. **Review Render Quality**
+1. **Review Render Quality** → verify: step output matches expected outcome
    - Is product clearly visible in all shots?
    - Are colors accurate to real product?
    - Is motion smooth, without jitter?
    - Are text overlays readable and correctly positioned?
 
-2. **Optimize for Platform**
+2. **Optimize for Platform** → verify: step output matches expected outcome
    - Crop to platform aspect ratio if needed
    - Adjust volume levels (music 50-70%, ASMR 20-30%)
    - Add captions if required by platform
    - Ensure CTA button is functional/visible
 
-3. **Test Performance**
+3. **Test Performance** → verify: all tests pass
    - A/B test different hooks/music versions
    - Run on target platform (TikTok, Instagram, YouTube)
    - Check engagement in first 3 seconds (most critical)
    - Track click-through rate to product page
 
-4. **Iterate & Improve**
+4. **Iterate & Improve** → verify: step output matches expected outcome
    - If hook doesn't engage, swap hook type
    - If product shots are unclear, regenerate with more specific lighting direction
    - If CTA underperforms, try different urgency language
    - If aspect ratio is wrong, regenerate for correct platform
 
-5. **Scale What Works**
+5. **Scale What Works** → verify: step output matches expected outcome
    - Create 3-5 variations of winning ad (different music, text, color grade)
    - Run in different regions/audiences to test resonance
    - Repurpose single video across platforms (different aspect ratios)
@@ -926,3 +927,31 @@ Master the 2-second hook. Know your product category playbook. Test relentlessly
 Your next viral product ad is one great prompt away.
 
 Happy selling.
+
+## When NOT to use
+
+- Task is unrelated to seedance ecommerce ad — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Ecommerce Ad needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

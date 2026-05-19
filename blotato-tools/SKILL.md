@@ -1,6 +1,7 @@
 ---
 name: blotato-tools
-description: "Blotato social media publishing tool for scheduling and managing content across 9 platforms via MCP. Use this skill any time content needs to be published or scheduled using Blotato, posting workflows need to be automated, or Blotato API needs to be called. Trigger immediately on: \"Blotato\", \"schedule post\", \"publish to social media\", \"social media publishing\", \"Blotato API\", \"post scheduler\", \"content calendar\", \"schedule content\", \"publish content\", \"social publishing\", \"Blotato MCP\", \"post scheduling\". If someone says \"schedule this post on Blotato\" or \"publish this via Blotato\" this skill MUST trigger."
+description: "Blotato social media publishing tool for scheduling and managing content across 9 platforms via MCP. Trigger: \\'Blotato\\', \\'schedule post\\', \\'publish to social media\\', \\'social media."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Blotato Tools
@@ -131,10 +132,10 @@ Status progression: queueing → generating-script → script-ready → generati
 
 ## Setup
 
-1. Get Blotato account at https://www.blotato.com/ (starts $29/mo)
-2. Connect social accounts in Blotato settings
-3. Copy API key from Settings > API Access
-4. Set `BLOTATO_API_KEY` in settings.json
+1. Get Blotato account at https://www.blotato.com/ (starts $29/mo) → verify: step output matches expected outcome
+2. Connect social accounts in Blotato settings → verify: step output matches expected outcome
+3. Copy API key from Settings > API Access → verify: step output matches expected outcome
+4. Set `BLOTATO_API_KEY` in settings.json → verify: step output matches expected outcome
 
 ## Complete Workflow Example
 
@@ -145,3 +146,40 @@ Status progression: queueing → generating-script → script-ready → generati
 4. publish_post({ accountId, platform: "twitter", text: extracted_content }) → publish
 5. get_post_status → confirm published, get publicUrl
 ```
+
+## When NOT to use
+
+- Task is unrelated to blotato tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Blotato Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for blotato tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving blotato tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

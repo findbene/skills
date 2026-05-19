@@ -1,6 +1,7 @@
 ---
 name: "helm-chart-builder"
-description: "Helm chart development agent skill and plugin for Claude Code, Codex, Gemini CLI, Cursor, OpenClaw — chart scaffolding, values design, template patterns, dependency management, security hardening, and chart testing. Use when: user wants to create or improve Helm charts, design values.yaml files, implement template helpers, audit chart security (RBAC, network policies, pod security), manage subcharts, or run helm lint/test."
+description: "Helm chart development agent skill and plugin for Claude Code, Codex, Gemini CLI, Cursor, OpenClaw — chart scaffold. Triggers: 'use helm-chart-builder', 'helm chart builder', 'helm-chart-builder task."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -50,14 +51,14 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
 
 ### `/helm:create` — Chart Scaffolding
 
-1. **Identify workload type**
+1. **Identify workload type** → verify: file readable + content matches expected shape
    - Web service (Deployment + Service + Ingress)
    - Worker (Deployment, no Service)
    - CronJob (CronJob + ServiceAccount)
    - Stateful service (StatefulSet + PVC + Headless Service)
    - Library chart (no templates, only helpers)
 
-2. **Scaffold chart structure**
+2. **Scaffold chart structure** → verify: step output matches expected outcome
 
    ```
    mychart/
@@ -82,7 +83,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    └── charts/                 # Subcharts (dependencies)
    ```
 
-3. **Apply Chart.yaml best practices**
+3. **Apply Chart.yaml best practices** → verify: diff matches intended change
 
    ```
    METADATA
@@ -100,13 +101,13 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    └── Run helm dependency update after changes
    ```
 
-4. **Generate values.yaml with documentation**
+4. **Generate values.yaml with documentation** → verify: output file exists + no syntax error
    - Every value has an inline comment explaining purpose and type
    - Sensible defaults that work for development
    - Override-friendly structure (flat where possible, nested only when logical)
    - No hardcoded cluster-specific values (image registry, domain, storage class)
 
-5. **Validate**
+5. **Validate** → verify: step output matches expected outcome
    ```bash
    python3 scripts/chart_analyzer.py mychart/
    helm lint mychart/
@@ -115,7 +116,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
 
 ### `/helm:review` — Chart Analysis
 
-1. **Check chart structure**
+1. **Check chart structure** → verify: all tests pass
 
    | Check | Severity | Fix |
    |-------|----------|-----|
@@ -125,7 +126,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    | Missing Chart.yaml fields | Medium | Add description, appVersion, maintainers |
    | Hardcoded values in templates | High | Extract to values.yaml with defaults |
 
-2. **Check template quality**
+2. **Check template quality** → verify: all tests pass
 
    | Check | Severity | Fix |
    |-------|----------|-----|
@@ -137,12 +138,12 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    | No pod anti-affinity | Medium | Add preferred anti-affinity for HA |
    | Duplicate template code | Medium | Extract into named templates in _helpers.tpl |
 
-3. **Check values.yaml quality**
+3. **Check values.yaml quality** → verify: all tests pass
    ```bash
    python3 scripts/values_validator.py mychart/values.yaml
    ```
 
-4. **Generate review report**
+4. **Generate review report** → verify: output file exists + no syntax error
    ```
    HELM CHART REVIEW — [chart name]
    Date: [timestamp]
@@ -157,7 +158,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
 
 ### `/helm:security` — Security Audit
 
-1. **Pod security audit**
+1. **Pod security audit** → verify: step output matches expected outcome
 
    | Check | Severity | Fix |
    |-------|----------|-----|
@@ -169,7 +170,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    | No seccomp profile | Medium | Set `seccompProfile.type: RuntimeDefault` |
    | allowPrivilegeEscalation true | High | Set `allowPrivilegeEscalation: false` |
 
-2. **RBAC audit**
+2. **RBAC audit** → verify: step output matches expected outcome
 
    | Check | Severity | Fix |
    |-------|----------|-----|
@@ -179,7 +180,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    | Wildcard permissions | Critical | Use specific resource names and verbs |
    | No RBAC at all | Low | Acceptable if pod doesn't need K8s API access |
 
-3. **Network and secrets audit**
+3. **Network and secrets audit** → verify: step output matches expected outcome
 
    | Check | Severity | Fix |
    |-------|----------|-----|
@@ -189,7 +190,7 @@ If the user has a Helm chart or wants to package Kubernetes resources → this s
    | hostNetwork: true | High | Remove unless absolutely required (e.g., CNI plugin) |
    | hostPID or hostIPC | Critical | Never use in application charts |
 
-4. **Generate security report**
+4. **Generate security report** → verify: output file exists + no syntax error
    ```
    SECURITY AUDIT — [chart name]
    Date: [timestamp]
@@ -447,3 +448,40 @@ clawhub install cs-helm-chart-builder
 - **docker-development** — Container building. Complementary — docker-development builds the images, helm-chart-builder deploys them to Kubernetes.
 - **ci-cd-pipeline-builder** — Pipeline construction. Complementary — helm-chart-builder defines the deployment artifact, ci-cd-pipeline-builder automates its delivery.
 - **senior-security** — Application security. Complementary — helm-chart-builder covers Kubernetes-level security (RBAC, pod security), senior-security covers application-level threats.
+
+## When NOT to use
+
+- Task is unrelated to helm chart builder — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Helm Chart Builder needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for helm chart builder
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving helm chart builder
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

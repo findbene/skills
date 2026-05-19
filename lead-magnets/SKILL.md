@@ -1,6 +1,7 @@
 ---
 name: lead-magnets
-description: "Plan, design, and optimize lead magnets — the high-value content or tools offered in exchange for contact information, including guides, templates, checklists, webinars, assessments, and mini-tools. Use this whenever the user asks about 'lead magnet ideas,' 'what should I offer for email signups,' 'improve my opt-in rate,' 'content upgrade,' 'lead capture strategy,' or 'nobody is signing up for my list.' Trigger even when the user says 'our email list isn't growing' without explicitly asking about lead magnets."
+description: "Plan, design, and optimize lead magnets — the high-value content or tools offered in exchange for contact information, including guid. Triggers: 'use lead-magnets', 'lead magnets', 'lead-magnets task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -156,12 +157,12 @@ Rule of thumb: Ask for the minimum needed. Every extra field reduces conversion 
 
 ### Landing Page Structure
 
-1. **Headline** — Clear benefit: what they'll get and why it matters
-2. **Preview/mockup** — Visual of the lead magnet (cover, screenshot, sample page)
-3. **What's inside** — 3-5 bullet points of key takeaways
-4. **Social proof** — Download count, testimonials, logos
-5. **Form** — Minimal fields, clear CTA button
-6. **FAQ** — Address hesitations (Is it really free? What format?)
+1. **Headline** — Clear benefit: what they'll get and why it matters → verify: step output matches expected outcome
+2. **Preview/mockup** — Visual of the lead magnet (cover, screenshot, sample page) → verify: step output matches expected outcome
+3. **What's inside** — 3-5 bullet points of key takeaways → verify: step output matches expected outcome
+4. **Social proof** — Download count, testimonials, logos → verify: file content matches expected shape
+5. **Form** — Minimal fields, clear CTA button → verify: step output matches expected outcome
+6. **FAQ** — Address hesitations (Is it really free? What format?) → verify: step output matches expected outcome
 
 **For landing page optimization**: See **page-cro** skill
 
@@ -288,11 +289,11 @@ When creating a lead magnet strategy, provide:
 
 ## Task-Specific Questions
 
-1. What existing content or expertise could you turn into a lead magnet?
-2. Where does your audience spend time online?
-3. What's the most common question prospects ask before buying?
-4. Do you have an email nurture sequence set up for new leads?
-5. What's your budget for design and promotion?
+1. What existing content or expertise could you turn into a lead magnet? → verify: step output matches expected outcome
+2. Where does your audience spend time online? → verify: step output matches expected outcome
+3. What's the most common question prospects ask before buying? → verify: user confirms
+4. Do you have an email nurture sequence set up for new leads? → verify: step output matches expected outcome
+5. What's your budget for design and promotion? → verify: step output matches expected outcome
 
 ---
 
@@ -308,3 +309,40 @@ When creating a lead magnet strategy, provide:
 - **analytics-tracking**: For measuring lead magnet performance
 - **paid-ads**: For paid promotion of lead magnets
 - **social-content**: For social media promotion
+
+## When NOT to use
+
+- Task is unrelated to lead magnets — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Lead Magnets needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for lead magnets
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving lead magnets
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

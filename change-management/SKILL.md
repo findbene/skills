@@ -1,6 +1,7 @@
 ---
 name: "change-management"
-description: "Framework for rolling out organizational changes without chaos. Covers the ADKAR model adapted for startups, communication templates, resistance patterns, and change fatigue management. Handles process changes, org restructures, strategy pivots, and culture changes. Use when announcing a reorg, switching tools, pivoting strategy, killing a product, changing leadership, or when user mentions change management, change rollout, managing resistance, org change, reorg, or pivot communication."
+description: "Framework for rolling out organizational changes without chaos. Triggers: 'use change-management', 'change management', 'change-management task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -129,12 +130,12 @@ Only reinforcement creates adoption. Compliance is the result of enforcement. Ai
 **Critical reinforcement:** Remove or deprecate the old tool/process
 
 **Communication sequence:**
-1. Week -2: Announce the why + go-live date
-2. Week -1: Training sessions available
-3. Week 0 (go-live): Launch + point person available
-4. Week 2: Adoption check-in (who's using it? Who isn't?)
-5. Week 4: Feedback collection + public wins
-6. Week 8: Old system deprecated
+1. Week -2: Announce the why + go-live date → verify: step output matches expected outcome
+2. Week -1: Training sessions available → verify: step output matches expected outcome
+3. Week 0 (go-live): Launch + point person available → verify: step output matches expected outcome
+4. Week 2: Adoption check-in (who's using it? Who isn't?) → verify: step output matches expected outcome
+5. Week 4: Feedback collection + public wins → verify: step output matches expected outcome
+6. Week 8: Old system deprecated → verify: step output matches expected outcome
 
 ---
 
@@ -145,12 +146,12 @@ Only reinforcement creates adoption. Compliance is the result of enforcement. Ai
 **Critical reinforcement:** Consistent behavior from new leadership
 
 **Communication sequence:**
-1. Day 0: Announce the change with the "why" — in person or synchronous video
-2. Day 1: 1:1s with most affected team members by their manager
-3. Week 1: FAQ published with honest answers to the 10 most common concerns
-4. Week 2–4: New structure is operating (don't delay implementation)
-5. Month 2: First retrospective — what's working, what needs adjustment
-6. Month 3–6: Regular check-ins on team health and morale
+1. Day 0: Announce the change with the "why" — in person or synchronous video → verify: step output matches expected outcome
+2. Day 1: 1:1s with most affected team members by their manager → verify: step output matches expected outcome
+3. Week 1: FAQ published with honest answers to the 10 most common concerns → verify: step output matches expected outcome
+4. Week 2–4: New structure is operating (don't delay implementation) → verify: step output matches expected outcome
+5. Month 2: First retrospective — what's working, what needs adjustment → verify: step output matches expected outcome
+6. Month 3–6: Regular check-ins on team health and morale → verify: step output matches expected outcome
 
 **What to say when a leader is leaving or being replaced:**
 Be honest about what you can share. Never: "We can't share the reasons." Always: either a truthful explanation or "we're not able to share the specifics, but I can tell you [what this means for you]."
@@ -164,11 +165,11 @@ Be honest about what you can share. Never: "We can't share the reasons." Always:
 **Critical reinforcement:** Resource reallocation that visibly proves the pivot is happening
 
 **Communication sequence:**
-1. Internal first, always. Employees should never hear about a pivot from a press release.
-2. All-hands with full context: what changed in the market, what you're doing, what it means for teams
-3. Each team leader runs a "what does this mean for us?" conversation with their team
-4. Resource reallocation announced within 2 weeks (if the money doesn't move, people won't believe the pivot)
-5. First milestone of the new direction celebrated publicly
+1. Internal first, always. Employees should never hear about a pivot from a press release. → verify: step output matches expected outcome
+2. All-hands with full context: what changed in the market, what you're doing, what it means for teams → verify: step output matches expected outcome
+3. Each team leader runs a "what does this mean for us?" conversation with their team → verify: command exit code 0
+4. Resource reallocation announced within 2 weeks (if the money doesn't move, people won't believe the pivot) → verify: step output matches expected outcome
+5. First milestone of the new direction celebrated publicly → verify: step output matches expected outcome
 
 **What kills pivots:** Announcing a new direction while still funding the old one at the same level.
 
@@ -181,12 +182,12 @@ Be honest about what you can share. Never: "We can't share the reasons." Always:
 **Critical reinforcement:** Visible decisions that reflect the new values
 
 **Communication sequence:**
-1. Build with input: involve a representative sample of the company in defining the change
-2. Announce with story: "Here's what we observed, here's what we're changing and why"
-3. Behavior anchors: for each culture change, state the specific behavior in observable terms
-4. Leader behavior: leadership team must visibly model the new behavior first
-5. Performance integration: new expected behaviors appear in reviews within one cycle
-6. Celebrate the right behaviors: when someone exemplifies the new culture, name it publicly
+1. Build with input: involve a representative sample of the company in defining the change → verify: step output matches expected outcome
+2. Announce with story: "Here's what we observed, here's what we're changing and why" → verify: step output matches expected outcome
+3. Behavior anchors: for each culture change, state the specific behavior in observable terms → verify: step output matches expected outcome
+4. Leader behavior: leadership team must visibly model the new behavior first → verify: step output matches expected outcome
+5. Performance integration: new expected behaviors appear in reviews within one cycle → verify: step output matches expected outcome
+6. Celebrate the right behaviors: when someone exemplifies the new culture, name it publicly → verify: step output matches expected outcome
 
 ---
 
@@ -251,3 +252,35 @@ When organizations change too fast, people stop believing any change will stick.
 
 ## Detailed References
 - `references/change-playbook.md` — ADKAR deep dive, resistance counter-strategies, communication templates, change fatigue management
+
+## Triggers
+
+change management, change rollout, managing resistance, org change, reorg, or pivot communication
+
+## When NOT to use
+
+- Task is unrelated to change management — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for change management
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving change management
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

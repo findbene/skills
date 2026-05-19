@@ -1,6 +1,7 @@
 ---
 name: "release-manager"
-description: "Use when the user asks to plan releases, manage changelogs, coordinate deployments, create release branches, or automate versioning."
+description: 'Use when the user asks to plan releases, manage changelogs, coordinate deployments, create release branches, or automate versioning. Triggers: "use release-manager", "release manager", "release task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Release Manager
@@ -27,9 +28,9 @@ The Release Manager skill provides comprehensive tools and knowledge for managin
 
 ### Scripts
 
-1. **changelog_generator.py** - Parses git logs and generates structured changelogs
-2. **version_bumper.py** - Determines correct version bumps from conventional commits
-3. **release_planner.py** - Assesses release readiness and generates coordination plans
+1. **changelog_generator.py** - Parses git logs and generates structured changelogs → verify: output exists + parses without error
+2. **version_bumper.py** - Determines correct version bumps from conventional commits → verify: git status clean
+3. **release_planner.py** - Assesses release readiness and generates coordination plans → verify: file content matches expected shape
 
 ### Documentation
 
@@ -58,9 +59,9 @@ Pre-release versions are denoted by appending a hyphen and identifiers:
 #### Version Precedence
 
 Version precedence is determined by comparing each identifier:
-1. `1.0.0-alpha` < `1.0.0-alpha.1` < `1.0.0-alpha.beta` < `1.0.0-beta`
-2. `1.0.0-beta` < `1.0.0-beta.2` < `1.0.0-beta.11` < `1.0.0-rc.1`
-3. `1.0.0-rc.1` < `1.0.0`
+1. `1.0.0-alpha` < `1.0.0-alpha.1` < `1.0.0-alpha.beta` < `1.0.0-beta` → verify: step output matches expected outcome
+2. `1.0.0-beta` < `1.0.0-beta.2` < `1.0.0-beta.11` < `1.0.0-rc.1` → verify: step output matches expected outcome
+3. `1.0.0-rc.1` < `1.0.0` → verify: step output matches expected outcome
 
 ### Conventional Commits
 
@@ -148,10 +149,10 @@ Changelogs are automatically generated from conventional commits, organized by:
 Version bumps are determined by analyzing commits since the last release:
 
 #### Automatic Detection Rules
-1. **MAJOR**: Any commit with `BREAKING CHANGE` or `!` after type
-2. **MINOR**: Any `feat` type commits without breaking changes
-3. **PATCH**: `fix`, `perf`, `security` type commits
-4. **NO BUMP**: `docs`, `style`, `test`, `chore`, `ci`, `build` only
+1. **MAJOR**: Any commit with `BREAKING CHANGE` or `!` after type → verify: git status clean
+2. **MINOR**: Any `feat` type commits without breaking changes → verify: git status clean
+3. **PATCH**: `fix`, `perf`, `security` type commits → verify: git status clean
+4. **NO BUMP**: `docs`, `style`, `test`, `chore`, `ci`, `build` only → verify: all checks pass
 
 #### Pre-release Handling
 ```python
@@ -182,11 +183,11 @@ main (production) ← release/1.2.0 ← develop ← feature/login
 - Structured release process
 
 **Process:**
-1. Create release branch from develop: `git checkout -b release/1.2.0 develop`
-2. Finalize release (version bump, changelog)
-3. Merge to main and develop
-4. Tag release: `git tag v1.2.0`
-5. Deploy from main
+1. Create release branch from develop: `git checkout -b release/1.2.0 develop` → verify: output exists + parses without error
+2. Finalize release (version bump, changelog) → verify: step output matches expected outcome
+3. Merge to main and develop → verify: step output matches expected outcome
+4. Tag release: `git tag v1.2.0` → verify: step output matches expected outcome
+5. Deploy from main → verify: step output matches expected outcome
 
 #### Trunk-based Development
 ```
@@ -202,11 +203,11 @@ main ← feature/login (short-lived)
 - Continuous integration friendly
 
 **Process:**
-1. Short-lived feature branches (1-3 days)
-2. Frequent commits to main
-3. Feature flags for incomplete features
-4. Automated testing gates
-5. Deploy from main with feature toggles
+1. Short-lived feature branches (1-3 days) → verify: step output matches expected outcome
+2. Frequent commits to main → verify: git status clean
+3. Feature flags for incomplete features → verify: step output matches expected outcome
+4. Automated testing gates → verify: all checks pass
+5. Deploy from main with feature toggles → verify: step output matches expected outcome
 
 #### GitHub Flow
 ```
@@ -221,11 +222,11 @@ main ← feature/login
 - Minimal overhead
 
 **Process:**
-1. Create feature branch from main
-2. Regular commits and pushes
-3. Open pull request when ready
-4. Deploy from feature branch for testing
-5. Merge to main and deploy
+1. Create feature branch from main → verify: output exists + parses without error
+2. Regular commits and pushes → verify: git status clean
+3. Open pull request when ready → verify: file content matches expected shape
+4. Deploy from feature branch for testing → verify: all checks pass
+5. Merge to main and deploy → verify: step output matches expected outcome
 
 ### Feature Flag Integration
 
@@ -247,11 +248,11 @@ else:
 ```
 
 #### Release Coordination
-1. Deploy code with feature behind flag (disabled)
-2. Gradually enable for percentage of users
-3. Monitor metrics and error rates
-4. Full rollout or quick rollback based on data
-5. Remove flag in subsequent release
+1. Deploy code with feature behind flag (disabled) → verify: step output matches expected outcome
+2. Gradually enable for percentage of users → verify: step output matches expected outcome
+3. Monitor metrics and error rates → verify: step output matches expected outcome
+4. Full rollout or quick rollback based on data → verify: step output matches expected outcome
+5. Remove flag in subsequent release → verify: step output matches expected outcome
 
 ### Release Readiness Checklists
 
@@ -306,11 +307,11 @@ else:
 - Downtime notifications if applicable
 
 #### Deployment Sequence
-1. **Pre-deployment** (T-24h): Final validation, freeze code
-2. **Database migrations** (T-2h): Run and validate schema changes  
-3. **Blue-green deployment** (T-0): Switch traffic gradually
-4. **Post-deployment** (T+1h): Monitor metrics and logs
-5. **Rollback window** (T+4h): Decision point for rollback
+1. **Pre-deployment** (T-24h): Final validation, freeze code → verify: step output matches expected outcome
+2. **Database migrations** (T-2h): Run and validate schema changes   → verify: command exit code 0
+3. **Blue-green deployment** (T-0): Switch traffic gradually → verify: step output matches expected outcome
+4. **Post-deployment** (T+1h): Monitor metrics and logs → verify: step output matches expected outcome
+5. **Rollback window** (T+4h): Decision point for rollback → verify: step output matches expected outcome
 
 #### Monitoring & Validation
 - Application health checks
@@ -341,13 +342,13 @@ Hotfixes address critical production issues requiring immediate deployment:
 - **Approval**: Standard PR review
 
 #### Emergency Response Process
-1. **Incident declaration**: Page on-call team
-2. **Assessment**: Determine severity and impact
-3. **Hotfix branch**: Create from last stable release
-4. **Minimal fix**: Address root cause only
-5. **Expedited testing**: Automated tests + manual validation
-6. **Emergency deployment**: Deploy to production
-7. **Post-incident**: Root cause analysis and prevention
+1. **Incident declaration**: Page on-call team → verify: step output matches expected outcome
+2. **Assessment**: Determine severity and impact → verify: step output matches expected outcome
+3. **Hotfix branch**: Create from last stable release → verify: output exists + parses without error
+4. **Minimal fix**: Address root cause only → verify: diff matches intended change
+5. **Expedited testing**: Automated tests + manual validation → verify: all checks pass
+6. **Emergency deployment**: Deploy to production → verify: step output matches expected outcome
+7. **Post-incident**: Root cause analysis and prevention → verify: step output matches expected outcome
 
 ### Rollback Planning
 
@@ -434,28 +435,28 @@ def monitor_deployment():
 ## Best Practices
 
 ### Release Planning
-1. **Regular cadence**: Establish predictable release schedule
-2. **Feature freeze**: Lock changes 48h before release
-3. **Risk assessment**: Evaluate changes for potential impact
-4. **Stakeholder alignment**: Ensure all teams are prepared
+1. **Regular cadence**: Establish predictable release schedule → verify: step output matches expected outcome
+2. **Feature freeze**: Lock changes 48h before release → verify: step output matches expected outcome
+3. **Risk assessment**: Evaluate changes for potential impact → verify: step output matches expected outcome
+4. **Stakeholder alignment**: Ensure all teams are prepared → verify: step output matches expected outcome
 
 ### Quality Assurance
-1. **Automated testing**: Comprehensive test coverage
-2. **Staging environment**: Production-like testing environment
-3. **Canary releases**: Gradual rollout to subset of users
-4. **Monitoring**: Proactive issue detection
+1. **Automated testing**: Comprehensive test coverage → verify: all checks pass
+2. **Staging environment**: Production-like testing environment → verify: all checks pass
+3. **Canary releases**: Gradual rollout to subset of users → verify: step output matches expected outcome
+4. **Monitoring**: Proactive issue detection → verify: step output matches expected outcome
 
 ### Communication
-1. **Clear timelines**: Communicate schedules early
-2. **Regular updates**: Status reports during release process
-3. **Issue transparency**: Honest communication about problems
-4. **Post-mortems**: Learn from incidents and improve
+1. **Clear timelines**: Communicate schedules early → verify: step output matches expected outcome
+2. **Regular updates**: Status reports during release process → verify: step output matches expected outcome
+3. **Issue transparency**: Honest communication about problems → verify: step output matches expected outcome
+4. **Post-mortems**: Learn from incidents and improve → verify: step output matches expected outcome
 
 ### Automation
-1. **Reduce manual steps**: Automate repetitive tasks
-2. **Consistent process**: Same steps every time
-3. **Audit trails**: Log all release activities
-4. **Self-service**: Enable teams to deploy safely
+1. **Reduce manual steps**: Automate repetitive tasks → verify: user confirms
+2. **Consistent process**: Same steps every time → verify: step output matches expected outcome
+3. **Audit trails**: Log all release activities → verify: findings count > 0 OR clean signal returned
+4. **Self-service**: Enable teams to deploy safely → verify: step output matches expected outcome
 
 ## Common Anti-patterns
 
@@ -479,12 +480,49 @@ def monitor_deployment():
 
 ## Getting Started
 
-1. **Assessment**: Evaluate current release process and pain points
-2. **Tool setup**: Configure scripts for your repository
-3. **Process definition**: Choose appropriate workflow for your team
-4. **Automation**: Implement CI/CD pipelines and quality gates
-5. **Training**: Educate team on new processes and tools
-6. **Monitoring**: Set up metrics and alerting for releases
-7. **Iteration**: Continuously improve based on feedback and metrics
+1. **Assessment**: Evaluate current release process and pain points → verify: step output matches expected outcome
+2. **Tool setup**: Configure scripts for your repository → verify: step output matches expected outcome
+3. **Process definition**: Choose appropriate workflow for your team → verify: step output matches expected outcome
+4. **Automation**: Implement CI/CD pipelines and quality gates → verify: dependency resolves + import works
+5. **Training**: Educate team on new processes and tools → verify: step output matches expected outcome
+6. **Monitoring**: Set up metrics and alerting for releases → verify: step output matches expected outcome
+7. **Iteration**: Continuously improve based on feedback and metrics → verify: step output matches expected outcome
 
 The Release Manager skill transforms chaotic deployments into predictable, reliable releases that build confidence across your entire organization.
+
+## When NOT to use
+
+- Task is unrelated to release manager — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Release Manager needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for release manager
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving release manager
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

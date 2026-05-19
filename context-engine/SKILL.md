@@ -1,6 +1,7 @@
 ---
 name: "context-engine"
-description: "Loads and manages company context for all C-suite advisor skills. Reads ~/.claude/company-context.md, detects stale context (>90 days), enriches context during conversations, and enforces privacy/anonymization rules before external API calls."
+description: "Loads and manages company context for all C-suite advisor skills. Triggers: 'use context-engine', 'context engine', 'context-engine task'."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -63,9 +64,9 @@ During conversations, you'll learn things not in the file. Capture them.
 **Triggers:** New number or timeline revealed, key person mentioned, priority shift, constraint surfaces.
 
 **Protocol:**
-1. Note internally: `[CONTEXT UPDATE: {what was learned}]`
-2. At session end: *"I picked up a few things to add to your context. Want me to update the file?"*
-3. If yes: append to the relevant dimension, update timestamp.
+1. Note internally: `[CONTEXT UPDATE: {what was learned}]` → verify: step output matches expected outcome
+2. At session end: *"I picked up a few things to add to your context. Want me to update the file?"* → verify: dependency resolves + import works
+3. If yes: append to the relevant dimension, update timestamp. → verify: step output matches expected outcome
 
 **Never silently overwrite.** Always confirm before modifying the context file.
 
@@ -129,6 +130,45 @@ High-value optional:
 Missing required fields: note gaps, work around in session, ask in-session only when critical.
 
 ---
+
+## When NOT to use
+
+- General-purpose user memory or project state — use `agent-memory-system` or `progress.md`
+- Brand voice context — use `marketing-context` or `content-humanizer`
+- One-off question with no C-suite advisor invocation — direct answer is fine
+- When context file is missing AND user hasn't run `/cs:setup` — prompt setup, don't fabricate
+- Sharing context externally (Slack, email) — anonymize first per `anonymization-protocol.md`
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Context is 6 months old, close enough" | Stage/runway/team have likely shifted; force a refresh prompt |
+| "Fill in the missing 12-month target with a guess" | Fabricated context poisons every advisor downstream |
+| "Skip anonymization for an internal call" | Habit failure mode; runway/financials leak in screenshots |
+| "Use stale context silently" | Always flag `[STALE — last updated DATE]` to user when loading |
+
+## Output Contract
+
+Done when:
+- `~/.claude/company-context.md` checked for existence and staleness
+- Required fields parsed: stage, founder archetype, #1 challenge, runway, team size, advantage, 12-month target
+- Confidence tier set (High/Medium/Low/None) per staleness + completeness
+- Missing/stale state flagged to user with a 1-line summary
+- Anonymization applied for any external/web call per protocol
+- Working memory populated for the calling advisor skill
+
+## Examples
+
+### Example 1 — CEO advisor invocation, fresh context
+- Input: User invokes `/cs:ceo-advisor` with context file 12 days old
+- Action: Load context, parse 7 required fields, set confidence High, expose working memory to CEO advisor
+- Output: Working memory dict ready; CEO advisor proceeds with company-specific insight
+
+### Example 2 — Context stale
+- Input: User invokes `/cs:cfo-advisor`, context 110 days old
+- Action: Prompt user — "Context is 110 days old. Quick 15-min refresh (`/cs:update`) or continue with what I have?"; if continue, load and tag `[STALE]`; advisor uses it with caveats
+- Output: User-chosen path; advisor visible-flagged when running on stale context
 
 ## References
 - `references/anonymization-protocol.md` — detailed rules for stripping sensitive data before external calls

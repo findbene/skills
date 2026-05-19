@@ -1,6 +1,7 @@
 ---
 name: "autoresearch-agent"
-description: "Autonomous experiment loop that optimizes any file by a measurable metric. Inspired by Karpathy's autoresearch. The agent edits a target file, runs a fixed evaluation, keeps improvements (git commit), discards failures (git reset), and loops indefinitely. Use when: user wants to optimize code speed, reduce bundle/image size, improve test pass rate, optimize prompts, improve content quality (headlines, copy, CTR), or run any measurable improvement loop. Requires: a target file, an evaluation command that outputs a metric, and a git repo."
+description: "Autonomous experiment loop that optimizes any file by a measurable metric. Inspired by Karpathy's autoresearch. Triggers: 'use autoresearch-agent', 'autoresearch agent', 'autoresearch-agent task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 2.0.0
@@ -121,24 +122,24 @@ The user may have written their own `program.md`. If found in the experiment dir
 You are the loop. The scripts handle setup and evaluation — you handle the creative work.
 
 ### Before Starting
-1. Read `.autoresearch/{domain}/{name}/config.cfg` to get:
+1. Read `.autoresearch/{domain}/{name}/config.cfg` to get: → verify: file content matches expected shape
    - `target` — the file you edit
    - `evaluate_cmd` — the command that measures your changes
    - `metric` — the metric name to look for in eval output
    - `metric_direction` — "lower" or "higher" is better
    - `time_budget_minutes` — max time per evaluation
-2. Read `program.md` for strategy, constraints, and what you can/cannot change
-3. Read `results.tsv` for experiment history (columns: commit, metric, status, description)
-4. Checkout the experiment branch: `git checkout autoresearch/{domain}/{name}`
+2. Read `program.md` for strategy, constraints, and what you can/cannot change → verify: file content matches expected shape
+3. Read `results.tsv` for experiment history (columns: commit, metric, status, description) → verify: file content matches expected shape
+4. Checkout the experiment branch: `git checkout autoresearch/{domain}/{name}` → verify: step output matches expected outcome
 
 ### Each Iteration
-1. Review results.tsv — what worked? What failed? What hasn't been tried?
-2. Decide ONE change to the target file. One variable per experiment.
-3. Edit the target file
-4. Commit: `git add {target} && git commit -m "experiment: {description}"`
-5. Evaluate: `python scripts/run_experiment.py --experiment {domain}/{name} --single`
-6. Read the output — it prints KEEP, DISCARD, or CRASH with the metric value
-7. Go to step 1
+1. Review results.tsv — what worked? What failed? What hasn't been tried? → verify: step output matches expected outcome
+2. Decide ONE change to the target file. One variable per experiment. → verify: step output matches expected outcome
+3. Edit the target file → verify: diff matches intended change
+4. Commit: `git add {target} && git commit -m "experiment: {description}"` → verify: dependency resolves + import works
+5. Evaluate: `python scripts/run_experiment.py --experiment {domain}/{name} --single` → verify: command exit code 0
+6. Read the output — it prints KEEP, DISCARD, or CRASH with the metric value → verify: file content matches expected shape
+7. Go to step 1 → verify: step output matches expected outcome
 
 ### What the Script Handles (you don't)
 - Running the eval command with timeout
@@ -306,3 +307,40 @@ clawhub install cs-autoresearch-agent
 - **senior-ml-engineer** — ML architecture decisions. Complementary — use for initial design, then autoresearch for optimization.
 - **tdd-guide** — test-driven development. Complementary — tests can be the evaluation function.
 - **skill-security-auditor** — audit skills before publishing. NOT for optimization loops.
+
+## When NOT to use
+
+- Task is unrelated to autoresearch agent — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Autoresearch Agent needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for autoresearch agent
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving autoresearch agent
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

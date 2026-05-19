@@ -1,6 +1,7 @@
 ---
 name: ab-test-setup
-description: "Design and set up A/B tests — writing hypotheses, calculating sample sizes, choosing metrics, designing variants, and planning test duration for statistically valid results. Use this whenever the user asks to 'set up an A/B test,' 'design a split test,' 'how long should my test run,' 'sample size for A/B testing,' 'write a test hypothesis,' or 'what should I A/B test.' Trigger even when the user says 'we want to test two versions of the page' without using A/B test terminology."
+description: "Design and set up A/B tests — writing hypotheses, calculating sample sizes, choosing metrics, designing variants, and planning tes. Triggers: 'use ab-test-setup', 'ab test setup', 'ab-test-setup task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,9 +17,9 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Before designing a test, understand:
 
-1. **Test Context** - What are you trying to improve? What change are you considering?
-2. **Current State** - Baseline conversion rate? Current traffic volume?
-3. **Constraints** - Technical complexity? Timeline? Tools available?
+1. **Test Context** - What are you trying to improve? What change are you considering? → verify: all checks pass
+2. **Current State** - Baseline conversion rate? Current traffic volume? → verify: step output matches expected outcome
+3. **Constraints** - Technical complexity? Timeline? Tools available? → verify: step output matches expected outcome
 
 ---
 
@@ -199,12 +200,12 @@ Looking at results before reaching sample size and stopping early leads to false
 
 ### Analysis Checklist
 
-1. **Reach sample size?** If not, result is preliminary
-2. **Statistically significant?** Check confidence intervals
-3. **Effect size meaningful?** Compare to MDE, project impact
-4. **Secondary metrics consistent?** Support the primary?
-5. **Guardrail concerns?** Anything get worse?
-6. **Segment differences?** Mobile vs. desktop? New vs. returning?
+1. **Reach sample size?** If not, result is preliminary → verify: step output matches expected outcome
+2. **Statistically significant?** Check confidence intervals → verify: all checks pass
+3. **Effect size meaningful?** Compare to MDE, project impact → verify: step output matches expected outcome
+4. **Secondary metrics consistent?** Support the primary? → verify: step output matches expected outcome
+5. **Guardrail concerns?** Anything get worse? → verify: step output matches expected outcome
+6. **Segment differences?** Mobile vs. desktop? New vs. returning? → verify: step output matches expected outcome
 
 ### Interpreting Results
 
@@ -250,12 +251,12 @@ Document every test with:
 
 ## Task-Specific Questions
 
-1. What's your current conversion rate?
-2. How much traffic does this page get?
-3. What change are you considering and why?
-4. What's the smallest improvement worth detecting?
-5. What tools do you have for testing?
-6. Have you tested this area before?
+1. What's your current conversion rate? → verify: step output matches expected outcome
+2. How much traffic does this page get? → verify: step output matches expected outcome
+3. What change are you considering and why? → verify: step output matches expected outcome
+4. What's the smallest improvement worth detecting? → verify: step output matches expected outcome
+5. What tools do you have for testing? → verify: all checks pass
+6. Have you tested this area before? → verify: all checks pass
 
 ---
 
@@ -264,3 +265,40 @@ Document every test with:
 - **page-cro**: For generating test ideas based on CRO principles
 - **analytics-tracking**: For setting up test measurement
 - **copywriting**: For creating variant copy
+
+## When NOT to use
+
+- Task is unrelated to ab test setup — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ab Test Setup needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ab test setup
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ab test setup
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

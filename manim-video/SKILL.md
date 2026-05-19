@@ -1,6 +1,7 @@
 ---
 name: manim-video
-description: "Production pipeline for mathematical and technical animations using Manim Community Edition. Creates 3Blue1Brown-style explainer videos, algorithm visualizations, equation derivations, architecture diagrams, and data stories. Use when users request: animated explanations, math animations, concept visualizations, algorithm walkthroughs, technical explainers, 3Blue1Brown style videos, or any programmatic animation with geometric/mathematical content."
+description: "Production pipeline for mathematical and technical animations using Manim Community Edition. Triggers: 'use manim-video', 'manim video', 'manim-video task'."
+allowed-tools: Bash, Glob, Grep, Read
 version: 1.0.0
 ---
 
@@ -55,11 +56,11 @@ Single Python script per project. No browser, no Node.js, no GPU required.
 PLAN --> CODE --> RENDER --> STITCH --> AUDIO (optional) --> REVIEW
 ```
 
-1. **PLAN** — Write `plan.md` with narrative arc, scene list, visual elements, color palette, voiceover script
-2. **CODE** — Write `script.py` with one class per scene, each independently renderable
-3. **RENDER** — `manim -ql script.py Scene1 Scene2 ...` for draft, `-qh` for production
-4. **STITCH** — ffmpeg concat of scene clips into `final.mp4`
-5. **AUDIO** (optional) — Add voiceover and/or background music via ffmpeg. See `references/rendering.md`
+1. **PLAN** — Write `plan.md` with narrative arc, scene list, visual elements, color palette, voiceover script → verify: output exists + parses without error
+2. **CODE** — Write `script.py` with one class per scene, each independently renderable → verify: output exists + parses without error
+3. **RENDER** — `manim -ql script.py Scene1 Scene2 ...` for draft, `-qh` for production → verify: step output matches expected outcome
+4. **STITCH** — ffmpeg concat of scene clips into `final.mp4` → verify: step output matches expected outcome
+5. **AUDIO** (optional) — Add voiceover and/or background music via ffmpeg. See `references/rendering.md` → verify: dependency resolves + import works
 6. **REVIEW** — Render preview stills, verify against plan, adjust
 
 ## Project Structure
@@ -258,7 +259,44 @@ Take a standard mathematical/technical visualization and transform it:
 - **Eliminate**: remove all notation — explain purely through animation and spatial relationships
 
 ### Assumption Reversal
-1. List what's "standard" about how this topic is visualized (left-to-right, 2D, discrete steps, formal notation)
-2. Pick the most fundamental assumption
-3. Reverse it (right-to-left derivation, 3D embedding of a 2D concept, continuous morphing instead of steps, zero notation)
-4. Explore what the reversal reveals that the standard approach hides
+1. List what's "standard" about how this topic is visualized (left-to-right, 2D, discrete steps, formal notation) → verify: step output matches expected outcome
+2. Pick the most fundamental assumption → verify: step output matches expected outcome
+3. Reverse it (right-to-left derivation, 3D embedding of a 2D concept, continuous morphing instead of steps, zero notation) → verify: step output matches expected outcome
+4. Explore what the reversal reveals that the standard approach hides → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to manim video — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Manim Video needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for manim video
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving manim video
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "snowflake-development"
-description: "Use when writing Snowflake SQL, building data pipelines with Dynamic Tables or Streams/Tasks, using Cortex AI functions, creating Cortex Agents, writing Snowpark Python, configuring dbt for Snowflake, or troubleshooting Snowflake errors."
+description: 'Use when writing Snowflake SQL, building data pipelines with Dynamic Tables or Streams/Tasks, using Cortex AI function. Triggers: "use snowflake-development", "snowflake development", "snowflake task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Snowflake Development
@@ -235,25 +236,25 @@ Surface these issues without being asked when you notice them in context:
 
 ### Workflow 1: Build a Reporting Pipeline (30 min)
 
-1. **Stage raw data**: Create external stage pointing to S3/GCS/Azure, set up Snowpipe for auto-ingest
-2. **Clean with Dynamic Table**: Create DT with `TARGET_LAG = '5 minutes'` that filters nulls, casts types, deduplicates
-3. **Aggregate with downstream DT**: Second DT that joins cleaned data with dimension tables, computes metrics
-4. **Expose via Secure View**: Create `SECURE VIEW` for the BI tool / API layer
-5. **Grant access**: Use `snowflake_query_helper.py grant` to generate RBAC statements
+1. **Stage raw data**: Create external stage pointing to S3/GCS/Azure, set up Snowpipe for auto-ingest → verify: output file exists + no syntax error
+2. **Clean with Dynamic Table**: Create DT with `TARGET_LAG = '5 minutes'` that filters nulls, casts types, deduplicates → verify: output file exists + no syntax error
+3. **Aggregate with downstream DT**: Second DT that joins cleaned data with dimension tables, computes metrics → verify: step output matches expected outcome
+4. **Expose via Secure View**: Create `SECURE VIEW` for the BI tool / API layer → verify: output file exists + no syntax error
+5. **Grant access**: Use `snowflake_query_helper.py grant` to generate RBAC statements → verify: output file exists + no syntax error
 
 ### Workflow 2: Add AI Classification to Existing Data
 
-1. **Identify the column**: Find the text column to classify (e.g., support tickets, reviews)
-2. **Test with AI_CLASSIFY**: `SELECT AI_CLASSIFY(text_col, ['bug', 'feature', 'question']) FROM table LIMIT 10;`
-3. **Create enrichment DT**: Dynamic Table that runs `AI_CLASSIFY` on new rows automatically
-4. **Monitor costs**: Cortex AI is billed per token — sample before running on full tables
+1. **Identify the column**: Find the text column to classify (e.g., support tickets, reviews) → verify: step output matches expected outcome
+2. **Test with AI_CLASSIFY**: `SELECT AI_CLASSIFY(text_col, ['bug', 'feature', 'question']) FROM table LIMIT 10;` → verify: all tests pass
+3. **Create enrichment DT**: Dynamic Table that runs `AI_CLASSIFY` on new rows automatically → verify: output file exists + no syntax error
+4. **Monitor costs**: Cortex AI is billed per token — sample before running on full tables → verify: command exit code 0
 
 ### Workflow 3: Debug a Failing Pipeline
 
-1. **Check task history**: `SELECT * FROM TABLE(INFORMATION_SCHEMA.TASK_HISTORY()) WHERE STATE = 'FAILED' ORDER BY SCHEDULED_TIME DESC;`
-2. **Check DT refresh**: `SELECT * FROM TABLE(INFORMATION_SCHEMA.DYNAMIC_TABLE_REFRESH_HISTORY('my_dt')) ORDER BY REFRESH_END_TIME DESC;`
-3. **Check stream staleness**: `SHOW STREAMS; -- check stale_after column`
-4. **Consult troubleshooting reference**: See `references/troubleshooting.md` for error-specific fixes
+1. **Check task history**: `SELECT * FROM TABLE(INFORMATION_SCHEMA.TASK_HISTORY()) WHERE STATE = 'FAILED' ORDER BY SCHEDULED_TIME DESC;` → verify: all tests pass
+2. **Check DT refresh**: `SELECT * FROM TABLE(INFORMATION_SCHEMA.DYNAMIC_TABLE_REFRESH_HISTORY('my_dt')) ORDER BY REFRESH_END_TIME DESC;` → verify: all tests pass
+3. **Check stream staleness**: `SHOW STREAMS; -- check stale_after column` → verify: all tests pass
+4. **Consult troubleshooting reference**: See `references/troubleshooting.md` for error-specific fixes → verify: diff matches intended change
 
 ---
 
@@ -292,3 +293,40 @@ Surface these issues without being asked when you notice them in context:
 | `references/snowflake_sql_and_pipelines.md` | SQL patterns, MERGE templates, Dynamic Table debugging, Snowpipe, anti-patterns |
 | `references/cortex_ai_and_agents.md` | Cortex AI functions, agent spec structure, Cortex Search, Snowpark |
 | `references/troubleshooting.md` | Error reference, debugging queries, common fixes |
+
+## When NOT to use
+
+- Task is unrelated to snowflake development — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Snowflake Development needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for snowflake development
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving snowflake development
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

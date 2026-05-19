@@ -1,6 +1,7 @@
 ---
 name: ai-seo
-description: "Optimize content and web presence for AI-powered search engines, large language models, and generative search results (Google AI Overviews, ChatGPT, Perplexity, Bing Copilot). Use this whenever the user mentions 'AI SEO,' 'GEO,' 'generative engine optimization,' 'getting cited by ChatGPT,' 'AI Overviews,' 'LLM visibility,' 'how do I show up in AI search,' or 'optimize for Perplexity.' Trigger even when the user asks how to show up in AI answers without knowing the term 'GEO."
+description: "Optimize content and web presence for AI-powered search engines, large language models, and generative search results (Google AI Overviews, ChatGPT, Pe. Triggers: 'use ai-seo', 'ai seo', 'ai-seo task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -135,9 +136,9 @@ See [references/platform-ranking-factors.md](references/platform-ranking-factors
 ### The Three Pillars
 
 ```
-1. Structure (make it extractable)
-2. Authority (make it citable)
-3. Presence (be where AI looks)
+1. Structure (make it extractable) → verify: step output matches expected outcome
+2. Authority (make it citable) → verify: step output matches expected outcome
+3. Presence (be where AI looks) → verify: step output matches expected outcome
 ```
 
 ### Pillar 1: Structure — Make Content Extractable
@@ -291,10 +292,10 @@ Not all content is equally citable. Prioritize these formats:
 ### DIY Monitoring (No Tools)
 
 Monthly manual check:
-1. Pick your top 20 queries
-2. Run each through ChatGPT, Perplexity, and Google
-3. Record: Are you cited? Who is? What page?
-4. Log in a spreadsheet, track month-over-month
+1. Pick your top 20 queries → verify: step output matches expected outcome
+2. Run each through ChatGPT, Perplexity, and Google → verify: command exit code 0
+3. Record: Are you cited? Who is? What page? → verify: step output matches expected outcome
+4. Log in a spreadsheet, track month-over-month → verify: file content matches expected shape
 
 ---
 
@@ -379,12 +380,12 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md).
 
 ## Task-Specific Questions
 
-1. What are your top 10-20 most important queries?
-2. Have you checked if AI answers exist for those queries today?
-3. Do you have structured data (schema markup) on your site?
-4. What content types do you publish? (Blog, docs, comparisons, etc.)
-5. Are competitors being cited by AI where you're not?
-6. Do you have a Wikipedia page or presence on review sites?
+1. What are your top 10-20 most important queries? → verify: step output matches expected outcome
+2. Have you checked if AI answers exist for those queries today? → verify: step output matches expected outcome
+3. Do you have structured data (schema markup) on your site? → verify: step output matches expected outcome
+4. What content types do you publish? (Blog, docs, comparisons, etc.) → verify: step output matches expected outcome
+5. Are competitors being cited by AI where you're not? → verify: step output matches expected outcome
+6. Do you have a Wikipedia page or presence on review sites? → verify: step output matches expected outcome
 
 ---
 
@@ -396,3 +397,44 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md).
 - **competitor-alternatives**: For building comparison pages that get cited
 - **programmatic-seo**: For building SEO pages at scale
 - **copywriting**: For writing content that's both human-readable and AI-extractable
+
+## Triggers
+
+AI SEO,' 'GEO,' 'generative engine optimization,' 'getting cited by ChatGPT,' 'AI Overviews,' 'LLM visibility,' 'how do I show up in AI search,' or 'optimize for ...
+
+## When NOT to use
+
+- Task is unrelated to ai seo — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ai Seo needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ai seo
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ai seo
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

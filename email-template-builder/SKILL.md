@@ -1,13 +1,7 @@
 ---
 name: "email-template-builder"
-description: "Build responsive transactional email templates - welcome emails, password reset, notifications, order receipts - with dark mode support, accessibility compliance, and cross-client compatibility (Gmail, Outlook, Apple Mail). Use when creating or fixing email templates for web or mobile apps. Trigger on: 'email template', 'transactional email', 'welcome email', 'email HTML', 'build email', 'email notification template', 'receipt email', 'email design', 'responsive email', 'HTML email'."
-
-# Email Template Builder
-
-**Tier:** POWERFUL  
-**Category:** Engineering Team  
-**Domain:** Transactional Email / Communications Infrastructure
-
+description: 'Build responsive transactional email templates - welcome emails, password reset, notifications, order. Triggers: ''use email-template-builder'', ''email template builder'', ''email-template-builder task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 ## Overview
@@ -436,3 +430,50 @@ export function addTrackingParams(html: string, params: TrackingParams): string 
 - **Dark mode media queries** — must use `!important` to override inline styles
 - **Missing plain text** — all major providers have a plain text field; always populate it
 - **Transactional vs marketing** — use separate sending domains/IPs to protect deliverability
+
+## When NOT to use
+
+- Marketing/newsletter blasts — different deliverability domain, use `email-sequence` or ESP campaign tools
+- Cold outbound — use `cold-email`
+- In-app notifications (not email) — use a notification system, not email templates
+- Pure copywriting without templates — use `copywriting`
+- Pure deliverability/DMARC/SPF setup — domain-level, out of template scope
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Use flexbox/grid in the template" | Outlook ignores them; use `<Row>`/`<Column>` |
+| "Skip plain-text version" | Spam scores spike; always populate plain text |
+| "Marketing on the same domain as transactional" | One bad campaign tanks transactional deliverability; separate sending domains |
+| "Container 800px wide" | Gmail mobile breaks at >600px; cap at 600 |
+
+## Output Contract
+
+Done when:
+- React Email (or MJML) templates for each transactional type (welcome, verify, reset, invoice, notification, digest)
+- Layout/partials extracted (header, footer, button)
+- Provider integration (Resend/Postmark/SendGrid/SES) with unified send interface
+- Local preview server runs with hot reload
+- i18n keys typed and used per locale
+- Dark mode media queries with `!important` overrides
+- Plain-text version generated for every template
+- 600px max width; no flexbox/grid
+- UTM-tagged tracking links
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

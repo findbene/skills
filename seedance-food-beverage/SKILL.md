@@ -1,6 +1,7 @@
 ---
 name: seedance-food-beverage
-description: Generate food and beverage video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants food videos, recipe content, restaurant promos, beverage ads, cooking videos, food ASMR, menu showcases, food delivery ads, café content, or any food/drink video. Triggers on: food video, recipe, cooking, restaurant, beverage, food ad, food ASMR, menu, café, cocktail, food photography video, appetite appeal, food styling, mukbang, or any food/drink video request. Use even for "make my food look delicious" or "restaurant promo video."
+description: "Generate food and beverage video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-food-beverage', 'seedance food beverage', 'seedance-food-beverage task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Food & Beverage Video Mastery for Seedance 2.0 on Higgsfield
@@ -30,29 +31,29 @@ This skill generates production-grade video prompts for **Seedance 2.0 on Higgsf
 
 Viewers decide in 2 seconds whether to keep watching. Your opening moment must trigger appetite and curiosity. Here are 10+ proven food hooks for **Seedance 2.0 on Higgsfield**:
 
-1. **Cheese Pull/Stretch** — Melted cheese being pulled from a slice, pizza, burger, or grilled cheese. Capture the stretch with dramatic slow-motion. The ooze is irresistible.
+1. **Cheese Pull/Stretch** — Melted cheese being pulled from a slice, pizza, burger, or grilled cheese. Capture the stretch with dramatic slow-motion. The ooze is irresistible. → verify: step output matches expected outcome
 
-2. **Slow-Motion Sauce Pour** — Viscous sauce (béarnaise, chocolate, caramel, pesto) poured over protein or dessert. Watch it cascade and pool. Golden hour lighting on the pour.
+2. **Slow-Motion Sauce Pour** — Viscous sauce (béarnaise, chocolate, caramel, pesto) poured over protein or dessert. Watch it cascade and pool. Golden hour lighting on the pour. → verify: step output matches expected outcome
 
-3. **Steam Rising from Hot Dish** — Fresh pasta being plated, soup ladle lifting with vapor, just-grilled meat releasing steam. Steam signals freshness and heat. Backlight it.
+3. **Steam Rising from Hot Dish** — Fresh pasta being plated, soup ladle lifting with vapor, just-grilled meat releasing steam. Steam signals freshness and heat. Backlight it. → verify: step output matches expected outcome
 
-4. **Knife Cutting with Satisfying Crunch** — Blade hitting fresh vegetables, crust, or chocolate. The *sound* plus the *visual* makes mouths water. Macro angle shows the cut surface.
+4. **Knife Cutting with Satisfying Crunch** — Blade hitting fresh vegetables, crust, or chocolate. The *sound* plus the *visual* makes mouths water. Macro angle shows the cut surface. → verify: command exit code 0
 
-5. **Chocolate Break/Snap** — Chocolate bar or thick chocolate cake broken in half, revealing the smooth interior or gooey center. Dramatic lighting on the break.
+5. **Chocolate Break/Snap** — Chocolate bar or thick chocolate cake broken in half, revealing the smooth interior or gooey center. Dramatic lighting on the break. → verify: step output matches expected outcome
 
-6. **Ice Cream Scoop with Drip** — Warm spoon creating a scoop, ice cream softening and dripping onto waffle cone or bowl. The melt is the money shot.
+6. **Ice Cream Scoop with Drip** — Warm spoon creating a scoop, ice cream softening and dripping onto waffle cone or bowl. The melt is the money shot. → verify: step output matches expected outcome
 
-7. **Sizzling on Hot Surface** — Protein or vegetable hitting a screaming-hot pan. The sizzle + steam + color change happens in seconds. Pure appetite trigger.
+7. **Sizzling on Hot Surface** — Protein or vegetable hitting a screaming-hot pan. The sizzle + steam + color change happens in seconds. Pure appetite trigger. → verify: step output matches expected outcome
 
-8. **Bubbles Rising in Drink** — Carbonation in beer, soda, or champagne; bubble foam forming; fizz erupting. Backlit for luminosity. Hypnotic.
+8. **Bubbles Rising in Drink** — Carbonation in beer, soda, or champagne; bubble foam forming; fizz erupting. Backlit for luminosity. Hypnotic. → verify: step output matches expected outcome
 
-9. **Ingredient Cascade/Rain** — Seasoning sprinkled over food, flour dusted onto dough, garnish scattered, herbs rained from above. Capture the fall and land.
+9. **Ingredient Cascade/Rain** — Seasoning sprinkled over food, flour dusted onto dough, garnish scattered, herbs rained from above. Capture the fall and land. → verify: step output matches expected outcome
 
-10. **Flame or Torch Moment** — Crème brûlée torch, flambéed dessert, or flame-kissed dish. The orange glow and action are inherently cinematic.
+10. **Flame or Torch Moment** — Crème brûlée torch, flambéed dessert, or flame-kissed dish. The orange glow and action are inherently cinematic. → verify: step output matches expected outcome
 
-11. **Juice or Oil Drizzle** — High-quality olive oil, balsamic, or fresh citrus juice drizzled over plated food. The pooling and shine.
+11. **Juice or Oil Drizzle** — High-quality olive oil, balsamic, or fresh citrus juice drizzled over plated food. The pooling and shine. → verify: step output matches expected outcome
 
-12. **Bread Tear/Crumb Reveal** — Tearing into fresh bread, croissant, or bagel to show the interior crumb structure and steam. Intimacy plus appetite.
+12. **Bread Tear/Crumb Reveal** — Tearing into fresh bread, croissant, or bagel to show the interior crumb structure and steam. Intimacy plus appetite. → verify: file content matches expected shape
 
 ---
 
@@ -1108,3 +1109,33 @@ Now go make people hungry.
 ---
 
 **Skill created for Seedance 2.0 on Higgsfield video production.**
+
+## When NOT to use
+
+- Task is unrelated to seedance food beverage — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Food Beverage needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance food beverage
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

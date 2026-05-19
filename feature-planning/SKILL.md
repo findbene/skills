@@ -1,6 +1,7 @@
 ---
 name: feature-planning
-description: "Feature planning specialist for breaking down feature requests into detailed implementation plans with tasks, dependencies, and acceptance criteria. Use this skill any time a new feature needs to be planned, implementation tasks need to be decomposed, or a feature spec needs to be turned into actionable work items. Trigger immediately on: \"plan this feature\", \"feature planning\", \"break this down\", \"implementation plan\", \"feature spec\", \"task breakdown\", \"user story\", \"acceptance criteria\", \"feature roadmap\", \"feature decomposition\", \"how do I build this\", \"what are the tasks\", \"feature scope\". If someone says \"plan how to build this feature\" or \"what tasks do I need?\" this skill MUST trigger."
+description: 'Feature planning specialist for breaking down feature requests into detailed implementation plans with tasks, dependencies, and ac. Triggers: "use feature-planning", "feature planning", "feature task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Feature Planning
@@ -51,8 +52,8 @@ Break features into implementable plans with clear tasks.
 - src/components/Feature.tsx
 - src/api/feature.ts
 **Steps:**
-1. Step 1
-2. Step 2
+1. Step 1 → verify: step output matches expected outcome
+2. Step 2 → verify: step output matches expected outcome
 **Done when:**
 - [ ] Verification criteria
 ```
@@ -69,7 +70,7 @@ Break features into implementable plans with clear tasks.
 
 ### Epic 1: Core Implementation
 **Stories:**
-1. Story 1.1: [User story]
+1. Story 1.1: [User story] → verify: step output matches expected outcome
    - Task 1.1.1: Create data model
    - Task 1.1.2: Build API endpoint
    - Task 1.1.3: Implement UI component
@@ -98,3 +99,40 @@ Break features into implementable plans with clear tasks.
 - **Clear done criteria:** Measurable acceptance criteria
 - **Right-size tasks:** 2-8 hours each
 - **Dependencies explicit:** Block diagrams if complex
+
+## When NOT to use
+
+- Task is unrelated to feature planning — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Feature Planning needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for feature planning
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving feature planning
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

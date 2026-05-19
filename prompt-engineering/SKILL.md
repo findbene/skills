@@ -1,6 +1,7 @@
 ---
 name: prompt-engineering
-description: "Prompt design, optimization, and debugging for LLMs covering chain-of-thought, few-shot, role prompting, and systematic prompt testing. Use this skill any time prompts need to be designed for LLMs, prompts need to be optimized for better outputs, prompt engineering techniques need to be applied, or existing prompts are producing poor results. Trigger immediately on: \"prompt engineering\", \"improve this prompt\", \"prompt design\", \"system prompt\", \"few-shot\", \"chain of thought\", \"prompt optimization\", \"prompt debugging\", \"LLM prompt\", \"better prompt\", \"prompt template\", \"prompt structure\", \"prompt testing\", \"refine prompt\". If someone says \"my prompt is not working well\" or \"help me write a better prompt\" this skill MUST trigger."
+description: "Prompt design, optimization, and debugging for LLMs covering chain-of-thought, few-shot, role prompting, and sy. Triggers: 'use prompt-engineering', 'engineer prompt engineering', 'prompt engineering."
+allowed-tools: Glob, Grep, Read
 version: 1.0.0
 triggers:
   - prompt engineering
@@ -41,10 +42,10 @@ Load this skill when the user asks about:
 
 ### Step 1 — Define the Task Precisely
 Before writing a prompt:
-1. What is the exact input? (type, format, constraints)
-2. What is the exact output? (type, format, length, tone)
-3. What are the failure modes? (hallucination, wrong format, off-topic)
-4. What model will run this? (different models need different approaches)
+1. What is the exact input? (type, format, constraints) → verify: step output matches expected outcome
+2. What is the exact output? (type, format, length, tone) → verify: step output matches expected outcome
+3. What are the failure modes? (hallucination, wrong format, off-topic) → verify: step output matches expected outcome
+4. What model will run this? (different models need different approaches) → verify: command exit code 0
 
 ### Step 2 — Start Simple, Add Complexity
 ```
@@ -98,3 +99,46 @@ Frame constraints positively when possible:
 | Script writing, copywriting | 0.7–0.9 | Creative variation |
 | Brainstorming, ideation | 0.9–1.2 | Maximum diversity |
 | Code generation | 0.0–0.3 | Correctness over creativity |
+
+## Triggers
+
+\\\"prompt engineering\\\", \\\"improve this prompt\\\", \\\"prompt design\\\", \\\"system prompt\\\", \\\"few-shot\\\", \\\"chain of thought\\\", \\\"prompt optimization\\\", \\\"prompt debugging\\\", \\\"LLM prompt\\\", \\\"better prompt\\...
+
+## When NOT to use
+
+- Prompt optimization for the Claude chat app specifically — use `47`
+- Building MCP tool prompts / function-calling design — use `mcp-builder`
+- Agent design (multi-agent systems) — use `agent-designer` / `senior-prompt-engineer`
+- Pure copywriting (marketing copy) — use `copywriting`
+- General LLM cost optimization — use `llm-cost-optimizer`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Add 10 examples to be safe" | Diminishing returns past 3-5; too many examples bias the model toward verbatim patterns |
+| "Use chain-of-thought for everything" | CoT slows responses and bloats tokens; use only on multi-step reasoning tasks |
+| "Skip eval, eyeballing is enough" | LLMs vary; without a written eval set, regressions are silent |
+| "One prompt for all use cases" | Task-specialized prompts outperform monolithic prompts; modularize |
+
+## Output Contract
+
+Finished output must contain:
+- Goal/task statement explicitly written at the top of the prompt
+- Constraints and output format spec (preferred: JSON schema or example)
+- Few-shot examples (1-5) when task is non-trivial
+- Failure-mode mitigations (refuse, fall back, ask for clarification rules)
+- Eval set of at least 5 input/output pairs for regression testing
+- Notes on model variant and temperature recommended
+
+## Examples
+
+**Example 1 — Design a classification prompt**
+- Input: "Classify support tickets into Billing, Tech, Sales, Other"
+- Action: Write task + label definitions → 3 few-shot per label → constraint to output single label JSON → write 10 eval cases covering edge cases (ambiguous, no-fit)
+- Output: System prompt + JSON output schema + `evals.jsonl` with 10 cases + recommendation Claude Haiku 4.5 @ temp 0
+
+**Example 2 — Debug a flaky extraction prompt**
+- Input: "My address extractor sometimes returns null even when address is present"
+- Action: Inspect prompt → identify ambiguity (no canonical format example) → add 3 normalized format examples → add fallback ("if unsure, return the longest candidate") → re-run on eval set
+- Output: Revised prompt, eval pass rate 88% → 96%, diff annotated with rationale

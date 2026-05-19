@@ -1,6 +1,7 @@
 ---
 name: tailwind
-description: Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Use when scaffolding or editing projects created with `hyperframes init --tailwind`, writing Tailwind utility classes in composition HTML, adding CSS-first Tailwind v4 theme tokens, debugging v3 vs v4 syntax, or deciding when to compile Tailwind to CSS instead of using the browser runtime.
+description: "Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Triggers: 'use tailwind', 'tailwind', 'tailwind task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Tailwind CSS for HyperFrames
@@ -133,16 +134,53 @@ The validation path should show no missing-style flashes on frame 0. If styles a
 
 ## Quick Debug Checklist
 
-1. Confirm the project was scaffolded with `hyperframes init --tailwind`.
-2. Confirm the script points to `@tailwindcss/browser@4.2.4`.
-3. Confirm `window.__tailwindReady` is present.
-4. Replace v3 `@tailwind` directives with v4 browser-runtime CSS.
-5. Move custom tokens from `tailwind.config.js` to `@theme`.
-6. Replace dynamically assembled classes with complete static tokens.
-7. Run `npx hyperframes validate` and render a short proof.
+1. Confirm the project was scaffolded with `hyperframes init --tailwind`. → verify: step output matches expected outcome
+2. Confirm the script points to `@tailwindcss/browser@4.2.4`. → verify: step output matches expected outcome
+3. Confirm `window.__tailwindReady` is present. → verify: file content matches expected shape
+4. Replace v3 `@tailwind` directives with v4 browser-runtime CSS. → verify: command exit code 0
+5. Move custom tokens from `tailwind.config.js` to `@theme`. → verify: step output matches expected outcome
+6. Replace dynamically assembled classes with complete static tokens. → verify: step output matches expected outcome
+7. Run `npx hyperframes validate` and render a short proof. → verify: command exit code 0
 
 ## Credits And References
 
 - Tailwind CSS official v4 installation, upgrade, and compatibility docs: https://tailwindcss.com/docs
 - Tailwind CSS v4 release notes: https://tailwindcss.com/blog/tailwindcss-v4
 - Community Tailwind skills were reviewed for v4 gotchas and skill shape, but this skill keeps the durable contract in-repo and HyperFrames-specific.
+
+## When NOT to use
+
+- Task is unrelated to tailwind — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Tailwind needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for tailwind
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving tailwind
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

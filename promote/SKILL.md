@@ -1,6 +1,7 @@
 ---
 name: "promote"
-description: "Graduate a proven pattern from auto-memory (MEMORY.md) to CLAUDE.md or .claude/rules/ for permanent enforcement."
+description: "Graduate a proven pattern from auto-memory (MEMORY.md) to CLAUDE.md or .claude/rules/ for permanent enforcement. Triggers: 'use promote', 'promote', 'promote task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # /si:promote — Graduate Learnings to Rules
@@ -66,15 +67,15 @@ Transform the learning from auto-memory's note format into CLAUDE.md's instructi
 ### Step 5: Write to target
 
 **For CLAUDE.md:**
-1. Read existing CLAUDE.md
-2. Find the appropriate section (or create one)
-3. Append the new rule under the right heading
-4. If file would exceed 200 lines, suggest using `.claude/rules/` instead
+1. Read existing CLAUDE.md → verify: file content matches expected shape
+2. Find the appropriate section (or create one) → verify: output exists + parses without error
+3. Append the new rule under the right heading → verify: step output matches expected outcome
+4. If file would exceed 200 lines, suggest using `.claude/rules/` instead → verify: step output matches expected outcome
 
 **For `.claude/rules/`:**
-1. Create the file if it doesn't exist
-2. Add YAML frontmatter with `paths` if scoped
-3. Write the rule content
+1. Create the file if it doesn't exist → verify: output exists + parses without error
+2. Add YAML frontmatter with `paths` if scoped → verify: dependency resolves + import works
+3. Write the rule content → verify: output exists + parses without error
 
 ```markdown
 ---
@@ -142,3 +143,40 @@ The pattern is now an enforced instruction. Claude will follow it in all future 
 - One rule per line is easier to maintain than paragraphs
 - Include the concrete command, not just the concept
 - Review promoted rules quarterly — remove what's no longer relevant
+
+## When NOT to use
+
+- Task is unrelated to promote — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Promote needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for promote
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving promote
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: ads-audit
-description: "Full multi-platform paid advertising audit with parallel subagent delegation. Analyzes Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads, and Microsoft Ads accounts. Generates health score per platform and aggregate score. Use when user says audit, full ad check, analyze my ads, account health check, or PPC audit."
+description: "Full multi-platform paid advertising audit with parallel subagent delegation. Triggers: 'use ads-audit', 'run ads audit', 'ads audit'."
+allowed-tools: Glob, Grep, Read
 user-invokable: false
 ---
 
@@ -8,11 +9,11 @@ user-invokable: false
 
 ## Process
 
-1. **Collect account data**: request exports, screenshots, or API access
-2. **Validate**: confirm at least one platform's data is available before proceeding
-3. **Detect business type**: analyze account signals per ads orchestrator
-4. **Identify active platforms**: determine which platforms are in use
-5. **Delegate to subagents** (if available, otherwise run inline sequentially):
+1. **Collect account data**: request exports, screenshots, or API access → verify: step output matches expected outcome
+2. **Validate**: confirm at least one platform's data is available before proceeding → verify: step output matches expected outcome
+3. **Detect business type**: analyze account signals per ads orchestrator → verify: step output matches expected outcome
+4. **Identify active platforms**: determine which platforms are in use → verify: step output matches expected outcome
+5. **Delegate to subagents** (if available, otherwise run inline sequentially): → verify: command exit code 0
    - `audit-google`: Conversion tracking, wasted spend, structure, keywords, ads, settings (G01-G74)
    - `audit-meta`: Pixel/CAPI health, creative fatigue, structure, audience (M01-M46)
    - `audit-creative`: LinkedIn, TikTok, Microsoft creative checks + cross-platform synthesis
@@ -20,8 +21,8 @@ user-invokable: false
    - `audit-budget`: LinkedIn, TikTok, Microsoft budget/bidding + cross-platform allocation
    - `audit-compliance`: All-platform compliance, settings, performance benchmarks
 6. **Validate**: verify each subagent returned valid scores with required fields before aggregating
-7. **Score**: calculate per-platform and aggregate Ads Health Score (0-100)
-8. **Report**: generate prioritized action plan with Quick Wins
+7. **Score**: calculate per-platform and aggregate Ads Health Score (0-100) → verify: step output matches expected outcome
+8. **Report**: generate prioritized action plan with Quick Wins → verify: output file exists + no syntax error
 
 ## Data Collection
 
@@ -105,3 +106,40 @@ AND estimated_fix_time < 15 minutes
 THEN flag as Quick Win
 SORT BY (severity_multiplier x estimated_impact) DESC
 ```
+
+## When NOT to use
+
+- Task is unrelated to ads audit — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ads Audit needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ads audit
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ads audit
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

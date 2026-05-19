@@ -1,6 +1,7 @@
 ---
 name: huggingface-tools
-description: "Hugging Face Hub exploration via MCP for searching models, datasets, Spaces, and papers across the ML ecosystem. Use this skill any time Hugging Face models need to be searched, datasets need to be found, ML model cards need to be inspected, or AI model repositories need to be explored. Trigger immediately on: \"Hugging Face\", \"HuggingFace\", \"HF model\", \"search models\", \"model hub\", \"dataset search\", \"Spaces\", \"model card\", \"transformers model\", \"HF repo\", \"huggingface\", \"model search\", \"AI model search\", \"HF MCP\". If someone says \"find a model on Hugging Face\" or \"search HuggingFace for X\" this skill MUST trigger."
+description: 'Hugging Face Hub exploration via MCP for searching models, datasets, Spaces, and papers across the ML ecosystem. Triggers: "use huggingface-tools", "huggingface tools", "huggingface task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # HuggingFace Tools
@@ -54,18 +55,18 @@ npx @llmindset/hf-mcp-server-json  # Streamable HTTP JSON mode
 ## Common Workflows
 
 ### Find a Model for a Task
-1. Search models by task type (e.g., "text-generation", "image-classification")
-2. Filter by framework (PyTorch, TensorFlow, JAX)
-3. Get model card details and usage examples
+1. Search models by task type (e.g., "text-generation", "image-classification") → verify: step output matches expected outcome
+2. Filter by framework (PyTorch, TensorFlow, JAX) → verify: step output matches expected outcome
+3. Get model card details and usage examples → verify: step output matches expected outcome
 
 ### Run a Community Tool
-1. Enable a Gradio Space in HF settings
-2. The Space's tools appear automatically as MCP tools
-3. Call the tool with appropriate parameters
+1. Enable a Gradio Space in HF settings → verify: step output matches expected outcome
+2. The Space's tools appear automatically as MCP tools → verify: step output matches expected outcome
+3. Call the tool with appropriate parameters → verify: step output matches expected outcome
 
 ### Research ML Papers
-1. Search papers by topic or author
-2. Get paper details, abstracts, and related models
+1. Search papers by topic or author → verify: step output matches expected outcome
+2. Get paper details, abstracts, and related models → verify: step output matches expected outcome
 
 ## Gotchas
 - Tools are dynamic — configure which ones are active at https://huggingface.co/settings/mcp
@@ -73,3 +74,40 @@ npx @llmindset/hf-mcp-server-json  # Streamable HTTP JSON mode
 - Gradio Spaces may have cold start delays (10-30s) if not recently used
 - Add `?no_image_content=true` to URL to remove image blocks from Gradio responses
 - The server supports STDIO, SSE, and Streamable HTTP transports
+
+## When NOT to use
+
+- Task doesn't involve Hugging Face hub queries and model usage → use the matching domain skill instead
+- Simple one-off operation that doesn't need this skill's structure
+- Different toolchain required → check `find-skills` skill for alternatives
+- User explicitly asks to skip skill discipline → respect the override
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the verify step, output looks right" | Eyeballing without verification ships broken outputs |
+| "Generic answer is good enough" | Hugging Face workflows needs domain-specific decisions, not boilerplate |
+| "I can hold all context in head" | Multi-step state loss creates regressions you won't catch |
+| "Just one more shortcut" | Shortcuts compound — finish discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced and matches user's stated goal
+- All verification steps in process passed
+- Edge cases for Hugging Face hub queries and model usage addressed or explicitly noted
+- Output is reproducible (no hidden state)
+- Hand-off summary provided so user can validate without re-reading entire flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard request involving Hugging Face hub queries and model usage
+- Action: follow the documented numbered process, apply verify clauses per step
+- Output: deliverable that passes the Output Contract
+
+### Example 2 — edge case
+- Input: request with non-standard constraint or partial info
+- Action: detect the gap, ask clarifying question OR document assumption, proceed with adapted process
+- Output: deliverable + explicit note on assumption/limitation

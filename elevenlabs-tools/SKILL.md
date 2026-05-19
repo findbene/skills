@@ -1,6 +1,7 @@
 ---
 name: elevenlabs-tools
-description: "ElevenLabs AI voice generation via MCP for text-to-speech, voice cloning, audio transcription, and sound effects. Use this skill any time AI voiceover needs to be generated, voices need to be cloned, text needs to be converted to speech, or audio transcription is needed using ElevenLabs. Trigger immediately on: \"ElevenLabs\", \"voice generation\", \"text to speech\", \"TTS\", \"voiceover\", \"AI voice\", \"voice clone\", \"generate audio\", \"speech synthesis\", \"voice ID\", \"ElevenLabs API\", \"audio generation\", \"narration\", \"elevenlabs\". If someone says \"generate a voiceover\" or \"convert this to speech\" this skill MUST trigger."
+description: 'ElevenLabs AI voice generation via MCP for text-to-speech, voice cloning, audio transcription, and sound effects. Triggers: "use elevenlabs-tools", "elevenlabs tools", "elevenlabs task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # ElevenLabs Tools
@@ -71,12 +72,12 @@ text_to_speech(
 ```
 
 ### Clone a Voice
-1. `voice_clone(name="My Voice", files=["sample1.mp3", "sample2.mp3"])` — provide 1+ audio samples
-2. `text_to_speech(text="Hello world", voice_id="<cloned_voice_id>")` — use the cloned voice
+1. `voice_clone(name="My Voice", files=["sample1.mp3", "sample2.mp3"])` — provide 1+ audio samples → verify: step output matches expected outcome
+2. `text_to_speech(text="Hello world", voice_id="<cloned_voice_id>")` — use the cloned voice → verify: step output matches expected outcome
 
 ### Design a New Voice
-1. `text_to_voice(text="Sample text to preview", description="warm, friendly, female, American")` — generates previews
-2. `create_voice_from_preview(voice_id="<preview_id>", name="Warm Narrator")` — save to library
+1. `text_to_voice(text="Sample text to preview", description="warm, friendly, female, American")` — generates previews → verify: output file exists + no syntax error
+2. `create_voice_from_preview(voice_id="<preview_id>", name="Warm Narrator")` — save to library → verify: output file exists + no syntax error
 
 ### Transcribe Audio
 ```
@@ -93,13 +94,13 @@ text_to_sound_effects(
 ```
 
 ### Compose Music
-1. `create_composition_plan(prompt="upbeat jazz for a wedding reception")` — plan first
-2. `compose_music(prompt="upbeat jazz for a wedding reception", output_file="reception_music.mp3")`
+1. `create_composition_plan(prompt="upbeat jazz for a wedding reception")` — plan first → verify: output file exists + no syntax error
+2. `compose_music(prompt="upbeat jazz for a wedding reception", output_file="reception_music.mp3")` → verify: step output matches expected outcome
 
 ### Build a Voice Agent
-1. `create_agent(name="Wedding Concierge", first_message="Hello! How can I help with wedding details?", system_prompt="You are a helpful wedding concierge...")`
-2. `add_knowledge_base_to_agent(agent_id="...", knowledge_base_url="https://...")` — add context
-3. `make_outbound_call(agent_id="...", phone_number="+1234567890")` — call a guest
+1. `create_agent(name="Wedding Concierge", first_message="Hello! How can I help with wedding details?", system_prompt="You are a helpful wedding concierge...")` → verify: output file exists + no syntax error
+2. `add_knowledge_base_to_agent(agent_id="...", knowledge_base_url="https://...")` — add context → verify: package installed + import succeeds
+3. `make_outbound_call(agent_id="...", phone_number="+1234567890")` — call a guest → verify: step output matches expected outcome
 
 ## Output Configuration
 
@@ -110,9 +111,9 @@ Files save to `~/Desktop` by default. Configure via env vars in `~/.claude/setti
 
 ## Setup
 
-1. Get a free API key at https://elevenlabs.io/app/settings/api-keys
-2. Replace `<insert-your-api-key-here>` in `~/.claude/settings.json` under the `elevenlabs` MCP config
-3. Restart Claude Code
+1. Get a free API key at https://elevenlabs.io/app/settings/api-keys → verify: step output matches expected outcome
+2. Replace `<insert-your-api-key-here>` in `~/.claude/settings.json` under the `elevenlabs` MCP config → verify: step output matches expected outcome
+3. Restart Claude Code → verify: step output matches expected outcome
 
 ## Tips
 
@@ -121,3 +122,40 @@ Files save to `~/Desktop` by default. Configure via env vars in `~/.claude/setti
 - For long text, `text_to_speech` automatically handles chunking
 - Voice cloning works best with 1-3 minutes of clean audio samples
 - `speech_to_speech` preserves intonation while changing the voice
+
+## When NOT to use
+
+- Task is unrelated to elevenlabs tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Elevenlabs Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for elevenlabs tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving elevenlabs tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

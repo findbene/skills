@@ -1,6 +1,7 @@
 ---
 name: popup-cro
-description: "Optimize popups, modals, and overlays for conversions — timing, targeting, copy, design, offer, and exit intent triggers. Use this whenever the user mentions 'popup,' 'modal,' 'exit intent,' 'overlay,' 'popup copy,' 'popup conversion rate,' 'popup optimization,' or 'my popup isn't converting.' Trigger even when the user asks how to capture more email leads from existing traffic without specifying the mechanism."
+description: "Optimize popups, modals, and overlays for conversions — timing, targeting, copy, design, offer, and exit intent triggers."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -170,10 +171,10 @@ Before providing recommendations, understand:
 ## Design Best Practices
 
 ### Visual Hierarchy
-1. Headline (largest, first seen)
-2. Value prop/offer (clear benefit)
-3. Form/CTA (obvious action)
-4. Close option (easy to find)
+1. Headline (largest, first seen) → verify: step output matches expected outcome
+2. Value prop/offer (clear benefit) → verify: step output matches expected outcome
+3. Form/CTA (obvious action) → verify: step output matches expected outcome
+4. Close option (easy to find) → verify: step output matches expected outcome
 
 ### Sizing
 - Desktop: 400-600px wide typical
@@ -322,24 +323,24 @@ Ideas to A/B test with expected outcomes
 ## Common Popup Strategies
 
 ### E-commerce
-1. Entry/scroll: First-purchase discount
-2. Exit intent: Bigger discount or reminder
-3. Cart abandonment: Complete your order
+1. Entry/scroll: First-purchase discount → verify: step output matches expected outcome
+2. Exit intent: Bigger discount or reminder → verify: step output matches expected outcome
+3. Cart abandonment: Complete your order → verify: step output matches expected outcome
 
 ### B2B SaaS
-1. Click-triggered: Demo request, lead magnets
-2. Scroll: Newsletter/blog subscription
-3. Exit intent: Trial reminder or content offer
+1. Click-triggered: Demo request, lead magnets → verify: step output matches expected outcome
+2. Scroll: Newsletter/blog subscription → verify: step output matches expected outcome
+3. Exit intent: Trial reminder or content offer → verify: step output matches expected outcome
 
 ### Content/Media
-1. Scroll-based: Newsletter after engagement
-2. Page count: Subscribe after multiple visits
-3. Exit intent: Don't miss future content
+1. Scroll-based: Newsletter after engagement → verify: step output matches expected outcome
+2. Page count: Subscribe after multiple visits → verify: step output matches expected outcome
+3. Exit intent: Don't miss future content → verify: step output matches expected outcome
 
 ### Lead Generation
-1. Time-delayed: General list building
-2. Click-triggered: Specific lead magnets
-3. Exit intent: Final capture attempt
+1. Time-delayed: General list building → verify: step output matches expected outcome
+2. Click-triggered: Specific lead magnets → verify: step output matches expected outcome
+3. Exit intent: Final capture attempt → verify: step output matches expected outcome
 
 ---
 
@@ -353,12 +354,12 @@ See [references/experiment-ideas.md](references/experiment-ideas.md) for the ful
 
 ## Task-Specific Questions
 
-1. What's the primary goal for this popup?
-2. What's your current popup performance (if any)?
-3. What traffic sources are you optimizing for?
-4. What incentive can you offer?
-5. Are there compliance requirements (GDPR, etc.)?
-6. Mobile vs. desktop traffic split?
+1. What's the primary goal for this popup? → verify: step output matches expected outcome
+2. What's your current popup performance (if any)? → verify: step output matches expected outcome
+3. What traffic sources are you optimizing for? → verify: step output matches expected outcome
+4. What incentive can you offer? → verify: step output matches expected outcome
+5. Are there compliance requirements (GDPR, etc.)? → verify: step output matches expected outcome
+6. Mobile vs. desktop traffic split? → verify: step output matches expected outcome
 
 ---
 
@@ -369,3 +370,44 @@ See [references/experiment-ideas.md](references/experiment-ideas.md) for the ful
 - **page-cro**: For the page context around popups
 - **email-sequence**: For what happens after popup conversion
 - **ab-test-setup**: For testing popup variations
+
+## Triggers
+
+popup,' 'modal,' 'exit intent,' 'overlay,' 'popup copy,' 'popup conversion rate,' 'popup optimization,' or 'my popup isn't converting.'
+
+## When NOT to use
+
+- Task is unrelated to popup cro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Popup Cro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for popup cro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving popup cro
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

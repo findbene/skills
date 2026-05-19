@@ -1,6 +1,7 @@
 ---
 name: "internal-narrative"
-description: "Build and maintain one coherent company story across all audiences — employees, investors, customers, candidates, and partners. Detects narrative contradictions and ensures the same truth is framed for each audience's needs. Use when preparing investor updates, all-hands presentations, board communications, recruiting narratives, crisis communications, or when user mentions company narrative, messaging consistency, storytelling, all-hands, investor update, or crisis communication."
+description: "Build and maintain one coherent company story across all audiences — employees, investors, customers, candidates, a. Triggers: 'use internal-narrative', 'internal narrative', 'internal-narrative task."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -129,16 +130,16 @@ When the narrative breaks — someone leaves publicly, a product fails, a securi
 **Crisis communication sequence:**
 
 **Hour 0–4 (internal first):**
-1. CEO or relevant leader sends an internal message
-2. Acknowledge what happened factually
-3. State what you know and what you don't know yet
-4. Tell people what you're doing about it
-5. Tell people what they should do if they're asked about it
+1. CEO or relevant leader sends an internal message → verify: step output matches expected outcome
+2. Acknowledge what happened factually → verify: step output matches expected outcome
+3. State what you know and what you don't know yet → verify: step output matches expected outcome
+4. Tell people what you're doing about it → verify: step output matches expected outcome
+5. Tell people what they should do if they're asked about it → verify: user confirms
 
 **Hour 4–24 (external if needed):**
-1. External statement (press, social) only if the event is public
-2. Consistent with the internal message — same facts, audience-appropriate framing
-3. Legal review if any claims or liability involved
+1. External statement (press, social) only if the event is public → verify: step output matches expected outcome
+2. Consistent with the internal message — same facts, audience-appropriate framing → verify: step output matches expected outcome
+3. Legal review if any claims or liability involved → verify: step output matches expected outcome
 
 **What not to do in a crisis:**
 - Silence: letting rumors fill the vacuum
@@ -195,3 +196,31 @@ Run before any major external communication:
 ## Detailed References
 - `references/narrative-frameworks.md` — Storytelling structures, founder narrative, bad news delivery, all-hands templates
 - `templates/all-hands-template.md` — All-hands presentation template
+
+## When NOT to use
+
+- Task is unrelated to internal narrative — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for internal narrative
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving internal narrative
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,6 @@
 ---
 name: stitch-react-native-components
-description: Converts Stitch mobile designs into React Native / Expo components — TypeScript, StyleSheet, Expo Router, dark mode via useColorScheme, and proper touch targets. Cross-platform iOS and Android.
+description: "Converts Stitch mobile designs into React Native / Expo components — TypeScript. Triggers: 'use stitch-react-native-components', 'stitch react native components', 'stitch-react-native-components task."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -33,7 +33,7 @@ Only call this skill for **MOBILE** Stitch designs. If the screenshot shows a de
 
 1. `list_tools` → find Stitch prefix
 2. `[prefix]:get_screen` → fetch design JSON
-3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"`
+3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"` → verify: file content matches expected shape
 4. Check `screenshot.downloadUrl` — verify it's a mobile layout (narrow, vertical)
 
 ## Step 2: Project structure
@@ -309,10 +309,10 @@ const styles = StyleSheet.create({
 ## Execution steps
 
 1. **Verify** it's a MOBILE Stitch design
-2. **Data layer** — create `src/data/mockData.ts` from the static content in the design
-3. **Tokens** — create `src/theme/tokens.ts` from extracted colors, and `useTheme.ts`
-4. **Components** — convert each visual section to a component using the mapping rules above
-5. **Screen** — compose components in the Expo Router screen file (`app/(tabs)/index.tsx`)
+2. **Data layer** — create `src/data/mockData.ts` from the static content in the design → verify: output file exists + no syntax error
+3. **Tokens** — create `src/theme/tokens.ts` from extracted colors, and `useTheme.ts` → verify: output file exists + no syntax error
+4. **Components** — convert each visual section to a component using the mapping rules above → verify: step output matches expected outcome
+5. **Screen** — compose components in the Expo Router screen file (`app/(tabs)/index.tsx`) → verify: step output matches expected outcome
 6. **Verify** — run `npx expo start` and test on both iOS Simulator and Android Emulator
 
 ## Troubleshooting
@@ -331,3 +331,48 @@ const styles = StyleSheet.create({
 - `resources/component-template.tsx` — Boilerplate RN component
 - `resources/architecture-checklist.md` — Pre-ship checklist
 - `scripts/fetch-stitch.sh` — Reliable GCS HTML downloader
+
+## When NOT to use
+
+- Web target (Vite/React/Next.js/HTML/Svelte) — use the matching skill
+- iOS-only with no Android — `stitch-swiftui-components` is the better fit
+- WebView-only mobile shell — use `stitch-html-components` (lighter)
+- Pre-existing UIKit app — RN integration is non-trivial, scope carefully
+- Heavy native-module dependency (camera, BLE) — RN possible but requires Expo dev client / bare workflow
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Inline styles work in RN" | Use `StyleSheet.create` — better perf and required for theming consistency |
+| "44px tap targets, copy from web" | iOS HIG = 44pt, Android Material = 48dp; check both with platform-specific minTouchSize |
+| "Skip dark mode toggle" | Use `useColorScheme()` + theme tokens — required for App Store visibility lately |
+| "Hard-code asset URIs" | Use `require()` for local assets + `Image.prefetch` for remote — required for offline reliability |
+
+## Output Contract
+
+Finished output must contain:
+- `.tsx` components using `StyleSheet.create`, no inline styles for static rules
+- TypeScript types for every component's props
+- Dark mode via `useColorScheme()` + theme provider
+- Expo Router file conventions (`app/_layout.tsx`, `app/(tabs)/index.tsx`, etc.)
+- Touch targets minimum 44pt (iOS) / 48dp (Android), verified with `hitSlop` where icons are smaller
+- Accessibility props: `accessibilityLabel`, `accessibilityRole` on all interactive elements
+- Component template followed (`resources/component-template.tsx`)
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

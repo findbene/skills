@@ -1,6 +1,6 @@
 ---
 name: stitch-ui-design-variants
-description: Generates 3 alternative Stitch prompts for A/B testing screen concepts — vary layout, visual style, or content while keeping the underlying information architecture consistent.
+description: "Generates 3 alternative Stitch prompts for A/B testing screen concepts — vary layout, visual s. Triggers: 'use stitch-ui-design-variants', 'stitch ui design variants', 'stitch-ui-design-variants task."
 allowed-tools: []
 ---
 
@@ -19,12 +19,12 @@ You are a Variant Generator. Given a base design spec or prompt, you produce 3 d
 Before generating variants, check which path is available:
 
 **Native path** — if `generate_variants` MCP tool is available AND you have a screenId:
-1. Use `stitch-mcp-generate-variants` (1 API call, more control)
-2. Map user language to `creativeRange`:
+1. Use `stitch-mcp-generate-variants` (1 API call, more control) → verify: output exists + parses without error
+2. Map user language to `creativeRange`: → verify: step output matches expected outcome
    - "subtle", "minor tweaks", "polish" → `REFINE`
    - "alternatives", "different options", "explore" → `EXPLORE`
    - "radical", "completely different", "reimagine" → `REIMAGINE`
-3. Map focus to `aspects`:
+3. Map focus to `aspects`: → verify: step output matches expected outcome
    - "layouts", "arrangement" → `[LAYOUT]`
    - "colors", "palette" → `[COLOR_SCHEME]`
    - "images", "photos" → `[IMAGES]`
@@ -32,8 +32,8 @@ Before generating variants, check which path is available:
    - "copy", "text content" → `[TEXT_CONTENT]`
 
 **Text-prompt fallback** — if no MCP tools OR no existing screen:
-1. Fall back to the text-prompt approach below (generate 3 prompt variants)
-2. Each variant still needs to be generated separately via `generate_screen_from_text`
+1. Fall back to the text-prompt approach below (generate 3 prompt variants) → verify: output exists + parses without error
+2. Each variant still needs to be generated separately via `generate_screen_from_text` → verify: output exists + parses without error
 
 The native path is preferred when available — it's 1 API call instead of 3, and produces more controlled variations.
 
@@ -125,3 +125,28 @@ Full-width single column, no sidebar. Top nav bar only. Stats in a horizontal st
 
 Bare, text-forward KPI strip. Full-width area chart with very light fill. Simple flat list table, no alternating rows.
 ```
+
+## When NOT to use
+
+- Task is unrelated to stitch ui design variants — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Ui Design Variants needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch ui design variants
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

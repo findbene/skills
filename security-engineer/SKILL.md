@@ -1,6 +1,7 @@
 ---
 name: security-engineer
-description: Application security engineer specializing in STRIDE threat modeling, OWASP Top 10 vulnerability detection, secure code review, and FastAPI/Python security hardening. Use this skill any time new code is being written or reviewed, an API endpoint is being designed, authentication is being discussed, or a security concern is raised. Trigger immediately on: "security", "vulnerability", "OWASP", "auth", "injection", "XSS", "CSRF", "hardening", "API key", "secret", "authentication", "authorization", "is this safe", "security review", "penetration", "threat model", "input validation", "SQL injection". Also trigger proactively whenever writing new FastAPI endpoints or designing anything that accepts user input — security review should happen before code ships, not after.
+description: 'Application security engineer specializing in STRIDE threat modeling, OWASP Top 10 vulnerability detection, secure code review,. Triggers: "use security-engineer", "security engineer", "security task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Security Engineer
@@ -103,3 +104,40 @@ ALTER TABLE agent_outputs ENABLE ROW LEVEL SECURITY;
 - MTTR for critical findings < 48 hours
 - No secrets committed to version control (ever)
 - 100% of PRs pass secret scan before merge
+
+## When NOT to use
+
+- Task is unrelated to security engineer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Security Engineer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for security engineer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving security engineer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

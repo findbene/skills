@@ -1,6 +1,7 @@
 ---
 name: agent-memory-system
-description: "Persistent long-term memory implementation for Claude Code using file-based memory stores, session extraction, and knowledge graphs. Use this skill any time Claude needs to remember things across sessions, persistent memory needs to be set up, or context loss prevention needs to be implemented. Trigger immediately on: \"memory\", \"remember this\", \"persistent memory\", \"agent memory\", \"memory system\", \"context loss\", \"save this for later\", \"memory graph\", \"knowledge graph\", \"session memory\", \"long-term memory\", \"memory extraction\", \"cross-session\". If someone says \"remember this for next time\" or \"set up memory for the agent\" this skill MUST trigger."
+description: 'Persistent long-term memory implementation for Claude Code using file-based memory stores, session extraction,. Triggers: "use agent-memory-system", "build agent memory system", "agent memory system".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Agent Memory System
@@ -50,11 +51,11 @@ Set up a hook that monitors context window usage:
 **Trigger:** ~80% of context consumed (before auto-compact)
 
 **Action:**
-1. Hook sends a prompt to Claude Code
-2. Claude asks: "Do you want to save a memory about this conversation?"
-3. If yes, triggers REM Sleep background subagent
-4. Subagent reads entire transcript, distills key insights
-5. Stores insights in correct areas of persistent memory database
+1. Hook sends a prompt to Claude Code → verify: step output matches expected outcome
+2. Claude asks: "Do you want to save a memory about this conversation?" → verify: user confirms
+3. If yes, triggers REM Sleep background subagent → verify: step output matches expected outcome
+4. Subagent reads entire transcript, distills key insights → verify: file content matches expected shape
+5. Stores insights in correct areas of persistent memory database → verify: step output matches expected outcome
 
 This prevents memory loss during context compaction — the single biggest cause of lost work in long agent sessions.
 
@@ -78,9 +79,9 @@ backlinks:
 Backlinks enable semantic navigation — when Claude reads a note, it knows where to find related information without searching the entire tree.
 
 ### Setup Steps
-1. Create an Obsidian skill that teaches Claude Code frontmatter usage, Markdown file creation in your Vault, and backlink navigation
-2. Set up slash commands for working with your Vault
-3. Set up subagents for reading, creating, and organizing notes
+1. Create an Obsidian skill that teaches Claude Code frontmatter usage, Markdown file creation in your Vault, and backlink navigation → verify: output exists + parses without error
+2. Set up slash commands for working with your Vault → verify: step output matches expected outcome
+3. Set up subagents for reading, creating, and organizing notes → verify: file content matches expected shape
 
 ## Git-Based Memory
 
@@ -97,7 +98,46 @@ Combine Git with the memory database: memory files live in a Git repo, each addi
 
 The quality of your memory system determines the quality of your AI output:
 
-1. **Collect data consistently** — Store observations about daily tasks
-2. **Structure for both humans AND agents** — Files should be readable by both
-3. **Domain-specific knowledge is your edge** — Everyone uses the same models; your unique data makes the difference
-4. **Shape matters** — How you format and organize data directly affects agent performance
+1. **Collect data consistently** — Store observations about daily tasks → verify: user confirms
+2. **Structure for both humans AND agents** — Files should be readable by both → verify: file content matches expected shape
+3. **Domain-specific knowledge is your edge** — Everyone uses the same models; your unique data makes the difference → verify: step output matches expected outcome
+4. **Shape matters** — How you format and organize data directly affects agent performance → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Single-session work that fits in current context — no persistence needed
+- Cross-project user preferences/facts → use `~/.claude/memory/` directly (the `remember` skill)
+- Project-state and active task tracking → use `.agentic/progress.md`
+- Throwaway scratch notes during a debugging session — TaskCreate is enough
+- Secrets, credentials, or PII — memory files are not a secret store
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll just dump the whole transcript as memory" | Raw transcripts rot context; distill into structured notes |
+| "One giant memory.md file is fine" | Flat files don't scale; hierarchy + backlinks make recall cheap |
+| "Skip the REM-sleep extraction this once" | The session you skip is the one with the key decision you'll need later |
+| "Memory is the same as progress.md" | Memory = durable cross-session knowledge. Progress = current task state. Don't merge them. |
+
+## Output Contract
+
+Done when:
+- Hierarchical memory tree exists with at least projects/, personal/, technical/, business/ branches
+- REM-sleep extraction subagent or hook is wired and triggers near context limit
+- Recall subagent path is defined for session startup
+- Frontmatter convention (tags + backlinks) documented for the vault
+- Git commit cadence chosen so memory has a time dimension
+- No secrets stored in the tree
+
+## Examples
+
+### Example 1 — End-of-session extraction
+- Input: User finished a long debugging session on project-a's auth flow; context is near 80%
+- Action: Trigger REM-sleep subagent to read the transcript, extract decisions ("we chose refresh-token rotation over sliding sessions because..."), write to `memory/projects/project-a/architecture-decisions.md` with backlinks to related notes
+- Output: New/updated memory file committed with timestamp; next session's Recall subagent will surface this when project-a is opened
+
+### Example 2 — Fresh session on a known project
+- Input: User opens a new Claude Code session on project-b
+- Action: Recall subagent searches `memory/projects/project-b/` and its backlinked notes, returns a digest of decisions, gotchas, and current state to the main agent's first turn
+- Output: Main agent starts with full prior context without burning the user's tokens on re-explaining

@@ -1,14 +1,15 @@
 ---
 name: canvas-design
-description: Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
+description: "Create beautiful visual art in .png and .pdf documents using design philosophy. Triggers: 'use canvas-design', 'canvas design', 'canvas-design task'."
+allowed-tools: Glob, Grep, Read
 license: Complete terms in LICENSE.txt
 ---
 
 These are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.
 
 Complete this in two steps:
-1. Design Philosophy Creation (.md file)
-2. Express by creating it on a canvas (.pdf file or .png file)
+1. Design Philosophy Creation (.md file) → verify: step output matches expected outcome
+2. Express by creating it on a canvas (.pdf file or .png file) → verify: step output matches expected outcome
 
 First, undertake this task:
 
@@ -128,3 +129,43 @@ Take a second pass. Go back to the code and refine/polish further to make this a
 ## MULTI-PAGE OPTION
 
 To create additional pages when requested, create more creative pages along the same lines as the design philosophy but distinctly different as well. Bundle those pages in the same .pdf or many .pngs. Treat the first page as just a single page in a whole coffee table book waiting to be filled. Make the next pages unique twists and memories of the original. Have them almost tell a story in a very tasteful way. Exercise full creative freedom.
+
+## When NOT to use
+
+- Functional UI / product design — use `frontend-design` or `ui-to-code`
+- Photo-realistic images — use `nano-banana-pro` or another generative image tool
+- Pitch decks, slides, or content-heavy documents — use `pitch-deck` or `slides`
+- Brand guideline systems (typography spec, components) — use `brand-guidelines`
+- Quick logo/icon work — too lightweight for the philosophy-driven flow
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the philosophy .md and go straight to the canvas" | Without the manifesto, output devolves to generic AI-shape composition |
+| "Add 6 fonts and 10 colors for richness" | Visual noise = amateur; restraint is the entire point |
+| "Use Helvetica, it's safe" | Default fonts read as undesigned; pick from `./canvas-fonts` or download intentionally |
+| "Good enough on the first pass" | Skill mandates a second refinement pass; first pass is never the deliverable |
+
+## Output Contract
+
+Done when:
+- Philosophy `.md` file written: named movement + 4-6 paragraph manifesto stressing craftsmanship
+- Single-page `.pdf` or `.png` artifact produced (or multi-page bundle if requested)
+- Subtle conceptual reference woven in (not literal, not announcing itself)
+- Typography uses a downloaded/sourced font from `./canvas-fonts` — never default Helvetica
+- No overlapping elements, all content within margins
+- Second refinement pass completed before declaring done
+- Limited, intentional color palette
+
+## Examples
+
+### Example 1 — Poster for a quiet ceramics studio launch
+- Input: "Make a launch poster for our minimalist ceramics studio"
+- Action: Write `analog-meditation.md` philosophy (paper grain, breathing room, Japanese photobook aesthetic), choose serif from `./canvas-fonts`, compose single PDF page with vast negative space + small whispered date label + subtle texture, second pass to tighten margins
+- Output: `analog-meditation.md` + `launch-poster.pdf`, palette of 3 muted tones, no overlapping elements
+
+### Example 2 — Multi-page coffee-table book riff
+- Input: "Make me a 5-page art booklet inspired by data dashboards but as art"
+- Action: Write `chromatic-language.md` philosophy, compose 5 PNGs each a variant — same chromatic system, distinct spatial composition, sparse clinical typography acting as imaginary legend
+- Output: 5 PNGs + philosophy `.md`; pages share visual DNA but tell a quiet story across them

@@ -1,6 +1,7 @@
 ---
 name: waapi
-description: Web Animations API adapter patterns for HyperFrames. Use when authoring element.animate() motion, Animation currentTime seeking, document.getAnimations(), KeyframeEffect timing, fill modes, or native browser animations that must render deterministically in HyperFrames.
+description: "Web Animations API adapter patterns for HyperFrames. Triggers: 'use waapi', 'waapi', 'waapi task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Web Animations API for HyperFrames
@@ -92,3 +93,42 @@ npx hyperframes validate
 - HyperFrames adapter source: `packages/core/src/runtime/adapters/waapi.ts`.
 - MDN Web Animations API guide: https://developer.mozilla.org/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
 - MDN `Animation.currentTime`: https://developer.mozilla.org/en-US/docs/Web/API/Animation/currentTime
+
+## When NOT to use
+
+- GSAP-based timelines in HyperFrames — use `gsap` skill
+- Anime.js timelines — use `animejs`
+- Lottie-driven animations — use `lottie`
+- General web animations not in HyperFrames — use `css-animations` or `animate`
+- Live (non-seeked) interactive animation — WAAPI works but the seek-based HyperFrames contract does not apply
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Use callbacks / promises for animation state" | HyperFrames seek-based render fails with async — keep all setup synchronous |
+| "Use infinite iterations for looping" | HyperFrames renders finite durations; infinite loops are invalid |
+| "Skip `fill: 'both'` to save bytes" | Without `fill: both`, seeked states do not persist — animation appears broken at start/end |
+| "Let animations auto-play" | They must be paused after creation (or by the adapter on first seek); auto-playing breaks deterministic render |
+
+## Output Contract
+
+Finished output must contain:
+- All `element.animate(...)` calls invoked synchronously during composition init
+- Finite `duration` and `iterations` (no `Infinity`)
+- `fill: 'both'` on every animation
+- Animations paused after creation OR adapter explicitly pauses on first seek
+- No callbacks, promises, or timers in render-critical paths
+- HyperFrames `data-start`, `data-duration`, `data-track-index` attributes set on animated elements
+
+## Examples
+
+**Example 1 — Single element fade-in clip**
+- Input: "Animate an orb that fades and slides in over 3 seconds"
+- Action: Create `<div>` with HyperFrames data attrs → call `element.animate([...], { duration: 3000, iterations: 1, fill: 'both' })` → pause immediately
+- Output: HTML + script block, animation seeded synchronously, HyperFrames seeks correctly
+
+**Example 2 — Multi-keyframe with offset**
+- Input: "Title slides up and fades with an emphasis hold at 35%"
+- Action: Define 3 keyframes (start, offset:0.35 with opacity:1, end) → finite duration + `fill: 'both'` → pause
+- Output: Element + animation with 3 keyframes, HyperFrames seeks to render the hold frame at 35% reliably

@@ -1,6 +1,7 @@
 ---
 name: hyperframes-cli
-description: HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.
+description: "HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, inspect), preview, render, and enviro. Triggers: 'use hyperframes-cli', 'hyperframes cli', 'hyperframes-cli task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # HyperFrames CLI
@@ -9,12 +10,12 @@ Everything runs through `npx hyperframes`. Requires Node.js >= 22 and FFmpeg.
 
 ## Workflow
 
-1. **Scaffold** — `npx hyperframes init my-video`
-2. **Write** — author HTML composition (see the `hyperframes` skill)
-3. **Lint** — `npx hyperframes lint`
-4. **Visual inspect** — `npx hyperframes inspect`
-5. **Preview** — `npx hyperframes preview`
-6. **Render** — `npx hyperframes render`
+1. **Scaffold** — `npx hyperframes init my-video` → verify: step output matches expected outcome
+2. **Write** — author HTML composition (see the `hyperframes` skill) → verify: output file exists + no syntax error
+3. **Lint** — `npx hyperframes lint` → verify: step output matches expected outcome
+4. **Visual inspect** — `npx hyperframes inspect` → verify: step output matches expected outcome
+5. **Preview** — `npx hyperframes preview` → verify: step output matches expected outcome
+6. **Render** — `npx hyperframes render` → verify: step output matches expected outcome
 
 Lint and inspect before preview. `lint` catches missing `data-composition-id`, overlapping tracks, and unregistered timelines. `inspect` opens the rendered composition in headless Chrome, seeks through the timeline, and reports text spilling out of bubbles/containers or off the canvas.
 
@@ -142,3 +143,40 @@ npx hyperframes compositions   # list compositions in project
 npx hyperframes docs           # open documentation
 npx hyperframes benchmark .    # benchmark render performance
 ```
+
+## When NOT to use
+
+- Task is unrelated to hyperframes cli — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Hyperframes Cli needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for hyperframes cli
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving hyperframes cli
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

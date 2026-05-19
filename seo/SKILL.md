@@ -1,16 +1,7 @@
 ---
 name: seo
-description: >
-  Universal SEO orchestrator for any website or business. Use this skill for ANY
-  SEO-related request — full audits, technical checks, content quality, schema
-  markup, sitemaps, Core Web Vitals, AI Overviews (GEO), local SEO, international
-  SEO, programmatic SEO, image optimization, and competitor comparison pages.
-  Orchestrates 13 specialized sub-skills and 8 parallel subagents. Make sure to
-  invoke this skill whenever the user mentions: "SEO", "audit my site", "why am I
-  not ranking", "improve my Google rankings", "schema", "Core Web Vitals", "sitemap",
-  "E-E-A-T", "AI Overviews", "GEO", "technical SEO", "content quality", "page
-  speed", "structured data", "local pack", "rich results", "hreflang", or any
-  question about search engine visibility — even if they don't say "SEO" explicitly.
+description: "Universal SEO orchestrator for any website or business. Trigger: audit my site, why am I not ranking, improve my Google rankings, schema, Core Web Vitals, sitemap, E-E-A-T, AI Overviews, GEO, technic."
+allowed-tools: Glob, Grep, Read
 user-invokable: true
 argument-hint: "[command] [url]"
 ---
@@ -44,10 +35,10 @@ e-commerce, publishers, agencies). Orchestrates 13 specialized sub-skills and 8 
 ## Orchestration Logic
 
 When the user invokes `/seo audit`, delegate to subagents in parallel:
-1. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
-2. Spawn subagents: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual, seo-geo
-3. Collect results and generate unified report with SEO Health Score (0-100)
-4. Create prioritized action plan (Critical -> High -> Medium -> Low)
+1. Detect business type (SaaS, local, ecommerce, publisher, agency, other) → verify: step output matches expected outcome
+2. Spawn subagents: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual, seo-geo → verify: step output matches expected outcome
+3. Collect results and generate unified report with SEO Health Score (0-100) → verify: output exists + parses without error
+4. Create prioritized action plan (Critical -> High -> Medium -> Low) → verify: output exists + parses without error
 
 For individual commands, load the relevant sub-skill directly.
 
@@ -105,21 +96,21 @@ Weighted aggregate of all categories:
 
 This skill orchestrates 13 specialized sub-skills (+ 2 extensions):
 
-1. **seo-audit** -- Full website audit with parallel delegation
-2. **seo-page** -- Deep single-page analysis
-3. **seo-technical** -- Technical SEO (9 categories)
-4. **seo-content** -- E-E-A-T and content quality
-5. **seo-schema** -- Schema markup detection and generation
-6. **seo-images** -- Image optimization
-7. **seo-sitemap** -- Sitemap analysis and generation
-8. **seo-geo** -- AI Overviews / GEO optimization
-9. **seo-plan** -- Strategic planning with templates
-10. **seo-programmatic** -- Programmatic SEO analysis and planning
-11. **seo-competitor-pages** -- Competitor comparison page generation
-12. **seo-hreflang** -- Hreflang/i18n SEO audit and generation
-13. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location)
-14. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
-15. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
+1. **seo-audit** -- Full website audit with parallel delegation → verify: findings count surfaced
+2. **seo-page** -- Deep single-page analysis → verify: step output matches expected outcome
+3. **seo-technical** -- Technical SEO (9 categories) → verify: step output matches expected outcome
+4. **seo-content** -- E-E-A-T and content quality → verify: step output matches expected outcome
+5. **seo-schema** -- Schema markup detection and generation → verify: step output matches expected outcome
+6. **seo-images** -- Image optimization → verify: step output matches expected outcome
+7. **seo-sitemap** -- Sitemap analysis and generation → verify: step output matches expected outcome
+8. **seo-geo** -- AI Overviews / GEO optimization → verify: step output matches expected outcome
+9. **seo-plan** -- Strategic planning with templates → verify: step output matches expected outcome
+10. **seo-programmatic** -- Programmatic SEO analysis and planning → verify: step output matches expected outcome
+11. **seo-competitor-pages** -- Competitor comparison page generation → verify: step output matches expected outcome
+12. **seo-hreflang** -- Hreflang/i18n SEO audit and generation → verify: findings count surfaced
+13. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location) → verify: step output matches expected outcome
+14. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension) → verify: step output matches expected outcome
+15. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension) → verify: step output matches expected outcome
 
 ## Subagents
 
@@ -143,3 +134,40 @@ For parallel analysis during audits:
 | URL unreachable | Report the error and suggest the user verify the URL. Do not attempt to guess site content. |
 | Sub-skill fails during audit | Report partial results from successful sub-skills. Clearly note which sub-skill failed and why. Suggest re-running the failed sub-skill individually. |
 | Ambiguous business type detection | Present the top two detected types with supporting signals. Ask the user to confirm before proceeding with industry-specific recommendations. |
+
+## When NOT to use
+
+- Task is unrelated to seo — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

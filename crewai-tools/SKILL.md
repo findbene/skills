@@ -1,6 +1,7 @@
 ---
 name: crewai-tools
-description: "CrewAI multi-agent workflow orchestration via MCP for running, creating, and managing CrewAI crews and tasks. Use this skill any time CrewAI agents need to be orchestrated, multi-agent crews need to be built, or CrewAI workflows need to be run via MCP tools. Trigger immediately on: \"CrewAI\", \"crew\", \"crewai\", \"CrewAI workflow\", \"multi-agent crew\", \"CrewAI task\", \"CrewAI agent\", \"crewai MCP\", \"run crew\", \"CrewAI orchestration\", \"agent crew\", \"build a crew\", \"CrewAI tools\". If someone says \"build a CrewAI workflow\" or \"run this with CrewAI\" this skill MUST trigger."
+description: 'CrewAI multi-agent workflow orchestration via MCP for running, creating, and managing CrewAI crews and tasks. Triggers: "use crewai-tools", "crewai tools", "crewai task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # CrewAI Tools
@@ -78,15 +79,15 @@ uvx mcp-crew-ai --agents agents.yml --tasks tasks.yml --variables '{"year": 2026
 ## Common Workflow Patterns
 
 ### Research + Writing Pipeline
-1. Define researcher and writer agents
-2. Create research task assigned to researcher
-3. Create writing task assigned to writer (uses research output)
-4. Run sequentially
+1. Define researcher and writer agents → verify: output file exists + no syntax error
+2. Create research task assigned to researcher → verify: output file exists + no syntax error
+3. Create writing task assigned to writer (uses research output) → verify: output file exists + no syntax error
+4. Run sequentially → verify: command exit code 0
 
 ### Code Review Team
-1. Define architect, developer, reviewer agents
-2. Create design, implementation, review tasks
-3. Run hierarchically with architect as manager
+1. Define architect, developer, reviewer agents → verify: step output matches expected outcome
+2. Create design, implementation, review tasks → verify: output file exists + no syntax error
+3. Run hierarchically with architect as manager → verify: command exit code 0
 
 ## Gotchas
 - Requires agents.yml and tasks.yml files — the MCP server loads these at startup
@@ -94,3 +95,40 @@ uvx mcp-crew-ai --agents agents.yml --tasks tasks.yml --variables '{"year": 2026
 - Sequential process runs tasks in order; hierarchical requires a manager agent
 - The server runs in STDIO mode for local development
 - Requires Python 3.11+ and CrewAI installed
+
+## When NOT to use
+
+- Task is unrelated to crewai tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Crewai Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for crewai tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving crewai tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

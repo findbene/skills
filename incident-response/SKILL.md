@@ -1,6 +1,7 @@
 ---
 name: "incident-response"
-description: "Use when a security incident has been detected or declared and needs classification, triage, escalation path determination, and forensic evidence collection. Covers SEV1-SEV4 classification, false positive filtering, incident taxonomy, and NIST SP 800-61 lifecycle."
+description: 'Use when a security incident has been detected or declared and needs classification, triage, escalation path determination, and. Triggers: "use incident-response", "incident response", "incident task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Incident Response
@@ -175,11 +176,11 @@ Evidence collection follows the DFRWS six-phase framework and the principle of v
 
 ### Volatile Evidence — Collect First
 
-1. Live memory (RAM dump) — lost on reboot
-2. Running processes and open network connections (`netstat`, `ps`)
-3. Logged-in users and active sessions
-4. System uptime and current time (for timeline anchoring)
-5. Environment variables and loaded kernel modules
+1. Live memory (RAM dump) — lost on reboot → verify: step output matches expected outcome
+2. Running processes and open network connections (`netstat`, `ps`) → verify: file content matches expected shape
+3. Logged-in users and active sessions → verify: step output matches expected outcome
+4. System uptime and current time (for timeline anchoring) → verify: step output matches expected outcome
+5. Environment variables and loaded kernel modules → verify: file content matches expected shape
 
 ### Chain of Custody Requirements
 
@@ -302,13 +303,13 @@ done
 
 ## Anti-Patterns
 
-1. **Starting the notification clock at investigation completion** — Regulatory clocks (GDPR 72 hours, PCI 24 hours) start at discovery, not investigation completion. Declaring late exposes the organization to maximum penalties even if the incident itself was minor.
-2. **Containing before collecting volatile evidence** — Rebooting or isolating a system destroys RAM, running processes, and active connections. Forensic collection of volatile evidence must happen in parallel with containment, never after.
-3. **Skipping false positive verification before escalation** — Escalating every alert to SEV1 degrades SOC credibility and causes alert fatigue. Always run false positive filters before paging the CISO.
-4. **Undocumented incident command decisions** — Every decision made during a SEV1, including decisions made under uncertainty, must be logged in the evidence chain with timestamp and rationale. Undocumented decisions cannot be defended in regulatory investigations.
-5. **Treating incident closure as investigation completion** — Incidents are closed when eradication and recovery are complete, not when the investigation is done. The forensic report and regulatory submissions may continue after operational closure.
-6. **Single-source classification** — Classifying an incident from a single data source (one SIEM alert) without corroborating evidence frequently leads to misclassification. Collect at least two independent signals before declaring SEV1.
-7. **Bypassing human approval gates for containment** — Automated containment actions (network isolation, credential revocation) taken without human approval can cause production outages, destroy evidence, and create liability. Human approval is non-negotiable for all mutating containment actions.
+1. **Starting the notification clock at investigation completion** — Regulatory clocks (GDPR 72 hours, PCI 24 hours) start at discovery, not investigation completion. Declaring late exposes the organization to maximum penalties even if the incident itself was minor. → verify: step output matches expected outcome
+2. **Containing before collecting volatile evidence** — Rebooting or isolating a system destroys RAM, running processes, and active connections. Forensic collection of volatile evidence must happen in parallel with containment, never after. → verify: command exit code 0
+3. **Skipping false positive verification before escalation** — Escalating every alert to SEV1 degrades SOC credibility and causes alert fatigue. Always run false positive filters before paging the CISO. → verify: command exit code 0
+4. **Undocumented incident command decisions** — Every decision made during a SEV1, including decisions made under uncertainty, must be logged in the evidence chain with timestamp and rationale. Undocumented decisions cannot be defended in regulatory investigations. → verify: step output matches expected outcome
+5. **Treating incident closure as investigation completion** — Incidents are closed when eradication and recovery are complete, not when the investigation is done. The forensic report and regulatory submissions may continue after operational closure. → verify: step output matches expected outcome
+6. **Single-source classification** — Classifying an incident from a single data source (one SIEM alert) without corroborating evidence frequently leads to misclassification. Collect at least two independent signals before declaring SEV1. → verify: step output matches expected outcome
+7. **Bypassing human approval gates for containment** — Automated containment actions (network isolation, credential revocation) taken without human approval can cause production outages, destroy evidence, and create liability. Human approval is non-negotiable for all mutating containment actions. → verify: output exists + parses without error
 
 ---
 
@@ -320,3 +321,43 @@ done
 | [cloud-security](../cloud-security/SKILL.md) | Cloud posture findings (IAM compromise, S3 exposure) may trigger incident classification |
 | [red-team](../red-team/SKILL.md) | Red team findings validate detection coverage; confirmed gaps become hunting hypotheses |
 | [security-pen-testing](../security-pen-testing/SKILL.md) | Pen test vulnerabilities exploited in the wild escalate to incident-response for active incident handling |
+
+## When NOT to use
+
+- Reliability / production-pipeline incident (not security) — use `incident-commander`
+- Proactive threat hunting (no declared incident) — use `threat-detection`
+- Post-incident lessons-learned only — use `postmortem`
+- Compliance gap analysis — use `compliance-auditor` or `soc2-compliance`
+- Vulnerability scanning before exploitation — use `security-pen-testing` / `cloud-security`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Wipe the affected host immediately" | Destroys forensic evidence; isolate first, image second, wipe last |
+| "We do not need to notify the regulator, the breach was small" | Regulators set thresholds (GDPR: 72h, HIPAA, etc.); legal/compliance must decide, not engineering |
+| "False positive, close ticket" | Document the false-positive reasoning; closing silently means the next analyst repeats the work |
+| "Just one person handles it" | Incidents need an IC + scribe + technical lead at minimum; one person hides mistakes |
+
+## Output Contract
+
+Finished output must contain:
+- Severity classification (per skill's framework)
+- False-positive filter applied with rationale (kept or dismissed)
+- Forensic evidence preserved (logs, images, hashes) before any mitigation
+- Escalation path determined (internal IR team, exec, legal, regulator)
+- Regulatory notification obligations evaluated (GDPR, HIPAA, PCI as applicable)
+- Containment steps documented in order
+- Hand-off to postmortem or compliance team queued
+
+## Examples
+
+**Example 1 — Compromised IAM key alert**
+- Input: "AWS GuardDuty flagged anomalous API calls from a long-dormant IAM key"
+- Action: Classify (Medium-High) → preserve CloudTrail logs → rotate key → audit blast radius (S3 access, RDS) → if PII access detected, escalate to legal for GDPR evaluation
+- Output: Incident ticket, evidence pack, key rotated, blast-radius report, GDPR-decision routed
+
+**Example 2 — Phishing-driven account takeover**
+- Input: "User reports unauthorized purchase on their account"
+- Action: Triage → check login history → preserve session logs → suspend account → force password + MFA reset → audit account activity → check for lateral movement
+- Output: Severity Medium, contained, evidence preserved, customer notified, postmortem queued, fraud team handoff

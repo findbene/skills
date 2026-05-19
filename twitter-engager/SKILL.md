@@ -1,6 +1,7 @@
 ---
 name: twitter-engager
-description: X/Twitter real-time engagement specialist for thought leadership, viral thread creation, and community building. Use this skill any time X/Twitter content needs to be created for @CitadelAI or Tier 1 conservative content channels, when thread strategy is needed, or when crisis response is required. Trigger immediately on: "Twitter", "X post", "tweet", "thread", "X strategy", "Twitter engagement", "trending", "Twitter spaces", "reply strategy". Especially trigger for Tier 1 conservative content distribution where X is a priority platform.
+description: 'X/Twitter real-time engagement specialist for thought leadership, viral thread creation, and community building. Triggers: "use twitter-engager", "twitter engager", "twitter task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Twitter Engager
@@ -59,3 +60,42 @@ Final tweet: CTA + follow prompt
 - Reply rate: 80% response to mentions within 2 hours
 - Thread performance: 100+ retweets for educational content
 - Follower growth: 10% monthly with high-quality followers
+
+## When NOT to use
+
+- Broad-scope X growth strategy and profile audit — use `x-twitter-growth`
+- Multi-platform content (LinkedIn + Instagram + X) — use `social-content`
+- Long-form content that feeds tweets — use `content-production`
+- Paid promotion / Twitter Ads — use `paid-ads`
+- Pure copywriting without real-time engagement angle — use `copywriting`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Reply to mentions within 24 hours is fine" | Skill's rule is <2 hours during business; slow replies kill engagement velocity |
+| "Schedule a week of tweets and ignore inbound" | Engagement is the entire point — broadcasting alone underperforms by ~3x |
+| "Add a link in the main tweet, it is a useful link" | Algorithm demotes; use "link in replies" pattern |
+| "Post promotional content 50% of the time" | Skill mandates ~10% promotional; higher ratio drops follower growth |
+
+## Output Contract
+
+Finished output must contain:
+- Content piece aligned to the 25/20/20/15/10/10 mix proportions
+- For threads: explicit hook + value-per-tweet + payoff + CTA structure
+- Reply strategy noted (if main piece) — which audience to engage in replies
+- Tone check (authentic, conversational, no jargon-spew)
+- Crisis-response protocol noted if reputation-sensitive topic
+- Posting time recommended based on audience time zone
+
+## Examples
+
+**Example 1 — Craft a thought-leadership thread**
+- Input: "Write a thread on why most startups fail at distribution"
+- Action: Hook tweet (specific + contrarian) → 7-tweet body with one insight per tweet → contrarian conclusion → follow CTA
+- Output: 9-tweet thread, each <280 chars, hook tested against curiosity heuristic, "link in replies" placeholder
+
+**Example 2 — Reply strategy for a viral mention**
+- Input: "A 500K-follower account just quoted my product critically. How do I respond?"
+- Action: Crisis-ready response under 30 min → acknowledge the point → factual correction with link in replies → invite continued discussion → log learning
+- Output: 3-tweet reply chain (acknowledgment + clarification + offer to DM), tone check, follow-up monitoring plan

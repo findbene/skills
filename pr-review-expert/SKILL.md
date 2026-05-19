@@ -1,6 +1,7 @@
 ---
 name: "pr-review-expert"
-description: "Use when the user asks to review pull requests, analyze code changes, check for security issues in PRs, or assess code quality of diffs."
+description: 'Use when the user asks to review pull requests, analyze code changes, check for security issues in PRs, or assess code quality of diffs. Triggers: "use pr-review-expert", "pr review expert", "pr task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # PR Review Expert
@@ -92,7 +93,7 @@ gh pr diff $PR > /tmp/pr-$PR.diff
 
 For each changed file, identify:
 
-1. **Direct dependents** — who imports this file?
+1. **Direct dependents** — who imports this file? → verify: step output matches expected outcome
 ```bash
 # Find all files importing a changed module
 grep -r "from ['\"].*changed-module['\"]" src/ --include="*.ts" -l
@@ -102,13 +103,13 @@ grep -r "require(['\"].*changed-module" src/ --include="*.js" -l
 grep -r "from changed_module import\|import changed_module" . --include="*.py" -l
 ```
 
-2. **Service boundaries** — does this change cross a service?
+2. **Service boundaries** — does this change cross a service? → verify: step output matches expected outcome
 ```bash
 # Check if changed files span multiple services (monorepo)
 gh pr diff $PR --name-only | cut -d/ -f1-2 | sort -u
 ```
 
-3. **Shared contracts** — types, interfaces, schemas
+3. **Shared contracts** — types, interfaces, schemas → verify: step output matches expected outcome
 ```bash
 gh pr diff $PR --name-only | grep -E "types/|interfaces/|schemas/|models/"
 ```
@@ -340,18 +341,18 @@ Breaking Changes: None detected
 
 --- MUST FIX (Blocking) ---
 
-1. SQL Injection risk in src/db/users.ts:42
+1. SQL Injection risk in src/db/users.ts:42 → verify: step output matches expected outcome
    Raw string interpolation in WHERE clause.
    Fix: db.query("SELECT * WHERE id = $1", [userId])
 
 --- SHOULD FIX (Non-blocking) ---
 
-2. Missing auth check on POST /api/admin/reset
+2. Missing auth check on POST /api/admin/reset → verify: all checks pass
    No role verification before destructive operation.
 
 --- SUGGESTIONS ---
 
-3. N+1 pattern in src/services/reports.ts:88
+3. N+1 pattern in src/services/reports.ts:88 → verify: step output matches expected outcome
    findUser() called inside results.map() — batch with findManyUsers(ids)
 
 --- LOOKS GOOD ---
@@ -375,10 +376,52 @@ Breaking Changes: None detected
 
 ## Best Practices
 
-1. Read the linked ticket before looking at code — context prevents false positives
-2. Check CI status before reviewing — don't review code that fails to build
-3. Prioritize blast radius and security over style
-4. Reproduce locally for non-trivial auth or performance changes
-5. Label each comment clearly: "nit:", "must:", "question:", "suggestion:"
-6. Batch all comments in one review round — don't trickle feedback
-7. Acknowledge good patterns, not just problems — specific praise improves culture
+1. Read the linked ticket before looking at code — context prevents false positives → verify: file content matches expected shape
+2. Check CI status before reviewing — don't review code that fails to build → verify: all checks pass
+3. Prioritize blast radius and security over style → verify: step output matches expected outcome
+4. Reproduce locally for non-trivial auth or performance changes → verify: output exists + parses without error
+5. Label each comment clearly: "nit:", "must:", "question:", "suggestion:" → verify: step output matches expected outcome
+6. Batch all comments in one review round — don't trickle feedback → verify: step output matches expected outcome
+7. Acknowledge good patterns, not just problems — specific praise improves culture → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to pr review expert — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Pr Review Expert needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for pr review expert
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

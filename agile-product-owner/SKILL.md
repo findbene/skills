@@ -1,6 +1,7 @@
 ---
 name: "agile-product-owner"
-description: Agile product ownership for backlog management and sprint execution. Covers user story writing, acceptance criteria, sprint planning, and velocity tracking. Use for writing user stories, creating acceptance criteria, planning sprints, estimating story points, breaking down epics, or prioritizing backlog.
+description: "Agile product ownership for backlog management and sprint execution. Triggers: 'use agile-product-owner', 'agile product owner', 'agile-product-owner task'."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - write user story
   - create acceptance criteria
@@ -38,14 +39,14 @@ Backlog management and sprint execution toolkit for product owners, including us
 
 Create INVEST-compliant user stories from requirements:
 
-1. Identify the persona (who benefits from this feature)
-2. Define the action or capability needed
-3. Articulate the benefit or value delivered
-4. Write acceptance criteria using Given-When-Then
-5. Estimate story points using Fibonacci scale
-6. Validate against INVEST criteria
-7. Add to backlog with priority
-8. **Validation:** Story passes all INVEST criteria; acceptance criteria are testable
+1. Identify the persona (who benefits from this feature) → verify: step output matches expected outcome
+2. Define the action or capability needed → verify: step output matches expected outcome
+3. Articulate the benefit or value delivered → verify: step output matches expected outcome
+4. Write acceptance criteria using Given-When-Then → verify: output file exists + no syntax error
+5. Estimate story points using Fibonacci scale → verify: step output matches expected outcome
+6. Validate against INVEST criteria → verify: step output matches expected outcome
+7. Add to backlog with priority → verify: package installed + import succeeds
+8. **Validation:** Story passes all INVEST criteria; acceptance criteria are testable → verify: all tests pass
 
 ### User Story Template
 
@@ -138,14 +139,14 @@ See `references/user-story-templates.md` for complete template library.
 
 Break epics into deliverable sprint-sized stories:
 
-1. Define epic scope and success criteria
-2. Identify all personas affected by the epic
-3. List all capabilities needed for each persona
-4. Group capabilities into logical stories
-5. Validate each story is ≤8 points
-6. Identify dependencies between stories
-7. Sequence stories for incremental delivery
-8. **Validation:** Each story delivers standalone value; total stories cover epic scope
+1. Define epic scope and success criteria → verify: step output matches expected outcome
+2. Identify all personas affected by the epic → verify: step output matches expected outcome
+3. List all capabilities needed for each persona → verify: step output matches expected outcome
+4. Group capabilities into logical stories → verify: step output matches expected outcome
+5. Validate each story is ≤8 points → verify: step output matches expected outcome
+6. Identify dependencies between stories → verify: step output matches expected outcome
+7. Sequence stories for incremental delivery → verify: step output matches expected outcome
+8. **Validation:** Each story delivers standalone value; total stories cover epic scope → verify: step output matches expected outcome
 
 ### Splitting Techniques
 
@@ -180,14 +181,14 @@ Epic: User Dashboard (34 points total)
 
 Plan sprint capacity and select stories:
 
-1. Calculate team capacity (velocity × availability)
-2. Review sprint goal with stakeholders
-3. Select stories from prioritized backlog
-4. Fill to 80-85% of capacity (committed)
-5. Add stretch goals (10-15% additional)
-6. Identify dependencies and risks
-7. Break complex stories into tasks
-8. **Validation:** Committed points ≤85% capacity; all stories have acceptance criteria
+1. Calculate team capacity (velocity × availability) → verify: step output matches expected outcome
+2. Review sprint goal with stakeholders → verify: step output matches expected outcome
+3. Select stories from prioritized backlog → verify: step output matches expected outcome
+4. Fill to 80-85% of capacity (committed) → verify: git status clean
+5. Add stretch goals (10-15% additional) → verify: package installed + import succeeds
+6. Identify dependencies and risks → verify: step output matches expected outcome
+7. Break complex stories into tasks → verify: step output matches expected outcome
+8. **Validation:** Committed points ≤85% capacity; all stories have acceptance criteria → verify: git status clean
 
 ### Capacity Calculation
 
@@ -333,11 +334,11 @@ As a End User, I want to view key metrics and KPIs
 so that I can save time and work more efficiently
 
 Acceptance Criteria:
-  1. Given user has access, When they view key metrics, Then the result is displayed
-  2. Should validate input before processing
-  3. Must show clear error message when action fails
-  4. Should complete within 2 seconds
-  5. Must be accessible via keyboard navigation
+  1. Given user has access, When they view key metrics, Then the result is displayed → verify: step output matches expected outcome
+  2. Should validate input before processing → verify: all checks pass
+  3. Must show clear error message when action fails → verify: step output matches expected outcome
+  4. Should complete within 2 seconds → verify: step output matches expected outcome
+  5. Must be accessible via keyboard navigation → verify: step output matches expected outcome
 
 INVEST Checklist:
   ✓ Independent
@@ -394,3 +395,40 @@ Story is complete when:
 
 - **Scrum Master** (`project-management/scrum-master/`) — Velocity data and sprint ceremonies complement backlog management
 - **Product Manager Toolkit** (`product-team/product-manager-toolkit/`) — RICE prioritization feeds backlog ordering
+
+## When NOT to use
+
+- Task is unrelated to agile product owner — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Agile Product Owner needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for agile product owner
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving agile product owner
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

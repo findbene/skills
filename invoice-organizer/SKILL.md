@@ -1,6 +1,7 @@
 ---
 name: invoice-organizer
-description: Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting them into logical folders. Use this skill whenever the user wants to prepare for taxes, organize business receipts, rename messy invoice files, sort financial documents by vendor or category, or create a CSV export for their accountant. Apply whenever the user says "organize my invoices", "sort my receipts for taxes", "rename these invoice files", or "help me prepare my financial records" — do not process files one at a time when this bulk automation approach is available.
+description: 'Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming t. Triggers: "use invoice-organizer", "invoice organizer", "invoice task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Invoice Organizer
@@ -19,7 +20,7 @@ This skill transforms chaotic folders of invoices, receipts, and financial docum
 
 ## What This Skill Does
 
-1. **Reads Invoice Content**: Extracts information from PDFs, images, and documents:
+1. **Reads Invoice Content**: Extracts information from PDFs, images, and documents: → verify: file content matches expected shape
    - Vendor/company name
    - Invoice number
    - Date
@@ -27,24 +28,24 @@ This skill transforms chaotic folders of invoices, receipts, and financial docum
    - Product or service description
    - Payment method
 
-2. **Renames Files Consistently**: Creates standardized filenames:
+2. **Renames Files Consistently**: Creates standardized filenames: → verify: output exists + parses without error
    - Format: `YYYY-MM-DD Vendor - Invoice - ProductOrService.pdf`
    - Examples: `2024-03-15 Adobe - Invoice - Creative Cloud.pdf`
 
-3. **Organizes by Category**: Sorts into logical folders:
+3. **Organizes by Category**: Sorts into logical folders: → verify: step output matches expected outcome
    - By vendor
    - By expense category (software, office, travel, etc.)
    - By time period (year, quarter, month)
    - By tax category (deductible, personal, etc.)
 
-4. **Handles Multiple Formats**: Works with:
+4. **Handles Multiple Formats**: Works with: → verify: step output matches expected outcome
    - PDF invoices
    - Scanned receipts (JPG, PNG)
    - Email attachments
    - Screenshots
    - Bank statements
 
-5. **Maintains Originals**: Preserves original files while organizing copies
+5. **Maintains Originals**: Preserves original files while organizing copies → verify: step output matches expected outcome
 
 ## How to Use
 
@@ -71,10 +72,10 @@ and organize them by vendor
 
 ```
 Organize these invoices:
-1. Extract date, vendor, and description from each file
-2. Rename to standard format
-3. Sort into folders by expense category (Software, Office, Travel, etc.)
-4. Create a CSV spreadsheet with all invoice details for my accountant
+1. Extract date, vendor, and description from each file → verify: step output matches expected outcome
+2. Rename to standard format → verify: step output matches expected outcome
+3. Sort into folders by expense category (Software, Office, Travel, etc.) → verify: step output matches expected outcome
+4. Create a CSV spreadsheet with all invoice details for my accountant → verify: file readable + content matches expected shape
 ```
 
 ## Instructions
@@ -128,11 +129,11 @@ When a user requests invoice organization:
    
    How would you like them organized?
    
-   1. **By Vendor** (Adobe/, Amazon/, Stripe/, etc.)
-   2. **By Category** (Software/, Office Supplies/, Travel/, etc.)
-   3. **By Date** (2024/Q1/, 2024/Q2/, etc.)
-   4. **By Tax Category** (Deductible/, Personal/, etc.)
-   5. **Custom** (describe your structure)
+   1. **By Vendor** (Adobe/, Amazon/, Stripe/, etc.) → verify: step output matches expected outcome
+   2. **By Category** (Software/, Office Supplies/, Travel/, etc.) → verify: step output matches expected outcome
+   3. **By Date** (2024/Q1/, 2024/Q2/, etc.) → verify: step output matches expected outcome
+   4. **By Tax Category** (Deductible/, Personal/, etc.) → verify: step output matches expected outcome
+   5. **Custom** (describe your structure) → verify: step output matches expected outcome
    
    Or I can use a default structure: Year/Category/Vendor
    ```
@@ -251,10 +252,10 @@ When a user requests invoice organization:
    [List any files where information couldn't be extracted completely]
    
    ## Next Steps
-   1. Review the `invoice-summary.csv` file
-   2. Check files in "Needs Review" folder
-   3. Import CSV into your accounting software
-   4. Set up auto-organization for future invoices
+   1. Review the `invoice-summary.csv` file → verify: step output matches expected outcome
+   2. Check files in "Needs Review" folder → verify: all tests pass
+   3. Import CSV into your accounting software → verify: step output matches expected outcome
+   4. Set up auto-organization for future invoices → verify: step output matches expected outcome
    
    Ready for tax season! 🎉
    ```
@@ -401,13 +402,13 @@ This creates a persistent solution that organizes invoices as they arrive.
 
 ## Pro Tips
 
-1. **Scan emails to PDF**: Use Preview or similar to save email invoices as PDFs first
-2. **Consistent downloads**: Save all invoices to one folder for batch processing
-3. **Monthly routine**: Organize invoices monthly, not annually
-4. **Backup originals**: Keep original files before reorganizing
-5. **Include amounts in CSV**: Useful for budget tracking
-6. **Tag by deductibility**: Note which expenses are tax-deductible
-7. **Keep receipts 7 years**: Standard audit period
+1. **Scan emails to PDF**: Use Preview or similar to save email invoices as PDFs first → verify: findings count > 0 OR clean signal returned
+2. **Consistent downloads**: Save all invoices to one folder for batch processing → verify: file content matches expected shape
+3. **Monthly routine**: Organize invoices monthly, not annually → verify: step output matches expected outcome
+4. **Backup originals**: Keep original files before reorganizing → verify: step output matches expected outcome
+5. **Include amounts in CSV**: Useful for budget tracking → verify: step output matches expected outcome
+6. **Tag by deductibility**: Note which expenses are tax-deductible → verify: step output matches expected outcome
+7. **Keep receipts 7 years**: Standard audit period → verify: findings count > 0 OR clean signal returned
 
 ## Handling Special Cases
 
@@ -444,3 +445,30 @@ For unusual receipt formats:
 - Preparing for audits
 - Tracking subscription costs over time
 
+## When NOT to use
+
+- Task is unrelated to invoice organizer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Invoice Organizer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

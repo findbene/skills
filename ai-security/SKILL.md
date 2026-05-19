@@ -1,6 +1,7 @@
 ---
 name: "ai-security"
-description: "Use when assessing AI/ML systems for prompt injection, jailbreak vulnerabilities, model inversion risk, data poisoning exposure, or agent tool abuse. Covers MITRE ATLAS technique mapping, injection signature detection, and adversarial robustness scoring."
+description: 'Use when assessing AI/ML systems for prompt injection, jailbreak vulnerabilities, model inversion risk, data poisoning exposure, or agent tool ab. Triggers: "use ai-security", "ai security", "ai task.'
+allowed-tools: Bash, Glob, Grep, Read, Task
 ---
 
 # AI Security
@@ -214,11 +215,11 @@ LLM agents with tool access (file operations, API calls, code execution) have a 
 
 ### Tool Abuse Mitigations
 
-1. **Human approval gates** for all destructive or data-exfiltrating tool calls (delete, overwrite, send, upload)
-2. **Minimal tool scope** — agent should only have access to tools it needs for the defined task
-3. **Input validation before tool invocation** — validate all tool parameters against expected format and value ranges
-4. **Audit logging** — log every tool call with the prompt context that triggered it
-5. **Output filtering** — validate tool outputs before returning to user or feeding back to agent context
+1. **Human approval gates** for all destructive or data-exfiltrating tool calls (delete, overwrite, send, upload) → verify: file content matches expected shape
+2. **Minimal tool scope** — agent should only have access to tools it needs for the defined task → verify: user confirms
+3. **Input validation before tool invocation** — validate all tool parameters against expected format and value ranges → verify: all checks pass
+4. **Audit logging** — log every tool call with the prompt context that triggered it → verify: findings count > 0 OR clean signal returned
+5. **Output filtering** — validate tool outputs before returning to user or feeding back to agent context → verify: all checks pass
 
 ---
 
@@ -294,20 +295,20 @@ python3 scripts/ai_threat_scanner.py \
 ### Workflow 2: Full AI Security Assessment
 
 **Phase 1 — Static Analysis:**
-1. Run ai_threat_scanner.py with all seed prompts and custom domain prompts
-2. Review injection_score and test_coverage in output
-3. Identify gaps in ATLAS technique coverage
+1. Run ai_threat_scanner.py with all seed prompts and custom domain prompts → verify: command exit code 0
+2. Review injection_score and test_coverage in output → verify: all tests pass
+3. Identify gaps in ATLAS technique coverage → verify: step output matches expected outcome
 
 **Phase 2 — Risk Scoring:**
-1. Assess model_inversion_risk based on access level
-2. Assess data_poisoning_risk based on fine-tuning scope
-3. For classifiers: assess adversarial_robustness_risk with `--target-type classifier`
+1. Assess model_inversion_risk based on access level → verify: step output matches expected outcome
+2. Assess data_poisoning_risk based on fine-tuning scope → verify: step output matches expected outcome
+3. For classifiers: assess adversarial_robustness_risk with `--target-type classifier` → verify: step output matches expected outcome
 
 **Phase 3 — Guardrail Design:**
-1. Map each finding type to a guardrail control
-2. Implement and test input validation filters
-3. Implement output filters for PII and system prompt leakage
-4. For agentic systems: add tool approval gates
+1. Map each finding type to a guardrail control → verify: step output matches expected outcome
+2. Implement and test input validation filters → verify: all tests pass
+3. Implement output filters for PII and system prompt leakage → verify: step output matches expected outcome
+4. For agentic systems: add tool approval gates → verify: package installed + import succeeds
 
 ```bash
 # Full assessment across all target types
@@ -344,13 +345,13 @@ fi
 
 ## Anti-Patterns
 
-1. **Testing only known jailbreak templates** — Published jailbreak templates (DAN, STAN, etc.) are already blocked by most frontier models. Security assessment must include domain-specific and novel prompt injection patterns relevant to the application's context, not just publicly known templates.
-2. **Treating static signature matching as complete** — Injection signature matching catches known patterns. Novel injection techniques that don't match existing signatures will not be detected. Complement static scanning with red team adversarial prompt testing and semantic similarity filtering.
-3. **Ignoring indirect injection for RAG systems** — Direct injection from user input is only one vector. For retrieval-augmented systems, malicious content in the retrieval index is a higher-risk vector. All retrieved external content must be treated as untrusted.
-4. **Not testing with production system prompt context** — A jailbreak that fails in isolation may succeed against a specific system prompt that introduces exploitable context. Always test with the actual system prompt that will be used in production.
-5. **Deploying without output filtering** — Input validation alone is insufficient. A model that has been successfully injected will produce malicious output regardless of input validation. Output filtering for PII, system prompt content, and policy violations is a required second layer.
-6. **Assuming model updates fix injection vulnerabilities** — Model versions update safety training but do not eliminate injection risk. Prompt injection is an input-validation problem, not a model capability problem. Guardrails must be maintained at the application layer independent of model version.
-7. **Skipping authorization check for gray-box/white-box testing** — Gray-box and white-box access to a production model enables data extraction and model inversion attacks that can expose real user data. Written authorization and legal review are required before any gray-box or white-box assessment.
+1. **Testing only known jailbreak templates** — Published jailbreak templates (DAN, STAN, etc.) are already blocked by most frontier models. Security assessment must include domain-specific and novel prompt injection patterns relevant to the application's context, not just publicly known templates. → verify: file content matches expected shape
+2. **Treating static signature matching as complete** — Injection signature matching catches known patterns. Novel injection techniques that don't match existing signatures will not be detected. Complement static scanning with red team adversarial prompt testing and semantic similarity filtering. → verify: all checks pass
+3. **Ignoring indirect injection for RAG systems** — Direct injection from user input is only one vector. For retrieval-augmented systems, malicious content in the retrieval index is a higher-risk vector. All retrieved external content must be treated as untrusted. → verify: step output matches expected outcome
+4. **Not testing with production system prompt context** — A jailbreak that fails in isolation may succeed against a specific system prompt that introduces exploitable context. Always test with the actual system prompt that will be used in production. → verify: all checks pass
+5. **Deploying without output filtering** — Input validation alone is insufficient. A model that has been successfully injected will produce malicious output regardless of input validation. Output filtering for PII, system prompt content, and policy violations is a required second layer. → verify: output exists + parses without error
+6. **Assuming model updates fix injection vulnerabilities** — Model versions update safety training but do not eliminate injection risk. Prompt injection is an input-validation problem, not a model capability problem. Guardrails must be maintained at the application layer independent of model version. → verify: diff matches intended change
+7. **Skipping authorization check for gray-box/white-box testing** — Gray-box and white-box access to a production model enables data extraction and model inversion attacks that can expose real user data. Written authorization and legal review are required before any gray-box or white-box assessment. → verify: all checks pass
 
 ---
 
@@ -362,3 +363,40 @@ fi
 | [incident-response](../incident-response/SKILL.md) | Confirmed prompt injection exploitation or data extraction from a model should be classified as a security incident |
 | [cloud-security](../cloud-security/SKILL.md) | LLM API keys and model endpoints are cloud resources — IAM misconfiguration enables unauthorized model access (AML.T0012) |
 | [security-pen-testing](../security-pen-testing/SKILL.md) | Application-layer security testing covers the web interface and API layer; ai-security covers the model and agent layer |
+
+## When NOT to use
+
+- Task is unrelated to ai security — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ai Security needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ai security
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ai security
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

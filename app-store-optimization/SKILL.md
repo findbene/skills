@@ -1,6 +1,7 @@
 ---
 name: "app-store-optimization"
-description: App Store Optimization (ASO) toolkit for researching keywords, analyzing competitor rankings, generating metadata suggestions, and improving app visibility on Apple App Store and Google Play Store. Use when the user asks about ASO, app store rankings, app metadata, app titles and descriptions, app store listings, app visibility, or mobile app marketing on iOS or Android. Supports keyword research and scoring, competitor keyword analysis, metadata optimization, A/B test planning, launch checklists, and tracking ranking changes.
+description: "App Store Optimization (ASO) toolkit for researching keywords, analyzing competitor rankings, generatin. Triggers: 'use app-store-optimization', 'app store optimization', 'app-store-optimization task."
+allowed-tools: Glob, Grep, Read
 triggers:
   - ASO
   - app store optimization
@@ -26,29 +27,29 @@ Discover and evaluate keywords that drive app store visibility.
 
 ### Workflow: Conduct Keyword Research
 
-1. Define target audience and core app functions:
+1. Define target audience and core app functions: → verify: step output matches expected outcome
    - Primary use case (what problem does the app solve)
    - Target user demographics
    - Competitive category
-2. Generate seed keywords from:
+2. Generate seed keywords from: → verify: output file exists + no syntax error
    - App features and benefits
    - User language (not developer terminology)
    - App store autocomplete suggestions
-3. Expand keyword list using:
+3. Expand keyword list using: → verify: step output matches expected outcome
    - Modifiers (free, best, simple)
    - Actions (create, track, organize)
    - Audiences (for students, for teams, for business)
-4. Evaluate each keyword:
+4. Evaluate each keyword: → verify: step output matches expected outcome
    - Search volume (estimated monthly searches)
    - Competition (number and quality of ranking apps)
    - Relevance (alignment with app function)
-5. Score and prioritize keywords:
+5. Score and prioritize keywords: → verify: step output matches expected outcome
    - Primary: Title and keyword field (iOS)
    - Secondary: Subtitle and short description
    - Tertiary: Full description only
-6. Map keywords to metadata locations
-7. Document keyword strategy for tracking
-8. **Validation:** Keywords scored; placement mapped; no competitor brand names included; no plurals in iOS keyword field
+6. Map keywords to metadata locations → verify: step output matches expected outcome
+7. Document keyword strategy for tracking → verify: step output matches expected outcome
+8. **Validation:** Keywords scored; placement mapped; no competitor brand names included; no plurals in iOS keyword field → verify: step output matches expected outcome
 
 ### Keyword Evaluation Criteria
 
@@ -79,32 +80,32 @@ Optimize app store listing elements for search ranking and conversion.
 
 ### Workflow: Optimize App Metadata
 
-1. Audit current metadata against platform limits:
+1. Audit current metadata against platform limits: → verify: step output matches expected outcome
    - Title character count and keyword presence
    - Subtitle/short description usage
    - Keyword field efficiency (iOS)
    - Description keyword density
-2. Optimize title following formula:
+2. Optimize title following formula: → verify: step output matches expected outcome
    ```
    [Brand Name] - [Primary Keyword] [Secondary Keyword]
    ```
-3. Write subtitle (iOS) or short description (Android):
+3. Write subtitle (iOS) or short description (Android): → verify: output file exists + no syntax error
    - Focus on primary benefit
    - Include secondary keyword
    - Use action verbs
-4. Optimize keyword field (iOS only):
+4. Optimize keyword field (iOS only): → verify: step output matches expected outcome
    - Remove duplicates from title
    - Remove plurals (Apple indexes both forms)
    - No spaces after commas
    - Prioritize by score
-5. Rewrite full description:
+5. Rewrite full description: → verify: output file exists + no syntax error
    - Hook paragraph with value proposition
    - Feature bullets with keywords
    - Social proof section
    - Call to action
-6. Validate character counts for each field
-7. Calculate keyword density (target 2-3% primary)
-8. **Validation:** All fields within character limits; primary keyword in title; no keyword stuffing (>5%); natural language preserved
+6. Validate character counts for each field → verify: step output matches expected outcome
+7. Calculate keyword density (target 2-3% primary) → verify: step output matches expected outcome
+8. **Validation:** All fields within character limits; primary keyword in title; no keyword stuffing (>5%); natural language preserved → verify: step output matches expected outcome
 
 ### Platform Character Limits
 
@@ -151,31 +152,31 @@ Analyze top competitors to identify keyword gaps and positioning opportunities.
 
 ### Workflow: Analyze Competitor ASO Strategy
 
-1. Identify top 10 competitors:
+1. Identify top 10 competitors: → verify: step output matches expected outcome
    - Direct competitors (same core function)
    - Indirect competitors (overlapping audience)
    - Category leaders (top downloads)
-2. Extract competitor keywords from:
+2. Extract competitor keywords from: → verify: step output matches expected outcome
    - App titles and subtitles
    - First 100 words of descriptions
    - Visible metadata patterns
-3. Build competitor keyword matrix:
+3. Build competitor keyword matrix: → verify: step output matches expected outcome
    - Map which keywords each competitor targets
    - Calculate coverage percentage per keyword
-4. Identify keyword gaps:
+4. Identify keyword gaps: → verify: step output matches expected outcome
    - Keywords with <40% competitor coverage
    - High volume terms competitors miss
    - Long-tail opportunities
-5. Analyze competitor visual assets:
+5. Analyze competitor visual assets: → verify: step output matches expected outcome
    - Icon design patterns
    - Screenshot messaging and style
    - Video presence and quality
-6. Compare ratings and review patterns:
+6. Compare ratings and review patterns: → verify: step output matches expected outcome
    - Average rating by competitor
    - Common praise themes
    - Common complaint themes
-7. Document positioning opportunities
-8. **Validation:** 10+ competitors analyzed; keyword matrix complete; gaps identified with volume estimates; visual audit documented
+7. Document positioning opportunities → verify: step output matches expected outcome
+8. **Validation:** 10+ competitors analyzed; keyword matrix complete; gaps identified with volume estimates; visual audit documented → verify: step output matches expected outcome
 
 ### Competitor Analysis Matrix
 
@@ -204,33 +205,33 @@ Execute a structured launch for maximum initial visibility.
 
 ### Workflow: Launch App to Stores
 
-1. Complete pre-launch preparation (4 weeks before):
+1. Complete pre-launch preparation (4 weeks before): → verify: step output matches expected outcome
    - Finalize keywords and metadata
    - Prepare all visual assets
    - Set up analytics (Firebase, Mixpanel)
    - Build press kit and media list
-2. Submit for review (2 weeks before):
+2. Submit for review (2 weeks before): → verify: step output matches expected outcome
    - Complete all store requirements
    - Verify compliance with guidelines
    - Prepare launch communications
-3. Configure post-launch systems:
+3. Configure post-launch systems: → verify: step output matches expected outcome
    - Set up review monitoring
    - Prepare response templates
    - Configure rating prompt timing
-4. Execute launch day:
+4. Execute launch day: → verify: command exit code 0
    - Verify app is live in both stores
    - Announce across all channels
    - Begin review response cycle
-5. Monitor initial performance (days 1-7):
+5. Monitor initial performance (days 1-7): → verify: step output matches expected outcome
    - Track download velocity hourly
    - Monitor reviews and respond within 24 hours
    - Document any issues for quick fixes
-6. Conduct 7-day retrospective:
+6. Conduct 7-day retrospective: → verify: step output matches expected outcome
    - Compare performance to projections
    - Identify quick optimization wins
    - Plan first metadata update
-7. Schedule first update (2 weeks post-launch)
-8. **Validation:** App live in stores; analytics tracking; review responses within 24h; download velocity documented; first update scheduled
+7. Schedule first update (2 weeks post-launch) → verify: step output matches expected outcome
+8. **Validation:** App live in stores; analytics tracking; review responses within 24h; download velocity documented; first update scheduled → verify: file readable + content matches expected shape
 
 ### Pre-Launch Checklist
 
@@ -262,34 +263,34 @@ Test metadata and visual elements to improve conversion rates.
 
 ### Workflow: Run A/B Test
 
-1. Select test element (prioritize by impact):
+1. Select test element (prioritize by impact): → verify: all tests pass
    - Icon (highest impact)
    - Screenshot 1 (high impact)
    - Title (high impact)
    - Short description (medium impact)
-2. Form hypothesis:
+2. Form hypothesis: → verify: step output matches expected outcome
    ```
    If we [change], then [metric] will [improve/increase] by [amount]
    because [rationale].
    ```
-3. Create variants:
+3. Create variants: → verify: output file exists + no syntax error
    - Control: Current version
    - Treatment: Single variable change
-4. Calculate required sample size:
+4. Calculate required sample size: → verify: step output matches expected outcome
    - Baseline conversion rate
    - Minimum detectable effect (usually 5%)
    - Statistical significance (95%)
-5. Launch test:
+5. Launch test: → verify: all tests pass
    - Apple: Use Product Page Optimization
    - Android: Use Store Listing Experiments
-6. Run test for minimum duration:
+6. Run test for minimum duration: → verify: command exit code 0
    - At least 7 days
    - Until statistical significance reached
-7. Analyze results:
+7. Analyze results: → verify: step output matches expected outcome
    - Compare conversion rates
    - Check statistical significance
    - Document learnings
-8. **Validation:** Single variable tested; sample size sufficient; significance reached (95%); results documented; winner implemented
+8. **Validation:** Single variable tested; sample size sufficient; significance reached (95%); results documented; winner implemented → verify: all tests pass
 
 ### A/B Test Prioritization
 
@@ -484,3 +485,40 @@ All output passes quality verification:
 - Self-verify: source attribution, assumption audit, confidence scoring
 - Output format: Bottom Line → What (with confidence) → Why → How to Act
 - Results only. Every finding tagged: 🟢 verified, 🟡 medium, 🔴 assumed.
+
+## When NOT to use
+
+- Task is unrelated to app store optimization — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | App Store Optimization needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for app store optimization
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving app store optimization
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

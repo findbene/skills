@@ -1,13 +1,7 @@
 ---
 name: "contract-and-proposal-writer"
-description: "Write professional contracts, proposals, and business agreements - client service agreements, SOWs, freelance contracts, NDAs, SaaS terms, and partnership agreements. Use when preparing a formal document for a client, contractor, or business relationship. Trigger on: 'write contract', 'proposal', 'statement of work', 'SOW', 'client agreement', 'freelance contract', 'NDA', 'business proposal', 'service agreement', 'partnership agreement'."
-
-# Contract & Proposal Writer
-
-**Tier:** POWERFUL  
-**Category:** Business Growth  
-**Domain:** Legal Documents, Business Development, Client Relations
-
+description: 'Write professional contracts, proposals, and business agreements - client service a. Triggers: ''use contract-and-proposal-writer'', ''contract and proposal writer'', ''contract-and-proposal-writer task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 ## Overview
@@ -60,14 +54,14 @@ Generate professional, jurisdiction-aware business documents: freelance contract
 
 Ask the user:
 
-    1. Document type? (contract / proposal / SOW / NDA / MSA)
-    2. Jurisdiction? (US-Delaware / EU / UK / DACH)
-    3. Engagement type? (fixed-price / hourly / retainer)
-    4. Parties? (names, roles, business addresses)
-    5. Scope summary? (1-3 sentences)
-    6. Total value or hourly rate?
-    7. Start date / end date or duration?
-    8. Special requirements? (IP assignment, white-label, subcontractors)
+    1. Document type? (contract / proposal / SOW / NDA / MSA) → verify: step output matches expected outcome
+    2. Jurisdiction? (US-Delaware / EU / UK / DACH) → verify: step output matches expected outcome
+    3. Engagement type? (fixed-price / hourly / retainer) → verify: diff matches intended change
+    4. Parties? (names, roles, business addresses) → verify: package installed + import succeeds
+    5. Scope summary? (1-3 sentences) → verify: step output matches expected outcome
+    6. Total value or hourly rate? → verify: step output matches expected outcome
+    7. Start date / end date or duration? → verify: step output matches expected outcome
+    8. Special requirements? (IP assignment, white-label, subcontractors) → verify: step output matches expected outcome
 
 ### 2. Select Template
 
@@ -401,12 +395,12 @@ Data transfers outside EEA covered by: [ ] SCCs  [ ] Adequacy Decision  [ ] BCRs
 
 ## Common Pitfalls
 
-1. **Missing IP assignment language** - "work for hire" alone is insufficient in EU; need explicit assignment of Nutzungsrechte in DACH
-2. **Vague acceptance criteria** - Always define what "accepted" means (written sign-off, X days to reject)
-3. **No change order process** - Scope creep kills fixed-price projects; add a clause for out-of-scope work
-4. **Jurisdiction mismatch** - Choosing Delaware law for a German-only project creates enforcement problems
-5. **Missing limitation of liability** - Without a cap, one bug could mean unlimited damages
-6. **Oral amendments** - Contracts modified verbally are hard to enforce; always require written amendments
+1. **Missing IP assignment language** - "work for hire" alone is insufficient in EU; need explicit assignment of Nutzungsrechte in DACH → verify: step output matches expected outcome
+2. **Vague acceptance criteria** - Always define what "accepted" means (written sign-off, X days to reject) → verify: step output matches expected outcome
+3. **No change order process** - Scope creep kills fixed-price projects; add a clause for out-of-scope work → verify: dependency resolves + import works
+4. **Jurisdiction mismatch** - Choosing Delaware law for a German-only project creates enforcement problems → verify: output exists + parses without error
+5. **Missing limitation of liability** - Without a cap, one bug could mean unlimited damages → verify: step output matches expected outcome
+6. **Oral amendments** - Contracts modified verbally are hard to enforce; always require written amendments → verify: step output matches expected outcome
 
 ---
 
@@ -420,3 +414,45 @@ Data transfers outside EEA covered by: [ ] SCCs  [ ] Adequacy Decision  [ ] BCRs
 - Keep templates in version control; track changes with `git diff`
 - Review annually - laws change, especially GDPR enforcement interpretations
 - For NDAs: always specify the return/destruction of confidential materials on termination
+
+## When NOT to use
+
+- Task is unrelated to contract and proposal writer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Contract And Proposal Writer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for contract and proposal writer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

@@ -1,6 +1,7 @@
 ---
 name: twitter-algorithm-optimizer
-description: Analyzes and optimizes tweets for maximum reach using Twitter's open-source algorithm insights — rewrites drafts, explains why content underperforms, and applies Real-graph, SimClusters, and engagement signal principles. Use this skill whenever the user wants to improve a tweet, maximize engagement, understand why a tweet didn't perform, optimize for a specific community or niche, or build Twitter/X audience strategically. Apply whenever the user says "optimize this tweet", "why isn't my tweet getting engagement", "rewrite this for Twitter", or "help me grow on X".
+description: "Analyzes and optimizes tweets for maximum reach using Twitter's open-source algorithm in. Triggers: 'use twitter-algorithm-optimizer', 'twitter algorithm optimizer', 'twitter-algorithm-optimizer task."
+allowed-tools: Glob, Grep, Read
 license: AGPL-3.0 (referencing Twitter's algorithm source)
 ---
 
@@ -18,12 +19,12 @@ Use this skill when you need to:
 
 ## What This Skill Does
 
-1. **Analyzes tweets** against Twitter's core recommendation algorithms
-2. **Identifies optimization opportunities** based on engagement signals
-3. **Rewrites and edits tweets** to improve algorithmic ranking
-4. **Explains the "why"** behind recommendations using algorithm insights
-5. **Applies Real-graph, SimClusters, and TwHIN principles** to content strategy
-6. **Provides engagement-boosting tactics** grounded in Twitter's actual systems
+1. **Analyzes tweets** against Twitter's core recommendation algorithms → verify: step output matches expected outcome
+2. **Identifies optimization opportunities** based on engagement signals → verify: step output matches expected outcome
+3. **Rewrites and edits tweets** to improve algorithmic ranking → verify: output exists + parses without error
+4. **Explains the "why"** behind recommendations using algorithm insights → verify: step output matches expected outcome
+5. **Applies Real-graph, SimClusters, and TwHIN principles** to content strategy → verify: step output matches expected outcome
+6. **Provides engagement-boosting tactics** grounded in Twitter's actual systems → verify: step output matches expected outcome
 
 ## How It Works: Twitter's Algorithm Architecture
 
@@ -76,19 +77,19 @@ Twitter's **Unified User Actions** service tracks both explicit and implicit sig
 
 Your tweet reaches users through this pipeline:
 
-1. **Candidate Retrieval** - Multiple sources find candidate tweets:
+1. **Candidate Retrieval** - Multiple sources find candidate tweets: → verify: step output matches expected outcome
    - Search Index (relevant keyword matches)
    - UTEG (timeline engagement graph - following relationships)
    - Tweet-mixer (trending/viral content)
 
-2. **Ranking** - ML models rank candidates by predicted engagement:
+2. **Ranking** - ML models rank candidates by predicted engagement: → verify: step output matches expected outcome
    - Will THIS user engage with THIS tweet?
    - How quickly will engagement happen?
    - Will it spread to non-followers?
 
-3. **Filtering** - Remove blocked content, apply preferences
+3. **Filtering** - Remove blocked content, apply preferences → verify: diff matches intended change
 
-4. **Delivery** - Show ranked feed to user
+4. **Delivery** - Show ranked feed to user → verify: step output matches expected outcome
 
 ## Optimization Strategies Based on Algorithm Insights
 
@@ -291,14 +292,14 @@ Your tweet reaches users through this pipeline:
 
 ## Best Practices for Algorithm Optimization
 
-1. **Quality Over Virality**: Consistent engagement from your community beats occasional viral moments
-2. **Community First**: Deep resonance with 100 engaged followers beats shallow reach to 10,000
-3. **Authenticity Matters**: The algorithm rewards genuine engagement, not manipulation
-4. **Timing Helps**: Engage early when tweet is fresh (first hour critical)
-5. **Build Threads**: Threaded tweets often get more engagement than single tweets
-6. **Follow Up**: Reply to replies quickly - Twitter's algorithm favors active conversation
-7. **Avoid Spam**: Engagement pods and bots hurt long-term credibility
-8. **Track Your Performance**: Notice what YOUR audience engages with and iterate
+1. **Quality Over Virality**: Consistent engagement from your community beats occasional viral moments → verify: step output matches expected outcome
+2. **Community First**: Deep resonance with 100 engaged followers beats shallow reach to 10,000 → verify: step output matches expected outcome
+3. **Authenticity Matters**: The algorithm rewards genuine engagement, not manipulation → verify: step output matches expected outcome
+4. **Timing Helps**: Engage early when tweet is fresh (first hour critical) → verify: step output matches expected outcome
+5. **Build Threads**: Threaded tweets often get more engagement than single tweets → verify: file content matches expected shape
+6. **Follow Up**: Reply to replies quickly - Twitter's algorithm favors active conversation → verify: step output matches expected outcome
+7. **Avoid Spam**: Engagement pods and bots hurt long-term credibility → verify: step output matches expected outcome
+8. **Track Your Performance**: Notice what YOUR audience engages with and iterate → verify: step output matches expected outcome
 
 ## Common Pitfalls to Avoid
 
@@ -325,3 +326,31 @@ Use Claude without this skill for:
 - Tone adjustments not related to algorithm
 - Off-Twitter content (LinkedIn, Medium, blogs, etc.)
 - Personal conversations and casual tweets
+
+## When NOT to use
+
+- Task is unrelated to twitter algorithm optimizer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Twitter Algorithm Optimizer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

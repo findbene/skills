@@ -1,6 +1,7 @@
 ---
 name: backend-api-contracts
-description: "Production-ready backend API implementation expert covering OpenAPI contracts, request validation, error handling, middleware patterns, and API testing. Use this skill any time backend API endpoints need to be implemented, API contracts need to be enforced, request/response validation needs to be added, or API middleware needs to be written. Trigger immediately on: \"backend API\", \"API endpoint\", \"request validation\", \"OpenAPI\", \"API middleware\", \"error handler\", \"response schema\", \"API contract\", \"Pydantic model\", \"FastAPI\", \"Express route\", \"API testing\", \"endpoint validation\", \"API implementation\". If someone says \"implement this API endpoint\" or \"add validation to my API\" this skill MUST trigger."
+description: 'Production-ready backend API implementation expert covering OpenAPI contracts, request validation, error handling, middl. Triggers: "use backend-api-contracts", "backend api contracts", "backend task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Backend API Contracts & Development
@@ -155,11 +156,48 @@ async function transferFunds(fromId: string, toId: string, amount: number) {
 
 ## Best Practices
 
-1. **Version your APIs** — Use URL or header versioning
-2. **Validate all input** — Untrusted data is the #1 attack vector
-3. **Use proper status codes** — Be specific about errors
-4. **Implement pagination** — Unbounded queries will eventually crash your server
-5. **Document with OpenAPI** — Keep docs in sync with code
-6. **Use connection pooling** — Individual connections don't scale
-7. **Implement rate limiting** — Protect against abuse
-8. **Add request tracing** — Include request IDs for debugging
+1. **Version your APIs** — Use URL or header versioning → verify: step output matches expected outcome
+2. **Validate all input** — Untrusted data is the #1 attack vector → verify: all checks pass
+3. **Use proper status codes** — Be specific about errors → verify: step output matches expected outcome
+4. **Implement pagination** — Unbounded queries will eventually crash your server → verify: step output matches expected outcome
+5. **Document with OpenAPI** — Keep docs in sync with code → verify: file content matches expected shape
+6. **Use connection pooling** — Individual connections don't scale → verify: step output matches expected outcome
+7. **Implement rate limiting** — Protect against abuse → verify: step output matches expected outcome
+8. **Add request tracing** — Include request IDs for debugging → verify: dependency resolves + import works
+
+## When NOT to use
+
+- Task is unrelated to backend api contracts — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Backend Api Contracts needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for backend api contracts
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving backend api contracts
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

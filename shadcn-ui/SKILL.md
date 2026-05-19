@@ -1,6 +1,6 @@
 ---
 name: shadcn-ui
-description: Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.
+description: "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customizatio. Triggers: 'use shadcn-ui', 'shadcn ui', 'shadcn-ui task."
 allowed-tools:
   - "shadcn*:*"
   - "mcp_shadcn*"
@@ -47,10 +47,10 @@ This command:
 - Updates your `components.json` config
 
 **B. Manual Integration**
-1. Use `get_component` to retrieve the source code
-2. Create the file in `components/ui/[component-name].tsx`
-3. Install peer dependencies manually
-4. Adjust imports if needed
+1. Use `get_component` to retrieve the source code → verify: step output matches expected outcome
+2. Create the file in `components/ui/[component-name].tsx` → verify: output exists + parses without error
+3. Install peer dependencies manually → verify: dependency resolves + import works
+4. Adjust imports if needed → verify: step output matches expected outcome
 
 ### 3. Registry and Custom Registries
 
@@ -208,9 +208,9 @@ export function LoadingButton({
 
 shadcn/ui provides complete UI blocks (authentication forms, dashboards, etc.):
 
-1. **List available blocks**: Use `list_blocks` with optional category filter
-2. **Get block source**: Use `get_block` with the block name
-3. **Install blocks**: Many blocks include multiple component files
+1. **List available blocks**: Use `list_blocks` with optional category filter → verify: step output matches expected outcome
+2. **Get block source**: Use `get_block` with the block name → verify: step output matches expected outcome
+3. **Install blocks**: Many blocks include multiple component files → verify: dependency resolves + import works
 
 Blocks are organized by category:
 - **calendar**: Calendar interfaces
@@ -303,9 +303,9 @@ import {
 
 Before committing components:
 1. **Type check**: Run `tsc --noEmit` to verify TypeScript
-2. **Lint**: Run your linter to catch style issues
-3. **Test accessibility**: Use tools like axe DevTools
-4. **Visual QA**: Test in light and dark modes
+2. **Lint**: Run your linter to catch style issues → verify: command exit code 0
+3. **Test accessibility**: Use tools like axe DevTools → verify: all checks pass
+4. **Visual QA**: Test in light and dark modes → verify: all checks pass
 5. **Responsive check**: Verify behavior at different breakpoints
 
 ## Resources
@@ -324,3 +324,31 @@ See the `examples/` directory for:
 - Dashboard layouts
 - Authentication flows
 - Data table implementations
+
+## When NOT to use
+
+- Task is unrelated to shadcn ui — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Shadcn Ui needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

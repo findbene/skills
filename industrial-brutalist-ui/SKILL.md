@@ -1,6 +1,7 @@
 ---
 name: industrial-brutalist-ui
-description: Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+description: "Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Triggers: 'use industrial-brutalist-ui', 'industrial brutalist ui', 'industrial-brutalist-ui task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # SKILL: Industrial Brutalism & Tactical Telemetry UI
@@ -87,6 +88,47 @@ To prevent the design from appearing purely digital, simulated analog degradatio
 *   **Mechanical Noise:** A global, low-opacity SVG static/noise filter applied to the DOM root to introduce a unified physical grain across both dark and light modes.
 
 ## 8. Web Engineering Directives
-1.  **Grid Determinism:** Utilize `display: grid; gap: 1px;` with contrasting parent/child background colors to generate mathematically perfect, razor-thin dividing lines without complex border declarations.
-2.  **Semantic Rigidity:** Construct the DOM using precise semantic tags (`<data>`, `<samp>`, `<kbd>`, `<output>`, `<dl>`) to accurately reflect the technical nature of the telemetry.
-3.  **Typography Clamping:** Implement CSS `clamp()` functions exclusively for macro-typography to ensure massive text scales aggressively while maintaining structural integrity across viewports.
+1.  **Grid Determinism:** Utilize `display: grid; gap: 1px;` with contrasting parent/child background colors to generate mathematically perfect, razor-thin dividing lines without complex border declarations. → verify: output exists + parses without error
+2.  **Semantic Rigidity:** Construct the DOM using precise semantic tags (`<data>`, `<samp>`, `<kbd>`, `<output>`, `<dl>`) to accurately reflect the technical nature of the telemetry. → verify: step output matches expected outcome
+3.  **Typography Clamping:** Implement CSS `clamp()` functions exclusively for macro-typography to ensure massive text scales aggressively while maintaining structural integrity across viewports. → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Consumer/lifestyle/luxury brand UI — wrong aesthetic; use `high-end-visual-design` or `design-airbnb`
+- Compliance-heavy SaaS where accessibility is paramount — heavy CRT/halftone effects can fail WCAG; use `design-system`
+- Mobile-native apps — these techniques are web-specific
+- Marketing landing for general audience — too aggressive; use `frontend-design` or `impeccable`
+- Documentation site needing legibility above all — use `design-md` or `typeset`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Mix Swiss Print and CRT Terminal modes for variety" | Skill explicitly says pick ONE and commit; mixing dilutes the aesthetic |
+| "Use rounded corners for warmth" | Brutalism is square — `border-radius: 0` everywhere |
+| "Use a normal sans-serif" | Aesthetic requires Neue Haas Grotesk Black / Archivo Black / monospace; commit to it |
+| "Pick a consumer-y color palette" | Utilitarian colors only (newsprint white, primary red, phosphor green) — no candy palettes |
+
+## Output Contract
+
+Finished output must contain:
+- One archetype chosen (Swiss Industrial Print OR Tactical Telemetry CRT) — not both
+- Monolithic heavy sans-serif (macro) + monospace (micro) typography
+- Grid with visible 1px dividers via `display: grid; gap: 1px;` parent-bg trick
+- `border-radius: 0` enforced; no rounded corners
+- Utilitarian color palette (no candy / pastel)
+- Massive viewport-bleeding numerals or letterforms (`clamp(4rem, 10vw, 15rem)`)
+- For CRT mode: scanlines, phosphor glow, low-bit-depth styling
+- Semantic DOM tags (`<data>`, `<samp>`, `<kbd>`, `<output>`, `<dl>`)
+
+## Examples
+
+**Example 1 — Hedge-fund trading dashboard**
+- Input: "Tactical interface for proprietary trading desk"
+- Action: Pick Tactical Telemetry → JetBrains Mono micro + Archivo Black macro → CRT scanlines on background → phosphor green primary, alert red → grid with 1px dividers → bleeding numerals for P&L
+- Output: Dark-mode dashboard with semantic `<data>` for prices, no rounded corners, density-first layout
+
+**Example 2 — Industrial product manual site**
+- Input: "Marketing for heavy-machinery manufacturer"
+- Action: Pick Swiss Industrial Print → Neue Haas Grotesk Black macro + Inter Mono micro → newsprint off-white → primary red alerts → asymmetric grid with massive bleeding heading
+- Output: Light-mode brutalist site, oversized typography, visible structural grid, no rounded corners

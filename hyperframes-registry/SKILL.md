@@ -1,6 +1,7 @@
 ---
 name: hyperframes-registry
-description: Install and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add, installing a block or component, wiring an installed item into index.html, or working with hyperframes.json. Covers the add command, install locations, block sub-composition wiring, component snippet merging, and registry discovery.
+description: 'Install and wire registry blocks and components into HyperFrames compositions. Triggers: "use hyperframes-registry", "hyperframes registry", "hyperframes task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # HyperFrames Registry
@@ -82,11 +83,11 @@ See [wiring-blocks.md](./references/wiring-blocks.md) for full details.
 
 Components are snippets — paste their HTML into your composition's markup, their CSS into your style block, and their JS into your script (if any):
 
-1. Read the installed file (e.g., `compositions/components/grain-overlay.html`)
-2. Copy the HTML elements into your composition's `<div data-composition-id="...">`
-3. Copy the `<style>` block into your composition's styles
-4. Copy any `<script>` content into your composition's script (before your timeline code)
-5. If the component exposes GSAP timeline integration (see the comment block in the snippet), add those calls to your timeline
+1. Read the installed file (e.g., `compositions/components/grain-overlay.html`) → verify: file content matches expected shape
+2. Copy the HTML elements into your composition's `<div data-composition-id="...">` → verify: step output matches expected outcome
+3. Copy the `<style>` block into your composition's styles → verify: step output matches expected outcome
+4. Copy any `<script>` content into your composition's script (before your timeline code) → verify: step output matches expected outcome
+5. If the component exposes GSAP timeline integration (see the comment block in the snippet), add those calls to your timeline → verify: dependency resolves + import works
 
 See [wiring-components.md](./references/wiring-components.md) for full details.
 
@@ -102,3 +103,40 @@ curl -s https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry/r
 Each item's `registry-item.json` contains: name, type, title, description, tags, dimensions (blocks only), duration (blocks only), and file list.
 
 See [discovery.md](./references/discovery.md) for details on filtering by type and tags.
+
+## When NOT to use
+
+- Task is unrelated to hyperframes registry — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Hyperframes Registry needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for hyperframes registry
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving hyperframes registry
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

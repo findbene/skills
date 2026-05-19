@@ -1,6 +1,7 @@
 ---
 name: ads-photoshoot
-description: "Product photography enhancement for ad creatives using banana-claude image generation. Takes a product image and generates 5 professional photography styles for ad use: Studio, Floating, Ingredient, In Use, and Lifestyle. Requires banana-claude (v1.4.1+) with nanobanana-mcp. Triggers on: product photo, product photography, photoshoot, enhance product image, product shoot, product photos for ads, generate product photos, studio shot, lifestyle photo."
+description: "Product photography enhancement for ad creatives using banana-claude image generation. Triggers: 'use ads-photoshoot', 'run ads photoshoot', 'ads photoshoot'."
+allowed-tools: Glob, Grep, Read
 user-invokable: false
 ---
 
@@ -10,31 +11,17 @@ Transforms a product image or description into professional ad-ready photography
 in 5 distinct visual styles. Each style generates at two sizes: 1:1 (Meta/LinkedIn)
 and 9:16 (TikTok/Reels/Stories).
 
-## Quick Reference
-
-| Command | What it does |
-|---------|-------------|
-| `/ads photoshoot` | Interactive: ask for product + styles |
-| `/ads photoshoot --styles studio floating` | Generate only selected styles |
-| `/ads photoshoot --product shoe.jpg` | Start with a product image file |
-| `/ads photoshoot --all-platforms` | Generate all 5 sizes per style |
-
-## Environment Setup
-
-Requires banana-claude (v1.4.1+) with nanobanana-mcp configured.
-Run `/banana setup` to configure API key and MCP.
-
 ## Process
 
 ### Step 1: Collect Product Information
 
 Ask (combine into one message):
-1. **Product image**: Path to product image file (local) OR product URL OR text description
+1. **Product image**: Path to product image file (local) OR product URL OR text description → verify: step output matches expected outcome
    > "Provide a product image path (e.g. ./product.jpg), a URL, or describe your product"
-2. **Product description**: What is it? Key features to highlight? (helps prompt quality)
-3. **Styles to generate**: Which of the 5 styles? (default: all 5)
+2. **Product description**: What is it? Key features to highlight? (helps prompt quality) → verify: step output matches expected outcome
+3. **Styles to generate**: Which of the 5 styles? (default: all 5) → verify: output file exists + no syntax error
    - Studio, Floating, Ingredient, In Use, Lifestyle
-4. **Target platforms**: Which platforms will these run on?
+4. **Target platforms**: Which platforms will these run on? → verify: command exit code 0
    - Determines output sizes (default: Meta + TikTok → 1:1 + 9:16)
 
 ### Step 2: Load Brand Profile (Optional)
@@ -194,26 +181,53 @@ Track results. If a generation fails, retry once with a simplified prompt.
   Run `/ads generate` to use these in a full campaign.
 ```
 
-## Cost Estimate
-
-Before generating, show:
-- Number of styles selected x 2 sizes = total images
-- Estimated cost based on banana pricing tiers
-- If >$0.50, ask for confirmation
-
-## Platform Recommendations
-
-| Style | Best Platforms | Rationale |
-|-------|---------------|-----------|
-| Studio | Meta Feed, LinkedIn, Google PMax | Universal, clean, platform-safe |
-| Floating | Meta Reels, TikTok, Stories | High visual impact on vertical placements |
-| Ingredient | Meta Feed, Pinterest | Works best as square; tells product story |
-| In Use | TikTok, Meta Reels, Stories | Authentic, native-feeling content |
-| Lifestyle | All platforms | Aspirational, broad audience appeal |
-
 ## Reference Files
 
 - `~/.claude/skills/ads/references/image-providers.md`: API setup and pricing
 - `~/.claude/skills/ads/references/brand-dna-template.md`: Brand injection schema
 - `~/.claude/skills/ads/references/meta-creative-specs.md`: Safe zone for 9:16
 - `~/.claude/skills/ads/references/tiktok-creative-specs.md`: Safe zone constraints
+
+## When NOT to use
+
+- Generic AI image generation without a product subject — use `nano-banana-pro`
+- Video creative (TikTok-style hooks, ad reels) — use `ads-creative` or Seedance skills
+- Photo retouching of an existing real photo (no generation) — use a real editor
+- Full campaign brief or copy — use `ads-create`
+- Brand DNA extraction only — use `ads-dna` first, then return here
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Skip brand-profile.json, defaults are fine" | Output looks generic; CTR/CPC suffers vs. brand-aligned creative |
+| "Include full faces in In Use style" | Model-release complications; hands-only is the rule |
+| "Generate all 5 styles before checking cost" | Spend creeps; confirm cost over $0.50 threshold |
+| "One style fits all placements" | Floating = vertical, Studio = square, Ingredient = top-down; placement-style match matters |
+
+## Output Contract
+
+Done when:
+- 1-5 styles generated per user selection (Studio, Floating, Ingredient, In Use, Lifestyle)
+- Each style output at requested sizes (1:1 and/or 9:16 minimum)
+- Brand-profile.json applied where present (colors, mood, target audience, forbidden imagery)
+- Files saved to `./product-photos/[style]/[product-slug]-[style]-[WxH].png`
+- Banana domain mode set per style (Product vs Editorial)
+- Cost estimate shown and confirmed if over threshold
+- Summary table with platform recommendations returned
+
+## Examples
+
+### Example 1 — Skincare brand launch
+- Input: "Photoshoot for our new vitamin-C serum, all 5 styles, Meta + TikTok"
+- Action: Load brand-profile.json (warm tones, citrus mood), build 5 prompts injecting brand DNA, generate Studio + Floating + Ingredient + In Use + Lifestyle at 1:1 and 9:16, organize under `./product-photos/`
+- Output: 10 images in style folders, cost report, platform mapping table
+
+### Example 2 — Quick studio + floating for one channel
+- Input: "Just Studio and Floating, square only, for a watch"
+- Action: `/ads photoshoot --styles studio floating` with 1:1 only; brand-profile defaults if not present; 2 generations
+- Output: 2 images at 1080×1080, ready for Meta Feed / LinkedIn / PMax
+
+## References
+
+Extended sections moved to `references/details.md`.

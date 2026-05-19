@@ -1,6 +1,7 @@
 ---
 name: "red-team"
-description: "Use when planning or executing authorized red team engagements, attack path analysis, or offensive security simulations. Covers MITRE ATT&CK kill-chain planning, technique scoring, choke point identification, OPSEC risk assessment, and crown jewel targeting."
+description: 'Use when planning or executing authorized red team engagements, attack path analysis, or offensive security simulations. Triggers: "use red-team", "red team", "red task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Red Team
@@ -184,11 +185,11 @@ OPSEC risk items identify actions that are likely to trigger detection or leave 
 
 ### OPSEC Checklist Before Each Phase
 
-1. Is the technique in scope per RoE?
-2. Will it generate logs that blue team monitors actively?
-3. Is there a less-detectable alternative that achieves the same objective?
-4. If detected, will it reveal the full operation or only the current foothold?
-5. Are cleanup artifacts defined for post-exercise removal?
+1. Is the technique in scope per RoE? → verify: step output matches expected outcome
+2. Will it generate logs that blue team monitors actively? → verify: output exists + parses without error
+3. Is there a less-detectable alternative that achieves the same objective? → verify: step output matches expected outcome
+4. If detected, will it reveal the full operation or only the current foothold? → verify: step output matches expected outcome
+5. Are cleanup artifacts defined for post-exercise removal? → verify: step output matches expected outcome
 
 ---
 
@@ -265,28 +266,28 @@ python3 scripts/engagement_planner.py \
 ### Workflow 2: Full Red Team Engagement (Multi-Week)
 
 **Week 1 — Planning:**
-1. Define crown jewels and success criteria with stakeholders
-2. Sign RoE with defined scope, timeline, and out-of-scope exclusions
-3. Build engagement plan with engagement_planner.py
-4. Review OPSEC risks for each phase
+1. Define crown jewels and success criteria with stakeholders → verify: step output matches expected outcome
+2. Sign RoE with defined scope, timeline, and out-of-scope exclusions → verify: step output matches expected outcome
+3. Build engagement plan with engagement_planner.py → verify: step output matches expected outcome
+4. Review OPSEC risks for each phase → verify: step output matches expected outcome
 
 **Week 2 — Execution (External Phase):**
-1. Reconnaissance and target profiling
-2. Initial access attempts (phishing, exploit public-facing)
-3. Document each technique executed with timestamps
-4. Log all detection events to validate blue team coverage
+1. Reconnaissance and target profiling → verify: step output matches expected outcome
+2. Initial access attempts (phishing, exploit public-facing) → verify: step output matches expected outcome
+3. Document each technique executed with timestamps → verify: command exit code 0
+4. Log all detection events to validate blue team coverage → verify: step output matches expected outcome
 
 **Week 3 — Execution (Internal Phase):**
-1. Establish persistence if initial access obtained
-2. Execute credential access techniques (choke points)
-3. Lateral movement toward crown jewels
-4. Document when and how crown jewels were reached
+1. Establish persistence if initial access obtained → verify: step output matches expected outcome
+2. Execute credential access techniques (choke points) → verify: command exit code 0
+3. Lateral movement toward crown jewels → verify: step output matches expected outcome
+4. Document when and how crown jewels were reached → verify: step output matches expected outcome
 
 **Week 4 — Reporting:**
-1. Compile findings — techniques executed, detection rates, crown jewels reached
-2. Map findings to detection gaps
-3. Produce remediation recommendations prioritized by choke point impact
-4. Deliver read-out to security leadership
+1. Compile findings — techniques executed, detection rates, crown jewels reached → verify: command exit code 0
+2. Map findings to detection gaps → verify: step output matches expected outcome
+3. Produce remediation recommendations prioritized by choke point impact → verify: step output matches expected outcome
+4. Deliver read-out to security leadership → verify: file readable + content matches expected shape
 
 ### Workflow 3: Assumed Breach Tabletop
 
@@ -315,13 +316,13 @@ done
 
 ## Anti-Patterns
 
-1. **Operating without written authorization** — Unauthorized red team activity against any system you don't own or have explicit permission to test is a criminal offense. The `--authorized` flag must reflect a real signed RoE, not just running the tool to bypass the check. Authorization must predate execution.
-2. **Skipping kill-chain phase ordering** — Jumping directly to lateral movement without establishing persistence means a single detection wipes out the entire foothold. Follow the kill-chain phase order — each phase builds the foundation for the next.
-3. **Not defining crown jewels before starting** — Engagements without defined success criteria drift into open-ended vulnerability hunting. Crown jewels and success conditions must be agreed upon in the RoE before the first technique is executed.
-4. **Ignoring OPSEC risks in the plan** — Red team exercises test blue team detection. Deliberately avoiding all detectable techniques produces an unrealistic engagement that doesn't validate detection coverage. Use OPSEC risks to understand detection exposure, not to avoid it entirely.
-5. **Failing to document executed techniques in real time** — Retroactive documentation of what was executed is unreliable. Log each technique, timestamp, and outcome as it happens. Post-engagement reporting must be based on contemporaneous records.
-6. **Not cleaning up artifacts post-exercise** — Persistence mechanisms, new accounts, modified configurations, and staged data must be removed after engagement completion. Leaving red team artifacts creates permanent security risks and can be confused with real attacker activity.
-7. **Treating path of least resistance as the only path** — Attackers adapt. Test multiple attack paths including higher-effort routes that may evade detection. Validating that the easiest path is detected is necessary but not sufficient.
+1. **Operating without written authorization** — Unauthorized red team activity against any system you don't own or have explicit permission to test is a criminal offense. The `--authorized` flag must reflect a real signed RoE, not just running the tool to bypass the check. Authorization must predate execution. → verify: command exit code 0
+2. **Skipping kill-chain phase ordering** — Jumping directly to lateral movement without establishing persistence means a single detection wipes out the entire foothold. Follow the kill-chain phase order — each phase builds the foundation for the next. → verify: step output matches expected outcome
+3. **Not defining crown jewels before starting** — Engagements without defined success criteria drift into open-ended vulnerability hunting. Crown jewels and success conditions must be agreed upon in the RoE before the first technique is executed. → verify: file content matches expected shape
+4. **Ignoring OPSEC risks in the plan** — Red team exercises test blue team detection. Deliberately avoiding all detectable techniques produces an unrealistic engagement that doesn't validate detection coverage. Use OPSEC risks to understand detection exposure, not to avoid it entirely. → verify: output exists + parses without error
+5. **Failing to document executed techniques in real time** — Retroactive documentation of what was executed is unreliable. Log each technique, timestamp, and outcome as it happens. Post-engagement reporting must be based on contemporaneous records. → verify: command exit code 0
+6. **Not cleaning up artifacts post-exercise** — Persistence mechanisms, new accounts, modified configurations, and staged data must be removed after engagement completion. Leaving red team artifacts creates permanent security risks and can be confused with real attacker activity. → verify: output exists + parses without error
+7. **Treating path of least resistance as the only path** — Attackers adapt. Test multiple attack paths including higher-effort routes that may evade detection. Validating that the easiest path is detected is necessary but not sufficient. → verify: all checks pass
 
 ---
 
@@ -333,3 +334,40 @@ done
 | [incident-response](../incident-response/SKILL.md) | Red team activity should trigger incident response procedures — detection and response quality is a primary success metric |
 | [cloud-security](../cloud-security/SKILL.md) | Cloud posture findings (IAM misconfigs, S3 exposure) become red team attack path targets |
 | [security-pen-testing](../security-pen-testing/SKILL.md) | Pen testing focuses on specific vulnerability exploitation; red team focuses on end-to-end kill-chain simulation to crown jewels |
+
+## When NOT to use
+
+- Task is unrelated to red team — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Red Team needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for red team
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving red team
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

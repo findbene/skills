@@ -1,6 +1,7 @@
 ---
 name: referral-program
-description: "Design and optimize referral programs — including incentive structure, referral mechanics, messaging, tracking, and launch strategy to turn existing customers into a growth channel. Use this whenever the user mentions 'referral program,' 'word of mouth marketing,' 'refer-a-friend,' 'customer referrals,' 'referral incentives,' or 'grow through referrals.' Trigger even when the user says 'our best customers seem to refer others but we're not capturing it' without using referral program terminology."
+description: "Design and optimize referral programs — including incentive structure, referral mechanics, messaging, tracking, and launc. Triggers: 'use referral-program', 'referral program', 'referral-program task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -85,11 +86,11 @@ Trigger Moment → Share Action → Convert Referred → Reward → (Loop)
 ### Step 2: Design Share Mechanism
 
 **Ranked by effectiveness:**
-1. In-product sharing (highest conversion)
-2. Personalized link
-3. Email invitation
-4. Social sharing
-5. Referral code (works offline)
+1. In-product sharing (highest conversion) → verify: step output matches expected outcome
+2. Personalized link → verify: step output matches expected outcome
+3. Email invitation → verify: step output matches expected outcome
+4. Social sharing → verify: step output matches expected outcome
+5. Referral code (works offline) → verify: step output matches expected outcome
 
 ### Step 3: Choose Incentive Structure
 
@@ -202,9 +203,9 @@ They get [their reward] too.
 
 [Unique referral link]
 
-1. Share your link
-2. Friend signs up
-3. You both get [reward]
+1. Share your link → verify: step output matches expected outcome
+2. Friend signs up → verify: step output matches expected outcome
+3. You both get [reward] → verify: step output matches expected outcome
 ```
 
 ### Referral Nurture Sequence
@@ -224,12 +225,12 @@ They get [their reward] too.
 
 ## Task-Specific Questions
 
-1. What type of program (referral, affiliate, or both)?
-2. What's your customer LTV and current CAC?
-3. Existing program or starting from scratch?
-4. What tools/platforms are you considering?
-5. What's your budget for rewards/commissions?
-6. Is your product naturally shareable?
+1. What type of program (referral, affiliate, or both)? → verify: step output matches expected outcome
+2. What's your customer LTV and current CAC? → verify: step output matches expected outcome
+3. Existing program or starting from scratch? → verify: step output matches expected outcome
+4. What tools/platforms are you considering? → verify: step output matches expected outcome
+5. What's your budget for rewards/commissions? → verify: step output matches expected outcome
+6. Is your product naturally shareable? → verify: step output matches expected outcome
 
 ---
 
@@ -255,3 +256,44 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md). Key tools
 - **email-sequence**: For referral nurture campaigns
 - **marketing-psychology**: For understanding referral motivation
 - **analytics-tracking**: For tracking referral attribution
+
+## Triggers
+
+referral program,' 'word of mouth marketing,' 'refer-a-friend,' 'customer referrals,' 'referral incentives,' or 'grow through referrals.'
+
+## When NOT to use
+
+- Task is unrelated to referral program — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Referral Program needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for referral program
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving referral program
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

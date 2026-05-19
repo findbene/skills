@@ -1,6 +1,7 @@
 ---
 name: mcp-to-skill
-description: "MCP-to-skill conversion specialist that transforms always-on MCP servers into lightweight on-demand skill plugins to eliminate context rot and restore agent performance. Use this skill any time an MCP server needs to be converted to a skill, context window is bloated from too many active MCPs, or agent performance is degrading in long sessions. Trigger immediately on: \"context rot\", \"too many MCPs\", \"convert MCP to skill\", \"reduce context\", \"MCP optimization\", \"context window bloat\", \"MCP overhead\", \"on-demand MCP\", \"skill plugin\", \"context degradation\", \"MCP memory\", \"skill conversion\", \"agent performance\", \"MCP as skill\". If someone says \"my context is bloated from MCPs\" this skill MUST trigger."
+description: 'MCP-to-skill conversion specialist that transforms always-on MCP servers into lightweight on-demand skill plugins to eliminate context. Triggers: "use mcp-to-skill", "use MCP to skill", "mcp to skill.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # MCP-to-Skill Conversion
@@ -46,10 +47,10 @@ Sort each MCP into one of three categories:
 
 For each MCP being converted, create a skill that:
 
-1. Describes when to activate (pushy trigger guidance)
-2. Documents available tools and their purpose
-3. Provides usage patterns and examples
-4. References the underlying MCP tools by name
+1. Describes when to activate (pushy trigger guidance) → verify: git status clean
+2. Documents available tools and their purpose → verify: step output matches expected outcome
+3. Provides usage patterns and examples → verify: step output matches expected outcome
+4. References the underlying MCP tools by name → verify: step output matches expected outcome
 
 #### Skill Template
 
@@ -74,9 +75,9 @@ Trigger especially when [specific phrases/contexts]. Do NOT trigger for [exclusi
 ## Common Workflows
 
 ### [Workflow 1 Name]
-1. Call `tool_name_1` with [parameters]
-2. Process the result
-3. Call `tool_name_2` if needed
+1. Call `tool_name_1` with [parameters] → verify: step output matches expected outcome
+2. Process the result → verify: step output matches expected outcome
+3. Call `tool_name_2` if needed → verify: step output matches expected outcome
 
 ### [Workflow 2 Name]
 [Steps]
@@ -132,3 +133,40 @@ This skill complements:
 - **mcp-builder** — build new MCPs, then wrap them as skills
 - **harness-engineering** — include skill-wrapped MCPs in reusable harnesses
 - **agent-memory-system** — track which skills/MCPs are most useful per project
+
+## When NOT to use
+
+- Task is unrelated to mcp to skill — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Mcp To Skill needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for mcp to skill
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving mcp to skill
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

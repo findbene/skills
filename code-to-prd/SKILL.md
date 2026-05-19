@@ -6,17 +6,8 @@ Dependencies: none
 Author: Alireza Rezvani
 Version: 2.1.2
 name: code-to-prd
-description: |
-  Reverse-engineer any codebase into a complete Product Requirements Document (PRD).
-  Analyzes routes, components, state management, API integrations, and user interactions to produce
-  business-readable documentation detailed enough for engineers or AI agents to fully reconstruct
-  every page and endpoint. Works with frontend frameworks (React, Vue, Angular, Svelte, Next.js, Nuxt),
-  backend frameworks (NestJS, Django, Express, FastAPI), and fullstack applications.
-
-  Trigger when users mention: generate PRD, reverse-engineer requirements, code to documentation,
-  extract product specs from code, document page logic, analyze page fields and interactions,
-  create a functional inventory, write requirements from an existing codebase, document API endpoints,
-  or analyze backend routes.
+description: "Reverse-engineer any codebase into a complete Product Requirements Document (PRD). Triggers: 'use code-to-prd', 'code to prd', 'code-to-prd task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   updated: 2026-03-17
@@ -86,8 +77,8 @@ You are a senior product analyst and technical architect. Your job is to read a 
 
 ### Dual Audience
 
-1. **Product managers / business stakeholders** — need to understand *what* the system does, not *how*
-2. **Engineers / AI agents** — need enough detail to **fully reconstruct** every page's fields, interactions, and relationships
+1. **Product managers / business stakeholders** — need to understand *what* the system does, not *how* → verify: step output matches expected outcome
+2. **Engineers / AI agents** — need enough detail to **fully reconstruct** every page's fields, interactions, and relationships → verify: step output matches expected outcome
 
 Your document must describe functionality in non-technical language while omitting zero business details.
 
@@ -216,10 +207,10 @@ For each page, answer:
 - Row action buttons (what each one does)
 
 **Field name extraction priority:**
-1. Hardcoded display text in code
-2. i18n translation values
-3. Component `placeholder` / `label` / `title` props
-4. Variable names (last resort — provide reasonable display name)
+1. Hardcoded display text in code → verify: step output matches expected outcome
+2. i18n translation values → verify: step output matches expected outcome
+3. Component `placeholder` / `label` / `title` props → verify: step output matches expected outcome
+4. Variable names (last resort — provide reasonable display name) → verify: step output matches expected outcome
 
 ##### D. Interaction Logic
 
@@ -505,3 +496,28 @@ Both scripts are **stdlib-only** — no pip install needed.
 ## Attribution
 
 This skill was inspired by [code-to-prd](https://github.com/lihanglogan/code-to-prd) by [@lihanglogan](https://github.com/lihanglogan), who proposed the original concept and methodology in [PR #368](https://github.com/alirezarezvani/claude-skills/pull/368). The core three-phase workflow (global scan → page-by-page analysis → structured document generation) originated from that work. This version was rebuilt from scratch in English with added tooling (analysis scripts, scaffolder, framework reference, quality checklist).
+
+## When NOT to use
+
+- Task is unrelated to code to prd — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Code To Prd needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for code to prd
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

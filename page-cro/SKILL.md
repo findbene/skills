@@ -1,6 +1,7 @@
 ---
 name: page-cro
-description: "Optimize existing web pages for conversions — analyzing page structure, value proposition clarity, CTA placement, trust signals, visual hierarchy, friction points, and objection handling. Use this whenever the user shows a page and asks 'why isn't this converting,' 'improve my landing page conversion rate,' 'CRO analysis,' 'page optimization,' 'conversion rate optimization,' or 'what's wrong with this page.' Trigger even when the user says 'my page gets traffic but no signups' without explicitly mentioning CRO."
+description: "Optimize existing web pages for conversions — analyzing page structure, value proposition clarity, CTA placement, trust signals, visual hierarchy. Triggers: 'use page-cro', 'page cro', 'page-cro task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,9 +17,9 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Before providing recommendations, identify:
 
-1. **Page Type**: Homepage, landing page, pricing, feature, blog, about, other
-2. **Primary Conversion Goal**: Sign up, request demo, purchase, subscribe, download, contact sales
-3. **Traffic Context**: Where are visitors coming from? (organic, paid, email, social)
+1. **Page Type**: Homepage, landing page, pricing, feature, blog, about, other → verify: step output matches expected outcome
+2. **Primary Conversion Goal**: Sign up, request demo, purchase, subscribe, download, contact sales → verify: file content matches expected shape
+3. **Traffic Context**: Where are visitors coming from? (organic, paid, email, social) → verify: step output matches expected outcome
 
 ---
 
@@ -165,11 +166,11 @@ When recommending experiments, consider tests for:
 
 ## Task-Specific Questions
 
-1. What's your current conversion rate and goal?
-2. Where is traffic coming from?
-3. What does your signup/purchase flow look like after this page?
-4. Do you have user research, heatmaps, or session recordings?
-5. What have you already tried?
+1. What's your current conversion rate and goal? → verify: step output matches expected outcome
+2. Where is traffic coming from? → verify: step output matches expected outcome
+3. What does your signup/purchase flow look like after this page? → verify: step output matches expected outcome
+4. Do you have user research, heatmaps, or session recordings? → verify: step output matches expected outcome
+5. What have you already tried? → verify: file content matches expected shape
 
 ---
 
@@ -180,3 +181,40 @@ When recommending experiments, consider tests for:
 - **popup-cro**: If considering popups as part of the strategy
 - **copywriting**: If the page needs a complete copy rewrite
 - **ab-test-setup**: To properly test recommended changes
+
+## When NOT to use
+
+- Task is unrelated to page cro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Page Cro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for page cro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving page cro
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

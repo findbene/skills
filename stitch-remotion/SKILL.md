@@ -1,6 +1,6 @@
 ---
 name: stitch-remotion
-description: Generates walkthrough videos from Stitch projects using Remotion. Downloads screenshots from Stitch screens, builds a Remotion composition with transitions and text overlays, and renders to MP4. Use with stitch-mcp-list-screens and stitch-mcp-get-screen for screen discovery.
+description: "Generates walkthrough videos from Stitch projects using Remotion. Triggers: 'use stitch-remotion', 'stitch remotion', 'stitch-remotion task'."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -27,7 +27,7 @@ You are a video production specialist creating walkthrough videos from Stitch ap
 1. Run `list_tools` → find Stitch MCP prefix
 2. Call `[prefix]:list_projects` → select the project
 3. Call `[prefix]:list_screens` with `projects/[projectId]` → list all screens
-4. For each screen you want in the video, call `[prefix]:get_screen` with numeric IDs
+4. For each screen you want in the video, call `[prefix]:get_screen` with numeric IDs → verify: diff matches intended change
 
 ### Download screenshots
 
@@ -271,10 +271,46 @@ project/
 | Build fails on ESM | Add `"type": "module"` to `package.json` and check Remotion version compatibility |
 | MP4 won't play | Check FFmpeg is installed: `ffmpeg -version` |
 
+## When NOT to use
+
+- Code generation from Stitch — use the matching `stitch-*-components` skill
+- Standalone Remotion video without Stitch source — use `remotion` skill
+- Live-action video or talking head — use `video-use`, `heygen-tools`, `synthesia-tools`
+- Animated CSS/GSAP demo on a webpage — use `gsap` / `css-animations`
+- 3D / motion graphics with After Effects style — use motion-design or Lottie skills
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Hard-code screenshots, skip the GCS downloader" | URLs are signed and time-limited — use `scripts/fetch-stitch.sh` for reliability |
+| "Default slide transition is fine for everything" | Default `slide` can be jarring; tune `TRANSITION_FRAMES` per pace and pick `fade` for editorial |
+| "Just bundle Remotion globally" | Use `npx remotion` or local devDep to avoid environment drift |
+| "MP4 will play everywhere" | Verify FFmpeg installed + chosen codec (h264 default) renders for the target platform |
+
+## Output Contract
+
+Finished output must contain:
+- Remotion composition file (`src/Root.tsx` or similar) with one `Sequence` per Stitch screen
+- Local copies of screenshots fetched via `scripts/fetch-stitch.sh`
+- Transition configuration (type, duration) tuned to content pace
+- Audio track or silence file path (optional but explicitly handled)
+- Rendered MP4 at target resolution (1080p default) with verified playback
+- README with `npx remotion render` command and tips
+
+## Examples
+
+**Example 1 — 60s product walkthrough video**
+- Input: "Make a 60s walkthrough of these 5 Stitch screens with light music"
+- Action: Fetch 5 screenshots → Remotion composition with 5 `<Sequence>` blocks → fade transitions at 24 frames each → background music track → render 1080p
+- Output: `out.mp4` (60s), Remotion project files, transitions = fade, music synced
+
+**Example 2 — Multi-screen demo for a pitch deck**
+- Input: "Convert this Stitch project into a 30s GIF/MP4 for our deck"
+- Action: Fetch all screens → composition with slide transitions → 6s per screen → no audio → render MP4
+- Output: `demo.mp4` (30s, no audio), 5 screens visible, smooth slide transitions
+
+
 ## References
 
-- Remotion docs: https://www.remotion.dev/docs/
-- Remotion transitions: https://www.remotion.dev/docs/transitions
-- `scripts/fetch-stitch.sh` — Reliable GCS downloader
-- `stitch-mcp-list-screens` — Discover screens in a Stitch project
-- `stitch-mcp-get-screen` — Get screenshot download URLs
+See `references/details.md` for extended sections.

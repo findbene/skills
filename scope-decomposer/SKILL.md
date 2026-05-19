@@ -1,6 +1,7 @@
 ---
 name: scope-decomposer
-description: "Project scope decomposition into Epics and Stories for sprint planning, backlog creation, and work estimation. Use this skill any time a project scope needs to be broken down into epics and user stories, a backlog needs to be created, or work needs to be organized for sprint execution. Trigger immediately on: \"decompose scope\", \"break into stories\", \"user stories\", \"epics\", \"backlog\", \"sprint planning\", \"story points\", \"scope decomposition\", \"create stories from\", \"break down the work\", \"epic breakdown\", \"backlog grooming\", \"story mapping\", \"feature breakdown\". If someone says \"break this down into stories\" or \"decompose this into epics\" this skill MUST trigger."
+description: 'Project scope decomposition into Epics and Stories for sprint planning, backlog creation, and work estimation. Triggers: "use scope-decomposer", "scope decomposer", "scope task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Scope Decomposer
@@ -84,3 +85,40 @@ Transform scope into Epics → Stories in one pass.
 - INVEST criteria for every story
 - Vertical slices delivering user value
 - Clear in/out scope boundaries
+
+## When NOT to use
+
+- Task is unrelated to scope decomposer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Scope Decomposer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for scope decomposer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving scope decomposer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

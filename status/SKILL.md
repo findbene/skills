@@ -1,6 +1,7 @@
 ---
 name: "status"
-description: "Show DAG state, agent progress, and branch status for an AgentHub session."
+description: "Show DAG state, agent progress, and branch status for an AgentHub session. Triggers: 'use status', 'status', 'status task'."
+allowed-tools: Bash, Glob, Grep, Read
 command: /hub:status
 ---
 
@@ -17,17 +18,17 @@ Display the current state of an AgentHub session: agent branches, commit counts,
 
 ## What It Does
 
-1. Run session overview:
+1. Run session overview: → verify: command exit code 0
 ```bash
 python {skill_path}/scripts/session_manager.py --status {session-id}
 ```
 
-2. Run DAG analysis:
+2. Run DAG analysis: → verify: command exit code 0
 ```bash
 python {skill_path}/scripts/dag_analyzer.py --status --session {session-id}
 ```
 
-3. Read recent board updates:
+3. Read recent board updates: → verify: file content matches expected shape
 ```bash
 python {skill_path}/scripts/board_manager.py --read progress
 ```
@@ -76,3 +77,40 @@ If all agents have posted results:
 If some agents are still running:
 - Show which are done vs in-progress
 - Suggest waiting or checking again later
+
+## When NOT to use
+
+- Task is unrelated to status — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Status needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for status
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving status
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

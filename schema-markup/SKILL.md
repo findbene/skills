@@ -1,6 +1,7 @@
 ---
 name: schema-markup
-description: "Implement Schema.org structured data markup (JSON-LD) to improve search appearance with rich snippets, knowledge panels, and enhanced SERP features. Use this whenever the user mentions 'schema markup,' 'structured data,' 'JSON-LD,' 'rich snippets,' 'rich results,' 'FAQ schema,' 'product schema,' 'review schema,' or 'how do I get stars/ratings in Google search results.' Trigger even when the user asks about getting enhanced search features without knowing the term 'schema."
+description: "Implement Schema.org structured data markup (JSON-LD) to improve search appearance with rich snippets, knowledge panels, and enhan. Triggers: 'use schema-markup', 'schema markup', 'schema-markup task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,11 +17,11 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Before implementing schema, understand:
 
-1. **Page Type** - What kind of page? What's the primary content? What rich results are possible?
+1. **Page Type** - What kind of page? What's the primary content? What rich results are possible? → verify: step output matches expected outcome
 
-2. **Current State** - Any existing schema? Errors in implementation? Which rich results already appearing?
+2. **Current State** - Any existing schema? Errors in implementation? Which rich results already appearing? → verify: file content matches expected shape
 
-3. **Goals** - Which rich results are you targeting? What's the business value?
+3. **Goals** - Which rich results are you targeting? What's the business value? → verify: step output matches expected outcome
 
 ---
 
@@ -163,11 +164,11 @@ You can combine multiple schema types on one page using `@graph`:
 
 ## Task-Specific Questions
 
-1. What type of page is this?
-2. What rich results are you hoping to achieve?
-3. What data is available to populate the schema?
-4. Is there existing schema on the page?
-5. What's your tech stack?
+1. What type of page is this? → verify: step output matches expected outcome
+2. What rich results are you hoping to achieve? → verify: step output matches expected outcome
+3. What data is available to populate the schema? → verify: step output matches expected outcome
+4. Is there existing schema on the page? → verify: step output matches expected outcome
+5. What's your tech stack? → verify: step output matches expected outcome
 
 ---
 
@@ -177,3 +178,44 @@ You can combine multiple schema types on one page using `@graph`:
 - **ai-seo**: For AI search optimization (schema helps AI understand content)
 - **programmatic-seo**: For templated schema at scale
 - **site-architecture**: For breadcrumb structure and navigation schema planning
+
+## Triggers
+
+schema markup,' 'structured data,' 'JSON-LD,' 'rich snippets,' 'rich results,' 'FAQ schema,' 'product schema,' 'review schema,' or 'how do I get stars/ratings in Google search results.'
+
+## When NOT to use
+
+- Task is unrelated to schema markup — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Schema Markup needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for schema markup
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving schema markup
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

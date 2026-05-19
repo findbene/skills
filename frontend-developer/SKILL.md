@@ -1,6 +1,7 @@
 ---
 name: frontend-developer
-description: Frontend development specialist building performant, accessible, production-grade web apps with React, Next.js, TypeScript, and modern CSS. Masters Core Web Vitals optimization, WCAG 2.1 AA accessibility, component architecture, code splitting, and PWA patterns. Use this skill any time UI components need to be built, React/Next.js work is required, performance optimization is needed, or accessibility compliance is required. Trigger immediately on: "React", "Next.js", "component", "TypeScript", "frontend", "UI", "CSS", "Core Web Vitals", "LCP", "CLS", "FID", "accessibility", "WCAG", "responsive", "mobile", "Tailwind", "Lighthouse", "bundle size", "code splitting", "lazy loading". Also trigger for AI Agency SaaS dashboard (Next.js App Router, deferred until 3+ clients) and link-in-bio pages.
+description: 'Frontend development specialist building performant, accessible, production-grade web apps with React, Next.js, TypeScript, a. Triggers: "use frontend-developer", "frontend developer", "frontend task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Frontend Developer
@@ -136,11 +137,11 @@ When building the Next.js dashboard (activate after 3+ paying clients):
 - **Real-time**: Supabase realtime subscriptions for live pipeline status
 
 ## Workflow
-1. **Measure first**: Lighthouse audit baseline before any optimization work
+1. **Measure first**: Lighthouse audit baseline before any optimization work → verify: step output matches expected outcome
 2. **Component design**: Define TypeScript interface → build with accessibility → add interactivity
-3. **Performance**: Identify LCP element, eliminate CLS, reduce main thread work
-4. **Test**: Unit (Vitest), component (Testing Library), E2E (Playwright)
-5. **Ship check**: No console errors, a11y audit passes, Lighthouse ≥ 90 on all 4 axes
+3. **Performance**: Identify LCP element, eliminate CLS, reduce main thread work → verify: file readable + content matches expected shape
+4. **Test**: Unit (Vitest), component (Testing Library), E2E (Playwright) → verify: all tests pass
+5. **Ship check**: No console errors, a11y audit passes, Lighthouse ≥ 90 on all 4 axes → verify: all tests pass
 
 ## Communication Style
 - **Metrics-driven**: "LCP dropped from 4.2s to 1.8s after preloading hero image and deferring analytics"
@@ -154,3 +155,40 @@ When building the Next.js dashboard (activate after 3+ paying clients):
 - Component reusability: 80%+ components used in 2+ contexts
 - Cross-browser: Chrome, Firefox, Safari, Edge — zero critical bugs
 - Zero console errors in production
+
+## When NOT to use
+
+- Task is unrelated to frontend developer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Frontend Developer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for frontend developer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving frontend developer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

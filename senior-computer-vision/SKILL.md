@@ -1,6 +1,7 @@
 ---
 name: "senior-computer-vision"
-description: Computer vision engineering skill for object detection, image segmentation, and visual AI systems. Covers CNN and Vision Transformer architectures, YOLO/Faster R-CNN/DETR detection, Mask R-CNN/SAM segmentation, and production deployment with ONNX/TensorRT. Includes PyTorch, torchvision, Ultralytics, Detectron2, and MMDetection frameworks. Use when building detection pipelines, training custom models, optimizing inference, or deploying vision systems.
+description: "Computer vision engineering skill for object detection, image segmentation, and visual AI systems. Triggers: 'use senior-computer-vision', 'senior computer vision', 'senior-computer-vision task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Senior Computer Vision Engineer
@@ -437,3 +438,42 @@ python scripts/dataset_pipeline_builder.py data/final/ \
 - **Optimization Guide**: `references/object_detection_optimization.md`
 - **Deployment Guide**: `references/production_vision_systems.md`
 - **Scripts**: `scripts/` directory for automation tools
+
+## When NOT to use
+
+- Pure NLP / text-only tasks — use `senior-ml-engineer` or `senior-data-scientist`
+- Generative image creation (diffusion, GANs for art) — use `nano-banana-pro` / image-gen skills
+- Simple image manipulation (resize, crop, watermark) — use `pdf` / Pillow directly, no CV pipeline needed
+- Demo/proof-of-concept with a pre-trained model and no training — skip the dataset pipeline, just call the model
+- Real-time video conferencing or streaming pipeline design — use a video-engineering skill, not CV
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "YOLOv11 because it is newest" | Architecture choice depends on latency budget, training data size, and deployment target — load `references/object_detection_optimization.md` |
+| "Skip augmentation, the dataset is big enough" | Even 100k images need augmentation for robustness to lighting/scale; cite albumentations recipe |
+| "Train on full-precision FP32 forever" | Quantize to INT8 / ONNX once accuracy stabilizes — most production targets need it |
+| "mAP@0.5 looks good, ship it" | Evaluate at multiple IoU thresholds AND on a held-out distribution-shift set; mAP@0.5 alone hides edge cases |
+
+## Output Contract
+
+Finished output must contain:
+- Architecture choice with explicit justification (data size, latency, deployment target)
+- Training config (yaml/json) reproducible from scratch
+- Augmentation pipeline definition (albumentations or torchvision transforms)
+- Evaluation report: mAP@[0.5, 0.75, 0.5:0.95], confusion matrix, latency p50/p95
+- Deployment artifact (ONNX / TensorRT / CoreML) with verification that accuracy matches PyTorch within tolerance
+- Inference benchmark on target hardware
+
+## Examples
+
+**Example 1 — Retail shelf object detection**
+- Input: "Detect 200 product SKUs on shelves from store-camera images, deploy to edge box"
+- Action: Run `dataset_pipeline_builder.py images/ --format coco --augment` → pick YOLOv8m for accuracy/speed → train with `vision_model_trainer.py` → optimize with `inference_optimizer.py --target onnx --benchmark`
+- Output: YOLOv8m ONNX model, mAP@0.5 = 0.87, 28ms/frame on Jetson Orin, training config + eval report
+
+**Example 2 — Medical instance segmentation**
+- Input: "Segment tumor regions in 512x512 MRI slices, dataset 3k labeled, deploy to cloud GPU"
+- Action: Recommend Mask R-CNN or SegFormer → enforce class-balanced sampling → train with heavy augmentation → evaluate Dice + IoU on held-out cases
+- Output: SegFormer-B2 PyTorch checkpoint, Dice 0.81, ONNX export, latency 110ms on T4, full eval report

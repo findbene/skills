@@ -1,6 +1,7 @@
 ---
 name: karpathy-coder
-description: Use when writing, reviewing, or committing code to enforce Karpathy's 4 coding principles — surface assumptions before coding, keep it simple, make surgical changes, define verifiable goals. Triggers on "review my diff", "check complexity", "am I overcomplicating this", "karpathy check", "before I commit", or any code quality concern where the LLM might be overcoding.
+description: 'Use when writing, reviewing, or committing code to enforce Karpathy''s 4 coding principles — surface assumptions before coding, keep i. Triggers: "use karpathy-coder", "karpathy coder", "karpathy task.'
+allowed-tools: Glob, Grep, Read
 context: fork
 version: 2.3.0
 author: claude-code-skills
@@ -129,3 +130,40 @@ Installs via plugin for Claude Code. For other tools, copy the principles into y
 - **`self-eval`** — honest quality scoring after completing work
 - **`code-reviewer`** — broader code review; karpathy-coder focuses on the 4 LLM-specific pitfalls
 - **`llm-wiki`** — compound knowledge; karpathy-coder ensures you don't overcomplicate while building it
+
+## When NOT to use
+
+- Task is unrelated to karpathy coder — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Karpathy Coder needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for karpathy coder
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving karpathy coder
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,7 +1,7 @@
 ---
 name: design
-description: "Comprehensive design specialist covering brand identity, design tokens, UI styling, component design, and visual hierarchy for product interfaces. Use this skill any time brand identity needs to be designed, design tokens need to be created, visual systems need to be built, or UI components need to be styled. Trigger immediately on: \"design\", \"visual design\", \"design tokens\", \"brand identity\", \"design system\", \"UI design\", \"color palette\", \"typography\", \"spacing system\", \"design language\", \"visual hierarchy\", \"design review\", \"component design\", \"design spec\". If someone says \"design this\" or \"what should this look like visually?\" this skill MUST trigger."
-argument-hint: "[design-type] [context]"
+description: "Comprehensive design specialist covering brand identity, design tokens, UI styling, component design, and visual hierarchy for product interfaces. Triggers: 'use design', 'design', 'design task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   author: claudekit
@@ -137,11 +137,11 @@ Load `references/banner-sizes-and-styles.md` for complete sizes and styles refer
 
 ### Banner: Workflow
 
-1. **Gather requirements** via `AskUserQuestion` — purpose, platform, content, brand, style, quantity
-2. **Research** — Activate `ui-ux-pro-max`, browse Pinterest for references
-3. **Design** — Create HTML/CSS banner with `frontend-design`, generate visuals with `ai-artist`/`ai-multimodal`
-4. **Export** — Screenshot to PNG at exact dimensions via `chrome-devtools`
-5. **Present** — Show all options side-by-side, iterate on feedback
+1. **Gather requirements** via `AskUserQuestion` — purpose, platform, content, brand, style, quantity → verify: user confirms
+2. **Research** — Activate `ui-ux-pro-max`, browse Pinterest for references → verify: step output matches expected outcome
+3. **Design** — Create HTML/CSS banner with `frontend-design`, generate visuals with `ai-artist`/`ai-multimodal` → verify: output exists + parses without error
+4. **Export** — Screenshot to PNG at exact dimensions via `chrome-devtools` → verify: step output matches expected outcome
+5. **Present** — Show all options side-by-side, iterate on feedback → verify: step output matches expected outcome
 
 ### Banner: Quick Size Reference
 
@@ -222,14 +222,14 @@ Load `references/social-photos-design.md` for sizes, templates, best practices.
 
 ### Social Photos: Workflow
 
-1. **Orchestrate** — `project-management` skill for TODO tasks; parallel subagents for independent work
-2. **Analyze** — Parse prompt: subject, platforms, style, brand context, content elements
-3. **Ideate** — 3-5 concepts, present via `AskUserQuestion`
+1. **Orchestrate** — `project-management` skill for TODO tasks; parallel subagents for independent work → verify: user confirms
+2. **Analyze** — Parse prompt: subject, platforms, style, brand context, content elements → verify: step output matches expected outcome
+3. **Ideate** — 3-5 concepts, present via `AskUserQuestion` → verify: user confirms
 4. **Design** — `/ckm:brand` → `/ckm:design-system` → randomly invoke `/ck:ui-ux-pro-max` OR `/ck:frontend-design`; HTML per idea × size
-5. **Export** — `chrome-devtools` or Playwright screenshot at exact px (2x deviceScaleFactor)
+5. **Export** — `chrome-devtools` or Playwright screenshot at exact px (2x deviceScaleFactor) → verify: step output matches expected outcome
 6. **Verify** — Use Chrome MCP or `chrome-devtools` skill to visually inspect exported designs; fix layout/styling issues and re-export
-7. **Report** — Summary to `plans/reports/` with design decisions
-8. **Organize** — Invoke `assets-organizing` skill to sort output files and reports
+7. **Report** — Summary to `plans/reports/` with design decisions → verify: step output matches expected outcome
+8. **Organize** — Invoke `assets-organizing` skill to sort output files and reports → verify: command exit code 0
 
 ### Social Photos: Key Sizes
 
@@ -300,3 +300,45 @@ pip install google-genai pillow
 
 **External sub-skills:** brand, design-system, ui-styling
 **Related Skills:** frontend-design, ui-ux-pro-max, ai-multimodal, chrome-devtools
+
+## Triggers
+
+\\\"design\\\", \\\"visual design\\\", \\\"design tokens\\\", \\\"brand identity\\\", \\\"design system\\\", \\\"UI design\\\", \\\"color palette\\\", \\\"typography\\\", \\\"spacing system\\\", \\\"design language\\\", \\\"visual hi..."
+argument-hint: "[design-type] [context]
+
+## When NOT to use
+
+- Task is unrelated to design — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Design needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for design
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving design
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

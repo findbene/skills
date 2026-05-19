@@ -1,6 +1,7 @@
 ---
 name: nano-banana-pro
-description: "AI image generation expert using Google DeepMind Gemini 3 Pro Image model for high-quality images up to 4K with text rendering, reference images, and live internet data. Use this skill any time AI images need to be generated, product photos need to be created, social media graphics need to be made, or visual content needs to be produced. Trigger immediately on: \"generate image\", \"create image\", \"AI image\", \"nano-banana\", \"Gemini image\", \"product photo\", \"hero image\", \"generate a picture\", \"make an image\", \"visual asset\", \"image generation\", \"AI art\", \"create a graphic\", \"Gemini 3 Pro Image\". If someone says \"generate an image of X\" or \"create a product photo\" this skill MUST trigger."
+description: 'AI image generation expert using Google DeepMind Gemini 3 Pro Image model for high-quality images up to 4K with text rendering, referen. Triggers: "use nano-banana-pro", "nano banana pro", "nano task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Nano Banana Pro — AI Image Generation
@@ -63,3 +64,40 @@ Also configured as MCP server `nanobanana` in `~/.claude/settings.json`. API key
 ## API Key
 
 Stored at `~/.nano-banana/.env` as `GEMINI_API_KEY`. Also in `~/.claude/settings.json` MCP config as `GOOGLE_AI_API_KEY`.
+
+## When NOT to use
+
+- Task doesn't involve generating AI images via Gemini 3 Pro → use the matching domain skill instead
+- Simple one-off operation that doesn't need this skill's structure
+- Different toolchain required → check `find-skills` skill for alternatives
+- User explicitly asks to skip skill discipline → respect the override
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the verify step, output looks right" | Eyeballing without verification ships broken outputs |
+| "Generic answer is good enough" | AI image generation needs domain-specific decisions, not boilerplate |
+| "I can hold all context in head" | Multi-step state loss creates regressions you won't catch |
+| "Just one more shortcut" | Shortcuts compound — finish discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced and matches user's stated goal
+- All verification steps in process passed
+- Edge cases for generating AI images via Gemini 3 Pro addressed or explicitly noted
+- Output is reproducible (no hidden state)
+- Hand-off summary provided so user can validate without re-reading entire flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard request involving generating AI images via Gemini 3 Pro
+- Action: follow the documented numbered process, apply verify clauses per step
+- Output: deliverable that passes the Output Contract
+
+### Example 2 — edge case
+- Input: request with non-standard constraint or partial info
+- Action: detect the gap, ask clarifying question OR document assumption, proceed with adapted process
+- Output: deliverable + explicit note on assumption/limitation

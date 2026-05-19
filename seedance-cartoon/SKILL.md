@@ -1,6 +1,7 @@
 ---
 name: seedance-cartoon
-description: Generate cartoon and animation style video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants cartoon, 2D animation, cel-shaded, hand-drawn, illustrated, flat animation, or motion graphics animation style video. Triggers on: cartoon, animation, cel shading, hand-drawn, illustrated, flat design animation, vector animation, retro cartoon, rubber hose, motion graphics, or any cartoon/animated style request. Use even for vague requests like "make it look animated" or "fun colorful style."
+description: "Generate cartoon and animation style video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-cartoon', 'seedance cartoon', 'seedance-cartoon task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield — Cartoon & Animation Prompt Generator
@@ -1608,27 +1609,27 @@ Use this **Seedance 2.0 on Higgsfield Cartoon Skill** whenever user requests:
 
 ### Skill Deployment Workflow
 
-1. **Identify Intent**: User asks for cartoon/animation style
-2. **Ask Clarifying Questions**: (If needed)
+1. **Identify Intent**: User asks for cartoon/animation style → verify: user confirms
+2. **Ask Clarifying Questions**: (If needed) → verify: user confirms
    - "What's the tone? (comedic, emotional, epic action, whimsical)"
    - "What's the primary character/action?"
    - "Do you prefer a specific cartoon style? (Disney, Cartoon Network, flat vector, etc.)"
-3. **Select Primary Style**: Choose from Encyclopedia (Section: Animation Style Encyclopedia)
-4. **Build Hook**: Select 2-second hook from Hook Framework (Section: 2-Second Hook Framework)
-5. **Fill Master Template**: Use template structure to organize prompt layers
-6. **Integrate Principles**: Layer in animation principles from Cartoon Philosophy
-7. **Specify Technical Details**: Framerate, resolution, duration from Platform Optimization
-8. **Output Final Prompt**: Deliver comprehensive, specific prompt to Seedance 2.0 on Higgsfield
+3. **Select Primary Style**: Choose from Encyclopedia (Section: Animation Style Encyclopedia) → verify: step output matches expected outcome
+4. **Build Hook**: Select 2-second hook from Hook Framework (Section: 2-Second Hook Framework) → verify: step output matches expected outcome
+5. **Fill Master Template**: Use template structure to organize prompt layers → verify: step output matches expected outcome
+6. **Integrate Principles**: Layer in animation principles from Cartoon Philosophy → verify: step output matches expected outcome
+7. **Specify Technical Details**: Framerate, resolution, duration from Platform Optimization → verify: step output matches expected outcome
+8. **Output Final Prompt**: Deliver comprehensive, specific prompt to Seedance 2.0 on Higgsfield → verify: step output matches expected outcome
 
 ### Example Deployment
 
 **User Input**: "I want an animated explanation video about how solar panels work. Fun and educational."
 
 **Skill Application**:
-1. Intent: Animation explainer (educational + fun)
-2. Primary Style: Flat Vector (modern, clean, educational)
-3. Hook: Color Explosion or Particle Burst (shapes materialize)
-4. Template Structure:
+1. Intent: Animation explainer (educational + fun) → verify: step output matches expected outcome
+2. Primary Style: Flat Vector (modern, clean, educational) → verify: step output matches expected outcome
+3. Hook: Color Explosion or Particle Burst (shapes materialize) → verify: step output matches expected outcome
+4. Template Structure: → verify: step output matches expected outcome
    - Style declaration: Flat vector, geometric shapes
    - Narrative: Sun energy → panel capture → battery storage
    - Technical: 30fps, 1440p, 4 seconds
@@ -1666,3 +1667,33 @@ This skill provides comprehensive frameworks and vocabulary, but **creativity wi
 - **Emotional core**: All exaggeration should serve character emotion and narrative, not just visual flash.
 
 **Happy animating!**
+
+## When NOT to use
+
+- Task is unrelated to seedance cartoon — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Cartoon needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance cartoon
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

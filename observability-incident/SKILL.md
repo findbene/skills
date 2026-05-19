@@ -1,6 +1,7 @@
 ---
 name: observability-incident
-description: "Production observability and incident management specialist for metrics, logs, traces, alerting, and post-mortems using Prometheus, Grafana, and OpenTelemetry. Use this skill any time monitoring needs to be set up, alerting rules need to be configured, structured logging needs to be implemented, distributed tracing needs to be added, or incident response workflows need to be built. Trigger immediately on: \"monitoring\", \"observability\", \"alerting\", \"Prometheus\", \"Grafana\", \"OpenTelemetry\", \"structured logging\", \"distributed tracing\", \"incident response\", \"post-mortem\", \"on-call\", \"error rate\", \"metrics\", \"dashboards\". If someone says \"how do I know when my app is down?\" or \"set up monitoring\" this skill MUST trigger."
+description: 'Production observability and incident management specialist for metrics, logs, traces, alerting, and post-mortem. Triggers: "use observability-incident", "observability incident", "observability task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Observability & Incident Management
@@ -100,9 +101,46 @@ Document: root cause, contributing factors, impact (customers affected, revenue)
 
 ## Best Practices
 
-1. Structured logging with JSON and consistent fields
-2. Correlation IDs to trace requests across services
-3. Alert on symptoms, not just raw metrics
-4. Maintain runbooks for documented response procedures
+1. Structured logging with JSON and consistent fields → verify: step output matches expected outcome
+2. Correlation IDs to trace requests across services → verify: step output matches expected outcome
+3. Alert on symptoms, not just raw metrics → verify: step output matches expected outcome
+4. Maintain runbooks for documented response procedures → verify: command exit code 0
 5. Test alerts regularly to verify they work
-6. Use metrics for capacity planning and forecasting
+6. Use metrics for capacity planning and forecasting → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to observability incident — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Observability Incident needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for observability incident
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving observability incident
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

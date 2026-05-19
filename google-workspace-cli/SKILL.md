@@ -1,6 +1,7 @@
 ---
 name: "google-workspace-cli"
-description: "Google Workspace administration via the gws CLI. Install, authenticate, and automate Gmail, Drive, Sheets, Calendar, Docs, Chat, and Tasks. Run security audits, execute 43 built-in recipes, and use 10 persona bundles. Use for Google Workspace admin, gws CLI setup, Gmail automation, Drive management, or Calendar scheduling."
+description: "Google Workspace administration via the gws CLI. Install, authenticate, and automate Gmail, Drive, Sheets, Ca. Triggers: 'use google-workspace-cli', 'google workspace cli', 'google-workspace-cli task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Google Workspace CLI
@@ -321,27 +322,27 @@ All scripts are stdlib-only, support `--json` output, and include demo mode with
 
 ### Security
 
-1. Use OAuth with minimal scopes — request only what each workflow needs
-2. Store tokens in the system keyring, never in plain text files
-3. Rotate service account keys every 90 days
-4. Audit third-party OAuth app grants quarterly
-5. Use `--dry-run` before bulk destructive operations
+1. Use OAuth with minimal scopes — request only what each workflow needs → verify: step output matches expected outcome
+2. Store tokens in the system keyring, never in plain text files → verify: step output matches expected outcome
+3. Rotate service account keys every 90 days → verify: step output matches expected outcome
+4. Audit third-party OAuth app grants quarterly → verify: findings count > 0 OR clean signal returned
+5. Use `--dry-run` before bulk destructive operations → verify: command exit code 0
 
 ### Automation
 
-1. Pipe `--json` output through `output_analyzer.py` for filtering and aggregation
-2. Use recipes for multi-step operations instead of chaining raw commands
-3. Select a persona bundle to scope recipes to your role
-4. Use NDJSON format (`--format ndjson`) for streaming large result sets
-5. Set `GWS_DEFAULT_FORMAT=json` in your shell profile for scripting
+1. Pipe `--json` output through `output_analyzer.py` for filtering and aggregation → verify: dependency resolves + import works
+2. Use recipes for multi-step operations instead of chaining raw commands → verify: step output matches expected outcome
+3. Select a persona bundle to scope recipes to your role → verify: step output matches expected outcome
+4. Use NDJSON format (`--format ndjson`) for streaming large result sets → verify: step output matches expected outcome
+5. Set `GWS_DEFAULT_FORMAT=json` in your shell profile for scripting → verify: step output matches expected outcome
 
 ### Performance
 
-1. Use `--fields` to request only needed fields (reduces payload size)
-2. Use `--limit` to cap results when browsing
-3. Use `--page-all` only when you need complete datasets
-4. Batch operations with recipes rather than individual API calls
-5. Cache frequently accessed data (e.g., label IDs, folder IDs) in variables
+1. Use `--fields` to request only needed fields (reduces payload size) → verify: file content matches expected shape
+2. Use `--limit` to cap results when browsing → verify: step output matches expected outcome
+3. Use `--page-all` only when you need complete datasets → verify: step output matches expected outcome
+4. Batch operations with recipes rather than individual API calls → verify: step output matches expected outcome
+5. Cache frequently accessed data (e.g., label IDs, folder IDs) in variables → verify: step output matches expected outcome
 
 ---
 
@@ -371,3 +372,40 @@ python3 scripts/auth_setup_guide.py --scopes gmail,drive,calendar,sheets
 | Calendar | `calendar`, `calendar.events` |
 | Admin | `admin.directory.user.readonly`, `admin.directory.group` |
 | Tasks | `tasks` |
+
+## When NOT to use
+
+- Task is unrelated to google workspace cli — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Google Workspace Cli needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for google workspace cli
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving google workspace cli
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

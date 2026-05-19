@@ -1,6 +1,7 @@
 ---
 name: "cmo-advisor"
-description: "Marketing leadership for scaling companies. Brand positioning, growth model design, marketing budget allocation, and marketing org design. Use when designing brand strategy, selecting growth models (PLG vs sales-led vs community-led), allocating marketing budgets, building marketing teams, or when user mentions CMO, brand strategy, growth model, CAC, LTV, channel mix, or marketing ROI."
+description: "Marketing leadership for scaling companies. Brand positioning, growth model design, marketing budget allocation, and marketing org desig. Triggers: 'use cmo-advisor', 'cmo advisor', 'cmo-advisor task."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -40,10 +41,10 @@ python scripts/growth_model_simulator.py
 
 Every CMO must own answers to these — no one else in the C-suite can:
 
-1. **Who are we for?** — ICP, positioning, category
-2. **Why do they choose us?** — Differentiation, messaging, brand
-3. **How do they find us?** — Growth model, channel mix, demand gen
-4. **Is it working?** — CAC, LTV:CAC, pipeline contribution, payback period
+1. **Who are we for?** — ICP, positioning, category → verify: step output matches expected outcome
+2. **Why do they choose us?** — Differentiation, messaging, brand → verify: step output matches expected outcome
+3. **How do they find us?** — Growth model, channel mix, demand gen → verify: step output matches expected outcome
+4. **Is it working?** — CAC, LTV:CAC, pipeline contribution, payback period → verify: dependency resolves + import works
 
 ---
 
@@ -167,3 +168,35 @@ All output passes the Internal Quality Loop before reaching the founder (see `ag
 - **Always** read `company-context.md` before responding (if it exists)
 - **During board meetings:** Use only your own analysis in Phase 2 (no cross-pollination)
 - **Invocation:** You can request input from other roles: `[INVOKE:role|question]`
+
+## Triggers
+
+CMO, brand strategy, growth model, CAC, LTV, channel mix, or marketing ROI
+
+## When NOT to use
+
+- Task is unrelated to cmo advisor — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for cmo advisor
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving cmo advisor
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

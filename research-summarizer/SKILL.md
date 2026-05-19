@@ -1,6 +1,7 @@
 ---
 name: "research-summarizer"
-description: "Structured research summarization agent skill for non-dev users. Handles academic papers, web articles, reports, and documentation. Extracts key findings, generates comparative analyses, and produces properly formatted citations. Use when: user wants to summarize a research paper, compare multiple sources, extract citations from documents, or create structured research briefs. Plugin for Claude Code, Codex, Gemini CLI, and OpenClaw."
+description: "Structured research summarization agent skill for non-dev users. Triggers: 'use research-summarizer', 'research summarizer', 'research-summarizer task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -49,13 +50,13 @@ If the user has a document and wants structured understanding → this skill app
 
 ### `/research:summarize` — Single Source Summary
 
-1. **Identify source type**
+1. **Identify source type** → verify: step output matches expected outcome
    - Academic paper → use IMRAD structure (Introduction, Methods, Results, Analysis, Discussion)
    - Web article → use claim-evidence-implication structure
    - Technical report → use executive summary structure
    - Documentation → use reference summary structure
 
-2. **Extract structured brief**
+2. **Extract structured brief** → verify: step output matches expected outcome
    ```
    Title: [exact title]
    Author(s): [names]
@@ -66,9 +67,9 @@ If the user has a document and wants structured understanding → this skill app
    [1-2 sentences: the central argument or finding]
 
    ## Key Findings
-   1. [Finding with supporting evidence]
-   2. [Finding with supporting evidence]
-   3. [Finding with supporting evidence]
+   1. [Finding with supporting evidence] → verify: step output matches expected outcome
+   2. [Finding with supporting evidence] → verify: step output matches expected outcome
+   3. [Finding with supporting evidence] → verify: step output matches expected outcome
 
    ## Methodology
    [How they arrived at these findings — data sources, sample size, approach]
@@ -91,8 +92,8 @@ If the user has a document and wants structured understanding → this skill app
 
 ### `/research:compare` — Multi-Source Comparison
 
-1. **Collect sources** (2-5 documents)
-2. **Summarize each** using the single-source workflow above
+1. **Collect sources** (2-5 documents) → verify: step output matches expected outcome
+2. **Summarize each** using the single-source workflow above → verify: step output matches expected outcome
 3. **Build comparison matrix**
 
    ```
@@ -128,13 +129,13 @@ If the user has a document and wants structured understanding → this skill app
 
 ### `/research:cite` — Citation Extraction
 
-1. **Scan document** for all references, footnotes, in-text citations
-2. **Extract and format** using the requested style (APA 7 default)
-3. **Classify citations** by type:
+1. **Scan document** for all references, footnotes, in-text citations → verify: findings count > 0 OR clean signal returned
+2. **Extract and format** using the requested style (APA 7 default) → verify: step output matches expected outcome
+3. **Classify citations** by type: → verify: step output matches expected outcome
    - Primary sources (original research, data)
    - Secondary sources (reviews, meta-analyses, commentary)
    - Tertiary sources (textbooks, encyclopedias)
-4. **Output** sorted bibliography with classification tags
+4. **Output** sorted bibliography with classification tags → verify: step output matches expected outcome
 
 Supported citation formats:
 - **APA 7** (default) — social sciences, business
@@ -272,3 +273,40 @@ clawhub install cs-research-summarizer
 - **competitive-teardown** — Competitive research. Complementary — use research-summarizer for individual source analysis, competitive-teardown for market landscape.
 - **content-production** — Content writing. Research-summarizer feeds content-production — summarize sources first, then write.
 - **product-discovery** — Discovery frameworks. Complementary — research-summarizer for desk research, product-discovery for user research.
+
+## When NOT to use
+
+- Task is unrelated to research summarizer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Research Summarizer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for research summarizer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving research summarizer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

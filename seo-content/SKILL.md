@@ -1,16 +1,6 @@
 ---
 name: seo-content
-description: >
-  Content quality and E-E-A-T analysis with AI citation readiness assessment. Evaluates
-  Experience, Expertise, Authoritativeness, and Trustworthiness signals per the September
-  2025 Google QRG update. Scores content on readability, keyword optimization, internal
-  linking, freshness, and GEO/AI citability. Covers Google AI Mode (May 2025) and
-  Generative Engine Optimization (GEO) for ChatGPT, Perplexity, and AI Overviews. Make
-  sure to use this skill whenever the user mentions: "content quality", "E-E-A-T",
-  "content analysis", "readability", "thin content", "content audit", "duplicate
-  content", "helpful content", "AI-generated content", "content score", "is my content
-  good enough", "improve my articles", "content strategy", or any question about whether
-  content will rank well — even if they don't say "E-E-A-T" explicitly.
+description: 'Content quality and E-E-A-T analysis with AI citation readiness assessment. Triggers: "use seo-content", "optimize seo content", "seo content".'
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -23,162 +13,46 @@ allowed-tools:
 
 # Content Quality & E-E-A-T Analysis
 
-## E-E-A-T Framework (updated Sept 2025 QRG)
+## When NOT to use
 
-Read `seo/references/eeat-framework.md` for full criteria.
+- Technical SEO (crawl, indexation, schema) — use `seo-technical`
+- Comparison or alternatives pages — use `seo-competitor-pages`
+- AI/LLM citation analysis — use `seo-geo`
+- Local pages and Google Business Profile — use `seo-local`
+- Keyword research or content planning — use `seo-plan` or `seo-aeo-research-pack`
 
-### Experience (first-hand signals)
-- Original research, case studies, before/after results
-- Personal anecdotes, process documentation
-- Unique data, proprietary insights
-- Photos/videos from direct experience
+## Red Flags
 
-### Expertise
-- Author credentials, certifications, bio
-- Professional background relevant to topic
-- Technical depth appropriate for audience
-- Accurate, well-sourced claims
+| Rationalization | Reality |
+|---|---|
+| "Word count over 2000, must be good content" | Word count is not a ranking factor — comprehensive answers win, not padding |
+| "AI-generated content is fine if it ranks" | Sept 2025 QRG penalizes low E-E-A-T; AI content without first-hand experience signals gets demoted |
+| "Author bio not needed, brand is the author" | YMYL and most categories now require named expert authors with credentials |
+| "Skip the Experience signals, we are a B2B SaaS" | Even B2B benefits from case studies, original data, before/after — these are the strongest Experience signal |
 
-### Authoritativeness
-- External citations, backlinks from authoritative sources
-- Brand mentions, industry recognition
-- Published in recognized outlets
-- Cited by other experts
+## Output Contract
 
-### Trustworthiness
-- Contact information, physical address
-- Privacy policy, terms of service
-- Customer testimonials, reviews
-- Date stamps, transparent corrections
-- Secure site (HTTPS)
+Finished output must contain:
+- E-E-A-T score broken down by each of the four pillars with rationale
+- Word-count comparison vs page-type minimum (with reminder it is not a ranking factor)
+- Readability score (Flesch reading ease) with target band
+- List of missing Experience signals (no first-hand data, no case study, no original photos)
+- Author/credential audit
+- Specific fix list ranked by impact, not just "improve E-E-A-T"
+- AI citation readiness note (passage length, structured answers)
 
-## Content Metrics
+## Examples
 
-### Word Count Analysis
-Compare against page type minimums:
-| Page Type | Minimum |
-|-----------|---------|
-| Homepage | 500 |
-| Service page | 800 |
-| Blog post | 1,500 |
-| Product page | 300+ (400+ for complex products) |
-| Location page | 500-600 |
+**Example 1 — Audit YMYL health article**
+- Input: `/seo-content https://example.com/best-supplements-for-sleep`
+- Action: WebFetch → score E-E-A-T → check for medical reviewer, citations to PubMed, author credentials, original data → measure readability → flag missing trust signals
+- Output: E (2/5 — no first-hand testing), E (3/5 — author bio exists, no MD review), A (2/5 — few authoritative citations), T (3/5 — HTTPS but no medical disclaimer), 8-item fix list
 
-> **Important:** These are **topical coverage floors**, not targets. Google has confirmed word count is NOT a direct ranking factor. The goal is comprehensive topical coverage; a 500-word page that thoroughly answers the query will outrank a 2,000-word page that doesn't. Use these as guidelines for adequate coverage depth, not rigid requirements.
+**Example 2 — Pre-publish content review**
+- Input: "Review this draft before I publish: [pasted 1800 words]"
+- Action: Score against `references/eeat-framework.md` → check for buried answer (first 60 words) → check passage length for AI citation → check internal-link opportunities
+- Output: E-E-A-T scorecard, readability 62 (good), 3 paragraphs flagged for AI-citability rewrite, 5 internal-link suggestions, 2 missing Experience signals
 
-### Readability
-- Flesch Reading Ease: target 60-70 for general audience
+## References
 
-> **Note:** Flesch Reading Ease is a useful proxy for content accessibility but is NOT a direct Google ranking factor. John Mueller has confirmed Google does not use basic readability scores for ranking. Yoast deprioritized Flesch scores in v19.3. Use readability analysis as a content quality indicator, not as an SEO metric to optimize directly.
-- Grade level: match target audience
-- Sentence length: average 15-20 words
-- Paragraph length: 2-4 sentences
-
-### Keyword Optimization
-- Primary keyword in title, H1, first 100 words
-- Natural density (1-3%)
-- Semantic variations present
-- No keyword stuffing
-
-### Content Structure
-- Logical heading hierarchy (H1 -> H2 -> H3)
-- Scannable sections with descriptive headings
-- Bullet/numbered lists where appropriate
-- Table of contents for long-form content
-
-### Multimedia
-- Relevant images with proper alt text
-- Videos where appropriate
-- Infographics for complex data
-- Charts/graphs for statistics
-
-### Internal Linking
-- 3-5 relevant internal links per 1000 words
-- Descriptive anchor text
-- Links to related content
-- No orphan pages
-
-### External Linking
-- Cite authoritative sources
-- Open in new tab for user experience
-- Reasonable count (not excessive)
-
-## AI Content Assessment (Sept 2025 QRG addition)
-
-Google's raters now formally assess whether content appears AI-generated.
-
-### Acceptable AI Content
-- Demonstrates genuine E-E-A-T
-- Provides unique value
-- Has human oversight and editing
-- Contains original insights
-
-### Low-Quality AI Content Markers
-- Generic phrasing, lack of specificity
-- No original insight
-- Repetitive structure across pages
-- No author attribution
-- Factual inaccuracies
-
-> **Helpful Content System (March 2024):** The Helpful Content System was merged into Google's core ranking algorithm during the March 2024 core update. It no longer operates as a standalone classifier. Helpfulness signals are now weighted within every core update. The same principles apply (people-first content, demonstrating E-E-A-T, satisfying user intent), but enforcement is continuous rather than through separate HCU updates.
-
-## AI Citation Readiness (GEO signals)
-
-Optimize for AI search engines (ChatGPT, Perplexity, Google AI Overviews):
-
-- Clear, quotable statements with statistics/facts
-- Structured data (especially for data points)
-- Strong heading hierarchy (H1->H2->H3 flow)
-- Answer-first formatting for key questions
-- Tables and lists for comparative data
-- Clear attribution and source citations
-
-### AI Search Visibility & GEO (2025-2026)
-
-**Google AI Mode** launched publicly in May 2025 as a separate tab in Google Search, available in 180+ countries. Unlike AI Overviews (which appear above organic results), AI Mode provides a fully conversational search experience with **zero organic blue links**, making AI citation the only visibility mechanism.
-
-**Key optimization strategies for AI citation:**
-- **Structured answers:** Clear question-answer formats, definition patterns, and step-by-step instructions that AI systems can extract and cite
-- **First-party data:** Original research, statistics, case studies, and unique datasets are highly cited by AI systems
-- **Schema markup:** Article, FAQ (for non-Google AI platforms), and structured content schemas help AI systems parse and attribute content
-- **Topical authority:** AI systems preferentially cite sources that demonstrate deep expertise. Build content clusters, not isolated pages
-- **Entity clarity:** Ensure brand, authors, and key concepts are clearly defined with structured data (Organization, Person schema)
-- **Multi-platform tracking:** Monitor visibility across Google AI Overviews, AI Mode, ChatGPT, Perplexity, and Bing Copilot, not just traditional rankings. Treat AI citation as a standalone KPI alongside organic rankings and traffic.
-
-**Generative Engine Optimization (GEO):**
-GEO is the emerging discipline of optimizing content specifically for AI-generated answers. Key GEO signals include: quotability (clear, concise extractable facts), attribution (source citations within your content), structure (well-organized heading hierarchy), and freshness (regularly updated data). Cross-reference the `seo-geo` skill for detailed GEO workflows.
-
-## Content Freshness
-
-- Publication date visible
-- Last updated date if content has been revised
-- Flag content older than 12 months without update for fast-changing topics
-
-## Output
-
-### Content Quality Score: XX/100
-
-### E-E-A-T Breakdown
-| Factor | Score | Key Signals |
-|--------|-------|-------------|
-| Experience | XX/25 | ... |
-| Expertise | XX/25 | ... |
-| Authoritativeness | XX/25 | ... |
-| Trustworthiness | XX/25 | ... |
-
-### AI Citation Readiness: XX/100
-
-### Issues Found
-### Recommendations
-
-## DataForSEO Integration (Optional)
-
-If DataForSEO MCP tools are available, use `kw_data_google_ads_search_volume` for real keyword volume data, `dataforseo_labs_bulk_keyword_difficulty` for difficulty scores, `dataforseo_labs_search_intent` for intent classification, and `content_analysis_summary` for content quality analysis.
-
-## Error Handling
-
-| Scenario | Action |
-|----------|--------|
-| URL unreachable (DNS failure, connection refused) | Report the error clearly. Do not guess page content. Suggest the user verify the URL and try again. |
-| Content behind paywall (402/403, login wall) | Report that the content is not publicly accessible. Analyze only the visible portion (meta tags, headers) and note the limitation. |
-| Thin content (fewer than 100 words retrievable) | Report the findings as-is rather than guessing. Flag the page as potentially JavaScript-rendered or gated, and suggest the user provide the full text directly. |
+Extended sections moved to `references/details.md`.

@@ -1,6 +1,7 @@
 ---
 name: launch-strategy
-description: "Plan and execute product launches — from pre-launch build-up and waitlists to launch day execution and post-launch momentum across all channels. Use this whenever the user mentions 'product launch,' 'feature launch,' 'launch plan,' 'launch strategy,' 'going to market,' 'launch checklist,' or 'we're launching in X weeks.' Trigger even when the user says 'we're ready to release our product' or 'how do we announce our new feature' without explicitly using the word 'launch."
+description: "Plan and execute product launches — from pre-launch build-up and waitlists to launch day execution and post-launch momentum. Triggers: 'use launch-strategy', 'launch strategy', 'launch-strategy task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -90,10 +91,10 @@ Tap into someone else's audience to shortcut the hardest part—getting noticed.
 - Influencer partnerships
 
 **Be proactive, not passive:**
-1. List industry leaders your audience follows
-2. Pitch win-win collaborations
-3. Use tools like SparkToro or Listen Notes to find audience overlap
-4. Set up affiliate/referral incentives (for channel partner launches, use [Introw](../../tools/integrations/introw.md) to manage deal registration and commissions)
+1. List industry leaders your audience follows → verify: step output matches expected outcome
+2. Pitch win-win collaborations → verify: step output matches expected outcome
+3. Use tools like SparkToro or Listen Notes to find audience overlap → verify: step output matches expected outcome
+4. Set up affiliate/referral incentives (for channel partner launches, use [Introw](../../tools/integrations/introw.md) to manage deal registration and commissions) → verify: step output matches expected outcome
 
 **Example - TRMNL:**
 Sent a free e-ink display to YouTuber Snazzy Labs—not a paid sponsorship, just hoping he'd like it. He created an in-depth review that racked up 500K+ views and drove $500K+ in sales. They also set up an affiliate program for ongoing promotion.
@@ -196,23 +197,23 @@ Product Hunt can be powerful for reaching early adopters, but it's not magic—i
 ### How to Launch Successfully
 
 **Before launch day:**
-1. Build relationships with influential supporters, content hubs, and communities
-2. Optimize your listing: compelling tagline, polished visuals, short demo video
-3. Study successful launches to identify what worked
-4. Engage in relevant communities—provide value before pitching
-5. Prepare your team for all-day engagement
+1. Build relationships with influential supporters, content hubs, and communities → verify: step output matches expected outcome
+2. Optimize your listing: compelling tagline, polished visuals, short demo video → verify: step output matches expected outcome
+3. Study successful launches to identify what worked → verify: step output matches expected outcome
+4. Engage in relevant communities—provide value before pitching → verify: step output matches expected outcome
+5. Prepare your team for all-day engagement → verify: step output matches expected outcome
 
 **On launch day:**
-1. Treat it as an all-day event
-2. Respond to every comment in real-time
-3. Answer questions and spark discussions
-4. Encourage your existing audience to engage
-5. Direct traffic back to your site to capture signups
+1. Treat it as an all-day event → verify: step output matches expected outcome
+2. Respond to every comment in real-time → verify: step output matches expected outcome
+3. Answer questions and spark discussions → verify: step output matches expected outcome
+4. Encourage your existing audience to engage → verify: step output matches expected outcome
+5. Direct traffic back to your site to capture signups → verify: step output matches expected outcome
 
 **After launch day:**
-1. Follow up with everyone who engaged
-2. Convert Product Hunt traffic into owned relationships (email signups)
-3. Continue momentum with post-launch content
+1. Follow up with everyone who engaged → verify: step output matches expected outcome
+2. Convert Product Hunt traffic into owned relationships (email signups) → verify: step output matches expected outcome
+3. Continue momentum with post-launch content → verify: step output matches expected outcome
 
 ### Case Studies
 
@@ -334,12 +335,12 @@ Even small changelog updates remind customers your product is evolving. This bui
 
 ## Task-Specific Questions
 
-1. What are you launching? (New product, major feature, minor update)
-2. What's your current audience size and engagement?
-3. What owned channels do you have? (Email list size, blog traffic, community)
-4. What's your timeline for launch?
-5. Have you launched before? What worked/didn't work?
-6. Are you considering Product Hunt? What's your preparation status?
+1. What are you launching? (New product, major feature, minor update) → verify: step output matches expected outcome
+2. What's your current audience size and engagement? → verify: step output matches expected outcome
+3. What owned channels do you have? (Email list size, blog traffic, community) → verify: step output matches expected outcome
+4. What's your timeline for launch? → verify: step output matches expected outcome
+5. Have you launched before? What worked/didn't work? → verify: step output matches expected outcome
+6. Are you considering Product Hunt? What's your preparation status? → verify: step output matches expected outcome
 
 ---
 
@@ -351,3 +352,49 @@ Even small changelog updates remind customers your product is evolving. This bui
 - **marketing-psychology**: For psychology behind waitlists and exclusivity
 - **programmatic-seo**: For comparison pages mentioned in post-launch
 - **sales-enablement**: For launch sales collateral and enablement materials
+
+## Triggers
+
+product launch,' 'feature launch,' 'launch plan,' 'launch strategy,' 'going to market,' 'launch checklist,' or 'we're launching in X weeks.'
+
+## When NOT to use
+
+- Task is unrelated to launch strategy — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Launch Strategy needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for launch strategy
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

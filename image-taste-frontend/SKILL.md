@@ -1,6 +1,7 @@
 ---
 name: image-taste-frontend
-description: Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, and it must generate fresh separate images for sections or detail views rather than cropping them out of previously generated images.
+description: "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the des. Triggers: 'use image-taste-frontend', 'image taste frontend', 'image-taste-frontend task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE
@@ -104,10 +105,10 @@ Interpretation:
 For website design requests where visual quality matters, image generation is mandatory first.
 
 This means:
-1. generate the design image or image set yourself first
-2. deeply inspect and analyze the generated image(s)
-3. extract the design system from them
-4. implement the frontend only after that
+1. generate the design image or image set yourself first → verify: output exists + parses without error
+2. deeply inspect and analyze the generated image(s) → verify: output exists + parses without error
+3. extract the design system from them → verify: step output matches expected outcome
+4. implement the frontend only after that → verify: step output matches expected outcome
 
 Do not:
 - start with freeform coding
@@ -357,14 +358,14 @@ Only after this deep analysis should you implement the frontend.
 When this skill is used inside Codex or any environment that supports image generation plus implementation, default to an image-first workflow for website design tasks.
 
 Preferred execution order:
-1. infer the section count
-2. generate section reference images first
-3. generate extra detail/extraction images where needed
-4. if needed, regenerate unclear sections as fresh standalone images
-5. deeply inspect all generated images
-6. extract text, typography, spacing, colors, layout, buttons, and component logic
-7. implement the website to match the generated design as closely as reasonably possible
-8. only invent missing details when the images leave something ambiguous
+1. infer the section count → verify: step output matches expected outcome
+2. generate section reference images first → verify: output file exists + no syntax error
+3. generate extra detail/extraction images where needed → verify: output file exists + no syntax error
+4. if needed, regenerate unclear sections as fresh standalone images → verify: output file exists + no syntax error
+5. deeply inspect all generated images → verify: output file exists + no syntax error
+6. extract text, typography, spacing, colors, layout, buttons, and component logic → verify: step output matches expected outcome
+7. implement the website to match the generated design as closely as reasonably possible → verify: output file exists + no syntax error
+8. only invent missing details when the images leave something ambiguous → verify: step output matches expected outcome
 
 For visually important frontend tasks, do not begin by freely designing in code.
 Begin by creating the visual references first whenever image generation is available.
@@ -408,44 +409,44 @@ Pick a coherent visual direction and execute it clearly.
 
 ### Theme Paradigm
 Choose 1:
-1. Pristine Light Mode
-2. Deep Dark Mode
-3. Bold Studio Solid
-4. Quiet Premium Neutral
+1. Pristine Light Mode → verify: step output matches expected outcome
+2. Deep Dark Mode → verify: step output matches expected outcome
+3. Bold Studio Solid → verify: step output matches expected outcome
+4. Quiet Premium Neutral → verify: step output matches expected outcome
 
 ### Background Character
 Choose 1:
-1. subtle technical grid / dotted field
-2. pure solid field with soft ambient gradient depth
-3. full-bleed cinematic imagery
-4. tactile textured surface feel
+1. subtle technical grid / dotted field → verify: step output matches expected outcome
+2. pure solid field with soft ambient gradient depth → verify: step output matches expected outcome
+3. full-bleed cinematic imagery → verify: step output matches expected outcome
+4. tactile textured surface feel → verify: step output matches expected outcome
 
 ### Typography Character
 Choose 1:
-1. clean grotesk
-2. refined grotesk
-3. expressive display
-4. compressed statement typography
-5. editorial serif + sans
-6. Swiss rational hierarchy
+1. clean grotesk → verify: step output matches expected outcome
+2. refined grotesk → verify: step output matches expected outcome
+3. expressive display → verify: step output matches expected outcome
+4. compressed statement typography → verify: step output matches expected outcome
+5. editorial serif + sans → verify: diff matches intended change
+6. Swiss rational hierarchy → verify: step output matches expected outcome
 
 ### Hero Architecture
 Choose 1:
-1. cinematic centered minimalist
-2. asymmetric split hero
-3. floating polaroid scatter
-4. inline typography behemoth
-5. editorial offset composition
-6. massive image-first hero with restrained text
+1. cinematic centered minimalist → verify: step output matches expected outcome
+2. asymmetric split hero → verify: step output matches expected outcome
+3. floating polaroid scatter → verify: step output matches expected outcome
+4. inline typography behemoth → verify: step output matches expected outcome
+5. editorial offset composition → verify: diff matches intended change
+6. massive image-first hero with restrained text → verify: step output matches expected outcome
 
 ### Section System
 Choose 1:
-1. modular bento rhythm
-2. alternating editorial blocks
-3. poster-like stacked storytelling
-4. gallery-led cadence
-5. Swiss grid discipline
-6. asymmetric premium marketing flow
+1. modular bento rhythm → verify: step output matches expected outcome
+2. alternating editorial blocks → verify: diff matches intended change
+3. poster-like stacked storytelling → verify: step output matches expected outcome
+4. gallery-led cadence → verify: step output matches expected outcome
+5. Swiss grid discipline → verify: step output matches expected outcome
+6. asymmetric premium marketing flow → verify: step output matches expected outcome
 
 ### Signature Component Set
 Choose exactly 4 unique components:
@@ -782,13 +783,13 @@ The final coded result should still feel like the same website as the generated 
 When implementing from images, some details may still be unclear.
 
 Resolve ambiguity by following this order:
-1. preserve the visible design language
-2. preserve layout and spacing logic
-3. preserve component family
-4. preserve mood and polish level
-5. generate an extra detail image if needed
-6. regenerate the section as a fresh standalone image if needed
-7. only then choose the most implementation-friendly faithful version
+1. preserve the visible design language → verify: step output matches expected outcome
+2. preserve layout and spacing logic → verify: step output matches expected outcome
+3. preserve component family → verify: step output matches expected outcome
+4. preserve mood and polish level → verify: step output matches expected outcome
+5. generate an extra detail image if needed → verify: output exists + parses without error
+6. regenerate the section as a fresh standalone image if needed → verify: output exists + parses without error
+7. only then choose the most implementation-friendly faithful version → verify: step output matches expected outcome
 
 Do not fill ambiguity with generic defaults too quickly.
 
@@ -922,32 +923,32 @@ Not:
 ### 4-section pack
 1. Hero
 2. Features
-3. Social proof / testimonial
+3. Social proof / testimonial → verify: all checks pass
 4. CTA
 
 ### 8-section pack
 1. Hero
-2. Trust bar
+2. Trust bar → verify: step output matches expected outcome
 3. Features
-4. Product showcase
-5. Benefits / use cases
+4. Product showcase → verify: step output matches expected outcome
+5. Benefits / use cases → verify: step output matches expected outcome
 6. Testimonials
 7. Pricing
 8. CTA
 
 ### 12-section pack
 1. Hero
-2. Trust bar
-3. Feature grid
-4. Product preview
-5. Problem / solution
+2. Trust bar → verify: step output matches expected outcome
+3. Feature grid → verify: step output matches expected outcome
+4. Product preview → verify: step output matches expected outcome
+5. Problem / solution → verify: step output matches expected outcome
 6. Benefits
 7. Workflow
-8. Metrics / proof / integration
+8. Metrics / proof / integration → verify: step output matches expected outcome
 9. Testimonials
 10. Pricing
 11. FAQ
-12. CTA + footer
+12. CTA + footer → verify: step output matches expected outcome
 
 In Codex, these should usually become section-by-section images, not one compressed sheet.
 
@@ -973,24 +974,24 @@ Image 2, 3, or 8 must not drift into a different website.
 
 Before finalizing, verify internally:
 
-1. Has the design been generated first?
-2. Have all generated images been deeply analyzed?
-3. Is the text readable enough?
-4. If not, were extra detail images created?
-5. Were enough images generated, or was the image count too lazy?
-6. Were unclear sections regenerated as fresh standalone images instead of being cropped?
-7. Is the hierarchy obvious?
-8. Is the hero clean enough?
-9. Is typography analyzed properly?
-10. Are spacing relationships understood properly?
-11. Are buttons and components extracted properly?
-12. Are colors analyzed properly?
-13. Is the design visually distinctive?
-14. Is it free of obvious AI tells?
-15. Can someone code from this faithfully?
-16. If multiple images exist, do they clearly belong together?
-17. Has Codex avoided compressing too many sections into one tiny image?
-18. Was the analysis clean, structured, and specific?
+1. Has the design been generated first? → verify: output exists + parses without error
+2. Have all generated images been deeply analyzed? → verify: output exists + parses without error
+3. Is the text readable enough? → verify: file content matches expected shape
+4. If not, were extra detail images created? → verify: output exists + parses without error
+5. Were enough images generated, or was the image count too lazy? → verify: output exists + parses without error
+6. Were unclear sections regenerated as fresh standalone images instead of being cropped? → verify: output exists + parses without error
+7. Is the hierarchy obvious? → verify: step output matches expected outcome
+8. Is the hero clean enough? → verify: step output matches expected outcome
+9. Is typography analyzed properly? → verify: step output matches expected outcome
+10. Are spacing relationships understood properly? → verify: step output matches expected outcome
+11. Are buttons and components extracted properly? → verify: step output matches expected outcome
+12. Are colors analyzed properly? → verify: step output matches expected outcome
+13. Is the design visually distinctive? → verify: step output matches expected outcome
+14. Is it free of obvious AI tells? → verify: step output matches expected outcome
+15. Can someone code from this faithfully? → verify: step output matches expected outcome
+16. If multiple images exist, do they clearly belong together? → verify: step output matches expected outcome
+17. Has Codex avoided compressing too many sections into one tiny image? → verify: step output matches expected outcome
+18. Was the analysis clean, structured, and specific? → verify: step output matches expected outcome
 
 If not, refine internally before output.
 
@@ -999,25 +1000,25 @@ If not, refine internally before output.
 ## 33. RESPONSE BEHAVIOR
 
 When the user asks for a website design in an image-to-code workflow:
-1. infer site type
-2. infer number of sections
-3. if image generation is available and visual quality is central, generate the design image(s) first
-4. inside Codex, prefer one large image per section
-5. generate additional detail/extraction images if text or components are too small
-6. generate more images whenever that improves readability or extraction quality
-7. do not be lazy with image count
-8. do not crop old images for section extraction
-9. regenerate sections as fresh standalone images when needed
-10. choose a strong visual combination
-11. choose 4 signature components
-12. choose 2 motion-implied cues
-13. enforce hero cleanliness and short hero line count
-14. enforce strong image usage where appropriate
-15. keep spacing generous, even, and analyzable
-16. deeply and cleanly analyze all generated images
-17. extract text, typography, spacing, buttons, colors, components, and layout logic
-18. implement the website to match the generated references as closely as reasonably possible
-19. create the final files only after the full analysis pass
+1. infer site type → verify: step output matches expected outcome
+2. infer number of sections → verify: step output matches expected outcome
+3. if image generation is available and visual quality is central, generate the design image(s) first → verify: output exists + parses without error
+4. inside Codex, prefer one large image per section → verify: step output matches expected outcome
+5. generate additional detail/extraction images if text or components are too small → verify: output exists + parses without error
+6. generate more images whenever that improves readability or extraction quality → verify: file content matches expected shape
+7. do not be lazy with image count → verify: step output matches expected outcome
+8. do not crop old images for section extraction → verify: step output matches expected outcome
+9. regenerate sections as fresh standalone images when needed → verify: output exists + parses without error
+10. choose a strong visual combination → verify: step output matches expected outcome
+11. choose 4 signature components → verify: step output matches expected outcome
+12. choose 2 motion-implied cues → verify: step output matches expected outcome
+13. enforce hero cleanliness and short hero line count → verify: step output matches expected outcome
+14. enforce strong image usage where appropriate → verify: step output matches expected outcome
+15. keep spacing generous, even, and analyzable → verify: step output matches expected outcome
+16. deeply and cleanly analyze all generated images → verify: output exists + parses without error
+17. extract text, typography, spacing, buttons, colors, components, and layout logic → verify: step output matches expected outcome
+18. implement the website to match the generated references as closely as reasonably possible → verify: output exists + parses without error
+19. create the final files only after the full analysis pass → verify: output exists + parses without error
 
 Do not ask unnecessary follow-up questions if a strong interpretation is possible.
 Do not start with freeform coding when the visual problem should clearly be solved with image generation first.
@@ -1100,3 +1101,33 @@ The result should be:
 - and strong as implemented frontend
 
 The final outcome should look like a top-tier website concept translated faithfully into real code, not a tiny unreadable design board and not a generic coded reinterpretation.
+
+## When NOT to use
+
+- Task is unrelated to image taste frontend — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Image Taste Frontend needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for image taste frontend
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

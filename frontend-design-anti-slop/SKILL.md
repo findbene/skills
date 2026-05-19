@@ -1,6 +1,7 @@
 ---
 name: "frontend-design-anti-slop"
-description: "Creates distinctive, production-grade frontend interfaces with exceptional design quality. Use when building any UI component, landing page, dashboard, prototype, or when styling HTML/CSS. Avoids generic AI aesthetics (Inter font, purple gradients, predictable card layouts)."
+description: 'Creates distinctive, production-grade frontend interfaces with exceptional design quality. Triggers: "use frontend-design-anti-slop", "frontend design anti slop", "frontend task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 
@@ -31,3 +32,42 @@ Pick **one** tone and execute it with full craft: brutally minimal / maximalist 
 ### Hard Prohibitions
 NEVER use: Inter, Roboto, Arial, system-ui, Space Grotesk as the primary typeface; purple gradients on white; symmetric 3-column card grids as the only layout element; drop shadows that look like Bootstrap defaults; placeholder grey rectangles as "images".
 
+## When NOT to use
+
+- Strict brand systems where deviation is forbidden — use `brand-guidelines` or `design-system`
+- Pure UI scaffolding for internal admin tools where distinctiveness is wasted
+- A11y-first surfaces where contrast/clarity outweigh distinctiveness
+- Backend or non-visual code generation
+- Charts/data viz only — use `data-viz-recharts`
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Inter is professional and safe" | It signals zero creative investment; pick a characterful pair |
+| "Add a purple-to-blue gradient hero" | The single most recognizable AI default; banned |
+| "Center every section" | Asymmetric/offset layouts read as crafted |
+| "Pure white background is clean" | Reads as AI default; use grain, gradient, or tinted neutral |
+
+## Output Contract
+
+Done when:
+- Display + body font pair selected; neither is Inter/Roboto/Arial/system-ui/Space Grotesk
+- Color palette committed to one aesthetic (no AI purple-on-white)
+- Colors expressed in `oklch()` where possible
+- Background uses gradient / grain overlay / SVG pattern / radial glow — never solid white
+- Asymmetric layout with at least one grid-breaking hero element
+- One tone fully committed (minimal / maximalist / retro-futuristic / etc.)
+- All animations gated by `prefers-reduced-motion`
+
+## Examples
+
+### Example 1 — Landing page hero
+- Input: "Build a SaaS landing hero"
+- Action: Pair Instrument Serif + IBM Plex Sans, color = deep navy + warm amber accent in oklch, grain overlay 0.04, offset-left hero copy with image bleeding off the right edge, staggered intro animation gated by prefers-reduced-motion
+- Output: Distinctive hero that does not read as AI default; semantic HTML + CSS custom properties
+
+### Example 2 — Pricing page
+- Input: "Pricing page for our SaaS"
+- Action: Drop symmetric 3-card grid; use 2-column offset layout with one hero tier breaking the grid, charcoal + acid-green palette, subtle radial glow background, distinct display font for tier names
+- Output: Pricing layout with one focal tier, asymmetric balance, fully committed retro-futurist tone

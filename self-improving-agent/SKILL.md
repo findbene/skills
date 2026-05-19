@@ -1,6 +1,7 @@
 ---
 name: "self-improving-agent"
-description: "Curate Claude Code's auto-memory into durable project knowledge. Analyze MEMORY.md for patterns, promote proven learnings to CLAUDE.md and .claude/rules/, extract recurring solutions into reusable skills. Use when: (1) reviewing what Claude has learned about your project, (2) graduating a pattern from notes to enforced rules, (3) turning a debugging solution into a skill, (4) checking memory health and capacity."
+description: "Curate Claude Code's auto-memory into durable project knowledge. Triggers: 'use self-improving-agent', 'self improving agent', 'self-improving-agent task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Self-Improving Agent
@@ -76,7 +77,7 @@ clawhub install self-improving-agent
 1. Claude discovers pattern → auto-memory (MEMORY.md)
 2. Pattern recurs 2-3x → /si:review flags it as promotion candidate
 3. You approve → /si:promote graduates it to CLAUDE.md or rules/
-4. Pattern becomes an enforced rule, not just a note
+4. Pattern becomes an enforced rule, not just a note → verify: step output matches expected outcome
 5. MEMORY.md entry removed → frees space for new learnings
 ```
 
@@ -160,3 +161,40 @@ Monitors command output for errors. When detected, appends a structured entry to
 - [Claude Code Memory Docs](https://code.claude.com/docs/en/memory)
 - [pskoett/self-improving-agent](https://clawhub.ai/pskoett/self-improving-agent) — inspiration
 - [playwright-pro](../playwright-pro/) — sister plugin in this repo
+
+## When NOT to use
+
+- Task doesn't involve building self-improving agent loops → use the matching domain skill instead
+- Simple one-off operation that doesn't need this skill's structure
+- Different toolchain required → check `find-skills` skill for alternatives
+- User explicitly asks to skip skill discipline → respect the override
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the verify step, output looks right" | Eyeballing without verification ships broken outputs |
+| "Generic answer is good enough" | agent self-improvement needs domain-specific decisions, not boilerplate |
+| "I can hold all context in head" | Multi-step state loss creates regressions you won't catch |
+| "Just one more shortcut" | Shortcuts compound — finish discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced and matches user's stated goal
+- All verification steps in process passed
+- Edge cases for building self-improving agent loops addressed or explicitly noted
+- Output is reproducible (no hidden state)
+- Hand-off summary provided so user can validate without re-reading entire flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard request involving building self-improving agent loops
+- Action: follow the documented numbered process, apply verify clauses per step
+- Output: deliverable that passes the Output Contract
+
+### Example 2 — edge case
+- Input: request with non-standard constraint or partial info
+- Action: detect the gap, ask clarifying question OR document assumption, proceed with adapted process
+- Output: deliverable + explicit note on assumption/limitation

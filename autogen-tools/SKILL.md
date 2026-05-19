@@ -1,6 +1,7 @@
 ---
 name: autogen-tools
-description: "Microsoft AutoGen multi-agent conversation orchestration via MCP for building conversational AI agents, code-executing agents, and multi-agent group chats. Use this skill any time AutoGen agents need to be created, multi-agent conversations need to be orchestrated, or code-executing AI agents need to be built with AutoGen. Trigger immediately on: \"AutoGen\", \"autogen\", \"multi-agent conversation\", \"AutoGen workflow\", \"conversational agent\", \"code execution agent\", \"AutoGen group chat\", \"AutoGen MCP\", \"Microsoft AutoGen\", \"agent conversation\", \"AutoGen agent\", \"AutoGen tool\". If someone says \"build an AutoGen agent\" or \"orchestrate agents with AutoGen\" this skill MUST trigger."
+description: 'Microsoft AutoGen multi-agent conversation orchestration via MCP for building conversational AI agents, code-executing agents, and multi. Triggers: "use autogen-tools", "autogen tools", "autogen task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # AutoGen Tools
@@ -97,3 +98,40 @@ execute_group_chat({
 - Quality checks increase execution time but improve output reliability
 - Swarm mode is experimental
 - Node.js 18+ and Python dependencies both required
+
+## When NOT to use
+
+- Task is unrelated to autogen tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Autogen Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for autogen tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving autogen tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

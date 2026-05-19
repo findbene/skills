@@ -1,6 +1,7 @@
 ---
 name: google-stitch
-description: "Google Stitch AI (Gemini) for generating UI/UX designs and frontend code from natural language prompts. Use this skill any time UI designs need to be generated using Google Stitch, Gemini needs to be used for frontend design generation, or design-to-code workflows need to use Google Stitch. Trigger immediately on: \"Google Stitch\", \"Stitch AI\", \"Gemini design\", \"generate UI with Stitch\", \"Stitch frontend\", \"Google Stitch design\", \"Stitch code generation\", \"design with Gemini\", \"Stitch prototype\", \"Stitch UI\". If someone says \"use Google Stitch to design this\" or \"generate UI with Stitch\" this skill MUST trigger."
+description: "Google Stitch AI (Gemini) for generating UI/UX designs and frontend code from natural language prompts. Triggers: 'use google-stitch', 'google stitch', 'google-stitch task'."
+allowed-tools: Bash, Glob, Grep, Read
 trigger: When the user wants to generate UI designs, create frontend screens from prompts, extract design context/DNA from existing screens, build sites from Stitch projects, or work with Google Stitch in any capacity.
 tools: stitch MCP server (must be running)
 ---
@@ -33,10 +34,10 @@ npx @_davideast/stitch-mcp init
 ```
 
 This runs a guided wizard for:
-1. Google Cloud authentication (`gcloud auth application-default login`)
-2. Project selection/creation
-3. Stitch API enablement
-4. MCP client configuration
+1. Google Cloud authentication (`gcloud auth application-default login`) → verify: step output matches expected outcome
+2. Project selection/creation → verify: step output matches expected outcome
+3. Stitch API enablement → verify: step output matches expected outcome
+4. MCP client configuration → verify: step output matches expected outcome
 
 To verify setup:
 ```bash
@@ -78,10 +79,10 @@ npx @_davideast/stitch-mcp doctor
 User: "Create a landing page for a SaaS product"
 
 Steps:
-1. Call `generate_screen_from_text` with the user's prompt
-2. Call `get_screen_image` to preview the result
-3. Call `get_screen_code` to retrieve the HTML
-4. Write the code to the user's project
+1. Call `generate_screen_from_text` with the user's prompt → verify: output file exists + no syntax error
+2. Call `get_screen_image` to preview the result → verify: step output matches expected outcome
+3. Call `get_screen_code` to retrieve the HTML → verify: step output matches expected outcome
+4. Write the code to the user's project → verify: output file exists + no syntax error
 ```
 
 ### 2. Designer Flow (Consistent Multi-Screen Design)
@@ -103,9 +104,9 @@ Step 3 - Repeat Step 2 for each additional screen
 ### 3. Build a Full Site
 
 ```
-1. Create a project with `create_project`
-2. Generate screens using the Designer Flow above
-3. Call `build_site` to map screens to routes:
+1. Create a project with `create_project` → verify: output file exists + no syntax error
+2. Generate screens using the Designer Flow above → verify: output file exists + no syntax error
+3. Call `build_site` to map screens to routes: → verify: step output matches expected outcome
    {
      "projectId": "abc123",
      "routes": [
@@ -114,20 +115,20 @@ Step 3 - Repeat Step 2 for each additional screen
        { "screenId": "screen3", "route": "/pricing" }
      ]
    }
-4. Write the generated HTML files to the project directory
+4. Write the generated HTML files to the project directory → verify: output file exists + no syntax error
 ```
 
 ### 4. Extract and Apply Design System
 
 ```
-1. Call `extract_design_context` on existing screen
-2. Parse the Design DNA output:
+1. Call `extract_design_context` on existing screen → verify: step output matches expected outcome
+2. Parse the Design DNA output: → verify: step output matches expected outcome
    - Typography: font families, sizes, weights
    - Colors: primary, secondary, accent, background, text
    - Spacing: padding, margin, gap values
    - Layout: grid/flex patterns, breakpoints
-3. Generate CSS custom properties or Tailwind config from the extracted values
-4. Apply to the user's project
+3. Generate CSS custom properties or Tailwind config from the extracted values → verify: output file exists + no syntax error
+4. Apply to the user's project → verify: diff matches intended change
 ```
 
 ## CLI Commands (Direct Shell Access)
@@ -159,22 +160,22 @@ These can be run via Bash when MCP tools aren't sufficient:
 ## Integration Patterns
 
 ### With WordPress (remotetechgear.com pattern)
-1. Generate a page design with Stitch
-2. Extract the HTML from `get_screen_code`
-3. Convert to WordPress template PHP
-4. Add WordPress template header comment
-5. Enqueue any generated CSS into the theme
+1. Generate a page design with Stitch → verify: output exists + parses without error
+2. Extract the HTML from `get_screen_code` → verify: step output matches expected outcome
+3. Convert to WordPress template PHP → verify: step output matches expected outcome
+4. Add WordPress template header comment → verify: dependency resolves + import works
+5. Enqueue any generated CSS into the theme → verify: output exists + parses without error
 
 ### With React/Next.js
-1. Generate screens with Stitch
-2. Extract code and convert JSX-incompatible HTML (class -> className, etc.)
-3. Extract inline styles to CSS modules or Tailwind classes
-4. Create React components from the generated markup
+1. Generate screens with Stitch → verify: output exists + parses without error
+2. Extract code and convert JSX-incompatible HTML (class -> className, etc.) → verify: step output matches expected outcome
+3. Extract inline styles to CSS modules or Tailwind classes → verify: step output matches expected outcome
+4. Create React components from the generated markup → verify: output exists + parses without error
 
 ### With Static Sites
-1. Use `build_site` to generate route-mapped HTML
-2. Use `npx @_davideast/stitch-mcp site -p <id>` to generate an Astro project
-3. Deploy to Vercel/Netlify/Cloudflare Pages
+1. Use `build_site` to generate route-mapped HTML → verify: output exists + parses without error
+2. Use `npx @_davideast/stitch-mcp site -p <id>` to generate an Astro project → verify: output exists + parses without error
+3. Deploy to Vercel/Netlify/Cloudflare Pages → verify: step output matches expected outcome
 
 ## Troubleshooting
 
@@ -188,9 +189,50 @@ These can be run via Bash when MCP tools aren't sufficient:
 
 ## Best Practices
 
-1. **Always use Designer Flow** for multi-screen projects to maintain consistency
-2. **Extract design context first** from any existing reference before generating new screens
-3. **Review generated code** before integrating - Stitch outputs are a starting point, not production-ready
-4. **Use `build_site`** for multi-page projects instead of generating screens individually
-5. **Save snapshots** of screens you like before iterating further
-6. **Check `doctor`** if tools stop responding - token refresh may be needed
+1. **Always use Designer Flow** for multi-screen projects to maintain consistency → verify: step output matches expected outcome
+2. **Extract design context first** from any existing reference before generating new screens → verify: step output matches expected outcome
+3. **Review generated code** before integrating - Stitch outputs are a starting point, not production-ready → verify: file content matches expected shape
+4. **Use `build_site`** for multi-page projects instead of generating screens individually → verify: step output matches expected outcome
+5. **Save snapshots** of screens you like before iterating further → verify: step output matches expected outcome
+6. **Check `doctor`** if tools stop responding - token refresh may be needed → verify: all checks pass
+
+## Triggers
+
+\\\"Google Stitch\\\", \\\"Stitch AI\\\", \\\"Gemini design\\\", \\\"generate UI with Stitch\\\", \\\"Stitch frontend\\\", \\\"Google Stitch design\\\", \\\"Stitch code generation\\\", \\\"design with Gemini\\\", \\\"Stitch prototype\\\", \\\"Stitch UI\\\"
+
+## When NOT to use
+
+- Task is unrelated to google stitch — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Google Stitch needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for google stitch
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving google stitch
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,6 @@
 ---
 name: enhance-prompt
-description: Transforms vague UI ideas into polished, Stitch-optimized prompts. Enhances specificity, adds UI/UX keywords, injects design system context, and structures output for better generation results.
+description: "Transforms vague UI ideas into polished, Stitch-optimized prompts. Triggers: 'use enhance-prompt', 'enhance prompt', 'enhance-prompt task'."
 allowed-tools:
   - "Read"
   - "Write"
@@ -48,12 +48,12 @@ Evaluate what's missing from the user's prompt:
 Look for a `DESIGN.md` file in the current project:
 
 **If DESIGN.md exists:**
-1. Read the file to extract the design system block
-2. Include the color palette, typography, and component styles
-3. Format as a "DESIGN SYSTEM (REQUIRED)" section in the output
+1. Read the file to extract the design system block → verify: file content matches expected shape
+2. Include the color palette, typography, and component styles → verify: step output matches expected outcome
+3. Format as a "DESIGN SYSTEM (REQUIRED)" section in the output → verify: step output matches expected outcome
 
 **If DESIGN.md does not exist:**
-1. Add this note at the end of the enhanced prompt:
+1. Add this note at the end of the enhanced prompt: → verify: dependency resolves + import works
 
 ```
 ---
@@ -95,10 +95,10 @@ Organize content into numbered sections:
 
 ```markdown
 **Page Structure:**
-1. **Header:** Navigation with logo and menu items
-2. **Hero Section:** Headline, subtext, and primary CTA
-3. **Content Area:** [Describe the main content]
-4. **Footer:** Links, social icons, copyright
+1. **Header:** Navigation with logo and menu items → verify: step output matches expected outcome
+2. **Hero Section:** Headline, subtext, and primary CTA → verify: step output matches expected outcome
+3. **Content Area:** [Describe the main content] → verify: step output matches expected outcome
+4. **Footer:** Links, social icons, copyright → verify: step output matches expected outcome
 ```
 
 #### D. Format Colors Properly
@@ -197,8 +197,33 @@ Add a search bar to the header navigation.
 
 ## Tips for Best Results
 
-1. **Be specific early** — Vague inputs need more enhancement
-2. **Match the user's intent** — Don't over-design if they want simple
-3. **Keep it structured** — Numbered sections help Stitch understand hierarchy
-4. **Include the design system** — Consistency is key for multi-page projects
-5. **One change at a time for edits** — Don't bundle unrelated changes
+1. **Be specific early** — Vague inputs need more enhancement → verify: step output matches expected outcome
+2. **Match the user's intent** — Don't over-design if they want simple → verify: step output matches expected outcome
+3. **Keep it structured** — Numbered sections help Stitch understand hierarchy → verify: step output matches expected outcome
+4. **Include the design system** — Consistency is key for multi-page projects → verify: step output matches expected outcome
+5. **One change at a time for edits** — Don't bundle unrelated changes → verify: diff matches intended change
+
+## When NOT to use
+
+- Task is unrelated to enhance prompt — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Enhance Prompt needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for enhance prompt
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

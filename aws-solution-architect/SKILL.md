@@ -1,6 +1,7 @@
 ---
 name: "aws-solution-architect"
-description: Design AWS architectures for startups using serverless patterns and IaC templates. Use when asked to design serverless architecture, create CloudFormation templates, optimize AWS costs, set up CI/CD pipelines, or migrate to AWS. Covers Lambda, API Gateway, DynamoDB, ECS, Aurora, and cost optimization.
+description: 'Design AWS architectures for startups using serverless patterns and IaC templates. Triggers: "use aws-solution-architect", "aws solution architect", "aws task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # AWS Solution Architect
@@ -193,15 +194,15 @@ aws cloudwatch put-metric-alarm --alarm-name high-errors ...
 
 **If stack creation fails:**
 
-1. Check the failure reason:
+1. Check the failure reason: → verify: all tests pass
    ```bash
    aws cloudformation describe-stack-events \
      --stack-name my-app-stack \
      --query 'StackEvents[?ResourceStatus==`CREATE_FAILED`]'
    ```
-2. Review CloudWatch Logs for Lambda or ECS errors.
-3. Fix the template or resource configuration.
-4. Delete the failed stack before retrying:
+2. Review CloudWatch Logs for Lambda or ECS errors. → verify: step output matches expected outcome
+3. Fix the template or resource configuration. → verify: diff matches intended change
+4. Delete the failed stack before retrying: → verify: step output matches expected outcome
    ```bash
    aws cloudformation delete-stack --stack-name my-app-stack
    # Wait for deletion
@@ -379,3 +380,40 @@ Provide these details for architecture design:
 | `references/architecture_patterns.md` | 6 patterns: serverless, microservices, three-tier, data processing, GraphQL, multi-region |
 | `references/service_selection.md` | Decision matrices for compute, database, storage, messaging |
 | `references/best_practices.md` | Serverless design, cost optimization, security hardening, scalability |
+
+## When NOT to use
+
+- Task is unrelated to aws solution architect — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Aws Solution Architect needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for aws solution architect
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving aws solution architect
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

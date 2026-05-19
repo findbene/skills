@@ -1,18 +1,6 @@
 ---
 name: seo-plan
-description: >
-  Strategic SEO planning with industry-specific templates for SaaS, local service,
-  e-commerce, publishers, and agencies. Delivers: competitive analysis (top 5
-  competitors, keyword gaps, E-E-A-T comparison), site architecture design, content
-  strategy with calendar, technical foundation requirements, and a 4-phase
-  implementation roadmap (Foundation → Expansion → Scale → Authority) with KPI targets
-  at 3, 6, and 12 months. Make sure to use this skill whenever the user mentions:
-  "SEO plan", "SEO strategy", "content strategy", "site architecture", "SEO roadmap",
-  "how do I start SEO", "build an SEO strategy", "keyword strategy", "content plan",
-  "SEO for my new site", "how to rank my site", "SEO for SaaS/ecommerce/local",
-  "competitor analysis", "what content should I create", or any request to plan or
-  strategize SEO from scratch or at scale — even if they just say "how do I grow
-  organic traffic".
+description: 'Strategic SEO planning with industry-specific templates for SaaS, local service, e-commerce, publishers, and agencies. Triggers: "use seo-plan", "optimize seo plan", "seo plan".'
 user-invokable: true
 argument-hint: "[business-type]"
 allowed-tools:
@@ -133,3 +121,40 @@ If DataForSEO MCP tools are available, use `dataforseo_labs_google_competitors_d
 | Unrecognized business type | Fall back to `generic.md` template. Inform user that no industry-specific template was found and proceed with the general business template. |
 | No website URL provided | Proceed with new-site planning mode. Skip current site assessment and competitive gap analysis that require a live URL. |
 | Industry template not found | Check `assets/` directory for available templates. If the requested template file is missing, use `generic.md` and note the missing template in output. |
+
+## When NOT to use
+
+- Task is unrelated to seo plan — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Plan needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo plan
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo plan
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

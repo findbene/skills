@@ -1,6 +1,7 @@
 ---
 name: "tech-stack-evaluator"
-description: Technology stack evaluation and comparison with TCO analysis, security assessment, and ecosystem health scoring. Use when comparing frameworks, evaluating technology stacks, calculating total cost of ownership, assessing migration paths, or analyzing ecosystem viability.
+description: "Technology stack evaluation and comparison with TCO analysis, security assessment, and ecosystem health scori. Triggers: 'use tech-stack-evaluator', 'tech stack evaluator', 'tech-stack-evaluator task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Technology Stack Evaluator
@@ -182,3 +183,33 @@ python scripts/migration_analyzer.py --from angular-1.x --to react
 - Trivial decisions between similar tools (use team preference)
 - Mandated technology choices (decision already made)
 - Emergency production issues (use monitoring tools)
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Tech Stack Evaluator needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for tech stack evaluator
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving tech stack evaluator
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

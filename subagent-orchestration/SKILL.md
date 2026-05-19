@@ -1,6 +1,7 @@
 ---
 name: subagent-orchestration
-description: "Subagent deployment and orchestration patterns for Claude Code including parallel execution, background agents, team coordination, and multi-agent workflows. Use this skill any time multiple agents need to be deployed in parallel, complex tasks need to be distributed to subagents, background agent patterns need to be used, or multi-agent workflows need to be orchestrated. Trigger immediately on: \"subagent\", \"parallel agents\", \"background agent\", \"launch agents\", \"multi-agent\", \"agent orchestration\", \"spawn agent\", \"deploy agents\", \"parallel tasks\", \"agent team\", \"run in background\", \"coordinate agents\", \"agent workflow\", \"task distribution\". If someone says \"run multiple agents in parallel\" or \"orchestrate this with subagents\" this skill MUST trigger."
+description: 'Subagent deployment and orchestration patterns for Claude Code including parallel execution, background agents, team. Triggers: "use subagent-orchestration", "subagent orchestration", "subagent task".'
+allowed-tools: Edit, Glob, Grep, Read
 ---
 
 # Subagent Orchestration
@@ -50,8 +51,47 @@ Tasks feature turns todo items into task files:
 
 ## Key Principles
 
-1. **Fresh context per task** — Each subagent gets a clean 200k context window
-2. **Externalized state** — Progress lives in markdown files, not chat history
-3. **Parallel when possible** — Deploy independent work simultaneously
-4. **Sequential when dependent** — Use progress tracking for ordered execution
-5. **Atomic commits** — Each subtask committed separately
+1. **Fresh context per task** — Each subagent gets a clean 200k context window → verify: user confirms
+2. **Externalized state** — Progress lives in markdown files, not chat history → verify: step output matches expected outcome
+3. **Parallel when possible** — Deploy independent work simultaneously → verify: step output matches expected outcome
+4. **Sequential when dependent** — Use progress tracking for ordered execution → verify: step output matches expected outcome
+5. **Atomic commits** — Each subtask committed separately → verify: git status clean
+
+## When NOT to use
+
+- Single-step task that fits in current context — no point in subagent overhead
+- Task requires conversation state the subagent does not have — keep on main
+- Production-critical reasoning that needs Opus review — delegate cheap, review on Opus
+- Trivial one-line edit — direct Edit tool is faster
+- User explicitly asks you to do it yourself
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Subagent will figure out the context" | Subagent has a fresh context — pass all needed info or it will hallucinate |
+| "Skip the review of subagent output" | Mandatory per model-routing.md — Opus reviews every worker output |
+| "Run them sequentially to play it safe" | Independent tasks should be parallel — sequential wastes time |
+| "Pick Opus for everything to be safe" | Wastes cost; route by tier (Haiku for bulk, Sonnet for code, Opus for arch/review) |
+
+## Output Contract
+
+Finished output must contain:
+- Task classification (T0/T1/T2/T3) per `model-routing.md`
+- Subagent prompt is self-contained (all paths, context, success criteria)
+- Parallel vs sequential decision documented
+- Output reviewed by Opus before merging back
+- Atomic commits per subtask, not one bulk commit
+- Failure handling specified (retry, fallback, escalate to user)
+
+## Examples
+
+**Example 1 — Parallel research before greenfield feature**
+- Input: "We are building a new payments feature"
+- Action: Spawn 4 parallel Haiku subagents (existing codebase patterns, Stripe docs, competitor analysis, regulatory) → collect outputs → Opus synthesizes
+- Output: Research bundle in `.agentic/research.md`, 4 subagent transcripts, Opus-reviewed synthesis
+
+**Example 2 — Background test writing**
+- Input: "Implement new endpoint" (main agent) + parallel test writer
+- Action: Spawn Sonnet subagent to read spec and write tests in parallel → main agent implements → Opus reviews both outputs before commit
+- Output: Endpoint + tests committed in same PR, both reviewed

@@ -1,6 +1,7 @@
 ---
 name: gcal-tools
-description: "Google Calendar management via MCP for creating events, finding free time, scheduling meetings, and managing calendar entries. Use this skill any time calendar events need to be created, meetings need to be scheduled, free time slots need to be found, or calendar management is required. Trigger immediately on: \"Google Calendar\", \"schedule meeting\", \"create event\", \"add to calendar\", \"find free time\", \"calendar invite\", \"when am I free\", \"book a time\", \"calendar\", \"schedule a call\", \"meeting slot\", \"reschedule\", \"check availability\", \"calendar event\". If someone says \"put this on my calendar\" or \"find a time for this meeting\" this skill MUST trigger."
+description: 'Google Calendar management via MCP for creating events, finding free time, scheduling meetings, and managing calendar entries. Triggers: "use gcal-tools", "gcal tools", "gcal task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Google Calendar Tools
@@ -59,8 +60,8 @@ gcal_find_meeting_times(
 ```
 
 ### Reschedule an Event
-1. `gcal_list_events` to find the event ID
-2. `gcal_update_event(event_id="...", start="new time", end="new time")`
+1. `gcal_list_events` to find the event ID → verify: step output matches expected outcome
+2. `gcal_update_event(event_id="...", start="new time", end="new time")` → verify: step output matches expected outcome
 
 ## Tips
 
@@ -68,3 +69,40 @@ gcal_find_meeting_times(
 - `gcal_find_my_free_time` respects working hours if set in Google Calendar
 - Use `gcal_list_calendars` to find the right calendar ID if you have multiple calendars
 - `gcal_respond_to_event` only works for events you've been invited to
+
+## When NOT to use
+
+- Task is unrelated to gcal tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Gcal Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for gcal tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving gcal tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

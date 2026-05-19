@@ -1,6 +1,7 @@
 ---
 name: "rag-architect"
-description: "Use when the user asks to design RAG pipelines, optimize retrieval strategies, choose embedding models, implement vector search, or build knowledge retrieval systems."
+description: 'Use when the user asks to design RAG pipelines, optimize retrieval strategies, choose embedding models, implement vector search, or build kn. Triggers: "use rag-architect", "rag architect", "rag task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # RAG Architect - POWERFUL
@@ -267,13 +268,13 @@ The RAG (Retrieval-Augmented Generation) Architect skill provides comprehensive 
 ## Implementation Best Practices
 
 ### Development Workflow
-1. **Requirements gathering**: Understand use case, scale, and quality requirements
-2. **Data analysis**: Analyze document corpus characteristics
-3. **Prototype development**: Build minimal viable RAG pipeline
-4. **Chunking optimization**: Test different chunking strategies
-5. **Retrieval tuning**: Optimize retrieval parameters and thresholds
-6. **Evaluation setup**: Implement comprehensive evaluation metrics
-7. **Production deployment**: Scale-ready implementation with monitoring
+1. **Requirements gathering**: Understand use case, scale, and quality requirements → verify: step output matches expected outcome
+2. **Data analysis**: Analyze document corpus characteristics → verify: step output matches expected outcome
+3. **Prototype development**: Build minimal viable RAG pipeline → verify: dependency resolves + import works
+4. **Chunking optimization**: Test different chunking strategies → verify: all checks pass
+5. **Retrieval tuning**: Optimize retrieval parameters and thresholds → verify: step output matches expected outcome
+6. **Evaluation setup**: Implement comprehensive evaluation metrics → verify: step output matches expected outcome
+7. **Production deployment**: Scale-ready implementation with monitoring → verify: file content matches expected shape
 
 ### Monitoring & Observability
 - **Query analytics**: Track query patterns and performance
@@ -316,3 +317,40 @@ The RAG (Retrieval-Augmented Generation) Architect skill provides comprehensive 
 Building effective RAG systems requires careful consideration of each component in the pipeline. The key to success is understanding the tradeoffs between different approaches and choosing the right combination of techniques for your specific use case. Start with simple approaches and gradually add sophistication based on evaluation results and production requirements.
 
 This skill provides the foundation for making informed decisions throughout the RAG development lifecycle, from initial design to production deployment and ongoing maintenance.
+
+## When NOT to use
+
+- Task is unrelated to rag architect — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Rag Architect needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for rag architect
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving rag architect
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

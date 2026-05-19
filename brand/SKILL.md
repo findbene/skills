@@ -1,7 +1,7 @@
 ---
 name: brand
-description: "Brand voice, visual identity, messaging frameworks, and asset management specialist for building cohesive brand systems. Use this skill any time brand guidelines need to be created, brand voice needs to be defined, visual identity systems need to be built, or brand consistency needs to be maintained. Trigger immediately on: \"brand\", \"brand voice\", \"brand identity\", \"brand guidelines\", \"brand messaging\", \"brand assets\", \"visual identity\", \"brand system\", \"brand colors\", \"brand typography\", \"brand kit\", \"brand strategy\", \"brand consistency\", \"logo usage\". If someone says \"define our brand voice\" or \"create brand guidelines\" this skill MUST trigger."
-argument-hint: "[update|review|create] [args]"
+description: "Brand voice, visual identity, messaging frameworks, and asset management specialist for building cohesive brand systems. Triggers: 'use brand', 'brand', 'brand task'."
+allowed-tools: Bash, Glob, Grep, Read
 metadata:
   author: claudekit
   version: "1.0.0"
@@ -92,6 +92,48 @@ node scripts/inject-brand-context.cjs --json | head -20
 
 ## Routing
 
-1. Parse subcommand from `$ARGUMENTS` (first word)
-2. Load corresponding `references/{subcommand}.md`
-3. Execute with remaining arguments
+1. Parse subcommand from `$ARGUMENTS` (first word) → verify: step output matches expected outcome
+2. Load corresponding `references/{subcommand}.md` → verify: file content matches expected shape
+3. Execute with remaining arguments → verify: command exit code 0
+
+## Triggers
+
+\\\"brand\\\", \\\"brand voice\\\", \\\"brand identity\\\", \\\"brand guidelines\\\", \\\"brand messaging\\\", \\\"brand assets\\\", \\\"visual identity\\\", \\\"brand system\\\", \\\"brand colors\\\", \\\"brand typography\\\", \\\"brand kit\\\", \\\"brand strategy\\"
+argument-hint: "[update|review|create] [args]
+
+## When NOT to use
+
+- Task is unrelated to brand — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Brand needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for brand
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving brand
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

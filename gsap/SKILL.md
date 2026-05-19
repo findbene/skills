@@ -1,6 +1,7 @@
 ---
 name: gsap
-description: GSAP animation reference for HyperFrames. Covers gsap.to(), from(), fromTo(), easing, stagger, defaults, timelines (gsap.timeline(), position parameter, labels, nesting, playback), and performance (transforms, will-change, quickTo). Use when writing GSAP animations in HyperFrames compositions.
+description: "GSAP animation reference for HyperFrames. Covers gsap.to(), from(), fromTo(), easing, stagger, defaults, timelines (gsap.timeline(), position parameter, labe. Triggers: 'use gsap', 'gsap', 'gsap task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # GSAP
@@ -211,6 +212,46 @@ Use `stagger` instead of separate tweens with manual delays.
 Pause or kill off-screen animations.
 
 ---
+
+## When NOT to use
+
+- Anime.js, Lottie, WAAPI animation needs — use `animejs`, `lottie`, `waapi`
+- Pure CSS animation (no JS needed) — use `css-animations`
+- GSAP outside HyperFrames (live web pages) — this skill is HyperFrames-specific
+- Native mobile animation (RN Reanimated, SwiftUI) — use mobile-specific skills
+- 3D scene animation (Three.js) — use `three`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Call `tl.play()` for render-critical motion" | Breaks deterministic seek; build the timeline paused, let HyperFrames seek it |
+| "Build the timeline inside `setTimeout` or `addEventListener`" | Async setup is not visible during render; build synchronously at composition init |
+| "Use `repeat: -1` infinite loops" | HyperFrames renders finite durations; cap repeats |
+| "Skip the registry key, hardcoded fine" | The key MUST match `data-composition-id` exactly — otherwise the adapter cannot find the timeline |
+
+## Output Contract
+
+Finished output must contain:
+- `<script>` block creating timeline synchronously
+- `gsap.timeline({ paused: true })` — never auto-play
+- Registry assignment: `window.__timelines["<id>"] = tl` matching root `data-composition-id`
+- Finite tween durations and iterations
+- Transform/opacity-only animations (avoid layout-triggering properties)
+- `will-change` hints where appropriate
+- No animation loaders/callbacks/promises in render-critical paths
+
+## Examples
+
+**Example 1 — Title reveal with accent slide**
+- Input: "Animate a title fading in while an accent line slides under it"
+- Action: Create paused timeline → `tl.from('.title', {y:48, opacity:0, duration:0.6, ease:'power3.out'}, 0)` → `tl.to('.accent', {scaleX:1, duration:0.5, ease:'power2.out'}, 0.25)` → register on `window.__timelines["main"]`
+- Output: HTML + script block, deterministic seek-able timeline, runs in HyperFrames
+
+**Example 2 — Multi-stage hero animation**
+- Input: "3-stage hero: logo fade, headline split, CTA pop"
+- Action: Build paused timeline → `from` for logo at 0 → `from` for headline characters at 0.3 with stagger → `from` for CTA at 0.8 → register
+- Output: Single timeline with 3 stages, finite duration, seek-correct render in HyperFrames
 
 ## References (loaded on demand)
 

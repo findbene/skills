@@ -1,6 +1,7 @@
 ---
 name: "financial-analyst"
-description: Performs financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction for strategic decision-making. Use when analyzing financial statements, building valuation models, assessing budget variances, or constructing financial projections and forecasts. Also applicable when users mention financial modeling, cash flow analysis, company valuation, financial projections, or spreadsheet analysis.
+description: "Performs financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction for stra. Triggers: 'use financial-analyst', 'financial analyst', 'financial-analyst task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Financial Analyst Skill
@@ -146,3 +147,43 @@ All scripts accept JSON input files. See `assets/sample_financial_data.json` for
 ## Dependencies
 
 **None** - All scripts use Python standard library only (`math`, `statistics`, `json`, `argparse`, `datetime`). No numpy, pandas, or scipy required.
+
+## When NOT to use
+
+- Ad-spend math (CPA / ROAS / break-even ROAS) — use `ads-math`
+- Pricing-model design — use `pricing-strategy`
+- Pure accounting / bookkeeping operations — out of scope
+- Board narrative or investor storytelling — use `board-deck-builder` or `pitch-deck`
+- SaaS-specific NRR / churn analysis — use `saas-metrics-coach` or `revenue-operations`
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Use last quarter's revenue ratio as base case" | Without validating inputs (nulls, implausible values), garbage downstream |
+| "Pick a single WACC" | Run sensitivity — single-point DCF is misleading |
+| "Show DCF result without comparables check" | Sanity-bound against implied multiples; lone DCF often unrealistic |
+| "Variances under 10% don't need explanation" | All material variances need a root cause; 'material' depends on context, not 10% |
+
+## Output Contract
+
+Done when:
+- Input data validated (no nulls, plausibility checks per statement)
+- Ratios computed across 5 categories (profitability, liquidity, leverage, efficiency, valuation)
+- DCF (if used) includes WACC, terminal value, and sensitivity table; cross-checked vs comparables
+- Variance analysis classifies favorable/unfavorable with root causes for material items
+- Rolling forecast includes base/bull/bear scenarios
+- Outputs saved with all assumptions documented
+- Forecast accuracy tracked vs ±5% revenue / ±3% expense targets
+
+## Examples
+
+### Example 1 — Investment screen via ratio analysis
+- Input: "Analyze Company X's last 4 quarters for an investment decision"
+- Action: Validate IS/BS/CF inputs, compute the 5 ratio categories, benchmark vs industry, flag liquidity or leverage outliers, summarize verdict
+- Output: Ratio dashboard JSON + 1-page brief with PASS/WARN/FAIL per category and named risks
+
+### Example 2 — Annual budget vs actual variance
+- Input: "We're $1.2M over plan, need a variance report"
+- Action: Variance by department and category, classify favorable/unfavorable, root-cause for items >5% deviation, recommend reforecast items
+- Output: Variance report + reforecast deltas + watch-list for next quarter

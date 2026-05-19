@@ -1,6 +1,6 @@
 ---
 name: stitch-design-system
-description: Extracts a Stitch design and generates production code artifacts — CSS custom properties with dark mode tokens, a Tailwind v4 @theme block, and a semantic design system document. Run this before framework conversion skills.
+description: "Extracts a Stitch design and generates production code artifacts — CSS custom properties with dark mode token. Triggers: 'use stitch-design-system', 'stitch design system', 'stitch-design-system task."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -34,13 +34,13 @@ Three output files:
 
 ## Step 1: Retrieve the Stitch design
 
-1. **Namespace discovery** — Run `list_tools` to find the Stitch MCP prefix.
-2. **Fetch screen** — Call `[prefix]:get_screen` with `projectId` and `screenId`.
-3. **Download HTML** — Run:
+1. **Namespace discovery** — Run `list_tools` to find the Stitch MCP prefix. → verify: command exit code 0
+2. **Fetch screen** — Call `[prefix]:get_screen` with `projectId` and `screenId`. → verify: diff matches intended change
+3. **Download HTML** — Run: → verify: file content matches expected shape
    ```bash
    bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"
    ```
-4. **Visual reference** — Check `screenshot.downloadUrl` to see the full design intent.
+4. **Visual reference** — Check `screenshot.downloadUrl` to see the full design intent. → verify: file content matches expected shape
 
 If multiple screens exist, retrieve all of them. Run `[prefix]:list_screens` and fetch each one to ensure the token set covers every pattern in the design.
 
@@ -48,9 +48,9 @@ If multiple screens exist, retrieve all of them. Run `[prefix]:list_screens` and
 
 Before parsing HTML, get the authoritative design data from the Stitch API. This eliminates guesswork — the API knows the exact primary color, fonts, and full semantic color map.
 
-1. **Call `get_project`** with `projects/[projectId]`
-2. **Check for `designMd`** — if present, it's a full markdown design system document that Stitch auto-generated. Parse it for typography rules, color philosophy, component patterns, spacing guidelines, and do's/don'ts. This is the most valuable single field.
-3. **Extract `namedColors`** — a 40+ token semantic color map. This gives you the ENTIRE color system pre-computed:
+1. **Call `get_project`** with `projects/[projectId]` → verify: step output matches expected outcome
+2. **Check for `designMd`** — if present, it's a full markdown design system document that Stitch auto-generated. Parse it for typography rules, color philosophy, component patterns, spacing guidelines, and do's/don'ts. This is the most valuable single field. → verify: output exists + parses without error
+3. **Extract `namedColors`** — a 40+ token semantic color map. This gives you the ENTIRE color system pre-computed: → verify: step output matches expected outcome
    - Primary: `primary`, `on_primary`, `primary_container`, `on_primary_container`, `primary_fixed`, `primary_fixed_dim`
    - Secondary: `secondary`, `on_secondary`, `secondary_container`, `on_secondary_container`
    - Tertiary: same pattern
@@ -109,7 +109,7 @@ Before parsing HTML, get the authoritative design data from the Stitch API. This
 | `DOMINE` | `'Domine', Georgia, serif` |
 | `NOTO_SERIF` | `'Noto Serif', Georgia, serif` |
 
-5. **Use these as the baseline.** Then use HTML analysis (Step 2) only for values the API doesn't provide: motion/transition durations, exact spacing pixel values, shadow definitions, additional colors beyond the namedColors set.
+5. **Use these as the baseline.** Then use HTML analysis (Step 2) only for values the API doesn't provide: motion/transition durations, exact spacing pixel values, shadow definitions, additional colors beyond the namedColors set. → verify: step output matches expected outcome
 
 **If `namedColors` is available**, skip the color extraction in Step 2 entirely — the API's color map is authoritative and complete. Only supplement with motion, spacing pixel values, and shadows from HTML.
 
@@ -397,3 +397,45 @@ Then tell the user how to use them:
 ## References
 
 - `resources/tokens-template.css` — Full template with all token categories
+
+## When NOT to use
+
+- Task is unrelated to stitch design system — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Design System needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch design system
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

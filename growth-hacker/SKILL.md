@@ -1,6 +1,7 @@
 ---
 name: growth-hacker
-description: Growth strategist for rapid, data-driven user and client acquisition using viral mechanics, K-factor analysis, ICE-scored experimentation, and funnel optimization. Use this skill any time Citadel AI's growth channels are being planned, content-to-affiliate funnel is being optimized, acquisition experiments are being designed, or channel performance is being analyzed. Trigger immediately on: "growth", "acquisition", "viral", "funnel", "conversion rate", "channel strategy", "how do we get more clients", "how do we get more views", "k-factor", "CAC", "LTV", "retention", "experiment", "A/B test", "grow faster", "marketing strategy", "how do we scale", "growth loop". Even casual questions like "how do we get more people to see our videos?" must trigger this skill.
+description: 'Growth strategist for rapid, data-driven user and client acquisition using viral mechanics, K-factor analysis, ICE-scored experimentation. Triggers: "use growth-hacker", "growth hacker", "growth task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Growth Hacker
@@ -95,7 +96,44 @@ Success metric: [specific, measurable]
 | Referral program | Ask existing clients for 1 intro/month |
 
 ## Unconventional Channels to Explore
-1. **Reddit**: r/conservative, r/AItools, r/personalfinance — authentic participation
-2. **Quora/search SEO**: Answer questions about AI automation for SMBs
+1. **Reddit**: r/conservative, r/AItools, r/personalfinance — authentic participation → verify: step output matches expected outcome
+2. **Quora/search SEO**: Answer questions about AI automation for SMBs → verify: step output matches expected outcome
 3. **YouTube long-form**: One 10-min "full AI agency stack" video → high-intent subscribers
-4. **DM outreach on X**: Conservative accounts with 50K+ impressions
+4. **DM outreach on X**: Conservative accounts with 50K+ impressions → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to growth hacker — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Growth Hacker needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for growth hacker
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving growth hacker
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

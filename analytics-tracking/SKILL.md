@@ -1,6 +1,7 @@
 ---
 name: analytics-tracking
-description: "Set up and optimize marketing analytics and tracking — event tracking, conversion tracking, funnel analytics, attribution modeling, and marketing measurement frameworks. Use this whenever the user asks about 'analytics setup,' 'tracking plan,' 'conversion tracking,' 'event tracking,' 'marketing attribution,' 'GA4 setup,' 'funnel analytics,' or 'how do I measure marketing performance.' Trigger even when the user says 'we don't know what's working' or 'our data is a mess' in a marketing context."
+description: "Set up and optimize marketing analytics and tracking — event tracking, conversion tracking, funnel analytics, attri. Triggers: 'use analytics-tracking', 'analytics tracking', 'analytics-tracking task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,9 +17,9 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Before implementing tracking, understand:
 
-1. **Business Context** - What decisions will this data inform? What are key conversions?
-2. **Current State** - What tracking exists? What tools are in use?
-3. **Technical Context** - What's the tech stack? Any privacy/compliance requirements?
+1. **Business Context** - What decisions will this data inform? What are key conversions? → verify: step output matches expected outcome
+2. **Current State** - What tracking exists? What tools are in use? → verify: step output matches expected outcome
+3. **Technical Context** - What's the tech stack? Any privacy/compliance requirements? → verify: step output matches expected outcome
 
 ---
 
@@ -136,11 +137,11 @@ checkout_payment_completed
 
 ### Quick Setup
 
-1. Create GA4 property and data stream
-2. Install gtag.js or GTM
-3. Enable enhanced measurement
-4. Configure custom events
-5. Mark conversions in Admin
+1. Create GA4 property and data stream → verify: output exists + parses without error
+2. Install gtag.js or GTM → verify: dependency resolves + import works
+3. Enable enhanced measurement → verify: step output matches expected outcome
+4. Configure custom events → verify: step output matches expected outcome
+5. Mark conversions in Admin → verify: step output matches expected outcome
 
 ### Custom Event Example
 
@@ -278,12 +279,12 @@ dataLayer.push({
 
 ## Task-Specific Questions
 
-1. What tools are you using (GA4, Mixpanel, etc.)?
-2. What key actions do you want to track?
-3. What decisions will this data inform?
-4. Who implements - dev team or marketing?
-5. Are there privacy/consent requirements?
-6. What's already tracked?
+1. What tools are you using (GA4, Mixpanel, etc.)? → verify: step output matches expected outcome
+2. What key actions do you want to track? → verify: step output matches expected outcome
+3. What decisions will this data inform? → verify: step output matches expected outcome
+4. Who implements - dev team or marketing? → verify: step output matches expected outcome
+5. Are there privacy/consent requirements? → verify: step output matches expected outcome
+6. What's already tracked? → verify: file content matches expected shape
 
 ---
 
@@ -307,3 +308,40 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md). Key analy
 - **seo-audit**: For organic traffic analysis
 - **page-cro**: For conversion optimization (uses this data)
 - **revops**: For pipeline metrics, CRM tracking, and revenue attribution
+
+## When NOT to use
+
+- Task is unrelated to analytics tracking — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Analytics Tracking needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for analytics tracking
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving analytics tracking
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: spec-to-repo
-description: "Use when the user says 'build me an app', 'create a project from this spec', 'scaffold a new repo', 'generate a starter', 'turn this idea into code', 'bootstrap a project', 'I have requirements and need a codebase', or provides a natural-language project specification and expects a complete, runnable repository. Stack-agnostic: Next.js, FastAPI, Rails, Go, Rust, Flutter, and more."
+description: "Use when the user says 'build me an app', 'create a project from this spec', 'scaffold a new repo', 'generate a starter', 'turn this idea into code', 'bootstrap a project', 'I have requirements and n."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Spec to Repo
@@ -68,12 +69,12 @@ Flag ambiguities. Ask **at most 3** clarifying questions. If the user says "just
 
 Design the project before writing any files:
 
-1. **Select template** — Match to a stack template from `references/stack-templates.md`
-2. **Define file tree** — List every file that will be created
-3. **Map features to files** — Each feature gets at minimum one file/component
-4. **Design database schema** — If applicable, define tables/collections with fields and types
-5. **Identify dependencies** — List every package with version constraints
-6. **Plan API routes** — If applicable, list every endpoint with method, path, request/response shape
+1. **Select template** — Match to a stack template from `references/stack-templates.md` → verify: step output matches expected outcome
+2. **Define file tree** — List every file that will be created → verify: output exists + parses without error
+3. **Map features to files** — Each feature gets at minimum one file/component → verify: step output matches expected outcome
+4. **Design database schema** — If applicable, define tables/collections with fields and types → verify: step output matches expected outcome
+5. **Identify dependencies** — List every package with version constraints → verify: step output matches expected outcome
+6. **Plan API routes** — If applicable, list every endpoint with method, path, request/response shape → verify: step output matches expected outcome
 
 Present the file tree to the user before generating:
 
@@ -105,12 +106,12 @@ Write every file. Rules:
 - **.gitignore.** Stack-appropriate ignores (node_modules, __pycache__, .env, build artifacts).
 
 **File generation order:**
-1. Manifest (package.json / requirements.txt / go.mod)
-2. Config files (.env.example, .gitignore, CI)
-3. Database schema / migrations
-4. Core business logic
-5. API routes / endpoints
-6. UI components (if applicable)
+1. Manifest (package.json / requirements.txt / go.mod) → verify: step output matches expected outcome
+2. Config files (.env.example, .gitignore, CI) → verify: step output matches expected outcome
+3. Database schema / migrations → verify: step output matches expected outcome
+4. Core business logic → verify: step output matches expected outcome
+5. API routes / endpoints → verify: step output matches expected outcome
+6. UI components (if applicable) → verify: step output matches expected outcome
 7. Tests
 8. README.md
 
@@ -259,10 +260,10 @@ Checks performed:
 
 For complex specs, generate in stages:
 
-1. **MVP** — Core feature only, working end-to-end
-2. **Auth** — Add authentication if requested
-3. **Polish** — Error handling, validation, loading states
-4. **Deploy** — Docker, CI, deploy config
+1. **MVP** — Core feature only, working end-to-end → verify: step output matches expected outcome
+2. **Auth** — Add authentication if requested → verify: dependency resolves + import works
+3. **Polish** — Error handling, validation, loading states → verify: file content matches expected shape
+4. **Deploy** — Docker, CI, deploy config → verify: step output matches expected outcome
 
 Ask the user after MVP: "Core is working. Want me to add auth/polish/deploy next, or iterate on what's here?"
 
@@ -272,3 +273,28 @@ Ask the user after MVP: "Core is working. Want me to add auth/polish/deploy next
 - Related: `engineering/spec-driven-workflow` — spec-first development methodology
 - Related: `engineering/database-designer` — database schema design patterns
 - Related: `engineering-team/senior-fullstack` — full-stack implementation patterns
+
+## When NOT to use
+
+- Task is unrelated to spec to repo — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Spec To Repo needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for spec to repo
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

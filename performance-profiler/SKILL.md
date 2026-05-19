@@ -1,13 +1,7 @@
 ---
 name: "performance-profiler"
-description: "Profile and diagnose performance bottlenecks across web, API, and system layers - CPU profiling, memory leak detection, slow query analysis, and flame graph interpretation. Use when an app is slow, latency spikes, memory grows unbounded, or before/after benchmarks are needed. Trigger on: 'profile performance', 'find bottleneck', 'slow API', 'memory leak', 'CPU usage', 'performance diagnosis', 'profiling', 'flame graph', 'latency issue', 'benchmark', 'slow query'."
-
-# Performance Profiler
-
-**Tier:** POWERFUL  
-**Category:** Engineering  
-**Domain:** Performance Engineering  
-
+description: 'Profile and diagnose performance bottlenecks across web, API, and system layers - CPU profiling, memory lea. Triggers: ''use performance-profiler'', ''performance profiler'', ''performance-profiler task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 ## Overview
@@ -160,10 +154,47 @@ API
 
 ## Best Practices
 
-1. **Baseline first, always** — record metrics before touching anything
-2. **One change at a time** — isolate the variable to confirm causation
-3. **Profile with realistic data** — 10 rows in dev, millions in prod — different bottlenecks
-4. **Set performance budgets** — `p(95) < 200ms` in CI thresholds with k6
-5. **Monitor continuously** — add Datadog/Prometheus metrics for key paths
-6. **Cache invalidation strategy** — cache aggressively, invalidate precisely
-7. **Document the win** — before/after in the PR description motivates the team
+1. **Baseline first, always** — record metrics before touching anything → verify: step output matches expected outcome
+2. **One change at a time** — isolate the variable to confirm causation → verify: step output matches expected outcome
+3. **Profile with realistic data** — 10 rows in dev, millions in prod — different bottlenecks → verify: step output matches expected outcome
+4. **Set performance budgets** — `p(95) < 200ms` in CI thresholds with k6 → verify: step output matches expected outcome
+5. **Monitor continuously** — add Datadog/Prometheus metrics for key paths → verify: dependency resolves + import works
+6. **Cache invalidation strategy** — cache aggressively, invalidate precisely → verify: all checks pass
+7. **Document the win** — before/after in the PR description motivates the team → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to performance profiler — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Performance Profiler needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for performance profiler
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving performance profiler
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: researcher
-description: "Deep structured research specialist for comprehensive information gathering, synthesis, and evidence-based findings on any topic from multiple sources. Use this skill any time a topic needs to be thoroughly researched, information needs to be gathered and synthesized, or a research report needs to be produced. Trigger immediately on: \"research\", \"look into\", \"find out about\", \"investigate\", \"gather information\", \"deep dive\", \"what do we know about\", \"analyze this topic\", \"survey the landscape\", \"compare options\", \"background on\", \"study this\", \"explore the topic\", \"research report\". If someone says \"research X for me\" or \"I need a deep dive on Y\" this skill MUST trigger."
+description: "Deep structured research specialist for comprehensive information gathering, synthesis, and evidence-based findings on any topic from multi. Triggers: 'use researcher', 'researcher', 'researcher task."
+allowed-tools: Glob, Grep, Read
 version: 1.0.0
 triggers:
   - research this
@@ -36,11 +37,11 @@ Load this skill when the user asks for:
 
 ### Phase 1 — Scope Definition
 Before researching, define:
-1. **Central question**: What exactly needs to be answered?
-2. **Scope boundaries**: What's in/out of scope?
-3. **Success criteria**: What would a complete answer look like?
-4. **Time sensitivity**: Is current (2025+) data critical?
-5. **Depth vs. breadth**: Comprehensive coverage or focused depth?
+1. **Central question**: What exactly needs to be answered? → verify: step output matches expected outcome
+2. **Scope boundaries**: What's in/out of scope? → verify: step output matches expected outcome
+3. **Success criteria**: What would a complete answer look like? → verify: step output matches expected outcome
+4. **Time sensitivity**: Is current (2025+) data critical? → verify: step output matches expected outcome
+5. **Depth vs. breadth**: Comprehensive coverage or focused depth? → verify: file content matches expected shape
 
 ### Phase 2 — Source Strategy
 Prioritize by reliability:
@@ -130,3 +131,47 @@ threads = [
 ]
 # Deploy as background agents, synthesize results
 ```
+
+## Triggers
+
+\\\"research\\\", \\\"look into\\\", \\\"find out about\\\", \\\"investigate\\\", \\\"gather information\\\", \\\"deep dive\\\", \\\"what do we know about\\\", \\\"analyze this topic\\\", \\\"survey the landscape\\\", \\\"co...
+
+## When NOT to use
+
+- Quick fact lookup (one search query) — overkill; use WebFetch directly
+- Competitive sales intel for a deal — use `competitive-intel` or `deal-strategist`
+- Academic literature review with citations — use `autoresearch-agent`
+- Code search inside a repository — use Grep/Glob directly
+- Market sizing only — use a financial-modeling skill
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "One source is enough" | Single-source findings are dangerous; cross-reference at least 3 independent sources |
+| "Skip the synthesis, paste the raw search results" | The user wants actionable conclusions, not search-engine output; always synthesize |
+| "Confidence level is obvious" | Always label findings (high/medium/low confidence) — undocumented confidence breeds overreliance |
+| "Recency does not matter for this topic" | Tech/markets shift fast; always note recency of sources |
+
+## Output Contract
+
+Finished output must contain:
+- Question or hypothesis stated explicitly at the top
+- Search strategy used (terms, sources, recency filter)
+- Findings organized by sub-question with citations
+- At least 3 independent sources cross-checked
+- Confidence label per major finding (high/medium/low) with rationale
+- Open questions / known unknowns called out
+- Recommendation or next step, not just raw findings
+
+## Examples
+
+**Example 1 — Tech evaluation: Postgres vs ClickHouse for events**
+- Input: "Should we use Postgres or ClickHouse for our 100M events/day analytics workload?"
+- Action: Search benchmarks, ops considerations, query patterns → identify tradeoffs → cross-check 3 case studies → synthesize
+- Output: Decision matrix, ClickHouse recommended for >10M events/day with rationale, 3 caveats, citations + confidence labels
+
+**Example 2 — Market research: AI coding assistants**
+- Input: "Survey the state of AI coding assistants in 2026"
+- Action: Search market reports, product comparisons, pricing → categorize (IDE plugins, terminal agents, autonomous) → identify trends and gaps
+- Output: Landscape map, top 8 products with positioning, 3 emerging trends, 2 open opportunities, confidence labels, recency notes

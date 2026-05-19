@@ -1,18 +1,6 @@
 ---
 name: seo-local
-description: >
-  Local SEO analysis for brick-and-mortar, service area businesses (SAB), and
-  multi-location brands. Covers Google Business Profile (GBP) optimization (32% of
-  local pack weight, Whitespark 2026), NAP consistency, citation health, review
-  signals (now ~20% of ranking factors), local schema markup (LocalBusiness subtypes),
-  location page quality, map pack competitiveness, and AI local search (ChatGPT local
-  conversion rate 15.9% vs Google's 1.76%). Industry-specific analysis for restaurants,
-  healthcare, legal, home services, real estate, and automotive. Make sure to use this
-  skill whenever the user mentions: "local SEO", "Google Business Profile", "GBP",
-  "map pack", "local pack", "local rankings", "citations", "NAP consistency", "service
-  area", "multi-location", "local search", "near me", "rank in my city", "Google Maps
-  ranking", "business listing", "review management", "local competitor", "show up
-  locally", or any question about ranking for geographically-targeted searches.
+description: "Local SEO analysis for brick-and-mortar, service area businesses (SAB), and multi-location brands. Trigger: Google Business Profile, GBP, map pack, local pack, local rankings, citations, NAP consiste."
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -161,9 +149,9 @@ Citations declining for traditional pack rankings but **3 of top 5 AI visibility
 
 **Check for:**
 - NAP extraction: compare Name, Address, Phone from:
-  1. Visible page HTML (footer, contact page)
-  2. LocalBusiness JSON-LD schema
-  3. Any visible GBP data
+  1. Visible page HTML (footer, contact page) → verify: step output matches expected outcome
+  2. LocalBusiness JSON-LD schema → verify: step output matches expected outcome
+  3. Any visible GBP data → verify: step output matches expected outcome
   - Flag any discrepancies between these three sources
 - Citation presence on Tier 1 directories (check via WebFetch or site: search patterns):
   - Google Business Profile signals on page
@@ -258,46 +246,46 @@ Load on-demand as needed:
 
 Generate `LOCAL-SEO-ANALYSIS-{domain}.md` with:
 
-1. **Local SEO Score: XX/100** with dimension breakdown table
-2. **Business type**: Brick-and-mortar / SAB / Hybrid
-3. **Industry vertical detected** + industry-specific findings
-4. **GBP optimization checklist** (detected signals vs missing)
-5. **Review health snapshot** (rating, count, velocity indicators, response patterns)
-6. **NAP consistency audit** (page vs schema discrepancies, cross-source comparison)
-7. **Citation presence check** (Tier 1 directory status)
-8. **Local schema status** (present/missing/malformed + ready-to-use fix)
-9. **Location page quality** (if multi-location: unique content %, doorway risk, store locator)
-10. **Top 10 prioritized actions** (Critical > High > Medium > Low)
-11. **Limitations disclaimer**: What this analysis could NOT assess (geo-grid ranking, Domain Authority, comprehensive backlinks, GBP Insights data, real-time local pack position) and which paid tools can fill those gaps
+1. **Local SEO Score: XX/100** with dimension breakdown table → verify: step output matches expected outcome
+2. **Business type**: Brick-and-mortar / SAB / Hybrid → verify: step output matches expected outcome
+3. **Industry vertical detected** + industry-specific findings → verify: step output matches expected outcome
+4. **GBP optimization checklist** (detected signals vs missing) → verify: step output matches expected outcome
+5. **Review health snapshot** (rating, count, velocity indicators, response patterns) → verify: step output matches expected outcome
+6. **NAP consistency audit** (page vs schema discrepancies, cross-source comparison) → verify: findings count > 0 OR clean signal returned
+7. **Citation presence check** (Tier 1 directory status) → verify: step output matches expected outcome
+8. **Local schema status** (present/missing/malformed + ready-to-use fix) → verify: file content matches expected shape
+9. **Location page quality** (if multi-location: unique content %, doorway risk, store locator) → verify: step output matches expected outcome
+10. **Top 10 prioritized actions** (Critical > High > Medium > Low) → verify: step output matches expected outcome
+11. **Limitations disclaimer**: What this analysis could NOT assess (geo-grid ranking, Domain Authority, comprehensive backlinks, GBP Insights data, real-time local pack position) and which paid tools can fill those gaps → verify: step output matches expected outcome
 
 ---
 
 ## Quick Wins
 
-1. Claim and optimize Apple Business Connect (usage doubled to 27%)
-2. Claim and optimize Bing Places (powers ChatGPT, Copilot, Alexa)
-3. Fix any NAP discrepancies between page, schema, and GBP
-4. Add LocalBusiness schema with correct industry subtype
-5. Add `geo` coordinates with 5+ decimal precision
-6. Ensure phone number uses `tel:` link for click-to-call
-7. Add city + service keyword to title tag and H1
+1. Claim and optimize Apple Business Connect (usage doubled to 27%) → verify: step output matches expected outcome
+2. Claim and optimize Bing Places (powers ChatGPT, Copilot, Alexa) → verify: step output matches expected outcome
+3. Fix any NAP discrepancies between page, schema, and GBP → verify: diff matches intended change
+4. Add LocalBusiness schema with correct industry subtype → verify: dependency resolves + import works
+5. Add `geo` coordinates with 5+ decimal precision → verify: dependency resolves + import works
+6. Ensure phone number uses `tel:` link for click-to-call → verify: step output matches expected outcome
+7. Add city + service keyword to title tag and H1 → verify: dependency resolves + import works
 
 ## Medium Effort
 
-1. Create dedicated page for each core service (Whitespark: #1 local organic factor)
-2. Build review generation strategy maintaining 18-day minimum cadence
-3. Submit to three data aggregators (Data Axle, Foursquare, Neustar/TransUnion) for downstream distribution
-4. Claim industry-specific directory listings (per vertical recommendations)
-5. Add industry-specific schema patterns (Menu for restaurants, Physician for healthcare, etc.)
-6. Implement hub-and-spoke internal linking for service/location pages
+1. Create dedicated page for each core service (Whitespark: #1 local organic factor) → verify: output exists + parses without error
+2. Build review generation strategy maintaining 18-day minimum cadence → verify: step output matches expected outcome
+3. Submit to three data aggregators (Data Axle, Foursquare, Neustar/TransUnion) for downstream distribution → verify: step output matches expected outcome
+4. Claim industry-specific directory listings (per vertical recommendations) → verify: step output matches expected outcome
+5. Add industry-specific schema patterns (Menu for restaurants, Physician for healthcare, etc.) → verify: dependency resolves + import works
+6. Implement hub-and-spoke internal linking for service/location pages → verify: step output matches expected outcome
 
 ## High Impact
 
-1. Build local digital PR strategy targeting "best of" lists (#1 AI visibility factor)
-2. Develop unique, non-swappable content for each location page (>60% unique)
-3. Establish presence on platforms ChatGPT sources from (Yelp, TripAdvisor, BBB, Reddit)
-4. Pursue Chamber of Commerce and BBB membership (authority + verification signals)
-5. Create community involvement content (sponsorships, local events, partnerships)
+1. Build local digital PR strategy targeting "best of" lists (#1 AI visibility factor) → verify: step output matches expected outcome
+2. Develop unique, non-swappable content for each location page (>60% unique) → verify: step output matches expected outcome
+3. Establish presence on platforms ChatGPT sources from (Yelp, TripAdvisor, BBB, Reddit) → verify: step output matches expected outcome
+4. Pursue Chamber of Commerce and BBB membership (authority + verification signals) → verify: step output matches expected outcome
+5. Create community involvement content (sponsorships, local events, partnerships) → verify: output exists + parses without error
 
 ---
 
@@ -316,3 +304,45 @@ If DataForSEO MCP tools are available, use `local_business_data` for live GBP da
 | NAP not found in page HTML | Check schema and meta tags. If still absent, flag as Critical issue. Recommend adding visible NAP to footer and contact page. |
 | Industry vertical unclear | Present the top two detected verticals with supporting signals. Ask the user to confirm before applying industry-specific recommendations. |
 | Multi-location with 50+ location pages | Apply the quality gates from seo orchestrator: WARNING at 30+ pages (enforce 60%+ unique), HARD STOP at 50+ pages (require user justification before continuing). |
+
+## When NOT to use
+
+- Task is unrelated to seo local — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Local needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo local
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

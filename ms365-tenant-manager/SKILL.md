@@ -1,6 +1,7 @@
 ---
 name: "ms365-tenant-manager"
-description: Microsoft 365 tenant administration for Global Administrators. Automate M365 tenant setup, Office 365 admin tasks, Azure AD user management, Exchange Online configuration, Teams administration, and security policies. Generate PowerShell scripts for bulk operations, Conditional Access policies, license management, and compliance reporting. Use for M365 tenant manager, Office 365 admin, Azure AD users, Global Administrator, tenant configuration, or Microsoft 365 automation.
+description: "Microsoft 365 tenant administration for Global Administrators. Triggers: 'use ms365-tenant-manager', 'ms365 tenant manager', 'ms365-tenant-manager task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Microsoft 365 Tenant Manager
@@ -201,27 +202,27 @@ Write-Host "Offboarding complete for $upn"
 
 ### Tenant Setup
 
-1. Enable MFA before adding users
-2. Configure named locations for Conditional Access
-3. Use separate admin accounts with PIM
+1. Enable MFA before adding users → verify: step output matches expected outcome
+2. Configure named locations for Conditional Access → verify: step output matches expected outcome
+3. Use separate admin accounts with PIM → verify: step output matches expected outcome
 4. Verify custom domains (and DNS propagation) before bulk user creation
-5. Apply Microsoft Secure Score recommendations
+5. Apply Microsoft Secure Score recommendations → verify: diff matches intent
 
 ### Security Operations
 
-1. Start Conditional Access policies in report-only mode
-2. Review Sign-in logs for 48 h before enforcing a new policy
-3. Never hardcode credentials in scripts — use Azure Key Vault or `Get-Credential`
-4. Enable unified audit logging for all operations
-5. Conduct quarterly security reviews and Secure Score check-ins
+1. Start Conditional Access policies in report-only mode → verify: step output matches expected outcome
+2. Review Sign-in logs for 48 h before enforcing a new policy → verify: step output matches expected outcome
+3. Never hardcode credentials in scripts — use Azure Key Vault or `Get-Credential` → verify: step output matches expected outcome
+4. Enable unified audit logging for all operations → verify: findings count surfaced
+5. Conduct quarterly security reviews and Secure Score check-ins → verify: all checks pass
 
 ### PowerShell Automation
 
-1. Prefer Microsoft Graph (`Microsoft.Graph` module) over legacy MSOnline
-2. Include `try/catch` blocks for error handling
-3. Implement `Write-Host`/`Write-Warning` logging for audit trails
-4. Use `-WhatIf` or dry-run output before bulk destructive operations
-5. Test in a non-production tenant first
+1. Prefer Microsoft Graph (`Microsoft.Graph` module) over legacy MSOnline → verify: step output matches expected outcome
+2. Include `try/catch` blocks for error handling → verify: step output matches expected outcome
+3. Implement `Write-Host`/`Write-Warning` logging for audit trails → verify: output exists + parses without error
+4. Use `-WhatIf` or dry-run output before bulk destructive operations → verify: command exit code 0
+5. Test in a non-production tenant first → verify: all checks pass
 
 ---
 
@@ -271,3 +272,40 @@ Install-Module MicrosoftTeams -Scope CurrentUser
 - **User Administrator** — User management
 - **Security Administrator** — Security policies
 - **Exchange Administrator** — Mailbox management
+
+## When NOT to use
+
+- Task is unrelated to ms365 tenant manager — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ms365 Tenant Manager needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ms365 tenant manager
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ms365 tenant manager
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

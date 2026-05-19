@@ -1,6 +1,7 @@
 ---
 name: product-analytics
-description: Use when defining product KPIs, building metric dashboards, running cohort or retention analysis, or interpreting feature adoption trends across product stages.
+description: 'Use when defining product KPIs, building metric dashboards, running cohort or retention analysis, or interpreting feature adopti. Triggers: "use product-analytics", "product analytics", "product task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Product Analytics
@@ -18,27 +19,27 @@ Use this skill for:
 
 ## Workflow
 
-1. Select metric framework
+1. Select metric framework → verify: step output matches expected outcome
 - AARRR for growth loops and funnel visibility
 - North Star for cross-functional strategic alignment
 - HEART for UX quality and user experience measurement
 
-2. Define stage-appropriate KPIs
+2. Define stage-appropriate KPIs → verify: step output matches expected outcome
 - Pre-PMF: activation, early retention, qualitative success
 - Growth: acquisition efficiency, expansion, conversion velocity
 - Mature: retention depth, revenue quality, operational efficiency
 
-3. Design dashboard layers
+3. Design dashboard layers → verify: step output matches expected outcome
 - Executive layer: 5-7 directional metrics
 - Product health layer: acquisition, activation, retention, engagement
 - Feature layer: adoption, depth, repeat usage, outcome correlation
 
-4. Run cohort + retention analysis
+4. Run cohort + retention analysis → verify: command exit code 0
 - Segment by signup cohort or feature exposure cohort
 - Compare retention curves, not single-point snapshots
 - Identify inflection points around onboarding and first value moment
 
-5. Interpret and act
+5. Interpret and act → verify: step output matches expected outcome
 - Connect metric movement to product changes and release timeline
 - Distinguish signal from noise using period-over-period context
 - Propose one clear product action per major metric risk/opportunity
@@ -77,11 +78,11 @@ See:
 
 ## Cohort Analysis Method
 
-1. Define cohort anchor event (signup, activation, first purchase).
-2. Define retained behavior (active day, key action, repeat session).
-3. Build retention matrix by cohort week/month and age period.
-4. Compare curve shape across cohorts.
-5. Flag early drop points and investigate journey friction.
+1. Define cohort anchor event (signup, activation, first purchase). → verify: step output matches expected outcome
+2. Define retained behavior (active day, key action, repeat session). → verify: step output matches expected outcome
+3. Build retention matrix by cohort week/month and age period. → verify: step output matches expected outcome
+4. Compare curve shape across cohorts. → verify: step output matches expected outcome
+5. Flag early drop points and investigate journey friction. → verify: step output matches expected outcome
 
 ## Retention Curve Interpretation
 
@@ -145,3 +146,40 @@ u002,signup
 - Related: `product-team/product-manager-toolkit` — for RICE prioritization of metric-driven features
 - Related: `product-team/product-discovery` — for assumption mapping when metrics reveal unknowns
 - Related: `finance/saas-metrics-coach` — for SaaS-specific metrics (ARR, MRR, churn, LTV)
+
+## When NOT to use
+
+- Task is unrelated to product analytics — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Product Analytics needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for product analytics
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving product analytics
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

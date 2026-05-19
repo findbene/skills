@@ -1,6 +1,6 @@
 ---
 name: design-md
-description: Analyze Stitch projects and synthesize a semantic design system into DESIGN.md files
+description: "Analyze Stitch projects and synthesize a semantic design system into DESIGN.md files Triggers: 'use design-md', 'design md', 'design-md task'."
 allowed-tools:
   - "stitch*:*"
   - "Read"
@@ -30,14 +30,14 @@ The `DESIGN.md` file will serve as the "source of truth" for prompting Stitch to
 
 To analyze a Stitch project, you must retrieve screen metadata and design assets using the Stitch MCP Server tools:
 
-1. **Namespace discovery**: Run `list_tools` to find the Stitch MCP prefix. Use this prefix (e.g., `mcp_stitch:`) for all subsequent calls.
+1. **Namespace discovery**: Run `list_tools` to find the Stitch MCP prefix. Use this prefix (e.g., `mcp_stitch:`) for all subsequent calls. → verify: command exit code 0
 
-2. **Project lookup** (if Project ID is not provided):
+2. **Project lookup** (if Project ID is not provided): → verify: step output matches expected outcome
    - Call `[prefix]:list_projects` with `filter: "view=owned"` to retrieve all user projects
    - Identify the target project by title or URL pattern
    - Extract the Project ID from the `name` field (e.g., `projects/13534454087919359824`)
 
-3. **Screen lookup** (if Screen ID is not provided):
+3. **Screen lookup** (if Screen ID is not provided): → verify: step output matches expected outcome
    - Call `[prefix]:list_screens` with the `projectId` (just the numeric ID, not the full path)
    - Review screen titles to identify the target screen (e.g., "Home", "Landing Page")
    - Extract the Screen ID from the screen's `name` field
@@ -157,11 +157,11 @@ To use this skill for the Furniture Collection project:
 
 ## Tips for Success
 
-1. **Start with the big picture:** Understand the overall aesthetic before diving into details
-2. **Look for patterns:** Identify consistent spacing, sizing, and styling patterns
-3. **Think semantically:** Name colors by their purpose, not just their appearance
-4. **Consider hierarchy:** Document how visual weight and importance are communicated
-5. **Reference the guide:** Use language and patterns from the Stitch Effective Prompting Guide
+1. **Start with the big picture:** Understand the overall aesthetic before diving into details → verify: step output matches expected outcome
+2. **Look for patterns:** Identify consistent spacing, sizing, and styling patterns → verify: step output matches expected outcome
+3. **Think semantically:** Name colors by their purpose, not just their appearance → verify: step output matches expected outcome
+4. **Consider hierarchy:** Document how visual weight and importance are communicated → verify: step output matches expected outcome
+5. **Reference the guide:** Use language and patterns from the Stitch Effective Prompting Guide → verify: step output matches expected outcome
 
 ## Common Pitfalls to Avoid
 
@@ -170,3 +170,40 @@ To use this skill for the Furniture Collection project:
 - ❌ Forgetting to explain functional roles of design elements
 - ❌ Being too vague in atmosphere descriptions
 - ❌ Ignoring subtle design details like shadows or spacing patterns
+
+## When NOT to use
+
+- User wants brand-agnostic design → use generic `frontend-design` skill instead
+- Different brand requested → use the matching `design-<brand>` skill
+- User needs plain Tailwind/CSS without brand language → skip design-* skills
+- Building production replica of Md itself (trademark / IP risk)
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll pick close hex values instead of exact" | Brand voltage must match exact — close hex breaks brand recognition |
+| "Tailwind defaults are close enough" | Brand radii/shadows/spacing are non-default; defaults break the look |
+| "Skip DESIGN.md, just match vibes" | Tokens encode the rules; vibes drift |
+| "Apply brand color everywhere" | Brand uses CTA/accent voltage sparingly — uniform application kills hierarchy |
+
+## Output Contract
+
+Done-state:
+- All color values traceable to `DESIGN.md` `colors:` block
+- Typography scale uses brand font + brand weight ladder from `typography:`
+- Component radii, shadows, spacing match `components:` tokens
+- No `dos_donts:` rule violated in generated output
+- CSS variables exposed for downstream re-theming
+
+## Examples
+
+### Example 1 — Marketing hero
+- Input: "Build a marketing hero in Md style"
+- Action: read `DESIGN.md`, apply brand background/typography/CTA radius + brand voltage color, follow whitespace guidance from spec
+- Output: hero section using exact brand tokens, ready to drop into Next.js or HTML
+
+### Example 2 — Card grid
+- Input: "Card grid that looks like Md"
+- Action: pull card radius from `components:`, shadow from `shadows:`, gap from `spacing:`, hover state from `dos_donts:` guidance
+- Output: grid with brand-correct card chrome, no default Tailwind leakage

@@ -1,6 +1,7 @@
 ---
 name: "quality-manager-qms-iso13485"
-description: ISO 13485 Quality Management System implementation and maintenance for medical device organizations. Provides QMS design, documentation control, internal auditing, CAPA management, and certification support. Use when working with medical device quality systems, preparing for ISO 13485 audits, managing regulatory compliance documentation, setting up corrective actions, or building audit preparation programs. Useful for quality management, audit preparation, regulatory compliance, medical device documentation, and corrective action workflows.
+description: "ISO 13485 Quality Management System implementation and maintenance for medical device. Triggers: 'use quality-manager-qms-iso13485', 'quality manager qms iso13485', 'quality-manager-qms-iso13485 task."
+allowed-tools: Glob, Grep, Read
 triggers:
   - ISO 13485
   - QMS implementation
@@ -41,20 +42,20 @@ Implement ISO 13485:2016 compliant quality management system from gap analysis t
 
 ### Workflow: Initial QMS Implementation
 
-1. Conduct gap analysis against ISO 13485:2016 requirements
-2. Document current state vs. required state for each clause
-3. Prioritize gaps by:
+1. Conduct gap analysis against ISO 13485:2016 requirements → verify: step output matches expected outcome
+2. Document current state vs. required state for each clause → verify: step output matches expected outcome
+3. Prioritize gaps by: → verify: step output matches expected outcome
    - Regulatory criticality
    - Risk to product safety
    - Resource requirements
-4. Develop implementation roadmap with milestones
-5. Establish Quality Manual per Clause 4.2.2:
+4. Develop implementation roadmap with milestones → verify: step output matches expected outcome
+5. Establish Quality Manual per Clause 4.2.2: → verify: step output matches expected outcome
    - QMS scope with justified exclusions
    - Process interactions
    - Procedure references
-6. Create required documented procedures — see [Mandatory Documented Procedures](#quick-reference-mandatory-documented-procedures) for the full list
-7. Deploy processes with training
-8. **Validation:** Gap analysis complete; Quality Manual approved; all required procedures documented and trained
+6. Create required documented procedures — see [Mandatory Documented Procedures](#quick-reference-mandatory-documented-procedures) for the full list → verify: output file exists + no syntax error
+7. Deploy processes with training → verify: step output matches expected outcome
+8. **Validation:** Gap analysis complete; Quality Manual approved; all required procedures documented and trained → verify: step output matches expected outcome
 
 > Use the Gap Analysis Matrix template in [qms-process-templates.md](references/qms-process-templates.md) to document clause-by-clause current state, gaps, priority, and actions.
 
@@ -75,16 +76,16 @@ Establish and maintain document control per ISO 13485 Clause 4.2.3.
 
 ### Workflow: Document Creation and Approval
 
-1. Identify need for new document or revision
-2. Assign document number per numbering convention:
+1. Identify need for new document or revision → verify: step output matches expected outcome
+2. Assign document number per numbering convention: → verify: step output matches expected outcome
    - Format: `[TYPE]-[AREA]-[SEQUENCE]-[REV]`
    - Example: `SOP-02-001-01`
-3. Draft document using approved template
-4. Route for review to subject matter experts
-5. Collect and address review comments
-6. Obtain required approvals based on document type
-7. Update Document Master List
-8. **Validation:** Document numbered correctly; all reviewers signed; Master List updated
+3. Draft document using approved template → verify: step output matches expected outcome
+4. Route for review to subject matter experts → verify: step output matches expected outcome
+5. Collect and address review comments → verify: package installed + import succeeds
+6. Obtain required approvals based on document type → verify: step output matches expected outcome
+7. Update Document Master List → verify: step output matches expected outcome
+8. **Validation:** Document numbered correctly; all reviewers signed; Master List updated → verify: step output matches expected outcome
 
 ### Document Numbering Convention
 
@@ -136,40 +137,40 @@ Plan and execute internal audits per ISO 13485 Clause 8.2.4.
 
 ### Workflow: Annual Audit Program
 
-1. Identify processes and areas requiring audit coverage
-2. Assess risk factors for audit frequency:
+1. Identify processes and areas requiring audit coverage → verify: step output matches expected outcome
+2. Assess risk factors for audit frequency: → verify: step output matches expected outcome
    - Previous audit findings
    - Regulatory changes
    - Process changes
    - Complaint trends
-3. Assign qualified auditors (independent of area audited)
-4. Develop annual audit schedule
-5. Obtain management approval
-6. Communicate schedule to process owners
-7. Track completion and reschedule as needed
-8. **Validation:** All processes covered; auditors qualified and independent; schedule approved
+3. Assign qualified auditors (independent of area audited) → verify: step output matches expected outcome
+4. Develop annual audit schedule → verify: step output matches expected outcome
+5. Obtain management approval → verify: step output matches expected outcome
+6. Communicate schedule to process owners → verify: step output matches expected outcome
+7. Track completion and reschedule as needed → verify: step output matches expected outcome
+8. **Validation:** All processes covered; auditors qualified and independent; schedule approved → verify: step output matches expected outcome
 
 > Use the Audit Program Template in [qms-process-templates.md](references/qms-process-templates.md) to schedule audits by clause and quarter across processes such as Document Control (4.2.3/4.2.4), Management Review (5.6), Design Control (7.3), Production (7.5), and CAPA (8.5.2/8.5.3).
 
 ### Workflow: Individual Audit Execution
 
-1. Prepare audit plan with scope, criteria, and schedule
-2. Notify auditee minimum 1 week prior
-3. Review procedures and previous audit results
-4. Prepare audit checklist
-5. Conduct opening meeting
-6. Collect evidence through:
+1. Prepare audit plan with scope, criteria, and schedule → verify: step output matches expected outcome
+2. Notify auditee minimum 1 week prior → verify: step output matches expected outcome
+3. Review procedures and previous audit results → verify: step output matches expected outcome
+4. Prepare audit checklist → verify: all tests pass
+5. Conduct opening meeting → verify: file readable + content matches expected shape
+6. Collect evidence through: → verify: step output matches expected outcome
    - Document review
    - Record sampling
    - Process observation
    - Personnel interviews
-7. Classify findings:
+7. Classify findings: → verify: step output matches expected outcome
    - Major NC: Absence or breakdown of system
    - Minor NC: Single lapse or deviation
    - Observation: Risk of future NC
-8. Conduct closing meeting
-9. Issue audit report within 5 business days
-10. **Validation:** All checklist items addressed; findings supported by evidence; report distributed
+8. Conduct closing meeting → verify: step output matches expected outcome
+9. Issue audit report within 5 business days → verify: step output matches expected outcome
+10. **Validation:** All checklist items addressed; findings supported by evidence; report distributed → verify: package installed + import succeeds
 
 ### Auditor Qualification Requirements
 
@@ -196,12 +197,12 @@ Validate special processes per ISO 13485 Clause 7.5.6.
 
 ### Workflow: Process Validation Protocol
 
-1. Identify processes requiring validation:
+1. Identify processes requiring validation: → verify: step output matches expected outcome
    - Output cannot be verified by inspection
    - Deficiencies appear only in use
    - Sterilization, welding, sealing, software
-2. Form validation team with subject matter experts
-3. Write validation protocol including:
+2. Form validation team with subject matter experts → verify: step output matches expected outcome
+3. Write validation protocol including: → verify: output file exists + no syntax error
    - Process description and parameters
    - Equipment and materials
    - Acceptance criteria
@@ -209,8 +210,8 @@ Validate special processes per ISO 13485 Clause 7.5.6.
 4. Execute IQ: verify equipment installed correctly and document specifications
 5. Execute OQ: test parameter ranges and verify process control
 6. Execute PQ: run production conditions and verify output meets requirements
-7. Write validation report with conclusions
-8. **Validation:** IQ/OQ/PQ complete; acceptance criteria met; validation report approved
+7. Write validation report with conclusions → verify: output file exists + no syntax error
+8. **Validation:** IQ/OQ/PQ complete; acceptance criteria met; validation report approved → verify: step output matches expected outcome
 
 ### Validation Documentation Requirements
 
@@ -250,29 +251,29 @@ Evaluate and approve suppliers per ISO 13485 Clause 7.4.
 
 ### Workflow: New Supplier Qualification
 
-1. Identify supplier category:
+1. Identify supplier category: → verify: step output matches expected outcome
    - Category A: Critical (affects safety/performance)
    - Category B: Major (affects quality)
    - Category C: Minor (indirect impact)
-2. Request supplier information:
+2. Request supplier information: → verify: step output matches expected outcome
    - Quality certifications
    - Product specifications
    - Quality history
-3. Evaluate supplier based on:
+3. Evaluate supplier based on: → verify: step output matches expected outcome
    - Quality system (ISO certification)
    - Technical capability
    - Quality history
    - Financial stability
-4. For Category A suppliers:
+4. For Category A suppliers: → verify: step output matches expected outcome
    - Conduct on-site audit
    - Require quality agreement
-5. Calculate qualification score
-6. Make approval decision:
+5. Calculate qualification score → verify: step output matches expected outcome
+6. Make approval decision: → verify: step output matches expected outcome
    - >80: Approved
    - 60-80: Conditional approval
    - <60: Not approved
-7. Add to Approved Supplier List
-8. **Validation:** Evaluation criteria scored; qualification records complete; supplier categorized
+7. Add to Approved Supplier List → verify: package installed + import succeeds
+8. **Validation:** Evaluation criteria scored; qualification records complete; supplier categorized → verify: step output matches expected outcome
 
 ### Supplier Evaluation Criteria
 
@@ -433,3 +434,40 @@ Nonconforming Product Identified
 | [qms-audit-expert](../qms-audit-expert/) | Advanced audit techniques |
 | [quality-documentation-manager](../quality-documentation-manager/) | DHF, DMR, DHR management |
 | [risk-management-specialist](../risk-management-specialist/) | ISO 14971 integration |
+
+## When NOT to use
+
+- Task is unrelated to quality manager qms iso13485 — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Quality Manager Qms Iso13485 needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for quality manager qms iso13485
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving quality manager qms iso13485
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

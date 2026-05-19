@@ -1,6 +1,7 @@
 ---
 name: revops
-description: "Design and optimize revenue operations — aligning marketing, sales, and customer success processes, building pipeline reporting, optimizing the lead-to-revenue funnel, and improving RevOps infrastructure. Use this whenever the user mentions 'revenue operations,' 'RevOps,' 'pipeline management,' 'lead routing,' 'marketing-sales alignment,' 'CRM optimization,' 'funnel reporting,' or 'improving lead quality to sales.' Trigger even when the user says 'marketing and sales aren't aligned' or 'we don't know where leads are dropping off."
+description: "Design and optimize revenue operations — aligning marketing, sales, and customer success processes, building pipeline reporting, optimizing the lead-to. Triggers: 'use revops', 'revops', 'revops task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,12 +17,12 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Gather this context (ask if not provided):
 
-1. **GTM motion** — Product-led (PLG), sales-led, or hybrid?
-2. **ACV range** — What's the average contract value?
-3. **Sales cycle length** — Days from first touch to closed-won?
-4. **Current stack** — CRM, marketing automation, scheduling, enrichment tools?
-5. **Current state** — How are leads managed today? What's working and what's not?
-6. **Goals** — Increase conversion? Reduce speed-to-lead? Fix handoff leaks? Build from scratch?
+1. **GTM motion** — Product-led (PLG), sales-led, or hybrid? → verify: step output matches expected outcome
+2. **ACV range** — What's the average contract value? → verify: step output matches expected outcome
+3. **Sales cycle length** — Days from first touch to closed-won? → verify: step output matches expected outcome
+4. **Current stack** — CRM, marketing automation, scheduling, enrichment tools? → verify: step output matches expected outcome
+5. **Current state** — How are leads managed today? What's working and what's not? → verify: step output matches expected outcome
+6. **Goals** — Increase conversion? Reduce speed-to-lead? Fix handoff leaks? Build from scratch? → verify: diff matches intended change
 
 Work with whatever the user gives you. If they have a clear problem area, start there. Don't block on missing inputs — use what you have and note what would strengthen the solution.
 
@@ -101,12 +102,12 @@ Define response times and document them:
 
 ### Building a Scoring Model
 
-1. Define your ICP attributes and weight them
-2. Identify high-intent behavioral signals from closed-won data
-3. Set point values for each attribute and behavior
-4. Set MQL threshold (typically 50-80 points on a 100-point scale)
-5. Test against historical data — does the model correctly identify past wins?
-6. Launch, measure, and recalibrate quarterly
+1. Define your ICP attributes and weight them → verify: step output matches expected outcome
+2. Identify high-intent behavioral signals from closed-won data → verify: step output matches expected outcome
+3. Set point values for each attribute and behavior → verify: step output matches expected outcome
+4. Set MQL threshold (typically 50-80 points on a 100-point scale) → verify: step output matches expected outcome
+5. Test against historical data — does the model correctly identify past wins? → verify: all checks pass
+6. Launch, measure, and recalibrate quarterly → verify: step output matches expected outcome
 
 ### Common Scoring Mistakes
 
@@ -286,9 +287,9 @@ Document every exception. Track which non-standard terms get requested most — 
 ### Dashboard Structure
 
 Build three views:
-1. **Marketing view** — Lead volume, MQL rate, source attribution, cost per MQL
-2. **Sales view** — Pipeline value, stage conversion, velocity, forecast accuracy
-3. **Executive view** — CAC, LTV:CAC, revenue vs. target, pipeline coverage
+1. **Marketing view** — Lead volume, MQL rate, source attribution, cost per MQL → verify: step output matches expected outcome
+2. **Sales view** — Pipeline value, stage conversion, velocity, forecast accuracy → verify: dependency resolves + import works
+3. **Executive view** — CAC, LTV:CAC, revenue vs. target, pipeline coverage → verify: dependency resolves + import works
 
 ---
 
@@ -296,11 +297,11 @@ Build three views:
 
 When delivering RevOps recommendations, provide:
 
-1. **Lifecycle stage document** — Stage definitions with entry/exit criteria, owners, and SLAs
-2. **Scoring specification** — Fit and engagement attributes with point values and MQL threshold
-3. **Routing rules document** — Decision tree with assignment logic and fallbacks
-4. **Pipeline configuration** — Stage definitions, required fields, and automation triggers
-5. **Metrics dashboard spec** — Key metrics, data sources, and target benchmarks
+1. **Lifecycle stage document** — Stage definitions with entry/exit criteria, owners, and SLAs → verify: step output matches expected outcome
+2. **Scoring specification** — Fit and engagement attributes with point values and MQL threshold → verify: step output matches expected outcome
+3. **Routing rules document** — Decision tree with assignment logic and fallbacks → verify: step output matches expected outcome
+4. **Pipeline configuration** — Stage definitions, required fields, and automation triggers → verify: dependency resolves + import works
+5. **Metrics dashboard spec** — Key metrics, data sources, and target benchmarks → verify: step output matches expected outcome
 
 Format each as a standalone document the user can implement directly. Include platform-specific guidance when the CRM is known.
 
@@ -308,11 +309,11 @@ Format each as a standalone document the user can implement directly. Include pl
 
 ## Task-Specific Questions
 
-1. What CRM platform are you using (or planning to use)?
-2. How many leads per month do you generate?
-3. What's your current MQL definition?
-4. Where do leads get stuck in your funnel?
-5. Do you have SLAs between marketing and sales today?
+1. What CRM platform are you using (or planning to use)? → verify: step output matches expected outcome
+2. How many leads per month do you generate? → verify: output exists + parses without error
+3. What's your current MQL definition? → verify: step output matches expected outcome
+4. Where do leads get stuck in your funnel? → verify: step output matches expected outcome
+5. Do you have SLAs between marketing and sales today? → verify: step output matches expected outcome
 
 ---
 
@@ -343,3 +344,40 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md). Key RevOp
 - **analytics-tracking**: For tracking pipeline metrics and attribution
 - **launch-strategy**: For go-to-market launch planning
 - **sales-enablement**: For sales collateral, decks, and objection handling
+
+## When NOT to use
+
+- Task is unrelated to revops — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Revops needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for revops
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving revops
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

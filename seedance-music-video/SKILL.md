@@ -1,6 +1,7 @@
 ---
 name: seedance-music-video
-description: Generate music video and beat-synced visual content prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants to create a music video, lyric video, beat-synced visuals, performance video, concert visual, album art animation, or music-driven visual content. Triggers on: music video, lyric video, beat sync, music visualization, performance video, concert visual, album visual, song video, music clip, beat drop visual, rhythm sync, or any music-driven video request. Use even for "make visuals for my song" or "video for this track."
+description: "Generate music video and beat-synced visual content prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-music-video', 'seedance music video', 'seedance-music-video task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield Music Video Director's Guide
@@ -1660,3 +1661,33 @@ Remember:
 - **The drop is holy.** Make it count.
 
 Go make something beautiful with **Seedance 2.0 on Higgsfield**.
+
+## When NOT to use
+
+- Task is unrelated to seedance music video — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Music Video needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance music video
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

@@ -1,6 +1,7 @@
 ---
 name: graphify-windows
-description: any input (code, docs, papers, images) → knowledge graph → clustered communities → HTML + JSON + audit report
+description: "any input (code, docs, papers, images) → knowledge graph → clustered communities → HTML + JSON + audit report Triggers: 'use graphify-windows', 'graphify windows', 'graphify-windows task'."
+allowed-tools: Bash, Glob, Grep, Read, Task
 trigger: /graphify
 ---
 
@@ -42,9 +43,9 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 graphify is built around Andrej Karpathy's /raw folder workflow: drop anything into a folder - papers, tweets, screenshots, code, notes - and get a structured knowledge graph that shows you what you didn't know was connected.
 
 Three things it does that your AI assistant alone cannot:
-1. **Persistent graph** - relationships are stored in `graphify-out/graph.json` and survive across sessions. Ask questions weeks later without re-reading everything.
-2. **Honest audit trail** - every edge is tagged EXTRACTED, INFERRED, or AMBIGUOUS. You know what was found vs invented.
-3. **Cross-document surprise** - community detection finds connections between concepts in different files that you would never think to ask about directly.
+1. **Persistent graph** - relationships are stored in `graphify-out/graph.json` and survive across sessions. Ask questions weeks later without re-reading everything. → verify: file content matches expected shape
+2. **Honest audit trail** - every edge is tagged EXTRACTED, INFERRED, or AMBIGUOUS. You know what was found vs invented. → verify: findings count > 0 OR clean signal returned
+3. **Cross-document surprise** - community detection finds connections between concepts in different files that you would never think to ask about directly. → verify: user confirms
 
 Use it for:
 - A codebase you're new to (understand architecture before touching anything)
@@ -943,11 +944,11 @@ If it fails, stop and tell the user to run `/graphify <path>` first.
 
 Load `graphify-out/graph.json`, then:
 
-1. Find the 1-3 nodes whose label best matches key terms in the question.
-2. Run the appropriate traversal from each starting node.
-3. Read the subgraph - node labels, edge relations, confidence tags, source locations.
-4. Answer using **only** what the graph contains. Quote `source_location` when citing a specific fact.
-5. If the graph lacks enough information, say so - do not hallucinate edges.
+1. Find the 1-3 nodes whose label best matches key terms in the question. → verify: step output matches expected outcome
+2. Run the appropriate traversal from each starting node. → verify: command exit code 0
+3. Read the subgraph - node labels, edge relations, confidence tags, source locations. → verify: file content matches expected shape
+4. Answer using **only** what the graph contains. Quote `source_location` when citing a specific fact. → verify: step output matches expected outcome
+5. If the graph lacks enough information, say so - do not hallucinate edges. → verify: step output matches expected outcome
 
 ```powershell
 python -c "
@@ -1279,10 +1280,10 @@ graphify claude uninstall  # remove the section
 
 If vertical scrolling breaks in PowerShell after running graphify, this is caused by ANSI escape sequences from the `graspologic` library. Graphify v0.3.10+ suppresses this output, but if you still see the issue:
 
-1. **Upgrade graphify**: `pip install --upgrade graphifyy`
-2. **Use Windows Terminal** instead of the legacy PowerShell console — Windows Terminal handles ANSI codes correctly
-3. **Reset your terminal**: close and reopen PowerShell
-4. **Skip graspologic**: uninstall it (`pip uninstall graspologic`) and graphify will fall back to NetworkX's built-in Louvain algorithm, which produces no ANSI output
+1. **Upgrade graphify**: `pip install --upgrade graphifyy` → verify: dependency resolves + import works
+2. **Use Windows Terminal** instead of the legacy PowerShell console — Windows Terminal handles ANSI codes correctly → verify: step output matches expected outcome
+3. **Reset your terminal**: close and reopen PowerShell → verify: file content matches expected shape
+4. **Skip graspologic**: uninstall it (`pip uninstall graspologic`) and graphify will fall back to NetworkX's built-in Louvain algorithm, which produces no ANSI output → verify: output exists + parses without error
 
 ---
 
@@ -1293,3 +1294,45 @@ If vertical scrolling breaks in PowerShell after running graphify, this is cause
 - Always show token cost in the report.
 - Never hide cohesion scores behind symbols - show the raw number.
 - Never run HTML viz on a graph with more than 5,000 nodes without warning the user.
+
+## When NOT to use
+
+- Task is unrelated to graphify — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Graphify needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for graphify
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

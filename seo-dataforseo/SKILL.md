@@ -1,27 +1,6 @@
 ---
 name: seo-dataforseo
-description: >
-  Live SEO data via the DataForSEO MCP server (dataforseo-mcp-server, available via
-  mcp-proxy). Provides real-time SERP results (Google, Bing, Yahoo, YouTube), keyword
-  research (volume, difficulty, intent, trends), backlink profiles, on-page analysis
-  (Lighthouse + content parsing), competitor intelligence, content analysis, business
-  listings, and AI visibility tracking (ChatGPT scraper, LLM mention monitoring across
-  platforms). 9 API modules, 79 MCP tools. Make sure to use this skill whenever the
-  user says: "dataforseo", "live SERP", "real keyword data", "actual search volume",
-  "backlink data", "competitor keywords", "AI visibility check", "LLM mentions",
-  "real search data", "keyword difficulty", "check rankings", "traffic estimate",
-  "who links to me", "on-page audit", "Lighthouse score", "technology stack", or
-  any request for live/real-time SEO metrics rather than estimated/heuristic data.
-  Requires DataForSEO credentials (DATAFORSEO_LOGIN + DATAFORSEO_PASSWORD in env).
-user-invokable: true
-argument-hint: "[command] [query]"
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
-  - WebFetch
-  - Write
+description: "'Live SEO data via the DataForSEO MCP server (dataforseo-mcp-server, available via mcp-proxy). Triggers: 'use seo-dataforseo', 'optimize seo dataforseo', 'seo dataforseo'."
 compatibility: Requires DATAFORSEO_LOGIN and DATAFORSEO_PASSWORD environment variables. DataForSEO API account needed (dataforseo.com).
 ---
 
@@ -320,10 +299,10 @@ Track LLM mentions of brands, domains, and topics across multiple AI platforms. 
 **Parameters:** keyword, location_code (optional), language_code (optional). Use `ai_opt_llm_ment_loc_and_lang` for available locations/languages and `ai_optimization_llm_models` for supported LLM models.
 
 **Workflow:**
-1. Search LLM mentions with `ai_opt_llm_ment_search` (find mentions of a brand/keyword across LLM responses)
-2. Get top cited domains with `ai_opt_llm_ment_top_domains` (which domains are most cited for this topic)
-3. Get top cited pages with `ai_opt_llm_ment_top_pages` (which specific pages are most cited)
-4. Get aggregate metrics with `ai_opt_llm_ment_agg_metrics` (overall mention volume, trends)
+1. Search LLM mentions with `ai_opt_llm_ment_search` (find mentions of a brand/keyword across LLM responses) → verify: step output matches expected outcome
+2. Get top cited domains with `ai_opt_llm_ment_top_domains` (which domains are most cited for this topic) → verify: step output matches expected outcome
+3. Get top cited pages with `ai_opt_llm_ment_top_pages` (which specific pages are most cited) → verify: step output matches expected outcome
+4. Get aggregate metrics with `ai_opt_llm_ment_agg_metrics` (overall mention volume, trends) → verify: step output matches expected outcome
 
 **Output:** LLM mention count, top cited domains with frequency, top cited pages, mention trends over time, cross-platform visibility scores.
 
@@ -398,3 +377,58 @@ Match existing claude-seo output patterns:
 - Include specific, actionable recommendations
 - Show scores as XX/100 where applicable
 - Note data source as "DataForSEO (live)" to distinguish from static analysis
+
+## Triggers
+
+dataforseo, live SERP, real keyword data, actual search volume, backlink data, competitor keywords, AI visibility check, LLM mentions, real search data, keyword difficulty, check rankings, traffic estimate, who links to"
+user-invokable: true
+argument-hint: "[command] [query]"
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
+  - WebFetch
+  - Write
+
+## When NOT to use
+
+- Task is unrelated to seo dataforseo — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Dataforseo needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo dataforseo
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

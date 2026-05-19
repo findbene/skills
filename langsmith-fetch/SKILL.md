@@ -1,6 +1,7 @@
 ---
 name: langsmith-fetch
-description: Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or examining agent performance. Automatically fetches recent traces and analyzes execution patterns. Requires langsmith-fetch CLI installed.
+description: 'Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Triggers: "use langsmith-fetch", "langsmith fetch", "langsmith task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # LangSmith Fetch - Agent Debugging Skill
@@ -48,11 +49,11 @@ langsmith-fetch traces --last-n-minutes 5 --limit 5 --format pretty
 ```
 
 **Analyze and report:**
-1. ✅ Number of traces found
-2. ⚠️ Any errors or failures
-3. 🛠️ Tools that were called
-4. ⏱️ Execution times
-5. 💰 Token usage
+1. ✅ Number of traces found → verify: step output matches expected outcome
+2. ⚠️ Any errors or failures → verify: step output matches expected outcome
+3. 🛠️ Tools that were called → verify: step output matches expected outcome
+4. ⏱️ Execution times → verify: step output matches expected outcome
+5. 💰 Token usage → verify: step output matches expected outcome
 
 **Example response format:**
 ```
@@ -91,12 +92,12 @@ langsmith-fetch trace <trace-id> --format json
 ```
 
 **Analyze JSON and report:**
-1. 🎯 What the agent was trying to do
-2. 🛠️ Which tools were called (in order)
-3. ✅ Tool results (success/failure)
-4. ❌ Error messages (if any)
-5. 💡 Root cause analysis
-6. 🔧 Suggested fix
+1. 🎯 What the agent was trying to do → verify: step output matches expected outcome
+2. 🛠️ Which tools were called (in order) → verify: step output matches expected outcome
+3. ✅ Tool results (success/failure) → verify: step output matches expected outcome
+4. ❌ Error messages (if any) → verify: step output matches expected outcome
+5. 💡 Root cause analysis → verify: step output matches expected outcome
+6. 🔧 Suggested fix → verify: diff matches intended change
 
 **Example response format:**
 ```
@@ -105,23 +106,23 @@ Deep Dive Analysis - Trace abc123
 Goal: User asked "Find all projects in Neo4j"
 
 Execution Flow:
-1. ✅ search_nodes(query: "projects")
+1. ✅ search_nodes(query: "projects") → verify: step output matches expected outcome
    → Found 24 nodes
 
-2. ❌ get_node_details(node_id: "proj_123")
+2. ❌ get_node_details(node_id: "proj_123") → verify: step output matches expected outcome
    → Error: "Node not found"
    → This is the failure point
 
-3. ⏹️ Execution stopped
+3. ⏹️ Execution stopped → verify: step output matches expected outcome
 
 Root Cause:
 The search_nodes tool returned node IDs that no longer exist in the database,
 possibly due to recent deletions.
 
 Suggested Fix:
-1. Add error handling in get_node_details tool
-2. Filter deleted nodes in search results
-3. Update cache invalidation strategy
+1. Add error handling in get_node_details tool → verify: package installed + import succeeds
+2. Filter deleted nodes in search results → verify: step output matches expected outcome
+3. Update cache invalidation strategy → verify: step output matches expected outcome
 
 Token Usage: 1,842 tokens ($0.0276)
 Execution Time: 8.7 seconds
@@ -155,10 +156,10 @@ Location: langsmith-debug/session-20251224-143022/
 - Threads: 8 files
 
 You can now:
-1. Review individual trace files
-2. Share folder with team
-3. Analyze with external tools
-4. Archive for future reference
+1. Review individual trace files → verify: step output matches expected outcome
+2. Share folder with team → verify: step output matches expected outcome
+3. Analyze with external tools → verify: step output matches expected outcome
+4. Archive for future reference → verify: step output matches expected outcome
 
 Session size: 2.3 MB
 ```
@@ -179,11 +180,11 @@ grep -i "error\|failed\|exception" recent-traces.json
 ```
 
 **Analyze and report:**
-1. 📊 Total errors found
-2. ❌ Error types and frequency
-3. 🕐 When errors occurred
-4. 🎯 Which agents/tools failed
-5. 💡 Common patterns
+1. 📊 Total errors found → verify: step output matches expected outcome
+2. ❌ Error types and frequency → verify: step output matches expected outcome
+3. 🕐 When errors occurred → verify: step output matches expected outcome
+4. 🎯 Which agents/tools failed → verify: step output matches expected outcome
+5. 💡 Common patterns → verify: step output matches expected outcome
 
 **Example response format:**
 ```
@@ -193,28 +194,28 @@ Total Traces: 50
 Failed Traces: 7 (14% failure rate)
 
 Error Breakdown:
-1. Neo4j Connection Timeout (4 occurrences)
+1. Neo4j Connection Timeout (4 occurrences) → verify: step output matches expected outcome
    - Agent: cypher
    - Tool: search_nodes
    - First occurred: 14:32
    - Last occurred: 14:45
    - Pattern: Happens during peak load
 
-2. Memory Store Failed (2 occurrences)
+2. Memory Store Failed (2 occurrences) → verify: step output matches expected outcome
    - Agent: memento
    - Tool: store_memory
    - Error: "Pinecone rate limit exceeded"
    - Occurred: 14:38, 14:41
 
-3. Tool Not Found (1 occurrence)
+3. Tool Not Found (1 occurrence) → verify: step output matches expected outcome
    - Agent: sqlcrm
    - Attempted tool: "export_report" (doesn't exist)
    - Occurred: 14:35
 
 💡 Recommendations:
-1. Add retry logic for Neo4j timeouts
-2. Implement rate limiting for Pinecone
-3. Fix sqlcrm tool configuration
+1. Add retry logic for Neo4j timeouts → verify: package installed + import succeeds
+2. Implement rate limiting for Pinecone → verify: step output matches expected outcome
+3. Fix sqlcrm tool configuration → verify: diff matches intended change
 ```
 
 ---
@@ -226,7 +227,7 @@ Error Breakdown:
 **User says:** "My agent isn't doing anything"
 
 **Steps:**
-1. Check if traces exist:
+1. Check if traces exist: → verify: all checks pass
    ```bash
    langsmith-fetch traces --last-n-minutes 5 --limit 5
    ```
@@ -249,11 +250,11 @@ Error Breakdown:
 **User says:** "Why did it use the wrong tool?"
 
 **Steps:**
-1. Get the specific trace
-2. Review available tools at execution time
-3. Check agent's reasoning for tool selection
-4. Examine tool descriptions/instructions
-5. Suggest prompt or tool config improvements
+1. Get the specific trace → verify: step output matches expected outcome
+2. Review available tools at execution time → verify: step output matches expected outcome
+3. Check agent's reasoning for tool selection → verify: all checks pass
+4. Examine tool descriptions/instructions → verify: step output matches expected outcome
+5. Suggest prompt or tool config improvements → verify: step output matches expected outcome
 
 ---
 
@@ -262,7 +263,7 @@ Error Breakdown:
 **User says:** "Agent doesn't remember things"
 
 **Steps:**
-1. Search for memory operations:
+1. Search for memory operations: → verify: step output matches expected outcome
    ```bash
    langsmith-fetch traces --last-n-minutes 10 --limit 20 --format raw | grep -i "memory\|recall\|store"
    ```
@@ -280,7 +281,7 @@ Error Breakdown:
 **User says:** "Agent is too slow"
 
 **Steps:**
-1. Export with metadata:
+1. Export with metadata: → verify: step output matches expected outcome
    ```bash
    langsmith-fetch traces ./perf-analysis --last-n-minutes 30 --limit 50 --include-metadata
    ```
@@ -292,7 +293,7 @@ Error Breakdown:
    - Number of iterations
    - Slowest operations
 
-3. Identify bottlenecks and suggest optimizations
+3. Identify bottlenecks and suggest optimizations → verify: step output matches expected outcome
 
 ---
 
@@ -350,10 +351,10 @@ langsmith-fetch traces ./output --limit 100 --concurrent 10
 ### "No traces found matching criteria"
 
 **Possible causes:**
-1. No agent activity in the timeframe
-2. Tracing is disabled
-3. Wrong project name
-4. API key issues
+1. No agent activity in the timeframe → verify: step output matches expected outcome
+2. Tracing is disabled → verify: step output matches expected outcome
+3. Wrong project name → verify: step output matches expected outcome
+4. API key issues → verify: step output matches expected outcome
 
 **Solutions:**
 ```bash
@@ -419,10 +420,10 @@ langsmith-debug/
 
 ### 3. Document Findings
 When you find bugs:
-1. Export the problematic trace
-2. Save to `error-cases/` folder
-3. Note what went wrong in a README
-4. Share trace ID with team
+1. Export the problematic trace → verify: step output matches expected outcome
+2. Save to `error-cases/` folder → verify: step output matches expected outcome
+3. Note what went wrong in a README → verify: file content matches expected shape
+4. Share trace ID with team → verify: step output matches expected outcome
 
 ### 4. Integration with Development
 ```bash
@@ -483,3 +484,45 @@ langsmith-fetch traces --limit 10 --include-metadata
 **Author:** Ahmad Othman Ammar Adi
 **License:** MIT
 **Repository:** https://github.com/OthmanAdi/langsmith-fetch-skill
+
+## When NOT to use
+
+- Task is unrelated to langsmith fetch — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Langsmith Fetch needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for langsmith fetch
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

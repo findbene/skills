@@ -1,6 +1,7 @@
 ---
 name: "secrets-vault-manager"
-description: "Use when the user asks to set up secret management infrastructure, integrate HashiCorp Vault, configure cloud secret stores (AWS Secrets Manager, Azure Key Vault, GCP Secret Manager), implement secret rotation, or audit secret access patterns."
+description: 'Use when the user asks to set up secret management infrastructure, integrate HashiCorp Vault, configure cloud secret sto. Triggers: "use secrets-vault-manager", "secrets vault manager", "secrets task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Secrets Vault Manager
@@ -188,20 +189,20 @@ def get_secret(vault_url, secret_name):
 
 ### Database Credential Rotation (Dual-Account)
 
-1. Two database accounts exist: `app_user_a` and `app_user_b`
-2. Application currently uses `app_user_a`
-3. Rotation rotates `app_user_b` password, updates secret store
-4. Application switches to `app_user_b` on next credential fetch
-5. After grace period, `app_user_a` password is rotated
-6. Cycle repeats
+1. Two database accounts exist: `app_user_a` and `app_user_b` → verify: step output matches expected outcome
+2. Application currently uses `app_user_a` → verify: step output matches expected outcome
+3. Rotation rotates `app_user_b` password, updates secret store → verify: step output matches expected outcome
+4. Application switches to `app_user_b` on next credential fetch → verify: step output matches expected outcome
+5. After grace period, `app_user_a` password is rotated → verify: step output matches expected outcome
+6. Cycle repeats → verify: step output matches expected outcome
 
 ### API Key Rotation (Overlap Window)
 
-1. Generate new API key with provider
-2. Store new key in secret store as `current`, move old to `previous`
-3. Deploy applications — they read `current`
-4. After all instances restarted (or TTL expired), revoke `previous`
-5. Monitoring confirms zero usage of old key before revocation
+1. Generate new API key with provider → verify: output file exists + no syntax error
+2. Store new key in secret store as `current`, move old to `previous` → verify: step output matches expected outcome
+3. Deploy applications — they read `current` → verify: file readable + content matches expected shape
+4. After all instances restarted (or TTL expired), revoke `previous` → verify: step output matches expected outcome
+5. Monitoring confirms zero usage of old key before revocation → verify: step output matches expected outcome
 
 ---
 
@@ -236,10 +237,10 @@ Vault can generate short-lived AWS IAM credentials, Azure service principal pass
 
 Replace SSH key distribution with a Vault-signed certificate model:
 
-1. Vault acts as SSH CA
-2. Users/machines request signed certificates with short TTL (30 min)
-3. SSH servers trust the CA public key — no `authorized_keys` management
-4. Certificates expire automatically — no revocation needed for normal operations
+1. Vault acts as SSH CA → verify: step output matches expected outcome
+2. Users/machines request signed certificates with short TTL (30 min) → verify: step output matches expected outcome
+3. SSH servers trust the CA public key — no `authorized_keys` management → verify: step output matches expected outcome
+4. Certificates expire automatically — no revocation needed for normal operations → verify: step output matches expected outcome
 
 ---
 
@@ -270,10 +271,10 @@ Replace SSH key distribution with a Vault-signed certificate model:
 
 Generate periodic reports covering:
 
-1. **Access inventory** — Which identities accessed which secrets, when
-2. **Rotation compliance** — Secrets overdue for rotation
-3. **Policy drift** — Policies modified since last review
-4. **Orphaned secrets** — Secrets with no recent access (>90 days)
+1. **Access inventory** — Which identities accessed which secrets, when → verify: step output matches expected outcome
+2. **Rotation compliance** — Secrets overdue for rotation → verify: step output matches expected outcome
+3. **Policy drift** — Policies modified since last review → verify: step output matches expected outcome
+4. **Orphaned secrets** — Secrets with no recent access (>90 days) → verify: step output matches expected outcome
 
 Use `audit_log_analyzer.py` to parse Vault or cloud audit logs for these signals.
 
@@ -285,12 +286,12 @@ Use `audit_log_analyzer.py` to parse Vault or cloud audit logs for these signals
 
 **Time target: Contain within 15 minutes of detection.**
 
-1. **Identify scope** — Which secret(s) leaked, where (repo, log, error message, third party)
-2. **Revoke immediately** — Rotate the compromised credential at the source (provider API, Vault, cloud SM)
-3. **Invalidate tokens** — Revoke all Vault tokens that accessed the leaked secret
-4. **Audit blast radius** — Query audit logs for usage of the compromised secret in the exposure window
-5. **Notify stakeholders** — Security team, affected service owners, compliance (if PII/regulated data)
-6. **Post-mortem** — Document root cause, update controls to prevent recurrence
+1. **Identify scope** — Which secret(s) leaked, where (repo, log, error message, third party) → verify: step output matches expected outcome
+2. **Revoke immediately** — Rotate the compromised credential at the source (provider API, Vault, cloud SM) → verify: step output matches expected outcome
+3. **Invalidate tokens** — Revoke all Vault tokens that accessed the leaked secret → verify: all checks pass
+4. **Audit blast radius** — Query audit logs for usage of the compromised secret in the exposure window → verify: findings count > 0 OR clean signal returned
+5. **Notify stakeholders** — Security team, affected service owners, compliance (if PII/regulated data) → verify: step output matches expected outcome
+6. **Post-mortem** — Document root cause, update controls to prevent recurrence → verify: step output matches expected outcome
 
 ### Vault Seal Operations
 
@@ -299,11 +300,11 @@ Use `audit_log_analyzer.py` to parse Vault or cloud audit logs for these signals
 **Sealing** stops all Vault operations. Use only as last resort.
 
 **Unseal procedure:**
-1. Gather quorum of unseal key holders (Shamir threshold)
-2. Or confirm auto-unseal KMS key is accessible
-3. Unseal via `vault operator unseal` or restart with auto-unseal
+1. Gather quorum of unseal key holders (Shamir threshold) → verify: step output matches expected outcome
+2. Or confirm auto-unseal KMS key is accessible → verify: step output matches expected outcome
+3. Unseal via `vault operator unseal` or restart with auto-unseal → verify: step output matches expected outcome
 4. Verify audit devices reconnected
-5. Check active leases and token validity
+5. Check active leases and token validity → verify: all checks pass
 
 See `references/emergency_procedures.md` for complete playbooks.
 
@@ -401,3 +402,40 @@ Eliminate long-lived secrets in CI by using OIDC federation:
 - **ci-cd-pipeline-builder** — Pipeline design where secrets are consumed
 - **docker-development** — Container secret injection patterns
 - **helm-chart-builder** — Kubernetes secret management in Helm charts
+
+## When NOT to use
+
+- Task is unrelated to secrets vault manager — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Secrets Vault Manager needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for secrets vault manager
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving secrets vault manager
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

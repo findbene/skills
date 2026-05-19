@@ -1,6 +1,7 @@
 ---
 name: "cloud-security"
-description: "Use when assessing cloud infrastructure for security misconfigurations, IAM privilege escalation paths, S3 public exposure, open security group rules, or IaC security gaps. Covers AWS, Azure, and GCP posture assessment with MITRE ATT&CK mapping."
+description: 'Use when assessing cloud infrastructure for security misconfigurations, IAM privilege escalation paths, S3 public exposure, open securit. Triggers: "use cloud-security", "cloud security", "cloud task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Cloud Security
@@ -280,23 +281,23 @@ python3 scripts/cloud_posture_check.py sg.json --check sg --json
 ### Workflow 2: Full Cloud Security Assessment (Multi-Day)
 
 **Day 1 — IAM and Identity:**
-1. Export all IAM policies attached to production roles
-2. Run cloud_posture_check.py --check iam on each policy
-3. Map all privilege escalation paths found
-4. Identify overprivileged service accounts and roles
-5. Review cross-account trust policies
+1. Export all IAM policies attached to production roles → verify: step output matches expected outcome
+2. Run cloud_posture_check.py --check iam on each policy → verify: command exit code 0
+3. Map all privilege escalation paths found → verify: step output matches expected outcome
+4. Identify overprivileged service accounts and roles → verify: step output matches expected outcome
+5. Review cross-account trust policies → verify: step output matches expected outcome
 
 **Day 2 — Storage and Network:**
-1. Enumerate all S3 buckets and export configurations
-2. Run cloud_posture_check.py --check s3 --severity-modifier regulated-data for data buckets
-3. Export security group configurations for all VPCs
-4. Run cloud_posture_check.py --check sg for internet-facing resources
-5. Review NACL rules for network segmentation gaps
+1. Enumerate all S3 buckets and export configurations → verify: step output matches expected outcome
+2. Run cloud_posture_check.py --check s3 --severity-modifier regulated-data for data buckets → verify: command exit code 0
+3. Export security group configurations for all VPCs → verify: step output matches expected outcome
+4. Run cloud_posture_check.py --check sg for internet-facing resources → verify: command exit code 0
+5. Review NACL rules for network segmentation gaps → verify: step output matches expected outcome
 
 **Day 3 — IaC and Continuous Integration:**
-1. Review Terraform/CloudFormation templates in version control
-2. Check CI/CD pipeline for IaC security gates
-3. Validate findings against `references/cspm-checks.md`
+1. Review Terraform/CloudFormation templates in version control → verify: step output matches expected outcome
+2. Check CI/CD pipeline for IaC security gates → verify: package installed + import succeeds
+3. Validate findings against `references/cspm-checks.md` → verify: all tests pass
 4. Produce remediation plan with priority ordering (Critical → High → Medium)
 
 ### Workflow 3: CI/CD Security Gate
@@ -323,13 +324,13 @@ aws s3api get-bucket-policy --bucket "${BUCKET}" | jq '.Policy | fromjson' | \
 
 ## Anti-Patterns
 
-1. **Running IAM analysis without checking escalation combos** — Individual high-risk actions in isolation may appear low-risk. The danger is in combinations: `iam:PassRole` alone is not critical, but `iam:PassRole + lambda:CreateFunction` is a confirmed privilege escalation path. Always analyze the full statement, not individual actions.
-2. **Enabling only bucket-level public access block** — AWS S3 has both account-level and bucket-level public access block settings. A bucket-level setting can override an account-level setting. Both must be configured. Account-level block alone is insufficient if any bucket has explicit overrides.
-3. **Treating `--severity-modifier internet-facing` as optional for public resources** — Internet-facing resources have significantly higher exposure than internal resources. High findings on internet-facing infrastructure should be treated as critical. Always apply `--severity-modifier internet-facing` for DMZ, load balancer, and API gateway configurations.
-4. **Checking only administrator policies** — Privilege escalation paths frequently originate from non-administrator policies that combine innocuous-looking permissions. All policies attached to production identities must be checked, not just policies with obvious elevated access.
-5. **Remediating findings without root cause analysis** — Removing a dangerous permission without understanding why it was granted will result in re-addition. Document the business justification for every high-risk permission before removing it, to prevent silent re-introduction.
-6. **Ignoring service account over-permissioning** — Service accounts are often over-provisioned during development and never trimmed for production. Every service account in production must be audited against AWS Access Analyzer or equivalent to identify and remove unused permissions.
-7. **Not applying severity modifiers for regulated data workloads** — A high finding in a general-purpose S3 bucket is different from the same finding in a bucket containing PHI or cardholder data. Always use `--severity-modifier regulated-data` when assessing resources in regulated data environments.
+1. **Running IAM analysis without checking escalation combos** — Individual high-risk actions in isolation may appear low-risk. The danger is in combinations: `iam:PassRole` alone is not critical, but `iam:PassRole + lambda:CreateFunction` is a confirmed privilege escalation path. Always analyze the full statement, not individual actions. → verify: output exists + parses without error
+2. **Enabling only bucket-level public access block** — AWS S3 has both account-level and bucket-level public access block settings. A bucket-level setting can override an account-level setting. Both must be configured. Account-level block alone is insufficient if any bucket has explicit overrides. → verify: step output matches expected outcome
+3. **Treating `--severity-modifier internet-facing` as optional for public resources** — Internet-facing resources have significantly higher exposure than internal resources. High findings on internet-facing infrastructure should be treated as critical. Always apply `--severity-modifier internet-facing` for DMZ, load balancer, and API gateway configurations. → verify: file content matches expected shape
+4. **Checking only administrator policies** — Privilege escalation paths frequently originate from non-administrator policies that combine innocuous-looking permissions. All policies attached to production identities must be checked, not just policies with obvious elevated access. → verify: step output matches expected outcome
+5. **Remediating findings without root cause analysis** — Removing a dangerous permission without understanding why it was granted will result in re-addition. Document the business justification for every high-risk permission before removing it, to prevent silent re-introduction. → verify: step output matches expected outcome
+6. **Ignoring service account over-permissioning** — Service accounts are often over-provisioned during development and never trimmed for production. Every service account in production must be audited against AWS Access Analyzer or equivalent to identify and remove unused permissions. → verify: findings count > 0 OR clean signal returned
+7. **Not applying severity modifiers for regulated data workloads** — A high finding in a general-purpose S3 bucket is different from the same finding in a bucket containing PHI or cardholder data. Always use `--severity-modifier regulated-data` when assessing resources in regulated data environments. → verify: file content matches expected shape
 
 ---
 
@@ -341,3 +342,40 @@ aws s3api get-bucket-policy --bucket "${BUCKET}" | jq '.Policy | fromjson' | \
 | [threat-detection](../threat-detection/SKILL.md) | Cloud posture findings create hunting targets — over-permissioned roles are likely lateral movement destinations |
 | [red-team](../red-team/SKILL.md) | Red team exercises specifically test exploitability of cloud misconfigurations found in posture assessment |
 | [security-pen-testing](../security-pen-testing/SKILL.md) | Cloud posture findings feed into the infrastructure security section of pen test assessments |
+
+## When NOT to use
+
+- Task is unrelated to cloud security — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Cloud Security needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for cloud security
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving cloud security
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

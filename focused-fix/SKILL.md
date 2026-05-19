@@ -1,6 +1,7 @@
 ---
 name: "focused-fix"
-description: "Use when the user asks to fix, debug, or make a specific feature/module/area work end-to-end. Triggers: 'make X work', 'fix the Y feature', 'the Z module is broken', 'focus on [area]'. Not for quick single-bug fixes — this is for systematic deep-dive repair across all files and dependencies."
+description: "Use when the user asks to fix, debug, or make a specific feature/module/area work end-to-end. Triggers: 'make X work', 'fix the Y feature', 'the Z module is broken', 'focus on [area]'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Focused Fix — Deep-Dive Feature Repair
@@ -65,10 +66,10 @@ digraph phases {
 
 Before touching any code, understand the full scope of the feature.
 
-1. Ask the user: "Which feature/folder should I focus on?" if not already clear
-2. Identify the PRIMARY folder/files for this feature
-3. Map EVERY file in that folder — read each one, understand its purpose
-4. Create a feature manifest:
+1. Ask the user: "Which feature/folder should I focus on?" if not already clear → verify: file content matches expected shape
+2. Identify the PRIMARY folder/files for this feature → verify: step output matches expected outcome
+3. Map EVERY file in that folder — read each one, understand its purpose → verify: file content matches expected shape
+4. Create a feature manifest: → verify: output exists + parses without error
 
 ```
 FEATURE SCOPE:
@@ -84,12 +85,12 @@ FEATURE SCOPE:
 Trace every connection this feature has to the rest of the codebase.
 
 **INBOUND (what this feature imports):**
-1. For every import statement in every file in the feature folder:
+1. For every import statement in every file in the feature folder: → verify: step output matches expected outcome
    - Trace it to its source
    - Verify the source file exists
    - Verify the imported entity (function, type, component) exists and is exported
    - Check if the types/signatures match what the feature expects
-2. Check for:
+2. Check for: → verify: all checks pass
    - Environment variables used (grep for process.env, import.meta.env, os.environ, etc.)
    - Config files referenced
    - Database models/schemas used
@@ -97,8 +98,8 @@ Trace every connection this feature has to the rest of the codebase.
    - Third-party packages imported
 
 **OUTBOUND (what imports this feature):**
-1. Search the entire codebase for imports from this feature folder
-2. For each consumer:
+1. Search the entire codebase for imports from this feature folder → verify: step output matches expected outcome
+2. For each consumer: → verify: step output matches expected outcome
    - Verify they're importing entities that actually exist
    - Check if they're using the correct API/interface
    - Note if any consumers are using deprecated patterns
@@ -176,12 +177,12 @@ DIAGNOSIS REPORT:
   Issues found: N
 
   CRITICAL:
-    1. [HIGH] [file:line] — description of issue. Root cause: [confirmed explanation]
-    2. [HIGH] [file:line] — description of issue. Root cause: [confirmed explanation]
+    1. [HIGH] [file:line] — description of issue. Root cause: [confirmed explanation] → verify: step output matches expected outcome
+    2. [HIGH] [file:line] — description of issue. Root cause: [confirmed explanation] → verify: step output matches expected outcome
 
   WARNINGS:
-    1. [MED] [file:line] — description of issue
-    2. [LOW] [file:line] — description of issue
+    1. [MED] [file:line] — description of issue → verify: step output matches expected outcome
+    2. [LOW] [file:line] — description of issue → verify: step output matches expected outcome
 
   TESTS:
     Ran: N tests
@@ -194,10 +195,10 @@ DIAGNOSIS REPORT:
 
 Fix issues in this EXACT order:
 
-1. **DEPENDENCIES FIRST** — fix broken imports, missing packages, wrong versions
-2. **TYPES SECOND** — fix type mismatches at feature boundaries
-3. **LOGIC THIRD** — fix actual business logic bugs
-4. **TESTS FOURTH** — fix or create tests for each fix
+1. **DEPENDENCIES FIRST** — fix broken imports, missing packages, wrong versions → verify: diff matches intended change
+2. **TYPES SECOND** — fix type mismatches at feature boundaries → verify: diff matches intended change
+3. **LOGIC THIRD** — fix actual business logic bugs → verify: diff matches intended change
+4. **TESTS FOURTH** — fix or create tests for each fix → verify: output exists + parses without error
 5. **INTEGRATION LAST** — verify the feature works end-to-end with its consumers
 
 Rules:
@@ -233,11 +234,11 @@ FIX #1:
 
 After all fixes are applied:
 
-1. Run ALL tests in the feature folder — every single one must pass
-2. Run ALL tests in files that IMPORT from this feature — must pass
-3. Run the full test suite if available — check for regressions
+1. Run ALL tests in the feature folder — every single one must pass → verify: command exit code 0
+2. Run ALL tests in files that IMPORT from this feature — must pass → verify: command exit code 0
+3. Run the full test suite if available — check for regressions → verify: command exit code 0
 4. If the feature has a UI, describe how to manually verify it
-5. Summarize all changes made
+5. Summarize all changes made → verify: step output matches expected outcome
 
 Final output:
 ```
@@ -249,10 +250,10 @@ FOCUSED FIX COMPLETE:
   Regressions: 0
 
   Changes:
-    1. auth/service.ts — fixed token signing argument order
-    2. auth/repository.ts — added null check for user lookup
-    3. auth/middleware.ts — fixed async error handling
-    4. auth/types.ts — aligned UserResponse type with actual DB schema
+    1. auth/service.ts — fixed token signing argument order → verify: diff matches intended change
+    2. auth/repository.ts — added null check for user lookup → verify: all checks pass
+    3. auth/middleware.ts — fixed async error handling → verify: diff matches intended change
+    4. auth/types.ts — aligned UserResponse type with actual DB schema → verify: step output matches expected outcome
 
   Consumers verified:
     - src/app/api/login/route.ts ✅
@@ -316,3 +317,36 @@ If you catch yourself thinking any of these, you are skipping phases:
 | DIAGNOSE | Check code, runtime, tests, logs, config | Diagnosis report |
 | FIX | Fix in order: deps → types → logic → tests → integration | Fix log per issue |
 | VERIFY | Run all tests, check consumers, summarize | Completion report |
+
+## When NOT to use
+
+- Task is unrelated to focused fix — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for focused fix
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

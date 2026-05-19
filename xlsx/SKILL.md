@@ -1,6 +1,7 @@
 ---
 name: xlsx
-description: "Spreadsheet file operations for creating, reading, editing, and manipulating Excel (XLSX) and CSV files using Python. Use this skill any time spreadsheet files need to be created or modified, Excel data needs to be processed, CSV files need to be manipulated, or data needs to be exported to spreadsheet format. Trigger immediately on: \".xlsx\", \".csv\", \"Excel\", \"spreadsheet\", \"Excel file\", \"CSV file\", \"XLSX\", \"create spreadsheet\", \"edit Excel\", \"data to Excel\", \"parse CSV\", \"Excel report\", \"export to Excel\", \"Google Sheets format\". If someone shares an .xlsx or .csv file or asks to create a spreadsheet this skill MUST trigger."
+description: 'Spreadsheet file operations for creating, reading, editing, and manipulating Excel (XLSX) and CSV files using Python. Triggers: "use xlsx", "process spreadsheet", "xlsx".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # XLSX Skill
@@ -66,3 +67,40 @@ wb.save("output.xlsx")
 - Preserve existing template conventions
 - Use professional fonts (Arial, Times New Roman)
 - Maintain consistency across deliverables
+
+## When NOT to use
+
+- Task is unrelated to xlsx — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Xlsx needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for xlsx
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving xlsx
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "tdd-guide"
-description: "Test-driven development skill for writing unit tests, generating test fixtures and mocks, analyzing coverage gaps, and guiding red-green-refactor workflows across Jest, Pytest, JUnit, Vitest, and Mocha. Use when the user asks to write tests, improve test coverage, practice TDD, generate mocks or stubs, or mentions testing frameworks like Jest, pytest, or JUnit."
+description: 'Test-driven development skill for writing unit tests, generating test fixtures and mocks, analyzing coverage gaps, and guiding red-green-refactor wo. Triggers: "use tdd-guide", "tdd guide", "tdd task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # TDD Guide
@@ -13,28 +14,28 @@ Test-driven development skill for generating tests, analyzing coverage, and guid
 
 ### Generate Tests from Code
 
-1. Provide source code (TypeScript, JavaScript, Python, Java)
-2. Specify target framework (Jest, Pytest, JUnit, Vitest)
-3. Run `test_generator.py` with requirements
-4. Review generated test stubs
-5. **Validation:** Tests compile and cover happy path, error cases, edge cases
+1. Provide source code (TypeScript, JavaScript, Python, Java) → verify: step output matches expected outcome
+2. Specify target framework (Jest, Pytest, JUnit, Vitest) → verify: all tests pass
+3. Run `test_generator.py` with requirements → verify: command exit code 0
+4. Review generated test stubs → verify: output file exists + no syntax error
+5. **Validation:** Tests compile and cover happy path, error cases, edge cases → verify: all tests pass
 
 ### Analyze Coverage Gaps
 
-1. Generate coverage report from test runner (`npm test -- --coverage`)
-2. Run `coverage_analyzer.py` on LCOV/JSON/XML report
-3. Review prioritized gaps (P0/P1/P2)
-4. Generate missing tests for uncovered paths
-5. **Validation:** Coverage meets target threshold (typically 80%+)
+1. Generate coverage report from test runner (`npm test -- --coverage`) → verify: output file exists + no syntax error
+2. Run `coverage_analyzer.py` on LCOV/JSON/XML report → verify: command exit code 0
+3. Review prioritized gaps (P0/P1/P2) → verify: step output matches expected outcome
+4. Generate missing tests for uncovered paths → verify: output file exists + no syntax error
+5. **Validation:** Coverage meets target threshold (typically 80%+) → verify: step output matches expected outcome
 
 ### TDD New Feature
 
-1. Write failing test first (RED)
-2. Run `tdd_workflow.py --phase red` to validate
-3. Implement minimal code to pass (GREEN)
-4. Run `tdd_workflow.py --phase green` to validate
-5. Refactor while keeping tests green (REFACTOR)
-6. **Validation:** All tests pass after each cycle
+1. Write failing test first (RED) → verify: output file exists + no syntax error
+2. Run `tdd_workflow.py --phase red` to validate → verify: command exit code 0
+3. Implement minimal code to pass (GREEN) → verify: step output matches expected outcome
+4. Run `tdd_workflow.py --phase green` to validate → verify: command exit code 0
+5. Refactor while keeping tests green (REFACTOR) → verify: all tests pass
+6. **Validation:** All tests pass after each cycle → verify: all tests pass
 
 ---
 
@@ -143,11 +144,11 @@ Additional scripts: `framework_adapter.py` (convert between frameworks), `metric
 
 TDD is most effective when driven by a written spec. The flow:
 
-1. **Write or receive a spec** — stored in `specs/<feature>.md`
-2. **Extract acceptance criteria** — each criterion becomes one or more test cases
-3. **Write failing tests (RED)** — one test per acceptance criterion
-4. **Implement minimal code (GREEN)** — satisfy each test in order
-5. **Refactor** — clean up while all tests stay green
+1. **Write or receive a spec** — stored in `specs/<feature>.md` → verify: output file exists + no syntax error
+2. **Extract acceptance criteria** — each criterion becomes one or more test cases → verify: all tests pass
+3. **Write failing tests (RED)** — one test per acceptance criterion → verify: output file exists + no syntax error
+4. **Implement minimal code (GREEN)** — satisfy each test in order → verify: all tests pass
+5. **Refactor** — clean up while all tests stay green → verify: all tests pass
 
 ### Spec Directory Convention
 
@@ -401,3 +402,28 @@ Mutation testing modifies your production code (creates "mutants") and checks wh
 - E2E testing: Playwright, Cypress, Selenium
 - Performance testing: k6, JMeter, Locust
 - Security testing: OWASP ZAP, Burp Suite
+
+## When NOT to use
+
+- Task is unrelated to tdd guide — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Tdd Guide needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for tdd guide
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

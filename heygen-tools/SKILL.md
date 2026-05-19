@@ -1,6 +1,7 @@
 ---
 name: heygen-tools
-description: "HeyGen AI avatar video generation via MCP for creating spokesperson videos, digital presenters, and video dubbing/translation. Use this skill any time AI avatar videos need to be created, HeyGen needs to be used for video generation, or video dubbing and translation is needed. Trigger immediately on: \"HeyGen\", \"AI avatar\", \"avatar video\", \"spokesperson video\", \"HeyGen video\", \"AI presenter\", \"talking head video\", \"heygen\", \"video avatar\", \"HeyGen API\", \"digital human\", \"video with avatar\", \"HeyGen MCP\". If someone says \"create an avatar video\" or \"use HeyGen to make a video\" this skill MUST trigger."
+description: 'HeyGen AI avatar video generation via MCP for creating spokesperson videos, digital presenters, and video dubbing/translation. Triggers: "use heygen-tools", "heygen tools", "heygen task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # HeyGen Tools
@@ -21,16 +22,16 @@ Generate AI avatar videos — browse avatars, select voices, and create talking-
 ## Common Workflows
 
 ### Create an Avatar Video
-1. Browse avatars:
+1. Browse avatars: → verify: step output matches expected outcome
 ```
 get_avatar_groups()
 get_avatars_in_avatar_group(group_id="...")
 ```
-2. Pick a voice:
+2. Pick a voice: → verify: step output matches expected outcome
 ```
 get_voices()
 ```
-3. Generate:
+3. Generate: → verify: output file exists + no syntax error
 ```
 generate_avatar_video(
   avatar_id="...",
@@ -38,7 +39,7 @@ generate_avatar_video(
   voice_id="..."
 )
 ```
-4. Poll status:
+4. Poll status: → verify: step output matches expected outcome
 ```
 get_avatar_video_status(video_id="...")
 ```
@@ -55,3 +56,40 @@ get_remaining_credits()
 - Browse avatar groups first, then list avatars within a group
 - Requires `HEYGEN_API_KEY` env var in MCP server config
 - Great for creating personalized welcome videos or wedding announcement clips
+
+## When NOT to use
+
+- Task is unrelated to heygen tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Heygen Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for heygen tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving heygen tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

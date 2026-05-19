@@ -1,6 +1,7 @@
 ---
 name: ads-dna
-description: "Brand DNA extractor for paid advertising. Scans a website URL to extract visual identity, tone of voice, color palette, typography, and imagery style. Outputs brand-profile.json to the current directory. Run before /ads create or /ads generate for brand-consistent creative. Triggers on: brand DNA, brand profile, extract brand, brand identity, brand colors, what is the brand voice, analyze brand, brand style guide."
+description: "Brand DNA extractor for paid advertising. Scans a website URL to extract visual identity, tone of voice, color palette, typography, and imagery style. Triggers: 'use ads-dna', 'run ads dna', 'ads dna."
+allowed-tools: Bash, Glob, Grep, Read, WebFetch
 user-invokable: false
 ---
 
@@ -8,13 +9,6 @@ user-invokable: false
 
 Extracts brand identity from a website and saves it as `brand-profile.json`
 for use by `/ads create`, `/ads generate`, and `/ads photoshoot`.
-
-## Quick Reference
-
-| Command | What it does |
-|---------|-------------|
-| `/ads dna <url>` | Full brand extraction → `brand-profile.json` |
-| `/ads dna https://acme.com --quick` | Fast extraction (homepage only) |
 
 ## Process
 
@@ -31,9 +25,9 @@ Use the **WebFetch tool** to retrieve each page. For each URL, use this fetch pr
 > values found on this page."
 
 Fetch in this order:
-1. **Homepage** (`<url>`)
-2. **About page**: try `<url>/about`, then `<url>/about-us`, then `<url>/our-story`
-3. **Product/Services page**: try `<url>/product`, then `<url>/products`, then `<url>/services`
+1. **Homepage** (`<url>`) → verify: step output matches expected outcome
+2. **About page**: try `<url>/about`, then `<url>/about-us`, then `<url>/our-story` → verify: step output matches expected outcome
+3. **Product/Services page**: try `<url>/product`, then `<url>/products`, then `<url>/services` → verify: step output matches expected outcome
 
 **If `--quick` flag was provided**: fetch the homepage only; skip steps 2 and 3.
 
@@ -48,19 +42,19 @@ Pomelli uses to anchor ad images to the actual brand aesthetic.
 
 Capture the following:
 
-1. **Homepage hero section** (above the fold):
+1. **Homepage hero section** (above the fold): → verify: step output matches expected outcome
 ```bash
 python ~/.claude/skills/ads/scripts/capture_screenshot.py [url]
 ```
 Saves: `./brand-screenshots/{domain}_homepage.png`
 
-2. **Product or services page**:
+2. **Product or services page**: → verify: step output matches expected outcome
 ```bash
 python ~/.claude/skills/ads/scripts/capture_screenshot.py [url]/products
 ```
 Saves: `./brand-screenshots/{domain}_product.png`
 
-3. **About page** (brand personality):
+3. **About page** (brand personality): → verify: step output matches expected outcome
 ```bash
 python ~/.claude/skills/ads/scripts/capture_screenshot.py [url]/about
 ```
@@ -175,70 +169,45 @@ Brand DNA Summary:
 Run `/ads create` to generate campaign concepts from this profile.
 ```
 
-## Visual Designer Integration
+## When NOT to use
 
-The visual-designer agent uses the most relevant screenshot per concept as a style
-reference when generating images via banana. For example, a product-focused concept
-references the product page screenshot, while a brand awareness concept references
-the homepage or about page screenshot.
+- Generic brand strategy work (positioning, messaging architecture) — use `brand` or `marketing-strategy-pmm`
+- Brand guideline documentation creation — use `brand-guidelines`
+- Competitive ad teardown — use `competitive-ads-extractor` or `competitor-alternatives`
+- When `brand-profile.json` already exists and is current — skip re-extraction unless --refresh
+- Site is gated/JS-heavy with no public DOM — WebFetch returns nothing useful
 
-## Limitations
+## Red Flags
 
-- **Sparse content**: Sites with <200 words of body text produce lower-confidence profiles.
-  Note: "Low confidence extraction; limited content available for analysis."
-- **Dynamic sites**: JavaScript-rendered content may not be captured. Playwright is not
-  used by default. If the site appears to be SPA/React with no static HTML, note this.
-- **Multi-brand enterprises**: This tool creates one profile per URL. Run separately
-  for each brand/product line.
-- **Dark mode sites**: If body background is #333 or darker, swap background/text values.
-- **CSS-in-JS**: Modern React sites may not have extractable CSS. Use og:image colors as fallback.
+| Thought | Reality |
+|---------|---------|
+| "I'll infer colors from the logo PNG" | Pull from CSS/inline styles; PNG sampling drifts |
+| "Skip screenshots, JSON is enough" | Visual anchors materially improve `/ads generate` output |
+| "Make up a font if none detected" | Set `heading_font: null` and document; invented values poison downstream prompts |
+| "Mark everything `forbidden: []`" | Without forbidden imagery, generated creative wanders off-brand |
 
-## brand-profile.json Schema
+## Output Contract
 
-```json
-{
-  "schema_version": "1.0",
-  "brand_name": "string",
-  "website_url": "string",
-  "extracted_at": "ISO-8601",
-  "voice": {
-    "formal_casual": 1-10,
-    "rational_emotional": 1-10,
-    "playful_serious": 1-10,
-    "bold_subtle": 1-10,
-    "traditional_innovative": 1-10,
-    "expert_accessible": 1-10,
-    "descriptors": ["adjective1", "adjective2", "adjective3"]
-  },
-  "colors": {
-    "primary": "#hexcode or null",
-    "secondary": ["#hex1", "#hex2"],
-    "forbidden": ["#hex or color name"],
-    "background": "#hexcode",
-    "text": "#hexcode"
-  },
-  "typography": {
-    "heading_font": "Font Name or null",
-    "body_font": "Font Name or system-ui",
-    "pairing_descriptor": "brief description"
-  },
-  "imagery": {
-    "style": "professional photography | illustration | flat design | mixed",
-    "subjects": ["subject1", "subject2"],
-    "composition": "brief description",
-    "forbidden": ["element1", "element2"]
-  },
-  "aesthetic": {
-    "mood_keywords": ["keyword1", "keyword2", "keyword3"],
-    "texture": "minimal | textured | mixed",
-    "negative_space": "generous | moderate | dense"
-  },
-  "brand_values": ["value1", "value2", "value3"],
-  "target_audience": {
-    "age_range": "e.g. 25-45",
-    "profession": "brief description",
-    "pain_points": ["pain1", "pain2"],
-    "aspirations": ["aspiration1", "aspiration2"]
-  }
-}
-```
+Done when:
+- `brand-profile.json` saved with full schema: colors, typography, imagery, aesthetic, brand_values, target_audience
+- 3 screenshots saved under `./brand-screenshots/{domain}_{page}.png` (homepage, product, about) unless --quick
+- Unknown fields use `null` or empty arrays — never invented values
+- Confidence note included if homepage-only or pages 404
+- WebFetch ran against homepage + about + product pages (or homepage only with --quick)
+- File is consumable by `/ads create`, `/ads generate`, `/ads photoshoot`
+
+## Examples
+
+### Example 1 — Full extraction
+- Input: "/ads dna https://acme.com"
+- Action: Fetch homepage + /about + /products, capture 3 screenshots, parse CSS/styles/og:image, extract palette, typography, mood, target audience, write JSON
+- Output: `./brand-profile.json` + 3 PNGs in `./brand-screenshots/`; downstream skills can run
+
+### Example 2 — Quick mode for landing-page-only brand
+- Input: "/ads dna https://startup.com --quick"
+- Action: Homepage only, no screenshots, mark `confidence: "homepage-only"` in JSON
+- Output: `./brand-profile.json` flagged low-confidence; user warned to refresh after secondary pages exist
+
+## References
+
+Extended sections moved to `references/details.md`.

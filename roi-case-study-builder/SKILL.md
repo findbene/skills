@@ -1,13 +1,7 @@
 ---
 name: roi-case-study-builder
-description: >
-  Builds compelling ROI case studies from client data, outcomes, and conversations
-  — producing a publishable document that quantifies results, tells the story,
-  and serves as sales proof. Use this skill whenever the user wants to document
-  client results, build a case study, create social proof, write a success story,
-  calculate and present ROI for a client engagement, or needs proof-of-value
-  content for sales and marketing. Also trigger when they mention "client results,"
-  "show the value," "I need proof for prospects," or "the client got great results."
+description: 'Builds compelling ROI case studies from client data, outcomes, and conversations — producing a publishable document that q. Triggers: "use roi-case-study-builder", "roi case study builder", "roi task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # ROI Case Study Builder
@@ -164,3 +158,40 @@ Don't make them up. Instead:
 - Use confidence framing: "Went from guessing to knowing" + client quote
 - Flag to the user: "I'd recommend getting [specific metric] from the client before
   publishing — it will significantly strengthen the ROI claim"
+
+## When NOT to use
+
+- Task is unrelated to roi case study builder — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Roi Case Study Builder needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for roi case study builder
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving roi case study builder
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

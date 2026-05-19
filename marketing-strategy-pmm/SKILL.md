@@ -1,6 +1,7 @@
 ---
 name: "marketing-strategy-pmm"
-description: Product marketing skill for positioning, GTM strategy, competitive intelligence, and product launches. Use when the user asks about product positioning, go-to-market planning, competitive analysis, target audience definition, ICP definition, market research, launch plans, or sales enablement. Covers April Dunford positioning, ICP definition, competitive battlecards, launch playbooks, and international market entry. Produces deliverables including positioning statements, battlecard documents, launch plans, and go-to-market strategies.
+description: "Product marketing skill for positioning, GTM strategy, competitive intelligence, and product launches. Triggers: 'use marketing-strategy-pmm', 'marketing strategy pmm', 'marketing-strategy-pmm task'."
+allowed-tools: Glob, Grep, Read
 triggers:
   - product marketing
   - PMM
@@ -37,14 +38,14 @@ Product marketing patterns for positioning, GTM strategy, and competitive intell
 
 Define ideal customer profile for targeting:
 
-1. Analyze existing customers (top 20% by LTV)
-2. Identify common firmographics (size, industry, revenue)
-3. Map technographics (tools, maturity, integrations)
-4. Document psychographics (pain level, motivation, risk tolerance)
-5. Define 3-5 buyer personas (economic, technical, user)
-6. Validate against sales cycle and churn data
-7. Score prospects A/B/C/D based on ICP fit
-8. **Validation:** A-fit customers have lowest churn and fastest close
+1. Analyze existing customers (top 20% by LTV) → verify: step output matches expected outcome
+2. Identify common firmographics (size, industry, revenue) → verify: step output matches expected outcome
+3. Map technographics (tools, maturity, integrations) → verify: step output matches expected outcome
+4. Document psychographics (pain level, motivation, risk tolerance) → verify: step output matches expected outcome
+5. Define 3-5 buyer personas (economic, technical, user) → verify: step output matches expected outcome
+6. Validate against sales cycle and churn data → verify: step output matches expected outcome
+7. Score prospects A/B/C/D based on ICP fit → verify: step output matches expected outcome
+8. **Validation:** A-fit customers have lowest churn and fastest close → verify: all tests pass
 
 ### Firmographics Template
 
@@ -79,14 +80,14 @@ Define ideal customer profile for targeting:
 
 Develop positioning using April Dunford methodology:
 
-1. List competitive alternatives (direct, adjacent, status quo)
-2. Isolate unique attributes (features only you have)
-3. Map attributes to customer value (why it matters)
-4. Define best-fit customers (who cares most)
-5. Choose market category (head-to-head, niche, new category)
-6. Layer on relevant trends (timing justification)
-7. Test with 10+ customer interviews
-8. **Validation:** 7+ customers describe value unprompted
+1. List competitive alternatives (direct, adjacent, status quo) → verify: step output matches expected outcome
+2. Isolate unique attributes (features only you have) → verify: step output matches expected outcome
+3. Map attributes to customer value (why it matters) → verify: step output matches expected outcome
+4. Define best-fit customers (who cares most) → verify: step output matches expected outcome
+5. Choose market category (head-to-head, niche, new category) → verify: step output matches expected outcome
+6. Layer on relevant trends (timing justification) → verify: step output matches expected outcome
+7. Test with 10+ customer interviews → verify: all checks pass
+8. **Validation:** 7+ customers describe value unprompted → verify: step output matches expected outcome
 
 ### Positioning Statement Template
 
@@ -121,14 +122,14 @@ Example: "Acme helps mid-market SaaS teams ship 2x faster by automating project 
 
 Build competitive knowledge base:
 
-1. Identify tier 1 (direct), tier 2 (adjacent), tier 3 (status quo)
-2. Sign up for competitor products (hands-on evaluation)
-3. Monitor competitor websites, pricing, messaging
-4. Analyze sales call recordings for competitor mentions
-5. Read G2/Capterra reviews (pros and cons)
-6. Track competitor job postings (roadmap signals)
-7. Update battlecards monthly
-8. **Validation:** Sales team uses battlecards in 80%+ competitive deals
+1. Identify tier 1 (direct), tier 2 (adjacent), tier 3 (status quo) → verify: step output matches expected outcome
+2. Sign up for competitor products (hands-on evaluation) → verify: step output matches expected outcome
+3. Monitor competitor websites, pricing, messaging → verify: step output matches expected outcome
+4. Analyze sales call recordings for competitor mentions → verify: step output matches expected outcome
+5. Read G2/Capterra reviews (pros and cons) → verify: file content matches expected shape
+6. Track competitor job postings (roadmap signals) → verify: step output matches expected outcome
+7. Update battlecards monthly → verify: step output matches expected outcome
+8. **Validation:** Sales team uses battlecards in 80%+ competitive deals → verify: step output matches expected outcome
 
 ### Competitive Tier Structure
 
@@ -149,16 +150,16 @@ POSITIONING:
 - Reality: [Your assessment]
 
 STRENGTHS:
-1. [What they do well]
-2. [What they do well]
+1. [What they do well] → verify: step output matches expected outcome
+2. [What they do well] → verify: step output matches expected outcome
 
 WEAKNESSES:
-1. [Where they fall short]
-2. [Where they fall short]
+1. [Where they fall short] → verify: step output matches expected outcome
+2. [Where they fall short] → verify: step output matches expected outcome
 
 OUR ADVANTAGES:
-1. [Your advantage + evidence]
-2. [Your advantage + evidence]
+1. [Your advantage + evidence] → verify: step output matches expected outcome
+2. [Your advantage + evidence] → verify: step output matches expected outcome
 
 WHEN WE WIN:
 - [Scenario where you win]
@@ -195,15 +196,15 @@ Plan launches by tier:
 
 Execute major product launch:
 
-1. Kickoff meeting with Product, Marketing, Sales, CS
-2. Define goals (pipeline $, MQLs, press coverage)
-3. Develop positioning and messaging
-4. Create sales enablement (deck, demo, battlecard)
-5. Build campaign assets (landing page, emails, ads)
-6. Train sales and CS teams
-7. Execute launch day (press, email, ads, outbound)
-8. Monitor and optimize for 30 days
-9. **Validation:** Pipeline on track to goal by week 2
+1. Kickoff meeting with Product, Marketing, Sales, CS → verify: step output matches expected outcome
+2. Define goals (pipeline $, MQLs, press coverage) → verify: dependency resolves + import works
+3. Develop positioning and messaging → verify: step output matches expected outcome
+4. Create sales enablement (deck, demo, battlecard) → verify: output exists + parses without error
+5. Build campaign assets (landing page, emails, ads) → verify: step output matches expected outcome
+6. Train sales and CS teams → verify: step output matches expected outcome
+7. Execute launch day (press, email, ads, outbound) → verify: command exit code 0
+8. Monitor and optimize for 30 days → verify: step output matches expected outcome
+9. **Validation:** Pipeline on track to goal by week 2 → verify: dependency resolves + import works
 
 ### Launch Day Checklist
 
@@ -230,14 +231,14 @@ Execute major product launch:
 
 Equip sales team with PMM assets:
 
-1. Create sales deck (15-20 slides, visual-first)
-2. Build one-pagers (product, competitive, case study)
-3. Develop demo script (30-45 min with discovery)
-4. Write email templates (outreach, follow-up, closing)
-5. Create ROI calculator (input costs, output savings)
-6. Conduct monthly enablement calls
-7. Deliver quarterly training (positioning, competitive)
-8. **Validation:** Sales uses assets in 80%+ of opportunities
+1. Create sales deck (15-20 slides, visual-first) → verify: output exists + parses without error
+2. Build one-pagers (product, competitive, case study) → verify: step output matches expected outcome
+3. Develop demo script (30-45 min with discovery) → verify: step output matches expected outcome
+4. Write email templates (outreach, follow-up, closing) → verify: output exists + parses without error
+5. Create ROI calculator (input costs, output savings) → verify: output exists + parses without error
+6. Conduct monthly enablement calls → verify: step output matches expected outcome
+7. Deliver quarterly training (positioning, competitive) → verify: step output matches expected outcome
+8. **Validation:** Sales uses assets in 80%+ of opportunities → verify: step output matches expected outcome
 
 ### Sales Deck Structure
 
@@ -252,11 +253,11 @@ Equip sales team with PMM assets:
 ### Demo Flow
 
 ```
-1. Intro (2 min): Who we are, agenda
-2. Discovery (5 min): Their needs, pain points
-3. Demo (20 min): Product focused on their use case
-4. Q&A (10 min): Objection handling
-5. Next steps (3 min): Trial, POC, proposal
+1. Intro (2 min): Who we are, agenda → verify: step output matches expected outcome
+2. Discovery (5 min): Their needs, pain points → verify: step output matches expected outcome
+3. Demo (20 min): Product focused on their use case → verify: step output matches expected outcome
+4. Q&A (10 min): Objection handling → verify: step output matches expected outcome
+5. Next steps (3 min): Trial, POC, proposal → verify: step output matches expected outcome
 ```
 
 ### Sales-Marketing Handoff
@@ -273,14 +274,14 @@ Equip sales team with PMM assets:
 
 Enter new markets systematically:
 
-1. Validate market demand (inbound leads, TAM analysis)
-2. Localize website, pricing, legal
-3. Establish sales coverage (hire or agency)
-4. Adapt messaging for cultural fit
-5. Build local partnerships and references
-6. Launch localized campaigns
-7. Monitor CAC and conversion by market
-8. **Validation:** 3+ paying customers from market in first 90 days
+1. Validate market demand (inbound leads, TAM analysis) → verify: all checks pass
+2. Localize website, pricing, legal → verify: step output matches expected outcome
+3. Establish sales coverage (hire or agency) → verify: step output matches expected outcome
+4. Adapt messaging for cultural fit → verify: step output matches expected outcome
+5. Build local partnerships and references → verify: step output matches expected outcome
+6. Launch localized campaigns → verify: step output matches expected outcome
+7. Monitor CAC and conversion by market → verify: step output matches expected outcome
+8. **Validation:** 3+ paying customers from market in first 90 days → verify: step output matches expected outcome
 
 ### Market Priority (Series A)
 
@@ -396,3 +397,40 @@ All output passes quality verification:
 - **launch-strategy**: For executing product launches planned by PMM.
 - **competitive-intel** (C-Suite): For strategic competitive intelligence.
 - **cmo-advisor** (C-Suite): For marketing budget and growth model decisions.
+
+## When NOT to use
+
+- Task is unrelated to marketing strategy pmm — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Marketing Strategy Pmm needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for marketing strategy pmm
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving marketing strategy pmm
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

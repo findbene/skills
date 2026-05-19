@@ -1,6 +1,7 @@
 ---
 name: "database-schema-designer"
-description: "Use when the user asks to create ERD diagrams, normalize database schemas, design table relationships, or plan schema migrations."
+description: 'Use when the user asks to create ERD diagrams, normalize database schemas, design table relationships, or plan sc. Triggers: "use database-schema-designer", "database schema designer", "database task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Database Schema Designer
@@ -239,10 +240,47 @@ npx prisma-erd-generator
 
 ## Best Practices
 
-1. **Timestamps everywhere** — `created_at`, `updated_at` on every table
-2. **Soft deletes for auditable data** — `deleted_at` instead of DELETE
-3. **Audit log for compliance** — log before/after JSON for regulated domains
-4. **UUIDs or CUIDs as PKs** — avoid sequential integer leakage
-5. **Index foreign keys** — every FK column should have an index
-6. **Partial indexes** — use `WHERE deleted_at IS NULL` for active-only queries
-7. **RLS over application-level filtering** — database enforces tenancy, not just app code
+1. **Timestamps everywhere** — `created_at`, `updated_at` on every table → verify: output exists + parses without error
+2. **Soft deletes for auditable data** — `deleted_at` instead of DELETE → verify: findings count > 0 OR clean signal returned
+3. **Audit log for compliance** — log before/after JSON for regulated domains → verify: findings count > 0 OR clean signal returned
+4. **UUIDs or CUIDs as PKs** — avoid sequential integer leakage → verify: step output matches expected outcome
+5. **Index foreign keys** — every FK column should have an index → verify: step output matches expected outcome
+6. **Partial indexes** — use `WHERE deleted_at IS NULL` for active-only queries → verify: step output matches expected outcome
+7. **RLS over application-level filtering** — database enforces tenancy, not just app code → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to database schema designer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Database Schema Designer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for database schema designer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving database schema designer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

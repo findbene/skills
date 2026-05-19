@@ -1,6 +1,7 @@
 ---
 name: seedance-motion-design-ad
-description: Generate motion design advertisement video prompts for software and tech companies using Seedance 2.0 on Higgsfield. Use whenever the user wants to create a software product ad, SaaS promo, app launch video, tech demo, UI showcase, startup video, or motion graphics for a tech company. Triggers on: software ad, SaaS video, product launch, app promo, tech commercial, UI animation, motion design ad, startup video, product demo video, feature showcase, or any software/tech promotional video request. Use even for "make a video for my app" or "promo for our platform."
+description: "Generate motion design advertisement video prompts for software and tech companies using Seeda. Triggers: 'use seedance-motion-design-ad', 'seedance motion design ad', 'seedance-motion-design-ad task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield Motion Design Ad Generator
@@ -1041,13 +1042,13 @@ Pacing: Slower than consumer app ads—enterprise audience prefers deliberate, t
 
 When you use this skill to generate a Seedance 2.0 on Higgsfield motion design ad prompt, follow this structure:
 
-1. **Identify the Product Category**: Is this for a SaaS dashboard, mobile app, AI/data product, developer tool, B2B platform, or something else?
+1. **Identify the Product Category**: Is this for a SaaS dashboard, mobile app, AI/data product, developer tool, B2B platform, or something else? → verify: step output matches expected outcome
 
-2. **Select a 2-Second Hook**: Choose one (or combine two) from the 10+ hooks listed in the framework. Consider product type and brand personality.
+2. **Select a 2-Second Hook**: Choose one (or combine two) from the 10+ hooks listed in the framework. Consider product type and brand personality. → verify: step output matches expected outcome
 
-3. **Choose a Visual Style**: Select from the 12 styles in the Visual Style Library. Dark Premium for enterprise, Clean Minimal for productivity apps, Neon Cyber for trendy/gaming products, etc.
+3. **Choose a Visual Style**: Select from the 12 styles in the Visual Style Library. Dark Premium for enterprise, Clean Minimal for productivity apps, Neon Cyber for trendy/gaming products, etc. → verify: step output matches expected outcome
 
-4. **Determine Duration & Format**: Is this 6s, 15s, 30s, or 60s? Instagram Reels (9:16), YouTube (16:9), LinkedIn (1:1)?
+4. **Determine Duration & Format**: Is this 6s, 15s, 30s, or 60s? Instagram Reels (9:16), YouTube (16:9), LinkedIn (1:1)? → verify: step output matches expected outcome
 
 5. **Build the Narrative Flow**:
    - Opening Hook (1-2 seconds): Grab attention
@@ -1055,20 +1056,20 @@ When you use this skill to generate a Seedance 2.0 on Higgsfield motion design a
    - Benefit Communication (2-4 seconds): Why it matters
    - Call-to-Action (1-2 seconds): What to do next
 
-6. **Use the Master Template**: Structure your prompt using the Seedance 2.0 on Higgsfield Master Template provided above. Include all sections: Hook description, Product Showcase details, Benefit Communication, CTA, and Technical Specs.
+6. **Use the Master Template**: Structure your prompt using the Seedance 2.0 on Higgsfield Master Template provided above. Include all sections: Hook description, Product Showcase details, Benefit Communication, CTA, and Technical Specs. → verify: step output matches expected outcome
 
-7. **Reference Specific Techniques**: Use product showcase techniques (device float-in, screen zoom, etc.), transition types (morph, zoom, glitch), and sound design elements by name.
+7. **Reference Specific Techniques**: Use product showcase techniques (device float-in, screen zoom, etc.), transition types (morph, zoom, glitch), and sound design elements by name. → verify: step output matches expected outcome
 
-8. **Write for Seedance 2.0 on Higgsfield**: Use specific language the model responds to—"smooth morph transition", "power ease-out easing curve", "glowing particle effect", "isometric perspective", etc. These phrases align with the model's training.
+8. **Write for Seedance 2.0 on Higgsfield**: Use specific language the model responds to—"smooth morph transition", "power ease-out easing curve", "glowing particle effect", "isometric perspective", etc. These phrases align with the model's training. → verify: output exists + parses without error
 
-9. **Include Visual & Audio Details**: Don't assume Seedance 2.0 on Higgsfield reads your mind. Specify:
+9. **Include Visual & Audio Details**: Don't assume Seedance 2.0 on Higgsfield reads your mind. Specify: → verify: file content matches expected shape
    - Color palette (exact hex or descriptive: "deep navy #001a33")
    - Animation timing (0.8 seconds, 1.2 seconds, etc.)
    - Sound design (whoosh, chime, beep, bass drop)
    - Camera movement (static, orbital pan, zoom)
    - Motion easing (ease-in-out, elastic, power ease-out)
 
-10. **Optimize for Platform**: Tailor duration, aspect ratio, pacing, and CTA style for intended platform (YouTube, Instagram, TikTok, LinkedIn, etc.)
+10. **Optimize for Platform**: Tailor duration, aspect ratio, pacing, and CTA style for intended platform (YouTube, Instagram, TikTok, LinkedIn, etc.) → verify: step output matches expected outcome
 
 11. **Final Check**:
     - Is the first 2 seconds compelling?
@@ -1119,21 +1120,21 @@ When you use this skill to generate a Seedance 2.0 on Higgsfield motion design a
 
 **Seedance 2.0 on Higgsfield** responds best to prompts that:
 
-1. **Use spatial/directional language**: "zoom in", "float from right", "explode outward", "pan across" (the model understands spatial instruction better than abstract concepts)
+1. **Use spatial/directional language**: "zoom in", "float from right", "explode outward", "pan across" (the model understands spatial instruction better than abstract concepts) → verify: step output matches expected outcome
 
-2. **Specify easing/motion curves**: "power ease-out", "elastic bounce", "ease-in-out" (gives the model precise motion guidelines)
+2. **Specify easing/motion curves**: "power ease-out", "elastic bounce", "ease-in-out" (gives the model precise motion guidelines) → verify: step output matches expected outcome
 
-3. **Include timing breakdowns**: "0.8 seconds for entrance, 1.5 seconds for pause, 0.6 seconds for transition" (exact timing helps Seedance 2.0 on Higgsfield construct the flow)
+3. **Include timing breakdowns**: "0.8 seconds for entrance, 1.5 seconds for pause, 0.6 seconds for transition" (exact timing helps Seedance 2.0 on Higgsfield construct the flow) → verify: step output matches expected outcome
 
-4. **Reference established design patterns**: "glassmorphism effect", "particle system", "isometric perspective" (the model has learned these patterns and executes them reliably)
+4. **Reference established design patterns**: "glassmorphism effect", "particle system", "isometric perspective" (the model has learned these patterns and executes them reliably) → verify: command exit code 0
 
-5. **Describe color temperature and mood**: "cool, cyberpunk energy" or "warm, inviting tone" (helps set the overall grade and treatment)
+5. **Describe color temperature and mood**: "cool, cyberpunk energy" or "warm, inviting tone" (helps set the overall grade and treatment) → verify: step output matches expected outcome
 
-6. **Specify device/UI realism**: "authentic iPhone mockup, not stylized", "real dashboard with live data appearance" (avoids abstract, generic representations)
+6. **Specify device/UI realism**: "authentic iPhone mockup, not stylized", "real dashboard with live data appearance" (avoids abstract, generic representations) → verify: step output matches expected outcome
 
-7. **Use clear visual hierarchy**: "background at 40% opacity, UI at 100% opacity, text overlaid on both" (Seedance 2.0 on Higgsfield composes layers effectively)
+7. **Use clear visual hierarchy**: "background at 40% opacity, UI at 100% opacity, text overlaid on both" (Seedance 2.0 on Higgsfield composes layers effectively) → verify: step output matches expected outcome
 
-8. **Include sound design in narrative**: Don't treat sound as afterthought; describe it in timing with visuals (audio sync is critical for perceived quality)
+8. **Include sound design in narrative**: Don't treat sound as afterthought; describe it in timing with visuals (audio sync is critical for perceived quality) → verify: step output matches expected outcome
 
 Remember: **Seedance 2.0 on Higgsfield** creates motion design advertisements. Every prompt should result in a visually stunning, high-converting advertisement video for software/tech companies.
 
@@ -1143,3 +1144,33 @@ Remember: **Seedance 2.0 on Higgsfield** creates motion design advertisements. E
 **Last Updated**: 2026-04-09
 **Designed For**: Seedance 2.0 on Higgsfield
 **Use Case**: Motion Design Advertisements for Software & Tech Companies
+
+## When NOT to use
+
+- Task is unrelated to seedance motion design ad — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Motion Design Ad needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance motion design ad
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

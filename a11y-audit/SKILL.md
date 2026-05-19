@@ -1,6 +1,7 @@
 ---
 name: "a11y-audit"
-description: "Accessibility audit skill for scanning, fixing, and verifying WCAG 2.2 Level A and AA compliance across React, Next.js, Vue, Angular, Svelte, and plain HTML codebases. Use when auditing accessibility, fixing a11y violations, checking color contrast, generating compliance reports, or integrating accessibility checks into CI/CD pipelines."
+description: "Accessibility audit skill for scanning, fixing, and verifying WCAG 2.2 Level A and AA compliance across React, Next.js, Vue, Angular, Svelt. Triggers: 'use a11y-audit', 'a11y audit', 'a11y-audit task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Accessibility Audit
@@ -15,11 +16,11 @@ For every violation it finds, it provides the precise before/after code fix tail
 
 **What this skill does:**
 
-1. **Scans** your codebase for every WCAG 2.2 Level A and AA violation, categorized by severity (Critical, Major, Minor)
-2. **Fixes** each violation with framework-specific before/after code patterns
-3. **Verifies** that fixes resolve the original violations and introduces no regressions
-4. **Reports** findings in a structured format suitable for developers, PMs, and compliance stakeholders
-5. **Integrates** into CI/CD pipelines to prevent accessibility regressions
+1. **Scans** your codebase for every WCAG 2.2 Level A and AA violation, categorized by severity (Critical, Major, Minor) → verify: findings count surfaced
+2. **Fixes** each violation with framework-specific before/after code patterns → verify: diff matches intent
+3. **Verifies** that fixes resolve the original violations and introduces no regressions → verify: diff matches intent
+4. **Reports** findings in a structured format suitable for developers, PMs, and compliance stakeholders → verify: step output matches expected outcome
+5. **Integrates** into CI/CD pipelines to prevent accessibility regressions → verify: dependency resolves
 
 ## Features
 
@@ -209,3 +210,28 @@ Options:
 - [WAI-ARIA Authoring Practices 1.2](https://www.w3.org/WAI/ARIA/apg/)
 - [Deque axe-core Rules](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)
 - [eslint-plugin-jsx-a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)
+
+## When NOT to use
+
+- Task is unrelated to a11y audit — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | A11Y Audit needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for a11y audit
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

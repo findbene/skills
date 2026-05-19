@@ -1,19 +1,6 @@
 ---
 name: seo-programmatic
-description: >
-  Programmatic SEO planning, analysis, and quality control for pages generated at
-  scale from data sources. Covers data source assessment (CSV/JSON/API/DB), template
-  engine design with uniqueness requirements, URL pattern strategy, internal linking
-  automation, thin content safeguards, and index bloat prevention. Enforces quality
-  gates: warning at 30+ location pages (60%+ unique content required), hard stop at
-  50+ without justification. Distinguishes safe programmatic patterns (integration
-  pages, glossaries, product pages) from penalty-risk patterns (city-swap templates,
-  AI-generated without review). Make sure to use this skill whenever the user mentions:
-  "programmatic SEO", "pages at scale", "dynamic pages", "template-generated pages",
-  "data-driven SEO", "auto-generated content", "SEO at scale", "thousands of pages",
-  "location pages", "integration pages", "glossary pages", "template SEO", "bulk
-  page generation", or any request to create or audit a large volume of similar pages
-  — even if they don't use the term "programmatic".
+description: 'Programmatic SEO planning, analysis, and quality control for pages generated at scale from data sources. Triggers: "use seo-programmatic", "optimize seo programmatic", "seo programmatic".'
 user-invokable: true
 argument-hint: "[url or plan]"
 allowed-tools:
@@ -186,3 +173,40 @@ Measure against all other pages in the programmatic set. Shared headers, footers
 | No programmatic pages detected | Inform user that no template-generated or data-driven page patterns were found. Suggest checking if pages use client-side rendering or if the URL points to the correct section. |
 | Thin content threshold exceeded | Trigger quality gate warning. Report the unique content percentage and flag pages below 40% uniqueness. Require user acknowledgment before proceeding. |
 | Quality gate violation | Halt analysis at the HARD STOP threshold (500+ pages without justification or <30% unique content). Present findings and require explicit user approval to continue. |
+
+## When NOT to use
+
+- Task is unrelated to seo programmatic — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Programmatic needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo programmatic
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo programmatic
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

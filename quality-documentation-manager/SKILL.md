@@ -1,6 +1,7 @@
 ---
 name: "quality-documentation-manager"
-description: Document control system management for medical device QMS. Covers document numbering, version control, change management, and 21 CFR Part 11 compliance. Use for document control procedures, change control workflow, document numbering, version management, electronic signature compliance, or regulatory documentation review.
+description: "Document control system management for medical device QMS. Triggers: 'use quality-documentation-manager', 'quality documentation manager', 'quality-documentation-manager task'."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - document control
   - document numbering
@@ -38,14 +39,14 @@ Document control system design and management for ISO 13485-compliant quality ma
 
 Implement document control from creation through obsolescence:
 
-1. Assign document number per numbering procedure
-2. Create document using controlled template
-3. Route for review to required reviewers
-4. Address review comments and document responses
-5. Obtain required approval signatures
-6. Assign effective date and distribute
-7. Update Document Master List
-8. **Validation:** Document accessible at point of use; obsolete versions removed
+1. Assign document number per numbering procedure → verify: step output matches expected outcome
+2. Create document using controlled template → verify: output file exists + no syntax error
+3. Route for review to required reviewers → verify: step output matches expected outcome
+4. Address review comments and document responses → verify: package installed + import succeeds
+5. Obtain required approval signatures → verify: step output matches expected outcome
+6. Assign effective date and distribute → verify: step output matches expected outcome
+7. Update Document Master List → verify: step output matches expected outcome
+8. **Validation:** Document accessible at point of use; obsolete versions removed → verify: step output matches expected outcome
 
 ### Document Lifecycle Stages
 
@@ -115,12 +116,12 @@ A   = Revision indicator
 
 ### Numbering Workflow
 
-1. Author requests document number from Document Control
-2. Document Control verifies category assignment
-3. Document Control assigns next available sequence number
-4. Number recorded in Document Master List
-5. Author creates document using assigned number
-6. **Validation:** Number format matches standard; no duplicates in Master List
+1. Author requests document number from Document Control → verify: step output matches expected outcome
+2. Document Control verifies category assignment → verify: step output matches expected outcome
+3. Document Control assigns next available sequence number → verify: step output matches expected outcome
+4. Number recorded in Document Master List → verify: step output matches expected outcome
+5. Author creates document using assigned number → verify: output exists + parses without error
+6. **Validation:** Number format matches standard; no duplicates in Master List → verify: step output matches expected outcome
 
 ### Revision Designation
 
@@ -140,14 +141,14 @@ Obtain required reviews and approvals before document release.
 
 ### Review Workflow
 
-1. Author completes document draft
-2. Author submits for review via routing form or DMS
-3. Reviewers assigned based on document type
-4. Reviewers provide comments within review period (5-10 business days)
-5. Author addresses comments and documents responses
-6. Author resubmits revised document
-7. Approvers sign and date
-8. **Validation:** All required reviewers completed; all comments addressed with documented disposition
+1. Author completes document draft → verify: step output matches expected outcome
+2. Author submits for review via routing form or DMS → verify: step output matches expected outcome
+3. Reviewers assigned based on document type → verify: step output matches expected outcome
+4. Reviewers provide comments within review period (5-10 business days) → verify: step output matches expected outcome
+5. Author addresses comments and documents responses → verify: package installed + import succeeds
+6. Author resubmits revised document → verify: step output matches expected outcome
+7. Approvers sign and date → verify: step output matches expected outcome
+8. **Validation:** All required reviewers completed; all comments addressed with documented disposition → verify: package installed + import succeeds
 
 ### Comment Disposition
 
@@ -183,14 +184,14 @@ Manage document changes systematically through review and approval.
 
 ### Change Control Workflow
 
-1. Identify need for document change
-2. Complete Change Request Form with justification
-3. Document Control assigns change number and logs request
-4. Route to reviewers for impact assessment
-5. Obtain approvals based on change classification
-6. Author implements approved changes
-7. Update revision number and change history
-8. **Validation:** Changes match approved scope; change history complete
+1. Identify need for document change → verify: step output matches expected outcome
+2. Complete Change Request Form with justification → verify: step output matches expected outcome
+3. Document Control assigns change number and logs request → verify: step output matches expected outcome
+4. Route to reviewers for impact assessment → verify: step output matches expected outcome
+5. Obtain approvals based on change classification → verify: step output matches expected outcome
+6. Author implements approved changes → verify: step output matches expected outcome
+7. Update revision number and change history → verify: step output matches expected outcome
+8. **Validation:** Changes match approved scope; change history complete → verify: step output matches expected outcome
 
 ### Change Classification
 
@@ -239,12 +240,12 @@ Implement electronic record and signature controls for FDA compliance.
 
 ### Electronic Record Controls
 
-1. Validate system for accuracy and reliability
-2. Implement secure audit trail for all changes
-3. Restrict system access to authorized individuals
-4. Generate accurate copies in human-readable format
-5. Protect records throughout retention period
-6. **Validation:** Audit trail captures who, what, when for all changes
+1. Validate system for accuracy and reliability → verify: all checks pass
+2. Implement secure audit trail for all changes → verify: findings count > 0 OR clean signal returned
+3. Restrict system access to authorized individuals → verify: step output matches expected outcome
+4. Generate accurate copies in human-readable format → verify: file content matches expected shape
+5. Protect records throughout retention period → verify: step output matches expected outcome
+6. **Validation:** Audit trail captures who, what, when for all changes → verify: findings count > 0 OR clean signal returned
 
 ### Audit Trail Requirements
 
@@ -435,3 +436,40 @@ Track document control system performance.
 | Incomplete change history | Require history update with each revision |
 | No periodic review schedule | Establish and enforce review calendar |
 | Inadequate audit trail | Validate DMS for Part 11 compliance |
+
+## When NOT to use
+
+- Task is unrelated to quality documentation manager — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Quality Documentation Manager needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for quality documentation manager
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving quality documentation manager
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

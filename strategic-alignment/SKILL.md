@@ -1,6 +1,7 @@
 ---
 name: "strategic-alignment"
-description: "Cascades strategy from boardroom to individual contributor. Detects and fixes misalignment between company goals and team execution. Covers strategy articulation, cascade mapping, orphan goal detection, silo identification, communication gap analysis, and realignment protocols. Use when teams are pulling in different directions, OKRs don't connect, departments optimize locally at company expense, or when user mentions alignment, strategy cascade, silo, conflicting OKRs, or strategy communication."
+description: "Cascades strategy from boardroom to individual contributor. Triggers: 'use strategic-alignment', 'strategic alignment', 'strategic-alignment task'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -93,10 +94,10 @@ Silos exist when teams optimize for local metrics at the expense of company metr
 - Data isn't shared between teams that depend on each other
 
 **Silo root causes:**
-1. **Incentive misalignment:** Teams rewarded for local metrics don't optimize for company metrics
-2. **No shared goals:** When teams share a goal, they coordinate. When they don't, they drift.
-3. **No shared language:** Engineering doesn't understand sales metrics; sales doesn't understand technical debt
-4. **Geography or time zones:** Silos accelerate when teams don't interact organically
+1. **Incentive misalignment:** Teams rewarded for local metrics don't optimize for company metrics → verify: step output matches expected outcome
+2. **No shared goals:** When teams share a goal, they coordinate. When they don't, they drift. → verify: step output matches expected outcome
+3. **No shared language:** Engineering doesn't understand sales metrics; sales doesn't understand technical debt → verify: step output matches expected outcome
+4. **Geography or time zones:** Silos accelerate when teams don't interact organically → verify: step output matches expected outcome
 
 **Silo measurement:**
 - How often do teams request something from each other vs. proceed independently?
@@ -192,3 +193,35 @@ A quick health check. Score each area 0–10:
 ## Detailed References
 - `scripts/alignment_checker.py` — Automated OKR alignment analysis (orphans, conflicts, coverage)
 - `references/alignment-playbook.md` — Cascade techniques, quarterly alignment check, common patterns
+
+## Triggers
+
+alignment, strategy cascade, silo, conflicting OKRs, or strategy communication
+
+## When NOT to use
+
+- Task is unrelated to strategic alignment — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for strategic alignment
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving strategic alignment
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

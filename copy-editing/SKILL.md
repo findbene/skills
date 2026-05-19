@@ -1,6 +1,7 @@
 ---
 name: copy-editing
-description: "Edit, polish, and improve existing marketing copy — fixing clarity, tone, grammar, sentence structure, word choice, and flow without changing the core message. Use this whenever the user pastes copy and asks to 'clean it up,' 'polish this,' 'edit this,' 'make it flow better,' 'fix the grammar,' 'tighten this up,' or shows you a draft and wants line-by-line improvements. Trigger even when the user asks to 'make this more professional' or 'fix the writing' without using the word 'editing."
+description: "Edit, polish, and improve existing marketing copy — fixing clarity, tone, grammar, sentence structure, word choice, and flow without. Triggers: 'use copy-editing', 'copy editing', 'copy-editing task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -46,9 +47,9 @@ Edit copy through seven sequential passes, each focusing on one dimension. After
 - Burying the point in qualifications
 
 **Process:**
-1. Read through quickly, highlighting unclear parts
-2. Don't correct yet—just note problem areas
-3. After marking issues, recommend specific edits
+1. Read through quickly, highlighting unclear parts → verify: file content matches expected shape
+2. Don't correct yet—just note problem areas → verify: step output matches expected outcome
+3. After marking issues, recommend specific edits → verify: diff matches intended change
 4. Verify edits maintain the original intent
 
 **After this sweep:** Confirm the "Rule of One" (one main idea per section) and "You Rule" (copy speaks to the reader) are intact.
@@ -72,10 +73,10 @@ Edit copy through seven sequential passes, each focusing on one dimension. After
 - Technical language appearing randomly
 
 **Process:**
-1. Read aloud to hear inconsistencies
-2. Mark where tone shifts unexpectedly
-3. Recommend edits that smooth transitions
-4. Ensure personality remains throughout
+1. Read aloud to hear inconsistencies → verify: file content matches expected shape
+2. Mark where tone shifts unexpectedly → verify: step output matches expected outcome
+3. Recommend edits that smooth transitions → verify: diff matches intended change
+4. Ensure personality remains throughout → verify: step output matches expected outcome
 
 **After this sweep:** Return to Clarity Sweep to ensure voice edits didn't introduce confusion.
 
@@ -105,10 +106,10 @@ For every statement, ask "Okay, so what?" If the copy doesn't answer that questi
 - Company achievements that don't help the reader
 
 **Process:**
-1. Read each claim and literally ask "so what?"
-2. Highlight claims missing the answer
-3. Add the benefit bridge or deeper meaning
-4. Ensure benefits connect to real reader desires
+1. Read each claim and literally ask "so what?" → verify: file content matches expected shape
+2. Highlight claims missing the answer → verify: step output matches expected outcome
+3. Add the benefit bridge or deeper meaning → verify: dependency resolves + import works
+4. Ensure benefits connect to real reader desires → verify: file content matches expected shape
 
 **After this sweep:** Return to Voice and Tone, then Clarity.
 
@@ -140,10 +141,10 @@ For every statement, ask "Okay, so what?" If the copy doesn't answer that questi
 - Results claims without specifics
 
 **Process:**
-1. Identify every claim that needs proof
-2. Check if proof exists nearby
-3. Flag unsupported assertions
-4. Recommend adding proof or softening claims
+1. Identify every claim that needs proof → verify: step output matches expected outcome
+2. Check if proof exists nearby → verify: all checks pass
+3. Flag unsupported assertions → verify: step output matches expected outcome
+4. Recommend adding proof or softening claims → verify: step output matches expected outcome
 
 **After this sweep:** Return to So What, Voice and Tone, then Clarity.
 
@@ -176,10 +177,10 @@ For every statement, ask "Okay, so what?" If the copy doesn't answer that questi
 - Claims without concrete examples
 
 **Process:**
-1. Highlight vague words and phrases
-2. Ask "Can this be more specific?"
-3. Add numbers, timeframes, or examples
-4. Remove content that can't be made specific (it's probably filler)
+1. Highlight vague words and phrases → verify: step output matches expected outcome
+2. Ask "Can this be more specific?" → verify: user confirms
+3. Add numbers, timeframes, or examples → verify: dependency resolves + import works
+4. Remove content that can't be made specific (it's probably filler) → verify: step output matches expected outcome
 
 **After this sweep:** Return to Prove It, So What, Voice and Tone, then Clarity.
 
@@ -211,10 +212,10 @@ For every statement, ask "Okay, so what?" If the copy doesn't answer that questi
 - Ask questions that prompt reflection
 
 **Process:**
-1. Read for emotional impact—does it move you?
-2. Identify flat sections that should resonate
-3. Add emotional texture while staying authentic
-4. Ensure emotion serves the message (not manipulation)
+1. Read for emotional impact—does it move you? → verify: file content matches expected shape
+2. Identify flat sections that should resonate → verify: step output matches expected outcome
+3. Add emotional texture while staying authentic → verify: dependency resolves + import works
+4. Ensure emotion serves the message (not manipulation) → verify: step output matches expected outcome
 
 **After this sweep:** Return to Specificity, Prove It, So What, Voice and Tone, then Clarity.
 
@@ -247,10 +248,10 @@ For every statement, ask "Okay, so what?" If the copy doesn't answer that questi
 - Vague "Contact us" instead of clear next step
 
 **Process:**
-1. Focus on sections near CTAs
-2. List every reason someone might hesitate
-3. Check if the copy addresses each concern
-4. Add risk reversals or trust signals as needed
+1. Focus on sections near CTAs → verify: step output matches expected outcome
+2. List every reason someone might hesitate → verify: step output matches expected outcome
+3. Check if the copy addresses each concern → verify: all checks pass
+4. Add risk reversals or trust signals as needed → verify: dependency resolves + import works
 
 **After this sweep:** Return through all previous sweeps one final time: Heightened Emotion, Specificity, Prove It, So What, Voice and Tone, Clarity.
 
@@ -325,11 +326,11 @@ See [references/copy-problems.md](references/copy-problems.md) for the full diag
 
 When editing collaboratively:
 
-1. **Run a sweep and present findings** - Show what you found, why it's an issue
-2. **Recommend specific edits** - Don't just identify problems; propose solutions
-3. **Request the updated copy** - Let the author make final decisions
+1. **Run a sweep and present findings** - Show what you found, why it's an issue → verify: command exit code 0
+2. **Recommend specific edits** - Don't just identify problems; propose solutions → verify: diff matches intended change
+3. **Request the updated copy** - Let the author make final decisions → verify: step output matches expected outcome
 4. **Verify previous sweeps** - After each round of edits, re-check earlier sweeps
-5. **Repeat until clean** - Continue until a full sweep finds no new issues
+5. **Repeat until clean** - Continue until a full sweep finds no new issues → verify: step output matches expected outcome
 
 This iterative process ensures each edit doesn't create new problems while respecting the author's ownership of the copy.
 
@@ -343,10 +344,10 @@ This iterative process ensures each edit doesn't create new problems while respe
 
 ## Task-Specific Questions
 
-1. What's the goal of this copy? (Awareness, conversion, retention)
-2. What action should readers take?
-3. Are there specific concerns or known issues?
-4. What proof/evidence do you have available?
+1. What's the goal of this copy? (Awareness, conversion, retention) → verify: step output matches expected outcome
+2. What action should readers take? → verify: file content matches expected shape
+3. Are there specific concerns or known issues? → verify: step output matches expected outcome
+4. What proof/evidence do you have available? → verify: step output matches expected outcome
 
 ---
 
@@ -367,3 +368,40 @@ This iterative process ensures each edit doesn't create new problems while respe
 | Reviewing and improving existing copy | copy-editing (this skill) |
 | Editing copy you just wrote | copy-editing (this skill) |
 | Structural or strategic page changes | page-cro |
+
+## When NOT to use
+
+- Task is unrelated to copy editing — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Copy Editing needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for copy editing
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving copy editing
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

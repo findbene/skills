@@ -1,6 +1,7 @@
 ---
 name: piapi-tools
-description: "Multi-model AI media generation hub for images, videos, music, and 3D models using Midjourney, Flux, Kling, Luma Dream Machine, Suno, Udio, Hunyuan, Wan, Skyreels, and Trellis via PiAPI. Use this skill any time AI-generated media needs to be created across multiple model providers, Midjourney images are needed, AI music needs to be generated, or 3D models need to be created. Trigger immediately on: \"Midjourney\", \"Flux\", \"Kling\", \"Luma\", \"Suno\", \"Udio\", \"Trellis\", \"Hunyuan\", \"Wan\", \"Skyreels\", \"PiAPI\", \"AI music\", \"3D model AI\", \"Luma Dream Machine\". If someone says \"generate a Midjourney image\" or \"create AI music\" this skill MUST trigger."
+description: 'Multi-model AI media generation hub for images, videos, music, and 3D models using Midjourney, Flux, Kling, Luma Dream Machine, Suno, Udio, Hu. Triggers: "use piapi-tools", "piapi tools", "piapi task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # PiAPI Tools
@@ -48,8 +49,8 @@ Use the imagine tool with a Midjourney-style prompt.
 Submit a text or image prompt to Kling for high-quality video generation.
 
 ### Generate Music for a Video
-1. Generate a video with any video model
-2. Use MMAudio to generate matching background music
+1. Generate a video with any video model → verify: output file exists + no syntax error
+2. Use MMAudio to generate matching background music → verify: output file exists + no syntax error
 
 ### Create a 3D Model
 Use Trellis to convert a 2D image into a 3D model.
@@ -63,3 +64,40 @@ Use Trellis to convert a 2D image into a 3D model.
 - Flux is best for fast, high-quality image generation
 - Kling excels at consistent character motion in video
 - Luma Dream Machine is strong for cinematic text-to-video
+
+## When NOT to use
+
+- Task doesn't involve calling PiAPI services for media generation → use the matching domain skill instead
+- Simple one-off operation that doesn't need this skill's structure
+- Different toolchain required → check `find-skills` skill for alternatives
+- User explicitly asks to skip skill discipline → respect the override
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the verify step, output looks right" | Eyeballing without verification ships broken outputs |
+| "Generic answer is good enough" | PiAPI media tooling needs domain-specific decisions, not boilerplate |
+| "I can hold all context in head" | Multi-step state loss creates regressions you won't catch |
+| "Just one more shortcut" | Shortcuts compound — finish discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced and matches user's stated goal
+- All verification steps in process passed
+- Edge cases for calling PiAPI services for media generation addressed or explicitly noted
+- Output is reproducible (no hidden state)
+- Hand-off summary provided so user can validate without re-reading entire flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard request involving calling PiAPI services for media generation
+- Action: follow the documented numbered process, apply verify clauses per step
+- Output: deliverable that passes the Output Contract
+
+### Example 2 — edge case
+- Input: request with non-standard constraint or partial info
+- Action: detect the gap, ask clarifying question OR document assumption, proceed with adapted process
+- Output: deliverable + explicit note on assumption/limitation

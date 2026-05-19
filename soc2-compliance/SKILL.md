@@ -1,6 +1,7 @@
 ---
 name: "soc2-compliance"
-description: "Use when the user asks to prepare for SOC 2 audits, map Trust Service Criteria, build control matrices, collect audit evidence, perform gap analysis, or assess SOC 2 Type I vs Type II readiness."
+description: 'Use when the user asks to prepare for SOC 2 audits, map Trust Service Criteria, build control matrices, collect audit evidence, perform. Triggers: "use soc2-compliance", "soc2 compliance", "soc2 task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # SOC 2 Compliance
@@ -156,11 +157,11 @@ PRV-001 through PRV-NNN  → Privacy
 
 ### Workflow
 
-1. Select applicable TSC categories based on business needs
-2. Run `control_matrix_builder.py` to generate the baseline matrix
-3. Customize controls to match your actual environment
-4. Assign owners and evidence requirements
-5. Validate coverage — every selected TSC criterion must have at least one control
+1. Select applicable TSC categories based on business needs → verify: step output matches expected outcome
+2. Run `control_matrix_builder.py` to generate the baseline matrix → verify: output exists + parses without error
+3. Customize controls to match your actual environment → verify: step output matches expected outcome
+4. Assign owners and evidence requirements → verify: step output matches expected outcome
+5. Validate coverage — every selected TSC criterion must have at least one control → verify: all checks pass
 
 ---
 
@@ -168,9 +169,9 @@ PRV-001 through PRV-NNN  → Privacy
 
 ### Phase 1: Current State Assessment
 
-1. **Document existing controls** — inventory all security policies, procedures, and technical controls
-2. **Map to TSC** — align existing controls to Trust Service Criteria
-3. **Collect evidence samples** — gather proof that controls exist and operate
+1. **Document existing controls** — inventory all security policies, procedures, and technical controls → verify: step output matches expected outcome
+2. **Map to TSC** — align existing controls to Trust Service Criteria → verify: step output matches expected outcome
+3. **Collect evidence samples** — gather proof that controls exist and operate → verify: step output matches expected outcome
 4. **Interview control owners** — verify understanding and execution
 
 ### Phase 2: Gap Identification
@@ -239,10 +240,10 @@ For each gap, define:
 
 Move from point-in-time evidence collection to continuous compliance:
 
-1. **Automated evidence gathering** — scripts that pull evidence on schedule
-2. **Control dashboards** — real-time visibility into control status
-3. **Alert-based monitoring** — notify when a control drifts out of compliance
-4. **Evidence repository** — centralized, timestamped evidence storage
+1. **Automated evidence gathering** — scripts that pull evidence on schedule → verify: step output matches expected outcome
+2. **Control dashboards** — real-time visibility into control status → verify: step output matches expected outcome
+3. **Alert-based monitoring** — notify when a control drifts out of compliance → verify: step output matches expected outcome
+4. **Evidence repository** — centralized, timestamped evidence storage → verify: step output matches expected outcome
 
 ---
 
@@ -288,11 +289,11 @@ Move from point-in-time evidence collection to continuous compliance:
 
 Every vendor that accesses, stores, or processes customer data must be assessed:
 
-1. **Vendor inventory** — maintain a register of all service providers
-2. **Risk classification** — categorize vendors by data access level
-3. **Due diligence** — collect SOC 2 reports, security questionnaires, certifications
-4. **Contractual protections** — ensure DPAs, security requirements, breach notification clauses
-5. **Ongoing monitoring** — annual reassessment, continuous news monitoring
+1. **Vendor inventory** — maintain a register of all service providers → verify: step output matches expected outcome
+2. **Risk classification** — categorize vendors by data access level → verify: step output matches expected outcome
+3. **Due diligence** — collect SOC 2 reports, security questionnaires, certifications → verify: step output matches expected outcome
+4. **Contractual protections** — ensure DPAs, security requirements, breach notification clauses → verify: step output matches expected outcome
+5. **Ongoing monitoring** — annual reassessment, continuous news monitoring → verify: step output matches expected outcome
 
 ### Vendor Risk Tiers
 
@@ -327,11 +328,11 @@ When your SOC 2 report relies on controls at a subservice organization (e.g., AW
 
 ### Implementation Steps
 
-1. **Automate evidence gathering** — cron jobs, API integrations, IaC snapshots
-2. **Build control dashboards** — aggregate control status into a single view
-3. **Configure drift alerts** — notify when controls fall out of compliance
-4. **Establish review cadence** — weekly control owner check-ins, monthly steering
-5. **Maintain evidence repository** — centralized, timestamped, auditor-accessible
+1. **Automate evidence gathering** — cron jobs, API integrations, IaC snapshots → verify: step output matches expected outcome
+2. **Build control dashboards** — aggregate control status into a single view → verify: step output matches expected outcome
+3. **Configure drift alerts** — notify when controls fall out of compliance → verify: step output matches expected outcome
+4. **Establish review cadence** — weekly control owner check-ins, monthly steering → verify: step output matches expected outcome
+5. **Maintain evidence repository** — centralized, timestamped, auditor-accessible → verify: findings count > 0 OR clean signal returned
 
 ### Annual Re-Assessment Cycle
 
@@ -415,3 +416,40 @@ python scripts/gap_analyzer.py --controls current_controls.json --type type2 --j
 - **[gdpr-dsgvo-expert](../gdpr-dsgvo-expert/SKILL.md)** — SOC 2 Privacy criteria overlaps significantly with GDPR requirements; use together when processing EU personal data
 - **[information-security-manager-iso27001](../information-security-manager-iso27001/SKILL.md)** — ISO 27001 Annex A controls map closely to SOC 2 Security criteria; organizations pursuing both can share evidence
 - **[isms-audit-expert](../isms-audit-expert/SKILL.md)** — Audit methodology and finding management patterns transfer directly to SOC 2 audit preparation
+
+## When NOT to use
+
+- Task is unrelated to soc2 compliance — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Soc2 Compliance needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for soc2 compliance
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving soc2 compliance
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

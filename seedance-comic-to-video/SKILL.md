@@ -1,6 +1,7 @@
 ---
 name: seedance-comic-to-video
-description: Convert comic book panels, manga pages, webtoons, and illustrated storyboards into animated video using Seedance 2.0 on Higgsfield. Use whenever the user wants to animate comics, bring illustrations to life, convert manga to video, animate storyboards, or create motion from static sequential art. Triggers on: comic to video, manga animation, panel animation, storyboard to video, webtoon animation, comic book motion, sequential art, graphic novel animation, or any illustrate-to-animate request. Use even when user says "make this drawing move" or "animate this page."
+description: "Convert comic book panels, manga pages, webtoons, and illustrated storyboards into animated video us. Triggers: 'use seedance-comic-to-video', 'seedance comic to video', 'seedance-comic-to-video task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Seedance 2.0 on Higgsfield — Comic Book to Video Prompt Generator
@@ -128,11 +129,11 @@ During motion synthesis, Seedance 2.0 on Higgsfield preserves these signatures i
 
 Convert static panels into motion by following these hierarchical principles:
 
-1. **Character as Primary Focus**: Animate the main character's pose, expression, and gesture first
-2. **Secondary Elements**: Layer in environmental motion, camera work, and secondary characters
-3. **Timing Hierarchy**: Dialogue/primary action drives timing; environmental motion adapts to it
-4. **Spatial Logic**: Ensure camera movement and character depth follow panel composition cues
-5. **Emotional Pacing**: Use timing as emotional language (faster = tension, slower = contemplation)
+1. **Character as Primary Focus**: Animate the main character's pose, expression, and gesture first → verify: step output matches expected outcome
+2. **Secondary Elements**: Layer in environmental motion, camera work, and secondary characters → verify: step output matches expected outcome
+3. **Timing Hierarchy**: Dialogue/primary action drives timing; environmental motion adapts to it → verify: step output matches expected outcome
+4. **Spatial Logic**: Ensure camera movement and character depth follow panel composition cues → verify: step output matches expected outcome
+5. **Emotional Pacing**: Use timing as emotional language (faster = tension, slower = contemplation) → verify: step output matches expected outcome
 
 ### Dialogue Handling
 
@@ -1559,15 +1560,15 @@ All elements timed in concert, not independently.
 **Fix**: The Master Template exists for a reason. Completeness matters:
 ```
 Required Elements in Every Prompt:
-1. Reading Order (critical foundation)
-2. Panel breakdown with character/environment/action detail
-3. Two-second hook (establishes visual grammar)
-4. Art style keywords (preserves aesthetic)
-5. Animation direction specifics (character, camera, environment, pacing, tone)
-6. Dialogue interpretation (speaker, emotion, emphasis, timing)
-7. Transition technique (panel-to-panel flow)
-8. Output specifications (technical parameters)
-9. Notes section (any special considerations)
+1. Reading Order (critical foundation) → verify: file content matches expected shape
+2. Panel breakdown with character/environment/action detail → verify: step output matches expected outcome
+3. Two-second hook (establishes visual grammar) → verify: step output matches expected outcome
+4. Art style keywords (preserves aesthetic) → verify: step output matches expected outcome
+5. Animation direction specifics (character, camera, environment, pacing, tone) → verify: step output matches expected outcome
+6. Dialogue interpretation (speaker, emotion, emphasis, timing) → verify: step output matches expected outcome
+7. Transition technique (panel-to-panel flow) → verify: step output matches expected outcome
+8. Output specifications (technical parameters) → verify: step output matches expected outcome
+9. Notes section (any special considerations) → verify: step output matches expected outcome
 
 Seedance 2.0 on Higgsfield is powerful but requires detailed input to achieve excellence.
 ```
@@ -1731,22 +1732,22 @@ Before distributing, verify the output against these criteria:
 
 Before final delivery:
 
-1. **Playback Test**: Watch entire video on target platform (YouTube, TikTok, etc.) to ensure proper rendering and audio sync
+1. **Playback Test**: Watch entire video on target platform (YouTube, TikTok, etc.) to ensure proper rendering and audio sync → verify: all checks pass
 2. **Device Test**: Verify on multiple devices (laptop, mobile, tablet, gaming console if applicable)
-3. **Audio Test**: Confirm dialogue is clear, SFX timing is correct, levels are balanced (voice at -6dB to -3dB, SFX slightly lower)
-4. **Color Test**: Check on different monitors/displays to ensure color accuracy
-5. **Caption Test**: Read captions for accuracy and timing synchronization with dialogue
+3. **Audio Test**: Confirm dialogue is clear, SFX timing is correct, levels are balanced (voice at -6dB to -3dB, SFX slightly lower) → verify: all checks pass
+4. **Color Test**: Check on different monitors/displays to ensure color accuracy → verify: all checks pass
+5. **Caption Test**: Read captions for accuracy and timing synchronization with dialogue → verify: file content matches expected shape
 
 ### Deliverables Package
 
 When presenting the finished animation, include:
 
-1. **Video File(s)** (master + platform-specific exports)
-2. **Subtitle/SRT File** (captions in standard format)
-3. **Still Frames** (5-10 key frames for marketing/preview)
-4. **Metadata Sheet** (title, credits, description, keywords)
-5. **Production Notes** (challenges overcome, special techniques used, Seedance 2.0 on Higgsfield parameters applied)
-6. **Source Reference** (original comic image files for documentation)
+1. **Video File(s)** (master + platform-specific exports) → verify: step output matches expected outcome
+2. **Subtitle/SRT File** (captions in standard format) → verify: step output matches expected outcome
+3. **Still Frames** (5-10 key frames for marketing/preview) → verify: step output matches expected outcome
+4. **Metadata Sheet** (title, credits, description, keywords) → verify: diff matches intended change
+5. **Production Notes** (challenges overcome, special techniques used, Seedance 2.0 on Higgsfield parameters applied) → verify: step output matches expected outcome
+6. **Source Reference** (original comic image files for documentation) → verify: step output matches expected outcome
 
 ### Common Post-Production Tweaks
 
@@ -1808,3 +1809,33 @@ When all elements are present and detailed, **Seedance 2.0 on Higgsfield** produ
 **End of Skill Documentation**
 
 *For additional support on Seedance 2.0 on Higgsfield comic animations, consult the Higgsfield platform documentation or reach out to the Higgsfield community.*
+
+## When NOT to use
+
+- Task is unrelated to seedance comic to video — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Comic To Video needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance comic to video
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

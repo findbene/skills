@@ -1,6 +1,7 @@
 ---
 name: llamaindex-tools
-description: "RAG and document intelligence toolkit for querying LlamaCloud indexes and extracting structured data from documents using LlamaIndex via MCP. Use this skill any time a LlamaCloud index needs to be queried, RAG pipelines need to be built, structured data needs to be extracted from documents, or knowledge base search is needed. Trigger immediately on: \"LlamaIndex\", \"LlamaCloud\", \"RAG pipeline\", \"query index\", \"document extraction\", \"knowledge base search\", \"retrieval augmented generation\", \"llamaindex\", \"semantic search\", \"document Q&A\", \"LlamaIndex MCP\", \"index search\". If someone says \"query my LlamaCloud index\" or \"search my knowledge base\" this skill MUST trigger."
+description: 'RAG and document intelligence toolkit for querying LlamaCloud indexes and extracting structured data from documents using Llama. Triggers: "use llamaindex-tools", "llamaindex tools", "llamaindex task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # LlamaIndex Tools
@@ -42,10 +43,10 @@ uvx llamacloud-mcp@latest \
 
 ## Setup Requirements
 
-1. Create a [LlamaCloud](https://cloud.llamaindex.ai/) account
-2. Create an index with your data sources (Google Drive, uploaded docs, etc.)
-3. Get an API key from the LlamaCloud UI
-4. Set `LLAMA_CLOUD_API_KEY` in your environment or pass via `--api-key`
+1. Create a [LlamaCloud](https://cloud.llamaindex.ai/) account → verify: output exists + parses without error
+2. Create an index with your data sources (Google Drive, uploaded docs, etc.) → verify: file content matches expected shape
+3. Get an API key from the LlamaCloud UI → verify: step output matches expected outcome
+4. Set `LLAMA_CLOUD_API_KEY` in your environment or pass via `--api-key` → verify: step output matches expected outcome
 
 ## Common Workflows
 
@@ -89,3 +90,40 @@ tools = tool_spec.to_tool_list()
 - Default project is "Default" if `--project-name` is not specified
 - Supports stdio, SSE, and streamable-http transports
 - Extract agents are separate from index queries — use for structured data extraction
+
+## When NOT to use
+
+- Task is unrelated to llamaindex tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Llamaindex Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for llamaindex tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving llamaindex tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

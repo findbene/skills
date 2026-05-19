@@ -1,6 +1,7 @@
 ---
 name: free-tool-strategy
-description: "Plan and build free tools as a marketing strategy — selecting the right tool to build, designing for SEO and lead capture, and creating a flywheel from free tool users to product customers. Use this whenever the user mentions 'free tool strategy,' 'build a free tool for marketing,' 'free calculator,' 'free template,' 'free version for marketing,' 'SEO tool,' or 'tool-led growth.' Trigger even when the user asks 'how do we attract more top-of-funnel traffic' and their product lends itself to a free tool angle."
+description: "Plan and build free tools as a marketing strategy — selecting the right tool to build, designing for SEO and lead c. Triggers: 'use free-tool-strategy', 'free tool strategy', 'free-tool-strategy task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,11 +17,11 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Before designing a tool strategy, understand:
 
-1. **Business Context** - What's the core product? Who is the target audience? What problems do they have?
+1. **Business Context** - What's the core product? Who is the target audience? What problems do they have? → verify: step output matches expected outcome
 
-2. **Goals** - Lead generation? SEO/traffic? Brand awareness? Product education?
+2. **Goals** - Lead generation? SEO/traffic? Brand awareness? Product education? → verify: step output matches expected outcome
 
-3. **Resources** - Technical capacity to build? Ongoing maintenance bandwidth? Budget for promotion?
+3. **Resources** - Technical capacity to build? Ongoing maintenance bandwidth? Budget for promotion? → verify: step output matches expected outcome
 
 ---
 
@@ -65,13 +66,13 @@ Before designing a tool strategy, understand:
 
 ### Start with Pain Points
 
-1. **What problems does your audience Google?** - Search query research, common questions
+1. **What problems does your audience Google?** - Search query research, common questions → verify: step output matches expected outcome
 
-2. **What manual processes are tedious?** - Spreadsheet tasks, repetitive calculations
+2. **What manual processes are tedious?** - Spreadsheet tasks, repetitive calculations → verify: file content matches expected shape
 
-3. **What do they need before buying your product?** - Assessments, planning, comparisons
+3. **What do they need before buying your product?** - Assessments, planning, comparisons → verify: step output matches expected outcome
 
-4. **What information do they wish they had?** - Data they can't easily access, benchmarks
+4. **What information do they wish they had?** - Data they can't easily access, benchmarks → verify: step output matches expected outcome
 
 ### Validate the Idea
 
@@ -133,9 +134,9 @@ When: Something good exists, white-label available, not core differentiator
 ## MVP Scope
 
 ### Minimum Viable Tool
-1. Core functionality only—does the one thing, works reliably
-2. Essential UX—clear input, obvious output, mobile works
-3. Basic lead capture—email collection, leads go somewhere useful
+1. Core functionality only—does the one thing, works reliably → verify: step output matches expected outcome
+2. Essential UX—clear input, obvious output, mobile works → verify: step output matches expected outcome
+3. Basic lead capture—email collection, leads go somewhere useful → verify: step output matches expected outcome
 
 ### What to Skip Initially
 Account creation, saving results, advanced features, perfect design, every edge case
@@ -163,10 +164,10 @@ Rate each factor 1-5:
 
 ## Task-Specific Questions
 
-1. What existing tools does your audience use for workarounds?
-2. How do you currently generate leads?
-3. What technical resources are available?
-4. What's the timeline and budget?
+1. What existing tools does your audience use for workarounds? → verify: step output matches expected outcome
+2. How do you currently generate leads? → verify: output exists + parses without error
+3. What technical resources are available? → verify: step output matches expected outcome
+4. What's the timeline and budget? → verify: step output matches expected outcome
 
 ---
 
@@ -177,3 +178,44 @@ Rate each factor 1-5:
 - **seo-audit**: For SEO-optimizing the tool
 - **analytics-tracking**: For measuring tool usage
 - **email-sequence**: For nurturing leads from the tool
+
+## Triggers
+
+free tool strategy,' 'build a free tool for marketing,' 'free calculator,' 'free template,' 'free version for marketing,' 'SEO tool,' or 'tool-led g...
+
+## When NOT to use
+
+- Task is unrelated to free tool strategy — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Free Tool Strategy needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for free tool strategy
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving free tool strategy
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: file-organizer
-description: Intelligently organizes files and folders by understanding context, finding duplicates, suggesting better structures, and automating cleanup tasks. Use this skill whenever the user wants to clean up their Downloads folder, organize project directories, find duplicate files, sort photos by date, restructure a messy workspace, or establish a consistent file naming convention. Apply whenever the user says "organize my files", "clean up my folder", "find duplicates", or "help me structure my projects" — do not just rename a few files manually when this systematic approach is available.
+description: 'Intelligently organizes files and folders by understanding context, finding duplicates, suggesting better structures, and automating clea. Triggers: "use file-organizer", "file organizer", "file task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # File Organizer
@@ -19,12 +20,12 @@ This skill acts as your personal organization assistant, helping you maintain a 
 
 ## What This Skill Does
 
-1. **Analyzes Current Structure**: Reviews your folders and files to understand what you have
-2. **Finds Duplicates**: Identifies duplicate files across your system
-3. **Suggests Organization**: Proposes logical folder structures based on your content
-4. **Automates Cleanup**: Moves, renames, and organizes files with your approval
-5. **Maintains Context**: Makes smart decisions based on file types, dates, and content
-6. **Reduces Clutter**: Identifies old files you probably don't need anymore
+1. **Analyzes Current Structure**: Reviews your folders and files to understand what you have → verify: step output matches expected outcome
+2. **Finds Duplicates**: Identifies duplicate files across your system → verify: step output matches expected outcome
+3. **Suggests Organization**: Proposes logical folder structures based on your content → verify: step output matches expected outcome
+4. **Automates Cleanup**: Moves, renames, and organizes files with your approval → verify: step output matches expected outcome
+5. **Maintains Context**: Makes smart decisions based on file types, dates, and content → verify: step output matches expected outcome
+6. **Reduces Clutter**: Identifies old files you probably don't need anymore → verify: step output matches expected outcome
 
 ## How to Use
 
@@ -184,8 +185,8 @@ When a user requests file organization help:
       - X PDFs → Work/Documents/
       - Y images → Personal/Photos/
       - Z old files → Archive/
-   3. **Rename files**: [any renaming patterns]
-   4. **Delete**: [duplicates or trash files]
+   3. **Rename files**: [any renaming patterns] → verify: step output matches expected outcome
+   4. **Delete**: [duplicates or trash files] → verify: step output matches expected outcome
    
    ## Files Needing Your Decision
    
@@ -238,10 +239,10 @@ When a user requests file organization help:
    
    To keep this organized:
    
-   1. **Weekly**: Sort new downloads
-   2. **Monthly**: Review and archive completed projects
-   3. **Quarterly**: Check for new duplicates
-   4. **Yearly**: Archive old files
+   1. **Weekly**: Sort new downloads → verify: file content matches expected shape
+   2. **Monthly**: Review and archive completed projects → verify: step output matches expected outcome
+   3. **Quarterly**: Check for new duplicates → verify: all checks pass
+   4. **Yearly**: Archive old files → verify: step output matches expected outcome
    
    ## Quick Commands for You
    
@@ -329,9 +330,9 @@ Projects/
 
 ## Specific Changes
 1. Move 12 projects not touched since 2022 → Archive/
-2. Consolidate 4 duplicate project folders
-3. Rename projects to consistent format: "client-name-project-name"
-4. Create Archive for old work
+2. Consolidate 4 duplicate project folders → verify: step output matches expected outcome
+3. Rename projects to consistent format: "client-name-project-name" → verify: step output matches expected outcome
+4. Create Archive for old work → verify: output exists + parses without error
 
 Want me to implement this?
 ```
@@ -396,12 +397,12 @@ Documents folder.
 
 ## Pro Tips
 
-1. **Start Small**: Begin with one messy folder (like Downloads) to build trust
-2. **Regular Maintenance**: Run weekly cleanup on Downloads
-3. **Consistent Naming**: Use "YYYY-MM-DD - Description" format for important files
-4. **Archive Aggressively**: Move old projects to Archive instead of deleting
-5. **Keep Active Separate**: Maintain clear boundaries between active and archived work
-6. **Trust the Process**: Let Claude handle the cognitive load of where things go
+1. **Start Small**: Begin with one messy folder (like Downloads) to build trust → verify: file content matches expected shape
+2. **Regular Maintenance**: Run weekly cleanup on Downloads → verify: file content matches expected shape
+3. **Consistent Naming**: Use "YYYY-MM-DD - Description" format for important files → verify: step output matches expected outcome
+4. **Archive Aggressively**: Move old projects to Archive instead of deleting → verify: step output matches expected outcome
+5. **Keep Active Separate**: Maintain clear boundaries between active and archived work → verify: step output matches expected outcome
+6. **Trust the Process**: Let Claude handle the cognitive load of where things go → verify: file content matches expected shape
 
 ## Best Practices
 
@@ -431,3 +432,30 @@ Documents folder.
 - Organizing shared team folders
 - Structuring new project directories
 
+## When NOT to use
+
+- Task is unrelated to file organizer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | File Organizer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

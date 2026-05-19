@@ -1,6 +1,7 @@
 ---
 name: n8n-expression-syntax
-description: Write and fix n8n expression syntax. Always use this skill when configuring any n8n node field that references data from a previous node — expressions are how n8n wires data between nodes, and syntax errors here are the #1 source of workflow failures. Use whenever you see {{}} syntax, $json/$node/$now variables, webhook data mapping, expression errors, or any "data mapping between nodes" task. Don't guess at expression syntax — load this skill.
+description: 'Write and fix n8n expression syntax. Trigger: configuring any n8n node field that references data from. Triggers: "use n8n-expression-syntax", "automate n8n expression syntax", "n8n expression syntax.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # n8n Expression Syntax
@@ -152,3 +153,40 @@ Some n8n instances set `N8N_BLOCK_ENV_ACCESS_IN_NODE=true`, which blocks `$env` 
 ## Quick Debug Technique
 
 Add a **Set** node → use expression → check the preview panel. The preview shows exactly what the expression evaluates to before you wire it to the next node.
+
+## When NOT to use
+
+- Task is unrelated to n8n expression syntax — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | N8N Expression Syntax needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for n8n expression syntax
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving n8n expression syntax
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

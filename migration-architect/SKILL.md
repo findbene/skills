@@ -1,4 +1,9 @@
 ---
+name: migration-architect
+description: 'Migration Architect. Triggers: "use migration-architect", "migration architect", "migration task".'
+allowed-tools: Glob, Grep, Read
+---
+---
 name: "migration-architect"
 description: "Plan and execute zero-downtime system migrations - schema evolution, API versioning, data format validation, phased rollback strategies, and stakeholder communication. Use when migrating databases, upgrading APIs, moving infrastructure, or planning any complex system transition. Trigger on: 'migration plan', 'zero downtime migration', 'database migration strategy', 'schema migration', 'API migration', 'rollback plan', 'migration phases', 'data migration', 'blue-green migration', 'cutover plan'."
 
@@ -73,10 +78,10 @@ The Migration Architect skill provides comprehensive tools and methodologies for
 ### Service Migrations
 
 #### Strangler Fig Pattern
-1. **Intercept Requests:** Route traffic through proxy/gateway
-2. **Gradually Replace:** Implement new service functionality incrementally
-3. **Legacy Retirement:** Remove old service components as new ones prove stable
-4. **Monitoring:** Track performance and error rates throughout transition
+1. **Intercept Requests:** Route traffic through proxy/gateway → verify: step output matches expected outcome
+2. **Gradually Replace:** Implement new service functionality incrementally → verify: step output matches expected outcome
+3. **Legacy Retirement:** Remove old service components as new ones prove stable → verify: step output matches expected outcome
+4. **Monitoring:** Track performance and error rates throughout transition → verify: step output matches expected outcome
 
 ```mermaid
 graph TD
@@ -89,16 +94,16 @@ graph TD
 ```
 
 #### Parallel Run Pattern
-1. **Dual Execution:** Run both old and new services simultaneously
-2. **Shadow Traffic:** Route production traffic to both systems
-3. **Result Comparison:** Compare outputs to validate correctness
-4. **Gradual Cutover:** Shift traffic percentage based on confidence
+1. **Dual Execution:** Run both old and new services simultaneously → verify: command exit code 0
+2. **Shadow Traffic:** Route production traffic to both systems → verify: step output matches expected outcome
+3. **Result Comparison:** Compare outputs to validate correctness → verify: all checks pass
+4. **Gradual Cutover:** Shift traffic percentage based on confidence → verify: step output matches expected outcome
 
 #### Canary Deployment Pattern
-1. **Limited Rollout:** Deploy new service to small percentage of users
-2. **Monitoring:** Track key metrics (latency, errors, business KPIs)
-3. **Gradual Increase:** Increase traffic percentage as confidence grows
-4. **Full Rollout:** Complete migration once validation passes
+1. **Limited Rollout:** Deploy new service to small percentage of users → verify: step output matches expected outcome
+2. **Monitoring:** Track key metrics (latency, errors, business KPIs) → verify: step output matches expected outcome
+3. **Gradual Increase:** Increase traffic percentage as confidence grows → verify: step output matches expected outcome
+4. **Full Rollout:** Complete migration once validation passes → verify: step output matches expected outcome
 
 ### Infrastructure Migrations
 
@@ -353,8 +358,8 @@ Key Metrics:
 - Issues Encountered: [X]
 
 Next Steps:
-1. [Action item 1]
-2. [Action item 2]
+1. [Action item 1] → verify: step output matches expected outcome
+2. [Action item 2] → verify: step output matches expected outcome
 
 Risk Assessment: [LOW | MEDIUM | HIGH]
 Rollback Status: [AVAILABLE | NOT_AVAILABLE]
@@ -427,22 +432,22 @@ Metrics:
 ## Best Practices
 
 ### Planning Phase
-1. **Start with Risk Assessment:** Identify all potential failure modes before planning
-2. **Design for Rollback:** Every migration step should have a tested rollback procedure
-3. **Validate in Staging:** Execute full migration process in production-like environment
-4. **Plan for Gradual Rollout:** Use feature flags and traffic routing for controlled migration
+1. **Start with Risk Assessment:** Identify all potential failure modes before planning → verify: step output matches expected outcome
+2. **Design for Rollback:** Every migration step should have a tested rollback procedure → verify: all checks pass
+3. **Validate in Staging:** Execute full migration process in production-like environment → verify: command exit code 0
+4. **Plan for Gradual Rollout:** Use feature flags and traffic routing for controlled migration → verify: step output matches expected outcome
 
 ### Execution Phase
-1. **Monitor Continuously:** Track both technical and business metrics throughout
-2. **Communicate Proactively:** Keep all stakeholders informed of progress and issues
-3. **Document Everything:** Maintain detailed logs for post-migration analysis
-4. **Stay Flexible:** Be prepared to adjust timeline based on real-world performance
+1. **Monitor Continuously:** Track both technical and business metrics throughout → verify: step output matches expected outcome
+2. **Communicate Proactively:** Keep all stakeholders informed of progress and issues → verify: step output matches expected outcome
+3. **Document Everything:** Maintain detailed logs for post-migration analysis → verify: step output matches expected outcome
+4. **Stay Flexible:** Be prepared to adjust timeline based on real-world performance → verify: step output matches expected outcome
 
 ### Validation Phase
-1. **Automate Validation:** Use automated tools for data consistency and performance checks
-2. **Business Logic Testing:** Validate critical business processes end-to-end
+1. **Automate Validation:** Use automated tools for data consistency and performance checks → verify: step output matches expected outcome
+2. **Business Logic Testing:** Validate critical business processes end-to-end → verify: all checks pass
 3. **Load Testing:** Verify system performance under expected production load
-4. **Security Validation:** Ensure security controls function properly in new environment
+4. **Security Validation:** Ensure security controls function properly in new environment → verify: step output matches expected outcome
 
 ## Integration with Development Lifecycle
 
@@ -475,3 +480,40 @@ resource "aws_instance" "green_environment" {
 ```
 
 This Migration Architect skill provides a comprehensive framework for planning, executing, and validating complex system migrations while minimizing business impact and technical risk. The combination of automated tools, proven patterns, and detailed procedures enables organizations to confidently undertake even the most complex migration projects.
+
+## When NOT to use
+
+- Task doesn't involve designing data/code migrations → use the matching domain skill instead
+- Simple one-off operation that doesn't need this skill's structure
+- Different toolchain required → check `find-skills` skill for alternatives
+- User explicitly asks to skip skill discipline → respect the override
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll skip the verify step, output looks right" | Eyeballing without verification ships broken outputs |
+| "Generic answer is good enough" | migration planning needs domain-specific decisions, not boilerplate |
+| "I can hold all context in head" | Multi-step state loss creates regressions you won't catch |
+| "Just one more shortcut" | Shortcuts compound — finish discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced and matches user's stated goal
+- All verification steps in process passed
+- Edge cases for designing data/code migrations addressed or explicitly noted
+- Output is reproducible (no hidden state)
+- Hand-off summary provided so user can validate without re-reading entire flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard request involving designing data/code migrations
+- Action: follow the documented numbered process, apply verify clauses per step
+- Output: deliverable that passes the Output Contract
+
+### Example 2 — edge case
+- Input: request with non-standard constraint or partial info
+- Action: detect the gap, ask clarifying question OR document assumption, proceed with adapted process
+- Output: deliverable + explicit note on assumption/limitation

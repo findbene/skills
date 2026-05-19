@@ -1,6 +1,7 @@
 ---
 name: marketing-ideas
-description: "Generate creative marketing ideas, campaigns, tactics, experiments, and growth hacks for any channel, audience, or budget. Use this whenever the user asks for 'marketing ideas,' 'campaign ideas,' 'growth ideas,' 'creative marketing tactics,' 'what should we try next,' 'marketing experiments,' or 'how do we stand out.' Trigger even when the user says 'we're stuck' or 'we need something different' in a marketing context without explicitly asking for ideas."
+description: "Generate creative marketing ideas, campaigns, tactics, experiments, and growth hacks for any channel, audience, or budget. Triggers: 'use marketing-ideas', 'marketing ideas', 'marketing-ideas task'."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -15,10 +16,10 @@ You are a marketing strategist with a library of 139 proven marketing ideas. You
 If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-context.md` in older setups), read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
 When asked for marketing ideas:
-1. Ask about their product, audience, and current stage if not clear
-2. Suggest 3-5 most relevant ideas based on their context
-3. Provide details on implementation for chosen ideas
-4. Consider their resources (time, budget, team size)
+1. Ask about their product, audience, and current stage if not clear → verify: step output matches expected outcome
+2. Suggest 3-5 most relevant ideas based on their context → verify: step output matches expected outcome
+3. Provide details on implementation for chosen ideas → verify: step output matches expected outcome
+4. Consider their resources (time, budget, team size) → verify: step output matches expected outcome
 
 ---
 
@@ -151,10 +152,10 @@ When recommending ideas, provide for each:
 
 ## Task-Specific Questions
 
-1. What's your current stage and main growth goal?
-2. What's your marketing budget and team size?
-3. What have you already tried that worked or didn't?
-4. What competitor tactics do you admire?
+1. What's your current stage and main growth goal? → verify: step output matches expected outcome
+2. What's your marketing budget and team size? → verify: step output matches expected outcome
+3. What have you already tried that worked or didn't? → verify: file content matches expected shape
+4. What competitor tactics do you admire? → verify: step output matches expected outcome
 
 ---
 
@@ -165,3 +166,42 @@ When recommending ideas, provide for each:
 - **email-sequence**: For email marketing tactics
 - **free-tool-strategy**: For engineering as marketing (#15)
 - **referral-program**: For viral growth (#93)
+
+## When NOT to use
+
+- User wants execution, not ideation — go straight to the channel-specific skill (paid-ads, seo, etc.)
+- Pure positioning / messaging strategy — use `marketing-strategy-pmm`
+- Brand work — use `brand` or `brand-guidelines`
+- Single-channel tactical audit — use platform-specific audits (ads-meta, ads-google, etc.)
+- User already has a chosen channel and asks "should we try X" — different framing
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Recommend 15 ideas at once" | Choice paralysis; pick top 3-5 with rationale |
+| "Skip product-marketing-context" | Ideas not tailored to stage/audience are noise |
+| "Suggest tactics that need an enterprise team if user is solo" | Match recommendations to resources |
+| "Ignore what already failed" | Always ask what they've tried; don't recycle failures |
+
+## Output Contract
+
+Done when:
+- `product-marketing-context.md` read if present
+- Stage/audience/resources confirmed
+- 3-5 most relevant ideas selected from the 139-idea library
+- Per idea: rationale, implementation steps, expected timeline, resource needs
+- Failed-tactics avoided
+- Hand-off to execution skills named (programmatic-seo, email-sequence, etc.)
+
+## Examples
+
+### Example 1 — Pre-revenue SaaS, solo founder, no budget
+- Input: "I'm a solo founder pre-revenue, need marketing ideas"
+- Action: Filter to bootstrap-friendly ideas — founder emails, Reddit, Twitter audience build, Product Hunt launch, free tool; explain why each fits and order by ROI/effort
+- Output: 5 ideas with concrete first-week steps and hand-off skills
+
+### Example 2 — Series A SaaS, B2B, $50K/mo budget
+- Input: "We have budget, are B2B, need to 3x pipeline this quarter"
+- Action: Filter to B2B/paid-channel ideas — LinkedIn ads, podcast sponsorships, integration partnerships, webinar series, comparison pages; sequence based on lead time
+- Output: 5 ideas with timeline-to-impact, budget per idea, exec sponsor needed

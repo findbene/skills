@@ -1,17 +1,6 @@
 ---
 name: seo-sitemap
-description: >
-  XML sitemap analysis, validation, and generation with industry-specific templates
-  and programmatic SEO quality gates. Validates format, URL count limits (50k/file),
-  status codes, noindex/redirect contamination, and deprecated tags (priority,
-  changefreq ignored by Google). Generates sitemaps with sitemap index for large
-  sites, enforces thin-content safeguards (warning at 30+ location pages, hard stop
-  at 50+), and produces STRUCTURE.md documentation. Make sure to use this skill
-  whenever the user mentions: "sitemap", "XML sitemap", "generate sitemap", "sitemap
-  issues", "sitemap errors", "missing from sitemap", "sitemap not found",
-  "submit sitemap", "sitemap index", "sitemap structure", "Google sitemap",
-  "robots.txt sitemap", or any request to create, fix, or analyze a website's
-  sitemap — even if they just say "help Google find my pages".
+description: 'XML sitemap analysis, validation, and generation with industry-specific templates and programmatic SEO quality gates. Triggers: "use seo-sitemap", "optimize seo sitemap", "seo sitemap".'
 user-invokable: true
 argument-hint: "[url or generate]"
 allowed-tools:
@@ -57,15 +46,15 @@ allowed-tools:
 ## Mode 2: Generate New Sitemap
 
 ### Process
-1. Ask for business type (or auto-detect from existing site)
-2. Load industry template from `../seo-plan/assets/` directory
-3. Interactive structure planning with user
-4. Apply quality gates:
+1. Ask for business type (or auto-detect from existing site) → verify: user confirms
+2. Load industry template from `../seo-plan/assets/` directory → verify: file content matches expected shape
+3. Interactive structure planning with user → verify: step output matches expected outcome
+4. Apply quality gates: → verify: diff matches intended change
    - ⚠️ WARNING at 30+ location pages (require 60%+ unique content)
    - 🛑 HARD STOP at 50+ location pages (require justification)
-5. Generate valid XML output
-6. Split at 50k URLs with sitemap index
-7. Generate STRUCTURE.md documentation
+5. Generate valid XML output → verify: output exists + parses without error
+6. Split at 50k URLs with sitemap index → verify: step output matches expected outcome
+7. Generate STRUCTURE.md documentation → verify: output exists + parses without error
 
 ### Safe Programmatic Pages (OK at scale)
 ✅ Integration pages (with real setup docs)
@@ -126,3 +115,40 @@ allowed-tools:
 - `sitemap.xml` (or split files with index)
 - `STRUCTURE.md`: site architecture documentation
 - URL count and organization summary
+
+## When NOT to use
+
+- Task is unrelated to seo sitemap — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Sitemap needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo sitemap
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo sitemap
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

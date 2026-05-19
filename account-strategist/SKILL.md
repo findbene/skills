@@ -1,6 +1,7 @@
 ---
 name: account-strategist
-description: "Post-sale account strategist for land-and-expand execution, QBR facilitation, stakeholder mapping, and net revenue retention for Citadel AI clients. Use this skill any time a client relationship needs to be grown, expansion opportunities need to be identified, a QBR needs to be planned, or client churn risk needs to be addressed. Trigger immediately on: \"account expansion\", \"upsell\", \"client retention\", \"QBR\", \"quarterly review\", \"expand the account\", \"client health\", \"churn risk\", \"client is unhappy\", \"NRR\", \"multi-thread\", \"expansion opportunity\", \"customer success\", \"account growth\". If someone asks \"how do I grow this account?\" or \"the client seems unhappy\" this skill MUST trigger."
+description: 'Post-sale account strategist for land-and-expand execution, QBR facilitation, stakeholder mapping, and net revenue retention f. Triggers: "use account-strategist", "account strategist", "account task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Account Strategist
@@ -24,9 +25,9 @@ Score every account monthly:
 
 ## Expansion Signal Framework
 Three conditions must ALL be true before pitching expansion:
-1. **Signal**: Usage at 80%+ capacity, new hire in relevant department, or strategic initiative requiring more
-2. **Timing**: Health is Green or Yellow-improving
-3. **Stakeholder**: Champion is aligned and business case exists
+1. **Signal**: Usage at 80%+ capacity, new hire in relevant department, or strategic initiative requiring more → verify: step output matches expected outcome
+2. **Timing**: Health is Green or Yellow-improving → verify: step output matches expected outcome
+3. **Stakeholder**: Champion is aligned and business case exists → verify: step output matches expected outcome
 
 ## QBR Structure (60 minutes — forward-looking, not status report)
 ```
@@ -72,3 +73,41 @@ Expansion trigger: "You're handling 300 calls/month. At your growth rate (30%/mo
 - Expansion pipeline: 3x quarterly target
 - Zero single-threaded accounts
 - Churn predicted 90+ days before renewal
+
+## When NOT to use
+
+- Pre-sale / net-new prospecting — use a `deal-strategist` or `outbound-strategist` skill instead
+- Active churn fire (renewal in 30 days, customer angry) — go to incident/save-play motion, skip the expansion framework
+- Pure pricing or contract negotiation — use `pricing-strategy` or `proposal-strategist`
+- Single transactional vendor relationship with no champion or recurring usage
+- Marketing-led nurture for unqualified contacts — this skill assumes a live paying account
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Let me pitch the upsell now, they just closed" | New customers churn fastest; no value delivered = no expansion right |
+| "We only talk to one person but they love us" | Single-threaded = one departure away from full churn |
+| "Health is red but the upsell quota is due" | Pitching an unhealthy account accelerates churn — worse than missing quota |
+| "QBR is a status update on what we shipped" | QBR is forward-looking on THEIR roadmap; status reports get cancelled |
+
+## Output Contract
+
+Done when:
+- Account health scorecard filled (5 signals, Green/Yellow/Red per signal)
+- Stakeholder map has 3+ named contacts with role/influence/sentiment
+- Expansion play OR save play chosen with the 3-condition gate evaluated
+- Mutual Action Plan with owners + dates for both sides
+- Next executive contact scheduled within the health-tier cadence
+
+## Examples
+
+### Example 1 — Healthy customer, 80% capacity hit
+- Input: "Our voice-agent customer just hit 240 of their 300-call monthly capacity, 30% MoM growth, champion still active"
+- Action: Score health Green across all 5 signals → confirm expansion signal (usage), timing (Green), stakeholder (champion aligned) → draft capacity-trigger pitch with growth math
+- Output: Expansion proposal tied to capacity exhaustion in 8 weeks; QBR scheduled; champion enablement kit refreshed with ROI numbers
+
+### Example 2 — Champion departed mid-cycle
+- Input: "Our main contact just left, renewal in 4 months"
+- Action: Flag as Yellow-trending-Red, suspend any in-flight expansion pitch, run multi-thread play to identify new champion + economic buyer, schedule re-discovery call within 7 days
+- Output: Stakeholder map rebuilt with 3 new threads; save-play timeline; re-discovery agenda focused on new owner's priorities, not legacy ROI deck

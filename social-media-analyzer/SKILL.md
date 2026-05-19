@@ -1,6 +1,7 @@
 ---
 name: "social-media-analyzer"
-description: Social media campaign analysis and performance tracking. Calculates engagement rates, ROI, and benchmarks across platforms. Use for analyzing social media performance, calculating engagement rate, measuring campaign ROI, comparing platform metrics, or benchmarking against industry standards.
+description: "Social media campaign analysis and performance tracking. Triggers: 'use social-media-analyzer', 'social media analyzer', 'social-media-analyzer task'."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - analyze social media
   - calculate engagement rate
@@ -35,14 +36,14 @@ Campaign performance analysis with engagement metrics, ROI calculations, and pla
 
 Analyze social media campaign performance:
 
-1. Validate input data completeness (reach > 0, dates valid)
-2. Calculate engagement metrics per post
-3. Aggregate campaign-level metrics
-4. Calculate ROI if ad spend provided
-5. Compare against platform benchmarks
-6. Identify top and bottom performers
-7. Generate recommendations
-8. **Validation:** Engagement rate < 100%, ROI matches spend data
+1. Validate input data completeness (reach > 0, dates valid) → verify: step output matches expected outcome
+2. Calculate engagement metrics per post → verify: step output matches expected outcome
+3. Aggregate campaign-level metrics → verify: step output matches expected outcome
+4. Calculate ROI if ad spend provided → verify: step output matches expected outcome
+5. Compare against platform benchmarks → verify: step output matches expected outcome
+6. Identify top and bottom performers → verify: step output matches expected outcome
+7. Generate recommendations → verify: output file exists + no syntax error
+8. **Validation:** Engagement rate < 100%, ROI matches spend data → verify: step output matches expected outcome
 
 ### Input Requirements
 
@@ -104,12 +105,12 @@ Engagement Rate = (Likes + Comments + Shares + Saves) / Reach × 100
 
 Calculate return on ad spend:
 
-1. Sum total engagements across posts
-2. Calculate cost per engagement (CPE)
-3. Calculate cost per click (CPC) if clicks available
-4. Estimate engagement value using benchmark rates
-5. Calculate ROI percentage
-6. **Validation:** ROI = (Value - Spend) / Spend × 100
+1. Sum total engagements across posts → verify: step output matches expected outcome
+2. Calculate cost per engagement (CPE) → verify: step output matches expected outcome
+3. Calculate cost per click (CPC) if clicks available → verify: step output matches expected outcome
+4. Estimate engagement value using benchmark rates → verify: step output matches expected outcome
+5. Calculate ROI percentage → verify: step output matches expected outcome
+6. **Validation:** ROI = (Value - Spend) / Spend × 100 → verify: step output matches expected outcome
 
 ### ROI Formulas
 
@@ -307,3 +308,28 @@ All output passes quality verification:
 - **campaign-analytics**: For cross-channel analytics including social.
 - **content-strategy**: For planning social content themes.
 - **marketing-context**: Provides audience context for better analysis.
+
+## When NOT to use
+
+- Task is unrelated to social media analyzer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Social Media Analyzer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for social media analyzer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

@@ -1,13 +1,7 @@
 ---
 name: client-onboarding-auditor
-description: >
-  Audits a client onboarding flow — whether it's a document, a checklist, a Notion
-  page, a sequence of emails, or a verbal description — and identifies friction points,
-  missing steps, drop-off risks, and improvement opportunities. Use this skill whenever
-  the user wants to review or improve how they onboard clients, asks "is my onboarding
-  good?", shares an onboarding doc to get feedback, or is building a new client
-  onboarding process from scratch. Also relevant when they mention churn, slow starts,
-  or clients who "didn't know what to expect."
+description: 'Audits a client onboarding flow — whether it''s a document, a checklist, a Notion page, a sequence of emails, or a. Triggers: "use client-onboarding-auditor", "client onboarding auditor", "client task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Client Onboarding Auditor
@@ -103,3 +97,40 @@ flow would look like — 3–5 steps with owners and timing.
 Be direct. SMB operators don't need softening — they need to know what's broken.
 Frame problems as fixable, not damning. Prioritize ruthlessly: one P0 issue matters
 more than five minor polish notes.
+
+## When NOT to use
+
+- Task is unrelated to client onboarding auditor — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Client Onboarding Auditor needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for client onboarding auditor
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving client onboarding auditor
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

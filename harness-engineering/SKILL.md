@@ -1,6 +1,7 @@
 ---
 name: harness-engineering
-description: "Agent harness engineering for building reusable evaluation frameworks, test scaffolding, and skill validation workflows. Use this skill any time an agent eval harness needs to be built, skill test scaffolding needs to be created, or automated agent testing frameworks need to be designed. Trigger immediately on: \"eval harness\", \"agent harness\", \"skill evaluation\", \"test harness\", \"agent testing\", \"evaluation framework\", \"harness engineering\", \"skill benchmark\", \"agent eval\", \"test scaffold\", \"evaluation setup\", \"with_skill vs without_skill\", \"skill test\", \"harness setup\". If someone says \"build an eval harness\" or \"test this agent systematically\" this skill MUST trigger."
+description: 'Agent harness engineering for building reusable evaluation frameworks, test scaffolding, and skill validation workflows. Triggers: "use harness-engineering", "harness engineering", "harness task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Harness Engineering
@@ -62,7 +63,44 @@ Install in `~/.claude/` for cross-project benefit: global skills, hooks, slash c
 ## The Data Edge
 
 Everyone uses the same models. Your competitive advantage is:
-1. **Quality of your data** — Well-structured, comprehensive context
-2. **Shape of your data** — Agent-friendly formatting and organization
-3. **Domain-specific knowledge** — Your unique expertise encoded as skills
-4. **Consistency of collection** — Regular data gathering and organization
+1. **Quality of your data** — Well-structured, comprehensive context → verify: step output matches expected outcome
+2. **Shape of your data** — Agent-friendly formatting and organization → verify: step output matches expected outcome
+3. **Domain-specific knowledge** — Your unique expertise encoded as skills → verify: step output matches expected outcome
+4. **Consistency of collection** — Regular data gathering and organization → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to harness engineering — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Harness Engineering needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for harness engineering
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving harness engineering
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: webapp-testing
-description: "Web application testing using Playwright for E2E tests, interaction automation, and functional testing against local dev servers. Use this skill any time a web application needs to be tested with Playwright, E2E tests need to be written, or interactive web app testing needs to be automated against a running server. Trigger immediately on: \"test this webapp\", \"Playwright\", \"E2E test\", \"web app test\", \"browser test\", \"test locally\", \"playwright test\", \"functional test\", \"automated web test\", \"UI test\", \"test this page\", \"web test automation\", \"visual regression\", \"test the frontend\". If someone says \"test this web app\" or \"write Playwright tests for this\" this skill MUST trigger."
+description: 'Web application testing using Playwright for E2E tests, interaction automation, and functional testing against local dev servers. Triggers: "use webapp-testing", "webapp testing", "webapp task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Web Application Testing
@@ -16,10 +17,10 @@ Is it static HTML?
    |- Is server already running?
       |- No -> Use with_server.py helper
       |- Yes -> Reconnaissance-then-action:
-               1. Navigate + wait for networkidle
-               2. Take screenshot or inspect DOM
-               3. Identify selectors
-               4. Execute actions
+               1. Navigate + wait for networkidle → verify: step output matches expected outcome
+               2. Take screenshot or inspect DOM → verify: step output matches expected outcome
+               3. Identify selectors → verify: step output matches expected outcome
+               4. Execute actions → verify: command exit code 0
 ```
 
 ## Basic Playwright Script
@@ -81,3 +82,42 @@ page.click('[data-testid="submit"]')      # By test ID
 - Use descriptive selectors (text, role, CSS, IDs)
 - Capture screenshots for debugging failures
 - Always close the browser when done
+
+## When NOT to use
+
+- Unit/component testing (no browser needed) — use `senior-qa` or Jest/Vitest
+- Cross-browser cloud testing — use `browserstack` or `playwright-pro` (parallel devices)
+- Accessibility-only check — use `a11y-audit`
+- Mobile native app testing — use Appium / Detox, not Playwright
+- Visual regression baseline management — Playwright works but use a dedicated VR service
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Use `page.waitForTimeout(2000)`" | Brittle; use `waitForSelector` / `waitForResponse` / `waitForLoadState('networkidle')` |
+| "Run headed in CI for visibility" | Slower and flakier; run headless with traces/screenshots on failure |
+| "Use XPath for everything" | Prefer `getByRole`, `getByText`, `getByLabel` — more resilient to refactors |
+| "Skip the with_server helper, start server manually" | Manual server start causes race conditions; the helper waits for healthcheck |
+
+## Output Contract
+
+Finished output must contain:
+- Playwright script with `sync_playwright()` or `async_playwright()` context manager
+- Resilient selectors (role/label/text first, CSS as fallback)
+- Explicit waits (`wait_for_selector`, `wait_for_load_state`) — no arbitrary sleeps
+- Screenshot/trace artifacts captured on failure
+- Browser closed in `finally` or via context manager
+- Server lifecycle handled (with_server.py if dev server needed)
+
+## Examples
+
+**Example 1 — Test a Next.js login flow**
+- Input: "Test login at localhost:3000"
+- Action: Use `with_server.py` → launch Chromium headless → fill email + password → click "Sign in" → wait for dashboard → assert URL + text
+- Output: Python test script, screenshot on failure, dev server started+stopped, all selectors role/label based
+
+**Example 2 — Static HTML form submission**
+- Input: "Test that this static HTML form submits and shows success"
+- Action: Read HTML → write Playwright script with `file://` URL → fill inputs by label → click submit → assert success element visible
+- Output: Self-contained Python script, no server needed, asserts on success state

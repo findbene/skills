@@ -1,6 +1,7 @@
 ---
 name: "security-pen-testing"
-description: "Use when the user asks to perform security audits, penetration testing, vulnerability scanning, OWASP Top 10 checks, or offensive security assessments. Covers static analysis, dependency scanning, secret detection, API security testing, and pen test report generation."
+description: 'Use when the user asks to perform security audits, penetration testing, vulnerability scanning, OWASP Top 10 checks, or o. Triggers: "use security-pen-testing", "security pen testing", "security task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Security Penetration Testing
@@ -100,10 +101,10 @@ See [attack_patterns.md](references/attack_patterns.md) for code patterns and de
 **Ecosystem commands:** `npm audit`, `pip audit`, `govulncheck ./...`, `bundle audit check`
 
 **CVE Triage Workflow:**
-1. **Collect** — Run ecosystem audit tools, aggregate findings
-2. **Deduplicate** — Group by CVE ID across direct and transitive deps
-3. **Prioritize** — Critical + exploitable + reachable = fix immediately
-4. **Remediate** — Upgrade, patch, or mitigate with compensating controls
+1. **Collect** — Run ecosystem audit tools, aggregate findings → verify: command exit code 0
+2. **Deduplicate** — Group by CVE ID across direct and transitive deps → verify: step output matches expected outcome
+3. **Prioritize** — Critical + exploitable + reachable = fix immediately → verify: diff matches intended change
+4. **Remediate** — Upgrade, patch, or mitigate with compensating controls → verify: diff matches intended change
 5. **Verify** — Rerun audit to confirm fix, update lock files
 
 ```bash
@@ -207,13 +208,13 @@ python scripts/pentest_report_generator.py --findings findings.json --format jso
 
 ### Report Structure
 
-1. **Executive Summary**: Business impact, overall risk level, top 3 findings
-2. **Scope**: What was tested, what was excluded, testing dates
-3. **Methodology**: Tools used, testing approach (black/gray/white box)
-4. **Findings Table**: Sorted by severity with CVSS scores
-5. **Detailed Findings**: Each with description, evidence, impact, remediation
-6. **Remediation Priority Matrix**: Effort vs. impact for each fix
-7. **Appendix**: Raw tool output, full payload lists
+1. **Executive Summary**: Business impact, overall risk level, top 3 findings → verify: step output matches expected outcome
+2. **Scope**: What was tested, what was excluded, testing dates → verify: all checks pass
+3. **Methodology**: Tools used, testing approach (black/gray/white box) → verify: all checks pass
+4. **Findings Table**: Sorted by severity with CVSS scores → verify: step output matches expected outcome
+5. **Detailed Findings**: Each with description, evidence, impact, remediation → verify: step output matches expected outcome
+6. **Remediation Priority Matrix**: Effort vs. impact for each fix → verify: diff matches intended change
+7. **Appendix**: Raw tool output, full payload lists → verify: file content matches expected shape
 
 ---
 
@@ -252,23 +253,23 @@ curl -sI https://target.com | grep -iE "(strict-transport|content-security|x-fra
 ### Workflow 2: Full Penetration Test (Multi-Day Assessment)
 
 **Day 1 — Reconnaissance:**
-1. Map the attack surface: endpoints, authentication flows, third-party integrations
-2. Run automated OWASP checklist (full scope)
-3. Run dependency audit across all manifests
-4. Run secret scan on full git history
+1. Map the attack surface: endpoints, authentication flows, third-party integrations → verify: step output matches expected outcome
+2. Run automated OWASP checklist (full scope) → verify: command exit code 0
+3. Run dependency audit across all manifests → verify: command exit code 0
+4. Run secret scan on full git history → verify: command exit code 0
 
 **Day 2 — Manual Testing:**
-1. Test authentication and authorization (IDOR, BOLA, BFLA)
-2. Test injection points (SQLi, XSS, SSRF, command injection)
-3. Test business logic flaws
-4. Test API-specific vulnerabilities (GraphQL, rate limiting, mass assignment)
+1. Test authentication and authorization (IDOR, BOLA, BFLA) → verify: all tests pass
+2. Test injection points (SQLi, XSS, SSRF, command injection) → verify: all tests pass
+3. Test business logic flaws → verify: all tests pass
+4. Test API-specific vulnerabilities (GraphQL, rate limiting, mass assignment) → verify: all tests pass
 
 **Day 3 — Infrastructure and Reporting:**
-1. Check cloud storage permissions
+1. Check cloud storage permissions → verify: all tests pass
 2. Verify TLS configuration and security headers
-3. Port scan for unnecessary services
-4. Compile findings into structured JSON
-5. Generate pen test report
+3. Port scan for unnecessary services → verify: step output matches expected outcome
+4. Compile findings into structured JSON → verify: step output matches expected outcome
+5. Generate pen test report → verify: output file exists + no syntax error
 
 ```bash
 # Generate final report
@@ -285,14 +286,14 @@ Automated security checks on every PR: secret scanning (TruffleHog), dependency 
 
 ## Anti-Patterns
 
-1. **Testing in production without authorization** — Always get written permission and use staging/test environments when possible
-2. **Ignoring low-severity findings** — Low findings compound; a chain of lows can become a critical exploit path
-3. **Skipping responsible disclosure** — Every vulnerability found must be reported through proper channels
-4. **Relying solely on automated tools** — Tools miss business logic flaws, chained exploits, and novel attack vectors
-5. **Testing without a defined scope** — Scope creep leads to legal liability; document what is and isn't in scope
-6. **Reporting without remediation guidance** — Every finding must include actionable remediation steps
-7. **Storing evidence insecurely** — Pen test evidence (screenshots, payloads, tokens) is sensitive; encrypt and restrict access
-8. **One-time testing** — Security testing must be continuous; integrate into CI/CD and schedule periodic assessments
+1. **Testing in production without authorization** — Always get written permission and use staging/test environments when possible → verify: all checks pass
+2. **Ignoring low-severity findings** — Low findings compound; a chain of lows can become a critical exploit path → verify: step output matches expected outcome
+3. **Skipping responsible disclosure** — Every vulnerability found must be reported through proper channels → verify: step output matches expected outcome
+4. **Relying solely on automated tools** — Tools miss business logic flaws, chained exploits, and novel attack vectors → verify: step output matches expected outcome
+5. **Testing without a defined scope** — Scope creep leads to legal liability; document what is and isn't in scope → verify: all checks pass
+6. **Reporting without remediation guidance** — Every finding must include actionable remediation steps → verify: step output matches expected outcome
+7. **Storing evidence insecurely** — Pen test evidence (screenshots, payloads, tokens) is sensitive; encrypt and restrict access → verify: file content matches expected shape
+8. **One-time testing** — Security testing must be continuous; integrate into CI/CD and schedule periodic assessments → verify: all checks pass
 
 ---
 
@@ -304,3 +305,40 @@ Automated security checks on every PR: secret scanning (TruffleHog), dependency 
 | [senior-security](../senior-security/SKILL.md) | Security policy and governance — frameworks, risk registers, compliance |
 | [dependency-auditor](../../engineering/dependency-auditor/SKILL.md) | Deep supply chain security — SBOMs, license compliance, transitive risk |
 | [code-reviewer](../code-reviewer/SKILL.md) | Code review practices — includes security review checklist |
+
+## When NOT to use
+
+- Task is unrelated to security pen testing — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Security Pen Testing needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for security pen testing
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving security pen testing
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

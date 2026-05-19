@@ -1,6 +1,7 @@
 ---
 name: ads-meta
-description: "Meta Ads deep analysis covering Facebook and Instagram advertising. Evaluates 50 checks across Pixel/CAPI health, creative diversity and fatigue, account structure, and audience targeting. Includes Advantage+ assessment. Use when user says Meta Ads, Facebook Ads, Instagram Ads, Advantage+, or Meta campaign."
+description: "Meta Ads deep analysis covering Facebook and Instagram advertising. Evaluates 50 checks across Pixel/CAPI health, creative diversity and fatigue,. Triggers: 'use ads-meta', 'run ads meta', 'ads meta'."
+allowed-tools: Glob, Grep, Read
 user-invokable: false
 ---
 
@@ -16,13 +17,13 @@ distinct concepts, angles, and formats over volume of similar variants.
 
 ## Process
 
-1. Collect Meta Ads data (Ads Manager export, Events Manager screenshot, EMQ scores)
-2. Read `ads/references/meta-audit.md` for full 50-check audit
-3. Read `ads/references/benchmarks.md` for Meta-specific benchmarks
-4. Read `ads/references/scoring-system.md` for weighted scoring
-5. Evaluate all applicable checks as PASS, WARNING, or FAIL
-6. Calculate Meta Ads Health Score (0-100)
-7. Generate findings report with action plan
+1. Collect Meta Ads data (Ads Manager export, Events Manager screenshot, EMQ scores) → verify: step output matches expected outcome
+2. Read `ads/references/meta-audit.md` for full 50-check audit → verify: file readable + content matches expected shape
+3. Read `ads/references/benchmarks.md` for Meta-specific benchmarks → verify: file readable + content matches expected shape
+4. Read `ads/references/scoring-system.md` for weighted scoring → verify: file readable + content matches expected shape
+5. Evaluate all applicable checks as PASS, WARNING, or FAIL → verify: all tests pass
+6. Calculate Meta Ads Health Score (0-100) → verify: step output matches expected outcome
+7. Generate findings report with action plan → verify: output file exists + no syntax error
 
 ## What to Analyze
 
@@ -140,3 +141,40 @@ Currently ~0.04% of total spend. Emerging channel. Evaluate:
 - Is Threads placement enabled in Advantage+ Placements?
 - Monitor CPM and engagement vs other placements
 - Early-mover advantage for brands with active Threads presence
+
+## When NOT to use
+
+- Task is unrelated to ads meta — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ads Meta needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ads meta
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ads meta
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

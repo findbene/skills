@@ -1,6 +1,6 @@
 ---
 name: stitch-swiftui-components
-description: Converts Stitch mobile designs into SwiftUI views for native iOS apps — VStack/HStack/ZStack layout mapping, Color asset tokens with dark mode, NavigationStack/TabView routing, and Xcode project structure.
+description: "Converts Stitch mobile designs into SwiftUI views for native iOS apps — VStack/HStack/ZStack l. Triggers: 'use stitch-swiftui-components', 'stitch swiftui components', 'stitch-swiftui-components task."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -31,8 +31,8 @@ Use this skill when:
 
 1. `list_tools` → find Stitch MCP prefix
 2. `[prefix]:get_screen` → fetch metadata
-3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"`
-4. Check `screenshot.downloadUrl` — confirm mobile layout before converting
+3. Download HTML: `bash scripts/fetch-stitch.sh "[htmlCode.downloadUrl]" "temp/source.html"` → verify: file content matches expected shape
+4. Check `screenshot.downloadUrl` — confirm mobile layout before converting → verify: file content matches expected shape
 
 Only convert **MOBILE** designs. Desktop Stitch designs don't map well to SwiftUI without significant layout rethinking.
 
@@ -398,11 +398,11 @@ var animation: Animation {
 
 1. **Verify** the Stitch design uses `deviceType: MOBILE`
 2. **Create Xcode project** — File → New → App, SwiftUI interface, Swift language
-3. **Data layer** — create `Models/MockData.swift` from static content in the design
-4. **Theme** — create `Theme/ThemeTokens.swift` with extracted hex values, and `Color+App.swift`
-5. **Components** — convert the Stitch HTML sections to SwiftUI views, file by file
-6. **Navigation** — wire up `TabView` (tab bar) or `NavigationStack` (stack)
-7. **Build and run** — in Xcode, Cmd+R. Test on both light and dark mode (⌃⌘A toggles appearance in Simulator)
+3. **Data layer** — create `Models/MockData.swift` from static content in the design → verify: output file exists + no syntax error
+4. **Theme** — create `Theme/ThemeTokens.swift` with extracted hex values, and `Color+App.swift` → verify: output file exists + no syntax error
+5. **Components** — convert the Stitch HTML sections to SwiftUI views, file by file → verify: step output matches expected outcome
+6. **Navigation** — wire up `TabView` (tab bar) or `NavigationStack` (stack) → verify: step output matches expected outcome
+7. **Build and run** — in Xcode, Cmd+R. Test on both light and dark mode (⌃⌘A toggles appearance in Simulator) → verify: command exit code 0
 
 ## Troubleshooting
 
@@ -416,9 +416,48 @@ var animation: Animation {
 | Sheet not dismissible | Add `@Environment(\.dismiss) var dismiss` and call `dismiss()` in the sheet |
 | Preview crashes | Check `#Preview` has valid mock data — never optional-unwrap without fallback |
 
+## When NOT to use
+
+- Android (or cross-platform iOS + Android) — use `stitch-react-native-components`
+- Web app or WebView — use `stitch-html-components` or `stitch-react-components`
+- macOS-only AppKit app — SwiftUI works but skill targets iOS conventions
+- UIKit-only legacy app — produce SwiftUI for new screens, not retrofit
+- Pre-iOS 16 deployment target — skill targets iOS 16+ APIs
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Use hex colors directly in views" | Color assets in `Assets.xcassets` with light+dark variants are required — hex inline breaks dark mode |
+| "ZStack everything to replicate CSS positioning" | Map CSS to VStack/HStack/LazyVGrid instead — overusing ZStack hurts performance and a11y |
+| "Skip NavigationStack, just push views manually" | NavigationStack is the iOS 16+ standard for routing — skipping it breaks deep links and state restoration |
+| "44pt tap target is overkill" | Apple HIG mandates 44pt minimum — violations get rejected in App Review |
+
+## Output Contract
+
+Finished output must contain:
+- `.swift` files with `View` structs and `#Preview` providers
+- Color assets in `Assets.xcassets` with both Any Appearance and Dark variants
+- Layout via VStack/HStack/ZStack/LazyVGrid (not absolute frames where avoidable)
+- NavigationStack or TabView for routing as appropriate
+- `@State`, `@Binding`, `@Environment` used correctly (not all `@State`)
+- 44pt minimum tap targets verified
+- Accessibility labels on icons and non-text controls
+- Adheres to Apple HIG (see `apple-hig-expert` for full audit)
+
+## Examples
+
+**Example 1 — Convert mobile Stitch screens to iOS app**
+- Input: "Build the iOS version of this Stitch app — Home, Profile, Settings"
+- Action: Fetch screens → produce `HomeView.swift`, `ProfileView.swift`, `SettingsView.swift`, `RootView.swift` with TabView → color assets for light/dark → NavigationStack inside each tab
+- Output: Xcode project structure, 4 SwiftUI views, color assets, previews working, dark mode verified
+
+**Example 2 — Single SwiftUI card view**
+- Input: "Just the workout card from the Stitch screen as a SwiftUI view"
+- Action: Map HTML card to VStack with thumbnail, title, badge, button → use SF Symbols for icons → color from asset catalog
+- Output: `WorkoutCard.swift` with `#Preview`, accessible labels, 44pt button, dark mode supported
+
+
 ## References
 
-- `resources/component-template.swift` — Boilerplate SwiftUI view
-- `resources/layout-mapping.md` — Full HTML/CSS → SwiftUI reference
-- `resources/architecture-checklist.md` — Pre-ship checklist
-- `scripts/fetch-stitch.sh` — Reliable GCS HTML downloader
+See `references/details.md` for extended sections.

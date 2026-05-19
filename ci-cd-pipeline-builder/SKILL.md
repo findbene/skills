@@ -1,4 +1,9 @@
 ---
+name: ci-cd-pipeline-builder
+description: 'CI/CD Pipeline Builder. Triggers: "use ci-cd-pipeline-builder", "ci cd pipeline builder", "ci task".'
+allowed-tools: Bash, Glob, Grep, Read
+---
+---
 name: "ci-cd-pipeline-builder"
 description: "Generate CI/CD pipelines from project stack signals - GitHub Actions, GitLab CI, CircleCI, or Jenkins - with lint, test, build, and environment-aware deploy stages. Use when setting up CI/CD from scratch, fixing broken pipelines, or adding new stages. Trigger on: 'CI/CD pipeline', 'GitHub Actions', 'GitLab CI', 'pipeline setup', 'automate builds', 'deploy pipeline', 'continuous integration', 'continuous deployment', 'build automation', 'CI pipeline'."
 
@@ -58,10 +63,10 @@ python3 scripts/pipeline_generator.py --repo . --platform gitlab --output .gitla
 
 ### 3. Validate Before Merge
 
-1. Confirm commands exist in project (`test`, `lint`, `build`).
-2. Run generated pipeline locally where possible.
-3. Ensure required secrets/env vars are documented.
-4. Keep deploy jobs gated by protected branches/environments.
+1. Confirm commands exist in project (`test`, `lint`, `build`). → verify: all checks pass
+2. Run generated pipeline locally where possible. → verify: output exists + parses without error
+3. Ensure required secrets/env vars are documented. → verify: step output matches expected outcome
+4. Keep deploy jobs gated by protected branches/environments. → verify: step output matches expected outcome
 
 ### 4. Add Deployment Stages Safely
 
@@ -81,21 +86,21 @@ python3 scripts/pipeline_generator.py --repo . --platform gitlab --output .gitla
 
 ## Common Pitfalls
 
-1. Copying a Node pipeline into Python/Go repos
-2. Enabling deploy jobs before stable tests
-3. Forgetting dependency cache keys
-4. Running expensive matrix builds for every trivial branch
-5. Missing branch protections around prod deploy jobs
-6. Hardcoding secrets in YAML instead of CI secret stores
+1. Copying a Node pipeline into Python/Go repos → verify: dependency resolves + import works
+2. Enabling deploy jobs before stable tests → verify: all checks pass
+3. Forgetting dependency cache keys → verify: step output matches expected outcome
+4. Running expensive matrix builds for every trivial branch → verify: command exit code 0
+5. Missing branch protections around prod deploy jobs → verify: step output matches expected outcome
+6. Hardcoding secrets in YAML instead of CI secret stores → verify: step output matches expected outcome
 
 ## Best Practices
 
-1. Detect stack first, then generate pipeline.
-2. Keep generated baseline under version control.
-3. Add one optimization at a time (cache, matrix, split jobs).
-4. Require green CI before deployment jobs.
-5. Use protected environments for production credentials.
-6. Regenerate pipeline when stack changes significantly.
+1. Detect stack first, then generate pipeline. → verify: output exists + parses without error
+2. Keep generated baseline under version control. → verify: output exists + parses without error
+3. Add one optimization at a time (cache, matrix, split jobs). → verify: dependency resolves + import works
+4. Require green CI before deployment jobs. → verify: step output matches expected outcome
+5. Use protected environments for production credentials. → verify: step output matches expected outcome
+6. Regenerate pipeline when stack changes significantly. → verify: output exists + parses without error
 
 ## References
 
@@ -117,10 +122,10 @@ The stack detector prioritizes deterministic file signals over heuristics:
 
 Start with a minimal, reliable pipeline:
 
-1. Checkout and setup runtime
-2. Install dependencies with cache strategy
-3. Run lint, test, build in separate steps
-4. Publish artifacts only after passing checks
+1. Checkout and setup runtime → verify: command exit code 0
+2. Install dependencies with cache strategy → verify: dependency resolves + import works
+3. Run lint, test, build in separate steps → verify: command exit code 0
+4. Publish artifacts only after passing checks → verify: step output matches expected outcome
 
 Then layer advanced behavior (matrix builds, security scans, deploy gates).
 
@@ -132,11 +137,11 @@ Then layer advanced behavior (matrix builds, security scans, deploy gates).
 
 ## Validation Checklist
 
-1. Generated YAML parses successfully.
-2. All referenced commands exist in the repo.
-3. Cache strategy matches package manager.
-4. Required secrets are documented, not embedded.
-5. Branch/protected-environment rules match org policy.
+1. Generated YAML parses successfully. → verify: output exists + parses without error
+2. All referenced commands exist in the repo. → verify: step output matches expected outcome
+3. Cache strategy matches package manager. → verify: step output matches expected outcome
+4. Required secrets are documented, not embedded. → verify: step output matches expected outcome
+5. Branch/protected-environment rules match org policy. → verify: step output matches expected outcome
 
 ## Scaling Guidance
 
@@ -144,3 +149,40 @@ Then layer advanced behavior (matrix builds, security scans, deploy gates).
 - Introduce test matrix only when compatibility truly requires it.
 - Separate deploy jobs from CI jobs to keep feedback fast.
 - Track pipeline duration and flakiness as first-class metrics.
+
+## When NOT to use
+
+- Task is unrelated to ci cd pipeline builder — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ci Cd Pipeline Builder needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ci cd pipeline builder
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ci cd pipeline builder
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

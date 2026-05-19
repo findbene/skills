@@ -1,6 +1,7 @@
 ---
 name: "risk-management-specialist"
-description: Medical device risk management specialist implementing ISO 14971 throughout product lifecycle. Provides risk analysis, risk evaluation, risk control, and post-production information analysis. Use when user mentions risk management, ISO 14971, risk analysis, FMEA, fault tree analysis, hazard identification, risk control, risk matrix, benefit-risk analysis, residual risk, risk acceptability, or post-market risk.
+description: 'Medical device risk management specialist implementing ISO 14971 throughout product lifecycle. Triggers: "use risk-management-specialist", "risk management specialist", "risk task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Risk Management Specialist
@@ -28,28 +29,28 @@ Establish risk management process per ISO 14971.
 
 ### Workflow: Create Risk Management Plan
 
-1. Define scope of risk management activities:
+1. Define scope of risk management activities: → verify: step output matches expected outcome
    - Medical device identification
    - Lifecycle stages covered
    - Applicable standards and regulations
-2. Establish risk acceptability criteria:
+2. Establish risk acceptability criteria: → verify: step output matches expected outcome
    - Define probability categories (P1-P5)
    - Define severity categories (S1-S5)
    - Create risk matrix with acceptance thresholds
-3. Assign responsibilities:
+3. Assign responsibilities: → verify: step output matches expected outcome
    - Risk management lead
    - Subject matter experts
    - Approval authorities
-4. Define verification activities:
+4. Define verification activities: → verify: step output matches expected outcome
    - Methods for control verification
    - Acceptance criteria
-5. Plan production and post-production activities:
+5. Plan production and post-production activities: → verify: step output matches expected outcome
    - Information sources
    - Review triggers
    - Update procedures
-6. Obtain plan approval
-7. Establish risk management file
-8. **Validation:** Plan approved; acceptability criteria defined; responsibilities assigned; file established
+6. Obtain plan approval → verify: step output matches expected outcome
+7. Establish risk management file → verify: step output matches expected outcome
+8. **Validation:** Plan approved; acceptability criteria defined; responsibilities assigned; file established → verify: step output matches expected outcome
 
 ### Risk Management Plan Content
 
@@ -88,29 +89,29 @@ Identify hazards and estimate risks systematically.
 
 ### Workflow: Conduct Risk Analysis
 
-1. Define intended use and reasonably foreseeable misuse:
+1. Define intended use and reasonably foreseeable misuse: → verify: step output matches expected outcome
    - Medical indication
    - Patient population
    - User population
    - Use environment
-2. Select analysis method(s):
+2. Select analysis method(s): → verify: step output matches expected outcome
    - FMEA for component/function analysis
    - FTA for system-level analysis
    - HAZOP for process deviations
    - Use Error Analysis for user interaction
-3. Identify hazards by category:
+3. Identify hazards by category: → verify: step output matches expected outcome
    - Energy hazards (electrical, mechanical, thermal)
    - Biological hazards (bioburden, biocompatibility)
    - Chemical hazards (residues, leachables)
    - Operational hazards (software, use errors)
-4. Determine hazardous situations:
+4. Determine hazardous situations: → verify: step output matches expected outcome
    - Sequence of events
    - Foreseeable misuse scenarios
    - Single fault conditions
-5. Estimate probability of harm (P1-P5)
-6. Estimate severity of harm (S1-S5)
-7. Document in hazard analysis worksheet
-8. **Validation:** All hazard categories addressed; all hazards documented; probability and severity assigned
+5. Estimate probability of harm (P1-P5) → verify: step output matches expected outcome
+6. Estimate severity of harm (S1-S5) → verify: step output matches expected outcome
+7. Document in hazard analysis worksheet → verify: step output matches expected outcome
+8. **Validation:** All hazard categories addressed; all hazards documented; probability and severity assigned → verify: package installed + import succeeds
 
 ### Hazard Categories Checklist
 
@@ -167,17 +168,17 @@ Evaluate risks against acceptability criteria.
 
 ### Workflow: Evaluate Identified Risks
 
-1. Calculate initial risk level from probability × severity
-2. Compare to risk acceptability criteria
-3. For each risk, determine:
+1. Calculate initial risk level from probability × severity → verify: step output matches expected outcome
+2. Compare to risk acceptability criteria → verify: step output matches expected outcome
+3. For each risk, determine: → verify: step output matches expected outcome
    - Acceptable: Document and accept
    - ALARP: Proceed to risk control
    - Unacceptable: Mandatory risk control
-4. Document evaluation rationale
-5. Identify risks requiring benefit-risk analysis
-6. Complete benefit-risk analysis if applicable
-7. Compile risk evaluation summary
-8. **Validation:** All risks evaluated; acceptability determined; rationale documented
+4. Document evaluation rationale → verify: step output matches expected outcome
+5. Identify risks requiring benefit-risk analysis → verify: step output matches expected outcome
+6. Complete benefit-risk analysis if applicable → verify: step output matches expected outcome
+7. Compile risk evaluation summary → verify: step output matches expected outcome
+8. **Validation:** All risks evaluated; acceptability determined; rationale documented → verify: step output matches expected outcome
 
 ### Risk Evaluation Decision Tree
 
@@ -234,18 +235,18 @@ Implement and verify risk control measures.
 
 ### Workflow: Implement Risk Controls
 
-1. Identify risk control options:
+1. Identify risk control options: → verify: step output matches expected outcome
    - Inherent safety by design (Priority 1)
    - Protective measures in device (Priority 2)
    - Information for safety (Priority 3)
-2. Select optimal control following hierarchy
-3. Analyze control for new hazards introduced
-4. Document control in design requirements
-5. Implement control in design
-6. Develop verification protocol
-7. Execute verification and document results
-8. Evaluate residual risk with control in place
-9. **Validation:** Control implemented; verification passed; residual risk acceptable; no unaddressed new hazards
+2. Select optimal control following hierarchy → verify: step output matches expected outcome
+3. Analyze control for new hazards introduced → verify: step output matches expected outcome
+4. Document control in design requirements → verify: step output matches expected outcome
+5. Implement control in design → verify: step output matches expected outcome
+6. Develop verification protocol → verify: step output matches expected outcome
+7. Execute verification and document results → verify: command exit code 0
+8. Evaluate residual risk with control in place → verify: step output matches expected outcome
+9. **Validation:** Control implemented; verification passed; residual risk acceptable; no unaddressed new hazards → verify: package installed + import succeeds
 
 ### Risk Control Hierarchy
 
@@ -309,23 +310,23 @@ Monitor and update risk management throughout product lifecycle.
 
 ### Workflow: Post-Production Risk Monitoring
 
-1. Identify information sources:
+1. Identify information sources: → verify: step output matches expected outcome
    - Customer complaints
    - Service reports
    - Vigilance/adverse events
    - Literature monitoring
    - Clinical studies
-2. Establish collection procedures
-3. Define review triggers:
+2. Establish collection procedures → verify: step output matches expected outcome
+3. Define review triggers: → verify: step output matches expected outcome
    - New hazard identified
    - Increased frequency of known hazard
    - Serious incident
    - Regulatory feedback
-4. Analyze incoming information for risk relevance
-5. Update risk management file as needed
-6. Communicate significant findings
-7. Conduct periodic risk management review
-8. **Validation:** Information sources monitored; file current; reviews completed per schedule
+4. Analyze incoming information for risk relevance → verify: step output matches expected outcome
+5. Update risk management file as needed → verify: step output matches expected outcome
+6. Communicate significant findings → verify: step output matches expected outcome
+7. Conduct periodic risk management review → verify: step output matches expected outcome
+8. **Validation:** Information sources monitored; file current; reviews completed per schedule → verify: step output matches expected outcome
 
 ### Information Sources
 
@@ -449,3 +450,40 @@ What is the risk level?
 | [capa-officer](../capa-officer/) | Risk-based CAPA |
 | [regulatory-affairs-head](../regulatory-affairs-head/) | Regulatory submissions |
 | [quality-documentation-manager](../quality-documentation-manager/) | Risk file management |
+
+## When NOT to use
+
+- Task is unrelated to risk management specialist — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Risk Management Specialist needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for risk management specialist
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving risk management specialist
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

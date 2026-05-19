@@ -1,6 +1,7 @@
 ---
 name: connect-apps
-description: Connect Claude to external apps like Gmail, Slack, GitHub. Use this skill when the user wants to send emails, create issues, post messages, or take actions in external services.
+description: "Connect Claude to external apps like Gmail, Slack, GitHub. Use this skill when the user wants to send emails, create issues, post mes. Triggers: 'use connect-apps', 'connect apps', 'connect-apps task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Connect Apps
@@ -56,10 +57,10 @@ If it works, you're connected!
 
 ## How It Works
 
-1. You ask Claude to do something
-2. Composio Tool Router finds the right tool
-3. First time? You'll authorize via OAuth (one-time)
-4. Action executes and returns result
+1. You ask Claude to do something → verify: step output matches expected outcome
+2. Composio Tool Router finds the right tool → verify: step output matches expected outcome
+3. First time? You'll authorize via OAuth (one-time) → verify: step output matches expected outcome
+4. Action executes and returns result → verify: command exit code 0
 
 ## Troubleshooting
 
@@ -78,3 +79,40 @@ If it works, you're connected!
     <img src="https://img.shields.io/badge/Get_Started_Free-4F46E5?style=for-the-badge" alt="Get Started"/>
   </a>
 </p>
+
+## When NOT to use
+
+- Task is unrelated to connect apps — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Connect Apps needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for connect apps
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving connect apps
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

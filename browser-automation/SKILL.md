@@ -1,6 +1,7 @@
 ---
 name: "browser-automation"
-description: "Use when the user asks to automate browser tasks, scrape websites, fill forms, capture screenshots, extract structured data from web pages, or build web automation workflows. NOT for testing — use playwright-pro for that."
+description: 'Use when the user asks to automate browser tasks, scrape websites, fill forms, capture screenshots, extract structured data fr. Triggers: "use browser-automation", "browser automation", "browser task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Browser Automation - POWERFUL
@@ -34,11 +35,11 @@ The Browser Automation skill provides comprehensive tools and knowledge for buil
 ### 1. Web Scraping Patterns
 
 **Selector priority (most to least reliable):**
-1. `data-testid`, `data-id`, or custom data attributes — stable across redesigns
-2. `#id` selectors — unique but may change between deploys
-3. Semantic selectors: `article`, `nav`, `main`, `section` — resilient to CSS changes
-4. Class-based: `.product-card`, `.price` — brittle if classes are generated (e.g., CSS modules)
-5. Positional: `nth-child()`, `nth-of-type()` — last resort, breaks on layout changes
+1. `data-testid`, `data-id`, or custom data attributes — stable across redesigns → verify: all checks pass
+2. `#id` selectors — unique but may change between deploys → verify: step output matches expected outcome
+3. Semantic selectors: `article`, `nav`, `main`, `section` — resilient to CSS changes → verify: step output matches expected outcome
+4. Class-based: `.product-card`, `.price` — brittle if classes are generated (e.g., CSS modules) → verify: output exists + parses without error
+5. Positional: `nth-child()`, `nth-of-type()` — last resort, breaks on layout changes → verify: step output matches expected outcome
 
 Use XPath only when CSS cannot express the relationship (e.g., ancestor traversal, text-based selection).
 
@@ -79,11 +80,11 @@ See [data_extraction_recipes.md](references/data_extraction_recipes.md) for comp
 
 Modern websites detect automation through multiple vectors. Apply these in priority order:
 
-1. **WebDriver flag removal** — Remove `navigator.webdriver = true` via init script (critical)
-2. **Custom user agent** — Rotate through real browser UAs; never use the default headless UA
-3. **Realistic viewport** — Set 1920x1080 or similar real-world dimensions (default 800x600 is a red flag)
-4. **Request throttling** — Add `random.uniform()` delays between actions
-5. **Proxy support** — Per-browser or per-context proxy configuration
+1. **WebDriver flag removal** — Remove `navigator.webdriver = true` via init script (critical) → verify: step output matches expected outcome
+2. **Custom user agent** — Rotate through real browser UAs; never use the default headless UA → verify: step output matches expected outcome
+3. **Realistic viewport** — Set 1920x1080 or similar real-world dimensions (default 800x600 is a red flag) → verify: step output matches expected outcome
+4. **Request throttling** — Add `random.uniform()` delays between actions → verify: dependency resolves + import works
+5. **Proxy support** — Per-browser or per-context proxy configuration → verify: step output matches expected outcome
 
 See [anti_detection_patterns.md](references/anti_detection_patterns.md) for the complete stealth stack: navigator property hardening, WebGL/canvas fingerprint evasion, behavioral simulation (mouse movement, typing speed, scroll patterns), proxy rotation strategies, and detection self-test URLs.
 
@@ -112,11 +113,11 @@ See [anti_detection_patterns.md](references/anti_detection_patterns.md) for the 
 **Scenario:** Extract product data from a single page with JavaScript-rendered content.
 
 **Steps:**
-1. Launch browser in headed mode during development (`headless=False`), switch to headless for production
-2. Navigate to URL and wait for content selector
-3. Extract data using `query_selector_all` with field mapping
-4. Validate extracted data (check for nulls, expected types)
-5. Output as JSON
+1. Launch browser in headed mode during development (`headless=False`), switch to headless for production → verify: step output matches expected outcome
+2. Navigate to URL and wait for content selector → verify: step output matches expected outcome
+3. Extract data using `query_selector_all` with field mapping → verify: step output matches expected outcome
+4. Validate extracted data (check for nulls, expected types) → verify: all tests pass
+5. Output as JSON → verify: step output matches expected outcome
 
 ```python
 async def extract_single_page(url, selectors):
@@ -138,14 +139,14 @@ async def extract_single_page(url, selectors):
 **Scenario:** Scrape search results across 50+ pages.
 
 **Steps:**
-1. Launch browser with anti-detection settings
-2. Navigate to first page
-3. Extract data from current page
-4. Check if "Next" button exists and is enabled
-5. Click next, wait for new content to load (not just navigation)
-6. Repeat until no next page or max pages reached
-7. Deduplicate results by unique key
-8. Write output incrementally (don't hold everything in memory)
+1. Launch browser with anti-detection settings → verify: step output matches expected outcome
+2. Navigate to first page → verify: step output matches expected outcome
+3. Extract data from current page → verify: step output matches expected outcome
+4. Check if "Next" button exists and is enabled → verify: all tests pass
+5. Click next, wait for new content to load (not just navigation) → verify: file readable + content matches expected shape
+6. Repeat until no next page or max pages reached → verify: step output matches expected outcome
+7. Deduplicate results by unique key → verify: step output matches expected outcome
+8. Write output incrementally (don't hold everything in memory) → verify: output file exists + no syntax error
 
 ```python
 async def scrape_paginated(base_url, selectors, max_pages=100):
@@ -176,12 +177,12 @@ async def scrape_paginated(base_url, selectors, max_pages=100):
 **Scenario:** Log into a portal, navigate a multi-step form, download a report.
 
 **Steps:**
-1. Check for existing session state file
-2. If no session, perform login and save state
-3. Navigate to target page using saved session
-4. Fill multi-step form with provided data
-5. Wait for download to trigger
-6. Save downloaded file to target directory
+1. Check for existing session state file → verify: all tests pass
+2. If no session, perform login and save state → verify: step output matches expected outcome
+3. Navigate to target page using saved session → verify: step output matches expected outcome
+4. Fill multi-step form with provided data → verify: step output matches expected outcome
+5. Wait for download to trigger → verify: file readable + content matches expected shape
+6. Save downloaded file to target directory → verify: file readable + content matches expected shape
 
 ```python
 async def authenticated_workflow(credentials, form_data, download_dir):
@@ -264,3 +265,40 @@ All scripts are stdlib-only. Run `python3 <script> --help` for full usage.
 - **api-test-suite-builder** — When the website has a public API, hit the API directly instead of scraping the rendered page. Faster, more reliable, less detectable.
 - **performance-profiler** — If your automation scripts are slow, profile the bottlenecks before adding concurrency.
 - **env-secrets-manager** — For securely managing credentials used in authenticated automation workflows.
+
+## When NOT to use
+
+- Task is unrelated to browser automation — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Browser Automation needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for browser automation
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving browser automation
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

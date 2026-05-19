@@ -1,6 +1,7 @@
 ---
 name: "information-security-manager-iso27001"
-description: ISO 27001 ISMS implementation and cybersecurity governance for HealthTech and MedTech companies. Use for ISMS design, security risk assessment, control implementation, ISO 27001 certification, security audits, incident response, and compliance verification. Covers ISO 27001, ISO 27002, healthcare security, and medical device cybersecurity.
+description: "ISO 27001 ISMS implementation and cybersecurity governance. Triggers: 'use information-security-manager-iso27001', 'information security manager iso27001', 'information-security-manager-iso27001 task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Information Security Manager - ISO 27001
@@ -267,21 +268,21 @@ Incident categories:
 **Step 3: Containment and Eradication**
 
 Immediate actions:
-1. Isolate affected systems
-2. Preserve evidence
-3. Block threat vectors
-4. Remove malicious artifacts
+1. Isolate affected systems → verify: step output matches expected outcome
+2. Preserve evidence → verify: step output matches expected outcome
+3. Block threat vectors → verify: step output matches expected outcome
+4. Remove malicious artifacts → verify: step output matches expected outcome
 
 **Validation:** Containment confirmed, no ongoing compromise.
 
 **Step 4: Recovery and Lessons Learned**
 
 Post-incident activities:
-1. Restore systems from clean backups
+1. Restore systems from clean backups → verify: step output matches expected outcome
 2. Verify integrity before reconnection
-3. Document timeline and actions
-4. Conduct post-incident review
-5. Update controls and procedures
+3. Document timeline and actions → verify: step output matches expected outcome
+4. Conduct post-incident review → verify: step output matches expected outcome
+5. Update controls and procedures → verify: step output matches expected outcome
 
 **Validation:** Post-incident report completed within 5 business days.
 
@@ -417,3 +418,44 @@ Application Security (A.8.26): PARTIAL
 
 Overall Compliance: 87%
 ```
+
+## When NOT to use
+
+- ISO 13485 medical device QMS — use `quality-manager-qms-iso13485`
+- SOC 2 specifically — use `soc2-compliance`
+- GDPR / DSGVO specifically — use `gdpr-dsgvo-expert`
+- HIPAA — use a HIPAA-specific skill or `fda-consultant-specialist`
+- Active incident response — use `incident-response`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Risk assessment is a one-time activity" | ISO 27001 requires periodic risk reassessment; treat as continuous |
+| "Policies do not need approval signatures" | Auditors require approved-and-dated policy artifacts; unsigned policies fail audit |
+| "Skip statement of applicability" | SoA is mandatory; without it, the ISMS scope is undefined |
+| "Encrypt everything later" | Annex A controls expect encryption in transit and at rest documented upfront |
+
+## Output Contract
+
+Finished output must contain:
+- ISMS scope statement
+- Risk assessment register (asset, threat, vulnerability, likelihood, impact, treatment)
+- Statement of Applicability (SoA) covering Annex A controls
+- Information Security Policy (signed + dated)
+- Approved control implementations with evidence (configs, logs)
+- Internal audit plan and findings
+- Management review record
+- Compliance percentage with gap list
+
+## Examples
+
+**Example 1 — Gap assessment for a HealthTech SaaS**
+- Input: "We want ISO 27001 certification, where do we stand?"
+- Action: Walk Annex A controls → check policies, encryption, access control, supplier management, incident response → produce compliance % per control family
+- Output: Gap report showing 87% overall, top 12 gaps (e.g., missing key management policy, no DPIA template), 90-day remediation plan
+
+**Example 2 — Risk register for a new MedTech feature**
+- Input: "We are adding patient messaging — assess the security risk"
+- Action: Identify assets (PHI in messages), threats (interception, ATO), vulnerabilities (weak auth) → likelihood × impact → propose treatments (E2E encrypt, MFA, rate limit, audit log)
+- Output: Updated risk register entry, treatment plan, residual risk acceptance form

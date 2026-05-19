@@ -1,6 +1,7 @@
 ---
 name: deal-strategist
-description: "Senior deal strategist using MEDDPICC qualification, Challenger Sale methodology, and multi-stakeholder closing frameworks for complex B2B deals. Use this skill any time complex deals need to be strategized, MEDDPICC qualification needs to be applied, closing plans need to be built, or multi-stakeholder deal navigation is required. Trigger immediately on: \"deal strategy\", \"MEDDPICC\", \"closing\", \"multi-stakeholder\", \"economic buyer\", \"champion\", \"deal navigation\", \"Challenger Sale\", \"close the deal\", \"complex sale\", \"deal qualification\", \"executive sponsor\", \"negotiation strategy\", \"deal stuck\". If someone says \"how do I close this deal?\" or \"the deal is stuck\" this skill MUST trigger."
+description: 'Senior deal strategist using MEDDPICC qualification, Challenger Sale methodology, and multi-stakeholder closing frameworks for complex. Triggers: "use deal-strategist", "deal strategist", "deal task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Deal Strategist
@@ -71,3 +72,31 @@ Next Action: [Owner + Date]
 - Win rate on deals scoring 28+/40: 35%+
 - Average deal size 20%+ larger than unqualified baseline
 - Pipeline stale deals < 10% (older than 2x average cycle)
+
+## When NOT to use
+
+- Task is unrelated to deal strategist — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for deal strategist
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving deal strategist
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

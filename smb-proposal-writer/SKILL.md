@@ -1,12 +1,7 @@
 ---
 name: smb-proposal-writer
-description: >
-  Writes polished, conversion-focused business proposals for SMB clients — covering
-  scope of work, deliverables, pricing, timeline, and ROI framing. Use this skill
-  whenever the user mentions writing a proposal, pitch, quote, scope of work, or
-  client presentation — even if they just say "I need to send something to a prospect"
-  or "help me put together an offer for this client." Especially relevant for
-  AI automation, SaaS, or productized service businesses.
+description: 'Writes polished, conversion-focused business proposals for SMB clients — covering scope of work, deliverables, pricing, timeline. Triggers: "use smb-proposal-writer", "smb proposal writer", "smb task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # SMB Proposal Writer
@@ -93,3 +88,40 @@ if they have a doc-generation tool connected.
 - Don't bury the price. Hiding it signals uncertainty. State it clearly and defend it
   with value framing nearby.
 - Don't write a novel. If it's longer than 600 words for a sub-$2K deal, cut it.
+
+## When NOT to use
+
+- Task is unrelated to smb proposal writer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Smb Proposal Writer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for smb proposal writer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving smb proposal writer
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: systematic-debugging
-description: "Four-phase debugging methodology (Reproduce, Isolate, Diagnose, Fix) for finding root causes before writing fixes. Use this skill any time a bug is being investigated, an error is occurring and the cause is unknown, or someone has been trying random fixes without success. Trigger immediately on: \"debug\", \"bug\", \"not working\", \"broken\", \"error\", \"exception\", \"crashes\", \"unexpected behavior\", \"stack trace\", \"why is this failing\", \"keeps throwing\", \"troubleshoot\", \"fix this issue\", \"something is wrong\". If someone pastes an error message or says \"it is broken and I do not know why\" this skill MUST trigger."
+description: 'Four-phase debugging methodology (Reproduce, Isolate, Diagnose, Fix) for finding root causes before writing fixes. Triggers: "use systematic-debugging", "systematic debugging", "systematic task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Systematic Debugging
@@ -17,12 +18,12 @@ Random fix attempts waste time and mask underlying issues. Always understand the
 
 Before attempting ANY fix:
 
-1. **Read error messages carefully** — every word matters
-2. **Examine stack traces** — trace execution path
-3. **Reproduce consistently** — can you trigger it reliably?
-4. **Review recent changes** — what changed before the bug appeared?
-5. **Gather diagnostic evidence** — logs, metrics, state snapshots
-6. **Trace data flow** — follow data backward through the call stack
+1. **Read error messages carefully** — every word matters → verify: file content matches expected shape
+2. **Examine stack traces** — trace execution path → verify: step output matches expected outcome
+3. **Reproduce consistently** — can you trigger it reliably? → verify: output exists + parses without error
+4. **Review recent changes** — what changed before the bug appeared? → verify: step output matches expected outcome
+5. **Gather diagnostic evidence** — logs, metrics, state snapshots → verify: step output matches expected outcome
+6. **Trace data flow** — follow data backward through the call stack → verify: step output matches expected outcome
 
 ### Investigation Questions
 - What is the expected vs actual behavior?
@@ -31,18 +32,18 @@ Before attempting ANY fix:
 
 ## Phase 2: Pattern Analysis
 
-1. Find similar working code — what does correct behavior look like?
-2. Study reference implementations completely
-3. Document differences between working and broken
-4. Map dependencies
-5. List assumptions that must be true
+1. Find similar working code — what does correct behavior look like? → verify: step output matches expected outcome
+2. Study reference implementations completely → verify: step output matches expected outcome
+3. Document differences between working and broken → verify: step output matches expected outcome
+4. Map dependencies → verify: step output matches expected outcome
+5. List assumptions that must be true → verify: step output matches expected outcome
 
 ## Phase 3: Hypothesis and Testing
 
-1. **Form a specific hypothesis** — write it down
-2. **Design a minimal test** — change ONE variable
-3. **Predict the outcome** — what should happen if you're right?
-4. **Execute the test** — make the minimal change
+1. **Form a specific hypothesis** — write it down → verify: output exists + parses without error
+2. **Design a minimal test** — change ONE variable → verify: all checks pass
+3. **Predict the outcome** — what should happen if you're right? → verify: step output matches expected outcome
+4. **Execute the test** — make the minimal change → verify: command exit code 0
 5. **Verify results** — did it match prediction?
 6. **Iterate or proceed**
 
@@ -57,11 +58,11 @@ Before attempting ANY fix:
 
 ## Phase 4: Implementation
 
-1. Write a failing test first — capture the bug
-2. Implement a single, focused fix — minimal change
+1. Write a failing test first — capture the bug → verify: output exists + parses without error
+2. Implement a single, focused fix — minimal change → verify: diff matches intended change
 3. Verify the fix — test passes
-4. Check for regressions — other tests still pass
-5. Document the fix
+4. Check for regressions — other tests still pass → verify: all checks pass
+5. Document the fix → verify: diff matches intended change
 
 ## Critical Checkpoint
 
@@ -78,7 +79,35 @@ Return to Phase 1 if you catch yourself thinking:
 
 ## Anti-Patterns to Avoid
 
-1. **Shotgun debugging** — random changes hoping something works
-2. **Print statement overload** — adding logs without a hypothesis
-3. **Tunnel vision** — fixating on one area without evidence
-4. **Premature fixing** — changing code before understanding the problem
+1. **Shotgun debugging** — random changes hoping something works → verify: step output matches expected outcome
+2. **Print statement overload** — adding logs without a hypothesis → verify: file content matches expected shape
+3. **Tunnel vision** — fixating on one area without evidence → verify: diff matches intended change
+4. **Premature fixing** — changing code before understanding the problem → verify: diff matches intended change
+
+## When NOT to use
+
+- Task is unrelated to systematic debugging — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for systematic debugging
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving systematic debugging
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "setup"
-description: "Set up a new autoresearch experiment interactively. Collects domain, target file, eval command, metric, direction, and evaluator."
+description: "Set up a new autoresearch experiment interactively. Collects domain, target file, eval command, metric, direction, and evaluator. Triggers: 'use setup', 'setup', 'setup task'."
+allowed-tools: Bash, Glob, Grep, Read
 command: /ar:setup
 ---
 
@@ -35,14 +36,14 @@ python {skill_path}/scripts/setup_experiment.py \
 
 Collect each parameter one at a time:
 
-1. **Domain** — Ask: "What domain? (engineering, marketing, content, prompts, custom)"
-2. **Name** — Ask: "Experiment name? (e.g., api-speed, blog-titles)"
+1. **Domain** — Ask: "What domain? (engineering, marketing, content, prompts, custom)" → verify: user confirms
+2. **Name** — Ask: "Experiment name? (e.g., api-speed, blog-titles)" → verify: user confirms
 3. **Target file** — Ask: "Which file to optimize?" Verify it exists.
-4. **Eval command** — Ask: "How to measure it? (e.g., pytest bench.py, python evaluate.py)"
-5. **Metric** — Ask: "What metric does the eval output? (e.g., p50_ms, ctr_score)"
-6. **Direction** — Ask: "Is lower or higher better?"
-7. **Evaluator** (optional) — Show built-in evaluators. Ask: "Use a built-in evaluator, or your own?"
-8. **Scope** — Ask: "Store in project (.autoresearch/) or user (~/.autoresearch/)?"
+4. **Eval command** — Ask: "How to measure it? (e.g., pytest bench.py, python evaluate.py)" → verify: all checks pass
+5. **Metric** — Ask: "What metric does the eval output? (e.g., p50_ms, ctr_score)" → verify: user confirms
+6. **Direction** — Ask: "Is lower or higher better?" → verify: user confirms
+7. **Evaluator** (optional) — Show built-in evaluators. Ask: "Use a built-in evaluator, or your own?" → verify: user confirms
+8. **Scope** — Ask: "Store in project (.autoresearch/) or user (~/.autoresearch/)?" → verify: user confirms
 
 Then run `setup_experiment.py` with the collected parameters.
 
@@ -75,3 +76,40 @@ Report to the user:
 - Experiment path and branch name
 - Whether the eval command worked and the baseline metric
 - Suggest: "Run `/ar:run {domain}/{name}` to start iterating, or `/ar:loop {domain}/{name}` for autonomous mode."
+
+## When NOT to use
+
+- Task is unrelated to setup — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Setup needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for setup
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving setup
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

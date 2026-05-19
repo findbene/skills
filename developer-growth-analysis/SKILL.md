@@ -1,6 +1,7 @@
 ---
 name: developer-growth-analysis
-description: Analyzes your recent Claude Code chat history to identify coding patterns, development gaps, and areas for improvement, curates relevant learning resources from HackerNews, and automatically sends a personalized growth report to your Slack DMs. Use this skill whenever the user wants to review their development patterns, get feedback on their recent coding work, find areas to improve, or get a learning plan based on what they've been building. Apply when the user says "analyze my recent work", "what should I learn next", "how am I improving", or "give me a developer growth report".
+description: 'Analyzes your recent Claude Code chat history to identify coding patterns, development gaps, and areas for imp. Triggers: "use developer-growth-analysis", "developer growth analysis", "developer task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Developer Growth Analysis
@@ -23,17 +24,17 @@ This skill is ideal for developers who want structured feedback on their growth 
 
 This skill performs a six-step analysis of your development work:
 
-1. **Reads Your Chat History**: Accesses your local Claude Code chat history from the past 24-48 hours to understand what you've been working on.
+1. **Reads Your Chat History**: Accesses your local Claude Code chat history from the past 24-48 hours to understand what you've been working on. → verify: file content matches expected shape
 
-2. **Identifies Development Patterns**: Analyzes the types of problems you're solving, technologies you're using, challenges you encounter, and how you approach different kinds of tasks.
+2. **Identifies Development Patterns**: Analyzes the types of problems you're solving, technologies you're using, challenges you encounter, and how you approach different kinds of tasks. → verify: user confirms
 
-3. **Detects Improvement Areas**: Recognizes patterns that suggest skill gaps, repeated struggles, inefficient approaches, or areas where you might benefit from deeper knowledge.
+3. **Detects Improvement Areas**: Recognizes patterns that suggest skill gaps, repeated struggles, inefficient approaches, or areas where you might benefit from deeper knowledge. → verify: step output matches expected outcome
 
-4. **Generates a Personalized Report**: Creates a comprehensive report showing your work summary, identified improvement areas, and specific recommendations for growth.
+4. **Generates a Personalized Report**: Creates a comprehensive report showing your work summary, identified improvement areas, and specific recommendations for growth. → verify: output exists + parses without error
 
-5. **Finds Learning Resources**: Uses HackerNews to curate high-quality articles and discussions directly relevant to your improvement areas, providing you with a reading list tailored to your actual development work.
+5. **Finds Learning Resources**: Uses HackerNews to curate high-quality articles and discussions directly relevant to your improvement areas, providing you with a reading list tailored to your actual development work. → verify: file content matches expected shape
 
-6. **Sends to Your Slack DMs**: Automatically delivers the complete report to your own Slack direct messages so you can reference it anytime, anywhere.
+6. **Sends to Your Slack DMs**: Automatically delivers the complete report to your own Slack direct messages so you can reference it anytime, anywhere. → verify: step output matches expected outcome
 
 ## How to Use
 
@@ -137,9 +138,9 @@ When a user requests analysis of their developer growth or coding patterns from 
    ## Action Items
 
    Priority order:
-   1. [Action item derived from highest priority improvement area]
-   2. [Action item from next area]
-   3. [Action item from next area]
+   1. [Action item derived from highest priority improvement area] → verify: step output matches expected outcome
+   2. [Action item from next area] → verify: step output matches expected outcome
+   3. [Action item from next area] → verify: step output matches expected outcome
 
    ## Learning Resources
 
@@ -265,30 +266,30 @@ Over the past two days, you focused on backend infrastructure and API developmen
 ## Action Items
 
 Priority order:
-1. Spend 1-2 hours learning TypeScript utility types and discriminated unions; apply to your connection data structures
-2. Document security patterns for your project (what data is safe to display, filtering/masking functions)
-3. Study one article on advanced React patterns and apply one pattern to your current UI work
-4. Set up a code review checklist focused on type safety and data security for future PRs
+1. Spend 1-2 hours learning TypeScript utility types and discriminated unions; apply to your connection data structures → verify: diff matches intended change
+2. Document security patterns for your project (what data is safe to display, filtering/masking functions) → verify: user confirms
+3. Study one article on advanced React patterns and apply one pattern to your current UI work → verify: diff matches intended change
+4. Set up a code review checklist focused on type safety and data security for future PRs → verify: step output matches expected outcome
 
 ## Curated Learning Resources
 
 ### For: Advanced TypeScript Patterns
 
-1. **TypeScript's Advanced Types: Generics, Utility Types, and Conditional Types** - HackerNews, October 2024
+1. **TypeScript's Advanced Types: Generics, Utility Types, and Conditional Types** - HackerNews, October 2024 → verify: step output matches expected outcome
    Deep dive into TypeScript's type system with practical examples and real-world applications. Covers discriminated unions, type guards, and patterns for ensuring compile-time safety in complex applications.
    [Link to discussion]
 
-2. **Building Type-Safe APIs in TypeScript** - HackerNews, September 2024
+2. **Building Type-Safe APIs in TypeScript** - HackerNews, September 2024 → verify: step output matches expected outcome
    Practical guide to designing APIs with TypeScript that catch errors early. Particularly relevant for your connection configuration work.
    [Link to discussion]
 
 ### For: Secure Data Handling in Frontend
 
-1. **Preventing Information Leakage in Web Applications** - HackerNews, August 2024
+1. **Preventing Information Leakage in Web Applications** - HackerNews, August 2024 → verify: step output matches expected outcome
    Comprehensive guide to data security in frontend applications, including filtering sensitive information, secure logging, and audit trails.
    [Link to discussion]
 
-2. **OAuth and API Key Management Best Practices** - HackerNews, July 2024
+2. **OAuth and API Key Management Best Practices** - HackerNews, July 2024 → verify: step output matches expected outcome
    How to safely handle authentication tokens and API keys in applications, with examples for different frameworks.
    [Link to discussion]
 
@@ -298,7 +299,7 @@ Priority order:
    Explores component composition strategies that scale, with examples using modern React patterns.
    [Link to discussion]
 
-2. **CSS Layout Mastery: Flexbox, Grid, and Container Queries** - HackerNews, October 2024
+2. **CSS Layout Mastery: Flexbox, Grid, and Container Queries** - HackerNews, October 2024 → verify: step output matches expected outcome
    Learn responsive design patterns that prevent overflow issues and work across all screen sizes.
    [Link to discussion]
 ```
@@ -320,3 +321,31 @@ This skill:
 - Focuses on actionable improvements, not vague feedback
 - Provides specific time estimates based on complexity
 - Prioritizes areas that will have the most impact on your development velocity
+
+## When NOT to use
+
+- Task is unrelated to developer growth analysis — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Developer Growth Analysis needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Output Contract
+
+Done-state:
+- Process steps completed with each verify clause passing
+- No Red Flag rationalization applied during execution
+- Output artifact (file, response, or action) traceable to the originating user request

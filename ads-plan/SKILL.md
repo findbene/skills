@@ -1,6 +1,7 @@
 ---
 name: ads-plan
-description: "Strategic paid advertising planning with industry-specific templates. Covers platform selection, campaign architecture, budget planning, creative strategy, and phased implementation roadmap. Use when user says ad plan, ad strategy, campaign planning, media plan, PPC strategy, or advertising plan."
+description: "Strategic paid advertising planning with industry-specific templates. Covers platform selection, campaign architecture, budget planning, creative. Triggers: 'use ads-plan', 'run ads plan', 'ads plan'."
+allowed-tools: Glob, Grep, Read
 user-invokable: false
 ---
 
@@ -140,36 +141,43 @@ Before launching any ads, ensure tracking is configured:
 - Implement advanced strategies (ABM, Shopping feeds, Smart+)
 - Monthly performance reviews
 
-## Industry Templates
+## When NOT to use
 
-Load from `assets/` directory based on detected or specified business type:
-- `saas.md`: SaaS companies
-- `ecommerce.md`: E-commerce stores
-- `local-service.md`: Local service businesses
-- `b2b-enterprise.md`: B2B enterprise
-- `info-products.md`: Info products and courses
-- `mobile-app.md`: Mobile app companies
-- `real-estate.md`: Real estate
-- `healthcare.md`: Healthcare
-- `finance.md`: Financial services
-- `agency.md`: Marketing agencies
-- `generic.md`: General business template
+- Task is unrelated to ads plan — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
 
-## Output
+## Red Flags
 
-### Deliverables
-- `ADS-STRATEGY.md`: Complete strategic advertising plan
-- `CAMPAIGN-ARCHITECTURE.md`: Campaign structure with naming conventions
-- `BUDGET-PLAN.md`: Budget allocation with monthly pacing
-- `CREATIVE-BRIEF.md`: Creative production plan with specifications
-- `TRACKING-SETUP.md`: Tracking implementation checklist
-- `IMPLEMENTATION-ROADMAP.md`: Phased rollout timeline
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ads Plan needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
 
-### KPI Targets
-| Metric | Month 1 | Month 3 | Month 6 | Month 12 |
-|--------|---------|---------|---------|----------|
-| ROAS | Baseline | Target -20% | Target | Target +20% |
-| CPA | Baseline | Target +30% | Target | Target -10% |
-| CVR | Baseline | +10% | +20% | +30% |
-| CTR | Baseline | +15% | +25% | +30% |
-| Budget | Testing | Optimizing | Scaling | Maintaining |
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ads plan
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ads plan
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken
+
+## References
+
+Extended sections moved to `references/details.md`.

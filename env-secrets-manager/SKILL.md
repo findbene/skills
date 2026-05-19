@@ -1,13 +1,7 @@
 ---
 name: "env-secrets-manager"
-description: "Manage environment variables and secrets securely - .env file auditing, secret rotation, vault integration (HashiCorp Vault, AWS Secrets Manager, Doppler), and preventing secret leaks in code or logs. Use when setting up environments, rotating credentials, auditing .env files, or integrating a secrets manager. Trigger on: 'env vars', 'secrets management', 'rotate secrets', '.env file', 'HashiCorp Vault', 'AWS Secrets Manager', 'Doppler', 'environment variables', 'secret leak', 'credentials management'."
-
-# Env & Secrets Manager
-
-**Tier:** POWERFUL
-**Category:** Engineering
-**Domain:** Security / DevOps / Configuration Management
-
+description: 'Manage environment variables and secrets securely - .env file auditing, secret rotation, vault integration (Ha. Triggers: ''use env-secrets-manager'', ''env secrets manager'', ''env-secrets-manager task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 ## Overview
@@ -47,11 +41,11 @@ python3 scripts/env_auditor.py /path/to/repo --json
 
 ## Recommended Workflow
 
-1. Run `scripts/env_auditor.py` on the repository root.
-2. Prioritize `critical` and `high` findings first.
-3. Rotate real credentials and remove exposed values.
-4. Update `.env.example` and `.gitignore` as needed.
-5. Add or tighten pre-commit/CI secret scanning gates.
+1. Run `scripts/env_auditor.py` on the repository root. → verify: command exit code 0
+2. Prioritize `critical` and `high` findings first. → verify: step output matches expected outcome
+3. Rotate real credentials and remove exposed values. → verify: step output matches expected outcome
+4. Update `.env.example` and `.gitignore` as needed. → verify: step output matches expected outcome
+5. Add or tighten pre-commit/CI secret scanning gates. → verify: package installed + import succeeds
 
 ---
 
@@ -71,10 +65,10 @@ python3 scripts/env_auditor.py /path/to/repo --json
 
 ## Best Practices
 
-1. Use a secret manager as the production source of truth.
-2. Keep dev env files local and gitignored.
-3. Enforce detection in CI before merge.
-4. Re-test application paths immediately after credential rotation.
+1. Use a secret manager as the production source of truth. → verify: step output matches expected outcome
+2. Keep dev env files local and gitignored. → verify: step output matches expected outcome
+3. Enforce detection in CI before merge. → verify: step output matches expected outcome
+4. Re-test application paths immediately after credential rotation. → verify: all checks pass
 
 ---
 
@@ -99,10 +93,10 @@ Production applications should never read secrets from `.env` files or environme
 
 ### Application Access Patterns
 
-1. **SDK/API pull** — application fetches secret at startup or on-demand via provider SDK.
-2. **Sidecar injection** — a sidecar container (e.g., Vault Agent) writes secrets to a shared volume or injects them as environment variables.
-3. **Init container** — a Kubernetes init container fetches secrets before the main container starts.
-4. **CSI driver** — secrets mount as a filesystem volume via the Secrets Store CSI Driver.
+1. **SDK/API pull** — application fetches secret at startup or on-demand via provider SDK. → verify: step output matches expected outcome
+2. **Sidecar injection** — a sidecar container (e.g., Vault Agent) writes secrets to a shared volume or injects them as environment variables. → verify: output exists + parses without error
+3. **Init container** — a Kubernetes init container fetches secrets before the main container starts. → verify: step output matches expected outcome
+4. **CSI driver** — secrets mount as a filesystem volume via the Secrets Store CSI Driver. → verify: step output matches expected outcome
 
 > **Cross-reference:** See `engineering/secrets-vault-manager` for production vault infrastructure patterns, HA deployment, and disaster recovery procedures.
 
@@ -120,11 +114,11 @@ Stale secrets are a liability. Rotation ensures that even if a credential leaks,
 
 ### Phase 2: Rotation
 
-1. **Generate** a new credential (API key, database password, certificate).
-2. **Deploy** the new credential to all consumers (apps, services, pipelines) in parallel.
+1. **Generate** a new credential (API key, database password, certificate). → verify: output file exists + no syntax error
+2. **Deploy** the new credential to all consumers (apps, services, pipelines) in parallel. → verify: package installed + import succeeds
 3. **Verify** each consumer can authenticate using the new credential.
-4. **Revoke** the old credential only after all consumers are confirmed healthy.
-5. **Update** metadata with the new rotation timestamp and next rotation date.
+4. **Revoke** the old credential only after all consumers are confirmed healthy. → verify: step output matches expected outcome
+5. **Update** metadata with the new rotation timestamp and next rotation date. → verify: step output matches expected outcome
 
 ### Phase 3: Automation
 
@@ -137,12 +131,12 @@ Stale secrets are a liability. Rotation ensures that even if a credential leaks,
 
 When a secret is confirmed leaked:
 
-1. **Immediately revoke** the compromised credential at the provider level.
-2. Generate and deploy a replacement credential to all consumers.
-3. Audit access logs for unauthorized usage during the exposure window.
-4. Scan git history, CI logs, and artifact registries for the leaked value.
-5. File an incident report documenting scope, timeline, and remediation steps.
-6. Review and tighten detection controls to prevent recurrence.
+1. **Immediately revoke** the compromised credential at the provider level. → verify: step output matches expected outcome
+2. Generate and deploy a replacement credential to all consumers. → verify: output file exists + no syntax error
+3. Audit access logs for unauthorized usage during the exposure window. → verify: step output matches expected outcome
+4. Scan git history, CI logs, and artifact registries for the leaked value. → verify: step output matches expected outcome
+5. File an incident report documenting scope, timeline, and remediation steps. → verify: step output matches expected outcome
+6. Review and tighten detection controls to prevent recurrence. → verify: step output matches expected outcome
 
 ---
 
@@ -257,3 +251,40 @@ This skill covers env hygiene and secret detection. For deeper coverage of relat
 | **CI/CD Pipeline Builder** | `engineering/ci-cd-pipeline-builder` | Pipeline architecture, secret injection patterns |
 | **Infrastructure as Code** | `engineering/infrastructure-as-code` | Terraform/Pulumi secret backend configuration |
 | **Container Orchestration** | `engineering/container-orchestration` | Kubernetes secret mounting, sealed secrets |
+
+## When NOT to use
+
+- Task is unrelated to env secrets manager — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Env Secrets Manager needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for env secrets manager
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving env secrets manager
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: incident-commander
-description: Production incident commander with SEV1-4 severity classification, structured 4-step response process, and blameless post-mortem facilitation. Use this skill any time something in the Citadel AI pipeline breaks, jobs are failing, an agent is producing errors, or a post-mortem needs to be run. Trigger immediately on: "it's broken", "pipeline is down", "jobs are failing", "agent is erroring", "nothing is working", "error log is full", "videos aren't publishing", "API key expired", "something went wrong", "post-mortem", "incident", "production issue", "outage". If Biniyam says "something broke" in any context, this skill MUST trigger before any debugging starts.
+description: 'Production incident commander with SEV1-4 severity classification, structured 4-step response process, and blameless post-mor. Triggers: "use incident-commander", "incident commander", "incident task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Incident Response Commander
@@ -94,3 +95,43 @@ Don't declare "resolved" because "it looks fine":
 | Circuit breaker tripped | `_failure_counts` in llm_client | Model issue; auto-routes to fallback |
 | ElevenLabs voiceover failing | Quota at elevenlabs.io | Check quota |
 | Quality scores all 0 | Auditor parse error | Check `_parse_audit` in auditor_agent.py |
+
+## When NOT to use
+
+- Security-only incident (breach, data exfil, malware) — use `incident-response` / `security-engineer`
+- Retrospective / postmortem after the fact — use `postmortem`
+- Low-severity bug triage (no production impact) — use normal bug workflow
+- Pre-incident SRE planning / SLO design — use `sre` skill
+- Threat detection / hunting — use `threat-detection`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Skip severity classification, just fix it" | Without severity, you cannot prioritize against other work; classify before mitigating |
+| "I will figure it out, no need to declare" | Declaring forces clear comms with stakeholders; silent debugging delays resolution |
+| "Skip the post-mortem, we know what happened" | Blameless post-mortems extract the system fix that prevents recurrence |
+| "Page Biniyam at SEV3" | Auto-escalation triggers exist for a reason; do not over-page or you erode the on-call system |
+
+## Output Contract
+
+Finished output must contain:
+- Severity declared (SEV1/2/3/4) with criteria justification
+- Incident commander named (single owner)
+- Timeline of events, decisions, and information available
+- Current mitigation status (not started / in progress / verified)
+- Stakeholder communication log (who informed, when, channel)
+- Forensic / log evidence collected and preserved
+- Post-incident actions queued (postmortem, follow-up tickets)
+
+## Examples
+
+**Example 1 — Pipeline failure mid-run**
+- Input: "Half our overnight video jobs failed at 3am"
+- Action: Classify → >50% failure = SEV2 → assign IC → check error_log → identify ElevenLabs quota → bypass with backup voice provider → notify Biniyam → schedule postmortem
+- Output: SEV2 declared, timeline, mitigation (failover), 8 of 12 jobs rerun, postmortem owner assigned
+
+**Example 2 — Agent producing low-quality output**
+- Input: "Quality scores collapsed to ~3/10 across all runs"
+- Action: Classify → quality collapsed = SEV2 → check auditor parse error per known issues → trace recent model swap → rollback → verify → blameless postmortem
+- Output: SEV2, root cause (auditor regex broke on new model output format), rollback to previous, fix queued, postmortem doc

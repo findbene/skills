@@ -1,6 +1,7 @@
 ---
 name: "prompt-engineer-toolkit"
-description: "Analyzes and rewrites prompts for better AI output, creates reusable prompt templates for marketing use cases (ad copy, email campaigns, social media), and structures end-to-end AI content workflows. Use when the user wants to improve prompts for AI-assisted marketing, build prompt templates, or optimize AI content workflows. Also use when the user mentions 'prompt engineering,' 'improve my prompts,' 'AI writing quality,' 'prompt templates,' or 'AI content workflow.'"
+description: "Analyzes and rewrites prompts for better AI output, creates reusable prompt templates for market. Triggers: 'use prompt-engineer-toolkit', 'engineer prompt engineer toolkit', 'prompt engineer toolkit."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -70,10 +71,10 @@ python3 scripts/prompt_versioner.py changelog --name support_classifier
 
 ### 4. Regression Loop
 
-1. Store baseline version.
-2. Propose prompt edits.
-3. Re-run A/B test.
-4. Promote only if score and safety constraints improve.
+1. Store baseline version. → verify: step output matches expected outcome
+2. Propose prompt edits. → verify: step output matches expected outcome
+3. Re-run A/B test. → verify: command exit code 0
+4. Promote only if score and safety constraints improve. → verify: step output matches expected outcome
 
 ## Script Interfaces
 
@@ -88,13 +89,13 @@ python3 scripts/prompt_versioner.py changelog --name support_classifier
 ## Pitfalls, Best Practices & Review Checklist
 
 **Avoid these mistakes:**
-1. Picking prompts from single-case outputs — use a realistic, edge-case-rich test suite.
-2. Changing prompt and model simultaneously — always isolate variables.
-3. Missing `must_not_contain` (forbidden-content) checks in evaluation criteria.
-4. Editing prompts without version metadata, author, or change rationale.
-5. Skipping semantic diffs before deploying a new prompt version.
-6. Optimizing one benchmark while harming edge cases — track the full suite.
-7. Model swap without rerunning the baseline A/B suite.
+1. Picking prompts from single-case outputs — use a realistic, edge-case-rich test suite. → verify: all checks pass
+2. Changing prompt and model simultaneously — always isolate variables. → verify: step output matches expected outcome
+3. Missing `must_not_contain` (forbidden-content) checks in evaluation criteria. → verify: step output matches expected outcome
+4. Editing prompts without version metadata, author, or change rationale. → verify: diff matches intended change
+5. Skipping semantic diffs before deploying a new prompt version. → verify: step output matches expected outcome
+6. Optimizing one benchmark while harming edge cases — track the full suite. → verify: step output matches expected outcome
+7. Model swap without rerunning the baseline A/B suite. → verify: command exit code 0
 
 **Before promoting any prompt, confirm:**
 - [ ] Task intent is explicit and unambiguous.
@@ -131,8 +132,49 @@ This enables deterministic grading across prompt variants.
 
 ## Rollout Strategy
 
-1. Create baseline prompt version.
-2. Propose candidate prompt.
-3. Run A/B suite against same cases.
-4. Promote only if winner improves average and keeps violation count at zero.
-5. Track post-release feedback and feed new failure cases back into test suite.
+1. Create baseline prompt version. → verify: output exists + parses without error
+2. Propose candidate prompt. → verify: step output matches expected outcome
+3. Run A/B suite against same cases. → verify: command exit code 0
+4. Promote only if winner improves average and keeps violation count at zero. → verify: step output matches expected outcome
+5. Track post-release feedback and feed new failure cases back into test suite. → verify: all checks pass
+
+## Triggers
+
+prompt engineering,' 'improve my prompts,' 'AI writing quality,' 'prompt templates,' or 'AI content workflow.'
+
+## When NOT to use
+
+- Task is unrelated to prompt engineer toolkit — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Prompt Engineer Toolkit needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for prompt engineer toolkit
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving prompt engineer toolkit
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

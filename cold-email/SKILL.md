@@ -1,6 +1,7 @@
 ---
 name: cold-email
-description: "Write cold emails, outbound sequences, and prospecting messages that get replies — including subject lines, opening lines, value propositions, CTAs, and follow-up sequences. Use this whenever the user asks to 'write a cold email,' 'outbound email,' 'prospecting email,' 'cold outreach,' 'sales email,' or 'improve my cold email.' Trigger even when the user shows a low-reply-rate email and asks why it isn't working, or says 'we're doing outbound but not getting responses."
+description: "Write cold emails, outbound sequences, and prospecting messages that get replies — including subject lines, opening lines, value propositio. Triggers: 'use cold-email', 'cold email', 'cold-email task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -16,11 +17,11 @@ If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-
 
 Understand the situation (ask if not provided):
 
-1. **Who are you writing to?** — Role, company, why them specifically
-2. **What do you want?** — The outcome (meeting, reply, intro, demo)
-3. **What's the value?** — The specific problem you solve for people like them
-4. **What's your proof?** — A result, case study, or credibility signal
-5. **Any research signals?** — Funding, hiring, LinkedIn posts, company news, tech stack changes
+1. **Who are you writing to?** — Role, company, why them specifically → verify: step output matches expected outcome
+2. **What do you want?** — The outcome (meeting, reply, intro, demo) → verify: step output matches expected outcome
+3. **What's the value?** — The specific problem you solve for people like them → verify: step output matches expected outcome
+4. **What's your proof?** — A result, case study, or credibility signal → verify: step output matches expected outcome
+5. **Any research signals?** — Funding, hiring, LinkedIn posts, company news, tech stack changes → verify: step output matches expected outcome
 
 Work with whatever the user gives you. If they have a strong signal and a clear value prop, that's enough to write. Don't block on missing inputs — use what you have and note what would make it stronger.
 
@@ -156,3 +157,40 @@ Use this data to inform your writing — not as a checklist to satisfy.
 - **social-content**: For LinkedIn and social posts
 - **product-marketing-context**: For establishing foundational positioning
 - **revops**: For lead scoring, routing, and pipeline management
+
+## When NOT to use
+
+- Task is unrelated to cold email — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Cold Email needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for cold email
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving cold email
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

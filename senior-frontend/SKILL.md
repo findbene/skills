@@ -1,6 +1,7 @@
 ---
 name: "senior-frontend"
-description: Frontend development skill for React, Next.js, TypeScript, and Tailwind CSS applications. Use when building React components, optimizing Next.js performance, analyzing bundle sizes, scaffolding frontend projects, implementing accessibility, or reviewing frontend code quality.
+description: "Frontend development skill for React, Next.js, TypeScript, and Tailwind CSS applications. Triggers: 'use senior-frontend', 'senior frontend', 'senior-frontend task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Senior Frontend
@@ -24,22 +25,22 @@ Generate a new Next.js or React project with TypeScript, Tailwind CSS, and best 
 
 ### Workflow: Create New Frontend Project
 
-1. Run the scaffolder with your project name and template:
+1. Run the scaffolder with your project name and template: → verify: command exit code 0
    ```bash
    python scripts/frontend_scaffolder.py my-app --template nextjs
    ```
 
-2. Add optional features (auth, api, forms, testing, storybook):
+2. Add optional features (auth, api, forms, testing, storybook): → verify: dependency resolves + import works
    ```bash
    python scripts/frontend_scaffolder.py dashboard --template nextjs --features auth,api
    ```
 
-3. Navigate to the project and install dependencies:
+3. Navigate to the project and install dependencies: → verify: dependency resolves + import works
    ```bash
    cd my-app && npm install
    ```
 
-4. Start the development server:
+4. Start the development server: → verify: step output matches expected outcome
    ```bash
    npm run dev
    ```
@@ -84,22 +85,22 @@ Generate React components with TypeScript, tests, and Storybook stories.
 
 ### Workflow: Create a New Component
 
-1. Generate a client component:
+1. Generate a client component: → verify: output exists + parses without error
    ```bash
    python scripts/component_generator.py Button --dir src/components/ui
    ```
 
-2. Generate a server component:
+2. Generate a server component: → verify: output exists + parses without error
    ```bash
    python scripts/component_generator.py ProductCard --type server
    ```
 
-3. Generate with test and story files:
+3. Generate with test and story files: → verify: output exists + parses without error
    ```bash
    python scripts/component_generator.py UserProfile --with-test --with-story
    ```
 
-4. Generate a custom hook:
+4. Generate a custom hook: → verify: output exists + parses without error
    ```bash
    python scripts/component_generator.py FormValidation --type hook
    ```
@@ -146,12 +147,12 @@ Analyze package.json and project structure for bundle optimization opportunities
 
 ### Workflow: Optimize Bundle Size
 
-1. Run the analyzer on your project:
+1. Run the analyzer on your project: → verify: command exit code 0
    ```bash
    python scripts/bundle_analyzer.py /path/to/project
    ```
 
-2. Review the health score and issues:
+2. Review the health score and issues: → verify: step output matches expected outcome
    ```
    Bundle Health Score: 75/100 (C)
 
@@ -163,9 +164,9 @@ Analyze package.json and project structure for bundle optimization opportunities
        Alternative: lodash-es with tree-shaking
    ```
 
-3. Apply the recommended fixes by replacing heavy dependencies.
+3. Apply the recommended fixes by replacing heavy dependencies. → verify: diff matches intended change
 
-4. Re-run with verbose mode to check import patterns:
+4. Re-run with verbose mode to check import patterns: → verify: command exit code 0
    ```bash
    python scripts/bundle_analyzer.py . --verbose
    ```
@@ -365,11 +366,11 @@ Reference: `references/frontend_best_practices.md`
 
 ### Accessibility Checklist
 
-1. **Semantic HTML**: Use proper elements (`<button>`, `<nav>`, `<main>`)
-2. **Keyboard Navigation**: All interactive elements focusable
-3. **ARIA Labels**: Provide labels for icons and complex widgets
-4. **Color Contrast**: Minimum 4.5:1 for normal text
-5. **Focus Indicators**: Visible focus states
+1. **Semantic HTML**: Use proper elements (`<button>`, `<nav>`, `<main>`) → verify: step output matches expected outcome
+2. **Keyboard Navigation**: All interactive elements focusable → verify: step output matches expected outcome
+3. **ARIA Labels**: Provide labels for icons and complex widgets → verify: step output matches expected outcome
+4. **Color Contrast**: Minimum 4.5:1 for normal text → verify: step output matches expected outcome
+5. **Focus Indicators**: Visible focus states → verify: step output matches expected outcome
 
 ```tsx
 // Accessible button
@@ -471,3 +472,40 @@ function List<T>({ items, renderItem }: ListProps<T>) {
 - React Patterns: `references/react_patterns.md`
 - Next.js Optimization: `references/nextjs_optimization_guide.md`
 - Best Practices: `references/frontend_best_practices.md`
+
+## When NOT to use
+
+- Task is unrelated to senior frontend — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Senior Frontend needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for senior frontend
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving senior frontend
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

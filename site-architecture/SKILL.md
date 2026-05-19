@@ -1,6 +1,7 @@
 ---
 name: site-architecture
-description: "Design website structure, navigation, URL hierarchy, internal linking strategy, page taxonomy, and information architecture for SEO and user experience. Use this whenever the user asks about 'site architecture,' 'URL structure,' 'navigation design,' 'page hierarchy,' 'internal linking strategy,' 'site taxonomy,' 'how to organize my website,' or 'pillar page structure.' Trigger even when the user asks why certain pages aren't getting crawled or how to structure a large website without using architecture terminology."
+description: "Design website structure, navigation, URL hierarchy, internal linking strategy, page taxonomy, and information archite. Triggers: 'use site-architecture', 'site architecture', 'site-architecture task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -158,12 +159,12 @@ Breadcrumbs should mirror the URL hierarchy. Every breadcrumb segment should be 
 
 ### Design Principles
 
-1. **Readable by humans** — `/features/analytics` not `/f/a123`
-2. **Hyphens, not underscores** — `/blog/seo-guide` not `/blog/seo_guide`
-3. **Reflect the hierarchy** — URL path should match site structure
-4. **Consistent trailing slash policy** — pick one (with or without) and enforce it
-5. **Lowercase always** — `/About` should redirect to `/about`
-6. **Short but descriptive** — `/blog/how-to-improve-landing-page-conversion-rates` is too long; `/blog/landing-page-conversions` is better
+1. **Readable by humans** — `/features/analytics` not `/f/a123` → verify: file content matches expected shape
+2. **Hyphens, not underscores** — `/blog/seo-guide` not `/blog/seo_guide` → verify: step output matches expected outcome
+3. **Reflect the hierarchy** — URL path should match site structure → verify: step output matches expected outcome
+4. **Consistent trailing slash policy** — pick one (with or without) and enforce it → verify: step output matches expected outcome
+5. **Lowercase always** — `/About` should redirect to `/about` → verify: step output matches expected outcome
+6. **Short but descriptive** — `/blog/how-to-improve-landing-page-conversion-rates` is too long; `/blog/landing-page-conversions` is better → verify: step output matches expected outcome
 
 ### URL Patterns by Page Type
 
@@ -269,12 +270,12 @@ graph TD
 
 ### Internal Linking Rules
 
-1. **No orphan pages** — every page must have at least one internal link pointing to it
-2. **Descriptive anchor text** — "our analytics features" not "click here"
-3. **5-10 internal links per 1000 words** of content (approximate guideline)
-4. **Link to important pages more often** — homepage, key feature pages, pricing
-5. **Use breadcrumbs** — free internal links on every page
-6. **Related content sections** — "Related Posts" or "You might also like" at page bottom
+1. **No orphan pages** — every page must have at least one internal link pointing to it → verify: step output matches expected outcome
+2. **Descriptive anchor text** — "our analytics features" not "click here" → verify: step output matches expected outcome
+3. **5-10 internal links per 1000 words** of content (approximate guideline) → verify: step output matches expected outcome
+4. **Link to important pages more often** — homepage, key feature pages, pricing → verify: step output matches expected outcome
+5. **Use breadcrumbs** — free internal links on every page → verify: file content matches expected shape
+6. **Related content sections** — "Related Posts" or "You might also like" at page bottom → verify: step output matches expected outcome
 
 ### Hub-and-Spoke Model
 
@@ -338,12 +339,12 @@ Mermaid diagram showing page relationships and navigation zones. Use `graph TD` 
 
 ## Task-Specific Questions
 
-1. Is this a new site or are you restructuring an existing one?
-2. What type of site is it? (SaaS, content, e-commerce, docs, hybrid, small business)
-3. How many pages exist or are planned?
-4. What are the 5 most important pages on the site?
-5. Are there existing URLs that need to be preserved or redirected?
-6. Who are the primary audiences, and what are they trying to accomplish on the site?
+1. Is this a new site or are you restructuring an existing one? → verify: step output matches expected outcome
+2. What type of site is it? (SaaS, content, e-commerce, docs, hybrid, small business) → verify: step output matches expected outcome
+3. How many pages exist or are planned? → verify: step output matches expected outcome
+4. What are the 5 most important pages on the site? → verify: step output matches expected outcome
+5. Are there existing URLs that need to be preserved or redirected? → verify: step output matches expected outcome
+6. Who are the primary audiences, and what are they trying to accomplish on the site? → verify: step output matches expected outcome
 
 ---
 
@@ -355,3 +356,40 @@ Mermaid diagram showing page relationships and navigation zones. Use `graph TD` 
 - **page-cro**: For optimizing individual pages for conversion
 - **schema-markup**: For implementing breadcrumb and site navigation structured data
 - **competitor-alternatives**: For comparison page frameworks and URL patterns
+
+## When NOT to use
+
+- Task is unrelated to site architecture — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Site Architecture needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for site architecture
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving site architecture
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

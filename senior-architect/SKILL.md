@@ -1,6 +1,7 @@
 ---
 name: "senior-architect"
-description: This skill should be used when the user asks to "design system architecture", "evaluate microservices vs monolith", "create architecture diagrams", "analyze dependencies", "choose a database", "plan for scalability", "make technical decisions", or "review system design". Use for architecture decision records (ADRs), tech stack evaluation, system design reviews, dependency analysis, and generating architecture diagrams in Mermaid, PlantUML, or ASCII format.
+description: 'This skill should be used when the user asks to ''design system architecture'', ''evaluate microservices vs monolith'', ''create architecture diagrams'', ''analyze dependencies'', ''choose a database.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Senior Architect
@@ -129,8 +130,8 @@ Issues found:
 - OUTDATED: lodash 4.17.15 → 4.17.21 (security)
 
 Recommendations:
-1. Extract shared interface to break circular dependency
-2. Update lodash to fix CVE-2020-8203
+1. Extract shared interface to break circular dependency → verify: step output matches expected outcome
+2. Update lodash to fix CVE-2020-8203 → verify: diff matches intended change
 ```
 
 ---
@@ -182,9 +183,9 @@ Issues:
 - MIXED CONCERNS: PaymentController contains business logic
 
 Recommendations:
-1. Split UserService into focused services
-2. Move business logic from controllers to services
-3. Separate domain models from DTOs
+1. Split UserService into focused services → verify: step output matches expected outcome
+2. Move business logic from controllers to services → verify: step output matches expected outcome
+3. Separate domain models from DTOs → verify: step output matches expected outcome
 ```
 
 ---
@@ -286,9 +287,9 @@ See `references/architecture_patterns.md` for detailed pattern descriptions.
 
 **Hybrid approach:**
 Start with a modular monolith. Extract services only when:
-1. A module has significantly different scaling needs
-2. A team needs independent deployment
-3. Technology constraints require separation
+1. A module has significantly different scaling needs → verify: step output matches expected outcome
+2. A team needs independent deployment → verify: step output matches expected outcome
+3. Technology constraints require separation → verify: step output matches expected outcome
 
 ---
 
@@ -338,6 +339,45 @@ python scripts/project_architect.py . --output json
 
 ## Getting Help
 
-1. Run any script with `--help` for usage information
-2. Check reference documentation for detailed patterns and workflows
-3. Use `--verbose` flag for detailed explanations and recommendations
+1. Run any script with `--help` for usage information → verify: command exit code 0
+2. Check reference documentation for detailed patterns and workflows → verify: all checks pass
+3. Use `--verbose` flag for detailed explanations and recommendations → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Implementation-level questions (write this function, fix this bug) — use language/framework skills
+- UI/UX or design decisions — use `frontend-design` or `design-system` skills
+- Small projects (< 5 services, single repo, single team) — full architecture review is overkill
+- Code review of an existing module — use `code-review` instead
+- Cost-only cloud questions — use `aws-solution-architect` / `gcp-cloud-architect` / `azure-cloud-architect`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Microservices because everyone uses them" | Cargo-culting; run the monolith-vs-microservices decision tree first — most teams should stay on a modular monolith |
+| "Picked Postgres without thinking" | Even if Postgres is right, document WHY (consistency model, query patterns, ops familiarity) — undocumented choices break under audit |
+| "I'll skip the diagram, the team knows the system" | New hires, on-call, and post-incident reviews all need diagrams; generate it once with `architecture_diagram_generator.py` |
+| "Scale later, ship now" | Some decisions (data model, service boundaries) are extremely expensive to reverse — name those explicitly even if you defer them |
+
+## Output Contract
+
+Finished output must contain:
+- Architecture diagram (Mermaid or PlantUML) committed to repo at a known path
+- Decision record (ADR-style) for every major choice: db, language, deployment model, pattern
+- Explicit list of trade-offs accepted and their reversal cost
+- Dependency analysis flagging circular deps, version drift, license conflicts
+- Scalability ceiling estimate (req/s, data volume, team size) before next rearchitecture
+- One recommended option per decision — no open-ended menus
+
+## Examples
+
+**Example 1 — Greenfield SaaS architecture**
+- Input: "Design the architecture for a multi-tenant B2B analytics app, expected 1000 customers, 10M events/day"
+- Action: Run `project_architect.py --verbose` → apply monolith-vs-microservices tree → recommend modular monolith on Postgres + ClickHouse for events → produce Mermaid component diagram → write ADRs for db split and tenancy model
+- Output: `docs/architecture.md` with diagram, 4 ADRs, scalability ceiling at ~10x current load
+
+**Example 2 — Audit existing system before refactor**
+- Input: "Our 3-year-old Django monolith feels slow and tangled — what should we extract first?"
+- Action: Run `dependency_analyzer.py ./repo --output json` → identify highest-coupling modules → run `architecture_diagram_generator.py` → recommend extracting search service first (clear boundary, performance hotspot)
+- Output: Dependency report, current-state diagram, target-state diagram, 1-page extraction plan with reversal cost

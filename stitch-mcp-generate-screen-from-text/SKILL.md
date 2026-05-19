@@ -1,6 +1,6 @@
 ---
 name: stitch-mcp-generate-screen-from-text
-description: Generates a high-fidelity UI screen or wireframe from a text prompt using Stitch. This is the core text-to-UI generation tool — the heart of the Stitch workflow.
+description: "Generates a high-fidelity UI screen or wireframe from a text. Triggers: 'use stitch-mcp-generate-screen-from-text', 'stitch mcp generate screen from text', 'stitch-mcp-generate-screen-from-text task'."
 allowed-tools:
   - "stitch*:*"
 ---
@@ -77,8 +77,8 @@ For best results, use the `stitch-ui-prompt-architect` skill to assemble the pro
 ## After generating
 
 This tool returns session info but **not the actual screenshot/HTML**. To retrieve the design:
-1. Call `stitch-mcp-list-screens` with `projects/[projectId]` to find the new screen
-2. Call `stitch-mcp-get-screen` with the `projectId` and `screenId` to get the screenshot and HTML
+1. Call `stitch-mcp-list-screens` with `projects/[projectId]` to find the new screen → verify: step output matches expected outcome
+2. Call `stitch-mcp-get-screen` with the `projectId` and `screenId` to get the screenshot and HTML → verify: step output matches expected outcome
 
 ## Prompt quality checklist
 
@@ -96,9 +96,9 @@ When the prompt is a **complete PRD document** (product overview, design system,
 This is the same mechanism Stitch's web Ideate uses for "generate all screens". The PRD format acts as a comprehensive prompt that Stitch decomposes internally.
 
 **How to use batch generation:**
-1. Send the full PRD text as the `prompt` parameter
-2. Stitch generates up to ~10 screens per call from a multi-screen PRD
-3. Two possible outcomes depending on whether the MCP response times out:
+1. Send the full PRD text as the `prompt` parameter → verify: step output matches expected outcome
+2. Stitch generates up to ~10 screens per call from a multi-screen PRD → verify: output exists + parses without error
+3. Two possible outcomes depending on whether the MCP response times out: → verify: step output matches expected outcome
 
    **If response returns with data:**
    - Check `output_components` for continuation suggestions (e.g. "Yes, make them all", "Generate remaining screens")
@@ -124,3 +124,40 @@ Stitch generation takes 60–180 seconds for single screens and up to 5 minutes 
 
 - `examples/desktop.md` — Desktop dashboard prompts (SaaS analytics, admin panel)
 - `examples/mobile.md` — Mobile app prompts (login, social feed, e-commerce)
+
+## When NOT to use
+
+- Task is unrelated to stitch mcp generate screen from text — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Mcp Generate Screen From Text needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch mcp generate screen from text
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving stitch mcp generate screen from text
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

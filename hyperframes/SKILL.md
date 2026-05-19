@@ -1,6 +1,7 @@
 ---
 name: hyperframes
-description: Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.
+description: "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in Hyp. Triggers: 'use hyperframes', 'hyperframes', 'hyperframes task."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # HyperFrames
@@ -46,12 +47,12 @@ Read [references/prompt-expansion.md](references/prompt-expansion.md) for the fu
 
 Before writing HTML, think at a high level:
 
-1. **What** — what should the viewer experience? Identify the narrative arc, key moments, and emotional beats.
-2. **Structure** — how many compositions, which are sub-compositions vs inline, what tracks carry what (video, audio, overlays, captions).
-3. **Rhythm** — declare your scene rhythm before implementing. Which scenes are quick hits, which are holds, where do shaders land, where does energy peak. Name the pattern: fast-fast-SLOW-fast-SHADER-hold. Read [references/beat-direction.md](references/beat-direction.md) for rhythm templates.
-4. **Timing** — which clips drive the duration, where do transitions land, what's the pacing.
-5. **Layout** — build the end-state first. See "Layout Before Animation" below.
-6. **Animate** — then add motion using the rules below.
+1. **What** — what should the viewer experience? Identify the narrative arc, key moments, and emotional beats. → verify: step output matches expected outcome
+2. **Structure** — how many compositions, which are sub-compositions vs inline, what tracks carry what (video, audio, overlays, captions). → verify: step output matches expected outcome
+3. **Rhythm** — declare your scene rhythm before implementing. Which scenes are quick hits, which are holds, where do shaders land, where does energy peak. Name the pattern: fast-fast-SLOW-fast-SHADER-hold. Read [references/beat-direction.md](references/beat-direction.md) for rhythm templates. → verify: file content matches expected shape
+4. **Timing** — which clips drive the duration, where do transitions land, what's the pacing. → verify: step output matches expected outcome
+5. **Layout** — build the end-state first. See "Layout Before Animation" below. → verify: step output matches expected outcome
+6. **Animate** — then add motion using the rules below. → verify: dependency resolves + import works
 
 **Build what was asked.** A request for "a title card" is not a request for "a title card + 3 supporting scenes + ambient music + captions." Every scene, every element, every tween should earn its place. If additional scenes or elements would genuinely improve the piece, propose them — don't add them.
 
@@ -69,10 +70,10 @@ Position every element where it should be at its **most visible moment** — the
 
 ### The process
 
-1. **Identify the hero frame** for each scene — the moment when the most elements are simultaneously visible. This is the layout you build.
-2. **Write static CSS** for that frame. The `.scene-content` container MUST fill the full scene using `width: 100%; height: 100%; padding: Npx;` with `display: flex; flex-direction: column; gap: Npx; box-sizing: border-box`. Use padding to push content inward — NEVER `position: absolute; top: Npx` on a content container. Absolute-positioned content containers overflow when content is taller than the remaining space. Reserve `position: absolute` for decoratives only.
-3. **Add entrances with `gsap.from()`** — animate FROM offscreen/invisible TO the CSS position. The CSS position is the ground truth; the tween describes the journey to get there. (In sub-compositions loaded via `data-composition-src`, prefer `gsap.fromTo()` — see load-bearing GSAP rules in [references/motion-principles.md](references/motion-principles.md).)
-4. **Add exits with `gsap.to()`** — animate TO offscreen/invisible FROM the CSS position.
+1. **Identify the hero frame** for each scene — the moment when the most elements are simultaneously visible. This is the layout you build. → verify: step output matches expected outcome
+2. **Write static CSS** for that frame. The `.scene-content` container MUST fill the full scene using `width: 100%; height: 100%; padding: Npx;` with `display: flex; flex-direction: column; gap: Npx; box-sizing: border-box`. Use padding to push content inward — NEVER `position: absolute; top: Npx` on a content container. Absolute-positioned content containers overflow when content is taller than the remaining space. Reserve `position: absolute` for decoratives only. → verify: output exists + parses without error
+3. **Add entrances with `gsap.from()`** — animate FROM offscreen/invisible TO the CSS position. The CSS position is the ground truth; the tween describes the journey to get there. (In sub-compositions loaded via `data-composition-src`, prefer `gsap.fromTo()` — see load-bearing GSAP rules in [references/motion-principles.md](references/motion-principles.md).) → verify: file content matches expected shape
+4. **Add exits with `gsap.to()`** — animate TO offscreen/invisible FROM the CSS position. → verify: dependency resolves + import works
 
 ### Example
 
@@ -197,9 +198,9 @@ Render the same composition with different content — title, theme color, price
 
 **Three-step pattern:**
 
-1. **Declare** variables on the composition's `<html>` root with `data-composition-variables`. Each entry needs `id`, `type` (one of `string`, `number`, `color`, `boolean`, `enum`), `label`, and `default`. Enum entries also need `options: [{value, label}, ...]`.
-2. **Read** the resolved values inside the composition's script with `window.__hyperframes.getVariables()`. Returns the merged result of declared defaults + per-instance overrides + CLI overrides.
-3. **Override** at render time with `npx hyperframes render --variables '{...}'` (top-level) or with `data-variable-values='{...}'` on the host element (per-instance for sub-comps).
+1. **Declare** variables on the composition's `<html>` root with `data-composition-variables`. Each entry needs `id`, `type` (one of `string`, `number`, `color`, `boolean`, `enum`), `label`, and `default`. Enum entries also need `options: [{value, label}, ...]`. → verify: step output matches expected outcome
+2. **Read** the resolved values inside the composition's script with `window.__hyperframes.getVariables()`. Returns the merged result of declared defaults + per-instance overrides + CLI overrides. → verify: file content matches expected shape
+3. **Override** at render time with `npx hyperframes render --variables '{...}'` (top-level) or with `data-variable-values='{...}'` on the host element (per-instance for sub-comps). → verify: step output matches expected outcome
 
 ```html
 <!doctype html>
@@ -306,26 +307,26 @@ Video must be `muted playsinline`. Audio is always a separate `<audio>` element:
 
 **Never do:**
 
-1. Forget `window.__timelines` registration
-2. Use video for audio — always muted video + separate `<audio>`
-3. Nest video inside a timed div — use a non-timed wrapper
-4. Use `data-layer` (use `data-track-index`) or `data-end` (use `data-duration`)
-5. Animate video element dimensions — animate a wrapper div
-6. Call play/pause/seek on media — framework owns playback
-7. Create a top-level container without `data-composition-id`
-8. Use `repeat: -1` on any timeline or tween — always finite repeats
-9. Build timelines asynchronously (inside `async`, `setTimeout`, `Promise`)
-10. Use `gsap.set()` on clip elements from later scenes — they don't exist in the DOM at page load. Use `tl.set(selector, vars, timePosition)` inside the timeline at or after the clip's `data-start` time instead.
-11. Use `<br>` in content text — forced line breaks don't account for actual rendered font width. Text that wraps naturally + a `<br>` produces an extra unwanted break, causing overlap. Let text wrap via `max-width` instead. Exception: short display titles where each word is deliberately on its own line (e.g., "THE\nIMMORTAL\nGAME" at 130px).
+1. Forget `window.__timelines` registration → verify: step output matches expected outcome
+2. Use video for audio — always muted video + separate `<audio>` → verify: step output matches expected outcome
+3. Nest video inside a timed div — use a non-timed wrapper → verify: step output matches expected outcome
+4. Use `data-layer` (use `data-track-index`) or `data-end` (use `data-duration`) → verify: step output matches expected outcome
+5. Animate video element dimensions — animate a wrapper div → verify: step output matches expected outcome
+6. Call play/pause/seek on media — framework owns playback → verify: step output matches expected outcome
+7. Create a top-level container without `data-composition-id` → verify: output exists + parses without error
+8. Use `repeat: -1` on any timeline or tween — always finite repeats → verify: step output matches expected outcome
+9. Build timelines asynchronously (inside `async`, `setTimeout`, `Promise`) → verify: step output matches expected outcome
+10. Use `gsap.set()` on clip elements from later scenes — they don't exist in the DOM at page load. Use `tl.set(selector, vars, timePosition)` inside the timeline at or after the clip's `data-start` time instead. → verify: file content matches expected shape
+11. Use `<br>` in content text — forced line breaks don't account for actual rendered font width. Text that wraps naturally + a `<br>` produces an extra unwanted break, causing overlap. Let text wrap via `max-width` instead. Exception: short display titles where each word is deliberately on its own line (e.g., "THE\nIMMORTAL\nGAME" at 130px). → verify: output exists + parses without error
 
 ## Scene Transitions (Non-Negotiable)
 
 Every multi-scene composition MUST follow ALL of these rules. Violating any one of them is a broken composition.
 
-1. **ALWAYS use transitions between scenes.** No jump cuts. No exceptions.
-2. **ALWAYS use entrance animations on every scene.** Every element animates IN via `gsap.from()`. No element may appear fully-formed. If a scene has 5 elements, it needs 5 entrance tweens.
-3. **NEVER use exit animations** except on the final scene. This means: NO `gsap.to()` that animates opacity to 0, y offscreen, scale to 0, or any other "out" animation before a transition fires. The transition IS the exit. The outgoing scene's content MUST be fully visible at the moment the transition starts.
-4. **Final scene only:** The last scene may fade elements out (e.g., fade to black). This is the ONLY scene where `gsap.to(..., { opacity: 0 })` is allowed.
+1. **ALWAYS use transitions between scenes.** No jump cuts. No exceptions. → verify: step output matches expected outcome
+2. **ALWAYS use entrance animations on every scene.** Every element animates IN via `gsap.from()`. No element may appear fully-formed. If a scene has 5 elements, it needs 5 entrance tweens. → verify: step output matches expected outcome
+3. **NEVER use exit animations** except on the final scene. This means: NO `gsap.to()` that animates opacity to 0, y offscreen, scale to 0, or any other "out" animation before a transition fires. The transition IS the exit. The outgoing scene's content MUST be fully visible at the moment the transition starts. → verify: step output matches expected outcome
+4. **Final scene only:** The last scene may fade elements out (e.g., fade to black). This is the ONLY scene where `gsap.to(..., { opacity: 0 })` is allowed. → verify: step output matches expected outcome
 
 **WRONG — exit animation before transition:**
 
@@ -425,19 +426,19 @@ Use `--no-contrast` to skip if iterating rapidly and you'll check later.
 
 If a `design.md` exists, verify the composition follows it after authoring. Read the HTML and check:
 
-1. **Colors** — every hex value in the composition appears in design.md's palette section (however the user labeled it: Colors, Palette, Theme, etc.). Flag any invented colors.
-2. **Typography** — font families and weights match design.md's type spec. No substitutions.
-3. **Corners** — border-radius values match the declared corner style, if specified.
-4. **Spacing** — padding and gap values fall within the declared density range, if specified.
-5. **Depth** — shadow usage matches the declared depth level, if specified (flat = none, subtle = light, layered = glows).
+1. **Colors** — every hex value in the composition appears in design.md's palette section (however the user labeled it: Colors, Palette, Theme, etc.). Flag any invented colors. → verify: step output matches expected outcome
+2. **Typography** — font families and weights match design.md's type spec. No substitutions. → verify: step output matches expected outcome
+3. **Corners** — border-radius values match the declared corner style, if specified. → verify: step output matches expected outcome
+4. **Spacing** — padding and gap values fall within the declared density range, if specified. → verify: step output matches expected outcome
+5. **Depth** — shadow usage matches the declared depth level, if specified (flat = none, subtle = light, layered = glows). → verify: step output matches expected outcome
 6. **Avoidance rules** — if design.md has a section listing things to avoid (commonly "What NOT to Do", "Don'ts", "Anti-patterns", or "Do's and Don'ts"), verify none are present.
 
 Report violations as a checklist. Fix each one before serving.
 
 If no `design.md` exists (house-style-only path), verify:
 
-1. **Palette consistency** — the same bg, fg, and accent colors are used across all scenes. No per-scene color invention.
-2. **No lazy defaults** — check the composition against house-style.md's "Lazy Defaults to Question" list. If any appear, they must be a deliberate choice for the content, not a default.
+1. **Palette consistency** — the same bg, fg, and accent colors are used across all scenes. No per-scene color invention. → verify: step output matches expected outcome
+2. **No lazy defaults** — check the composition against house-style.md's "Lazy Defaults to Question" list. If any appear, they must be a deliberate choice for the content, not a default. → verify: all checks pass
 
 ### Animation Map
 
@@ -488,3 +489,40 @@ Skip on small edits (fixing a color, adjusting one duration). Run on new composi
   - Shader transitions are in `@hyperframes/shader-transitions` (`packages/shader-transitions/`) — read package source, not skill files.
 
 GSAP patterns and effects are in the `/gsap` skill.
+
+## When NOT to use
+
+- Task is unrelated to hyperframes — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Hyperframes needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for hyperframes
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving hyperframes
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

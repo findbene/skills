@@ -1,6 +1,7 @@
 ---
 name: pdf
-description: Read, create, merge, split, rotate, watermark, encrypt, extract text/tables from PDF files using Python. Trigger immediately any time a user mentions ".pdf", "PDF", "read this PDF", "merge PDFs", "split PDF", "extract from PDF", "PDF form", "combine PDFs", "PDF pages", "PDF to text", "watermark PDF", "compress PDF", "convert to PDF", "PDF password", "scanned PDF", or shares a .pdf file. Also trigger when the user asks to process, analyze, or generate any document that should be output as a PDF. Do not wait for the user to explicitly say "use python-docx" or name a library — if the task involves a PDF, this skill applies.
+description: 'Read, create, merge, split, rotate, watermark, encrypt, extract text/tables from PDF files using Python. Triggers: "use pdf", "process PDF", "pdf".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # PDF Processing
@@ -8,27 +9,6 @@ description: Read, create, merge, split, rotate, watermark, encrypt, extract tex
 Handle PDF operations — reading, creating, manipulating, and extracting content from PDF files.
 
 The right tool depends on what you need to do. PDFs are not a single format — they can be text-based (selectable text), image-based (scanned, needs OCR), or form-based. Pick your library based on the task, not habit.
-
----
-
-## Library Selection Guide
-
-| Task | Best Tool | Why |
-|------|-----------|-----|
-| Extract text from text-based PDF | `pdfplumber` | Handles layout, columns, preserves whitespace |
-| Extract tables | `pdfplumber` | Built-in table detection |
-| Merge / split / rotate pages | `pypdf` | Lightweight, no dependencies |
-| Create a new PDF from scratch | `reportlab` | Full typographic control |
-| OCR scanned/image-based PDFs | `pytesseract` + `pdf2image` | Only option for image PDFs |
-| Password-protect or decrypt | `pypdf` | Encryption built in |
-| Watermarking | `pypdf` | Overlay pages together |
-| Complex CLI operations | `qpdf` | Fast, reliable binary |
-
-Install what you need:
-```bash
-pip install pypdf pdfplumber reportlab pdf2image pytesseract
-brew install qpdf tesseract   # or apt-get on Linux
-```
 
 ---
 
@@ -190,28 +170,43 @@ Higher DPI (300+) produces better OCR results at the cost of speed.
 
 ---
 
-## CLI operations (qpdf)
+## When NOT to use
 
-```bash
-# Merge
-qpdf --empty --pages part1.pdf part2.pdf -- merged.pdf
+- Task is unrelated to pdf — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
 
-# Extract pages 3-7
-qpdf --pages input.pdf 3-7 -- output.pdf
+## Red Flags
 
-# Decrypt
-qpdf --decrypt --password=secret encrypted.pdf decrypted.pdf
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Pdf needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
 
-# Compress
-qpdf --recompress-flate --compression-level=9 input.pdf compressed.pdf
-```
+## Output Contract
 
----
+Done when:
+- Primary deliverable produced matches user's stated goal for pdf
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
 
-## Gotchas
+## Examples
 
-- **`extract_text()` returns None**: the PDF is image-based. Use OCR.
-- **Garbled text**: likely a character encoding issue or a scanned PDF with embedded fonts. Try `pdfplumber` before concluding OCR is needed.
-- **ReportLab font limits**: built-in fonts (Helvetica, Times-Roman, Courier) don't support Unicode beyond Latin-1. Register a TTF font for full Unicode support.
-- **pypdf vs PyPDF2**: `pypdf` is the maintained successor to `PyPDF2`. Always use `pypdf`.
-- **Page rotation vs. content rotation**: rotating a page in pypdf rotates the viewport, not the content. For scanned images inside PDFs, you may need to rotate the image itself before embedding.
+### Example 1 — golden path
+- Input: standard user request involving pdf
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken
+
+## References
+
+Extended sections moved to `references/details.md`.

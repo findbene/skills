@@ -1,6 +1,6 @@
 ---
 name: stitch-animate
-description: Adds a purposeful animation layer to Stitch-generated components — CSS transitions, Framer Motion (React/Next.js), or Svelte transitions. Always respects prefers-reduced-motion.
+description: "Adds a purposeful animation layer to Stitch-generated components — CSS transitions, Framer Motion (React/Next.js), or Svelte tr. Triggers: 'use stitch-animate', 'stitch animate', 'stitch-animate task."
 allowed-tools:
   - "Read"
   - "Write"
@@ -37,9 +37,9 @@ Analyze the design first. Assign animations by tier — don't animate everything
 
 Read the generated component files. For each one, identify:
 
-1. **Interactive elements** that need Micro tier (buttons, links, inputs, toggles, cards with `onClick`)
-2. **Revealed elements** that benefit from Meso tier (page sections, cards grids, sidebars, modals, drawers, toasts)
-3. **Hero or landmark elements** that warrant Macro tier (the primary headline, featured images, page-level transitions)
+1. **Interactive elements** that need Micro tier (buttons, links, inputs, toggles, cards with `onClick`) → verify: step output matches expected outcome
+2. **Revealed elements** that benefit from Meso tier (page sections, cards grids, sidebars, modals, drawers, toasts) → verify: step output matches expected outcome
+3. **Hero or landmark elements** that warrant Macro tier (the primary headline, featured images, page-level transitions) → verify: step output matches expected outcome
 
 Only animate elements that have clear purpose. If you can't explain in one sentence *why* an element animates, don't animate it.
 
@@ -343,11 +343,11 @@ Svelte doesn't have a built-in scroll reveal, but the `use:` directive makes thi
 
 When modifying existing files:
 
-1. **Read each component file** first — understand the current structure
-2. **Add CSS classes** for Micro tier only (never change the component's logic for Micro)
-3. **Wrap with motion components** for Meso/Macro (React) or **add transition directives** (Svelte)
-4. **Add the reduced-motion override** to the main CSS file if not already present
-5. **Test both states** — with and without animation (use browser DevTools to simulate reduced motion)
+1. **Read each component file** first — understand the current structure → verify: file content matches expected shape
+2. **Add CSS classes** for Micro tier only (never change the component's logic for Micro) → verify: dependency resolves + import works
+3. **Wrap with motion components** for Meso/Macro (React) or **add transition directives** (Svelte) → verify: dependency resolves + import works
+4. **Add the reduced-motion override** to the main CSS file if not already present → verify: file content matches expected shape
+5. **Test both states** — with and without animation (use browser DevTools to simulate reduced motion) → verify: all checks pass
 
 ## What NOT to animate
 
@@ -369,3 +369,45 @@ When modifying existing files:
 ## References
 
 - `resources/animation-patterns.md` — Catalog of copy-paste ready patterns for common UI components
+
+## When NOT to use
+
+- Task is unrelated to stitch animate — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Animate needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch animate
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

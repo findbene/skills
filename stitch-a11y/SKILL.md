@@ -1,6 +1,6 @@
 ---
 name: stitch-a11y
-description: Audits Stitch-generated components for WCAG 2.1 AA accessibility issues and applies fixes — semantic HTML, ARIA attributes, keyboard navigation, focus management, and screen reader support.
+description: "Audits Stitch-generated components for WCAG 2.1 AA accessibility issues and applies fixes — semantic HTML, ARIA attributes, keyboard nav. Triggers: 'use stitch-a11y', 'stitch a11y', 'stitch-a11y task."
 allowed-tools:
   - "Read"
   - "Write"
@@ -406,11 +406,11 @@ After fixing, create `accessibility-audit.md` summarizing what was found and fix
 
 ## How to test
 
-1. Tab through the entire page — every interactive element should be reachable
-2. Activate with Enter/Space — all buttons and links should work
-3. Test with VoiceOver (Mac) or NVDA (Windows) — key flows should be narrated correctly
+1. Tab through the entire page — every interactive element should be reachable → verify: step output matches expected outcome
+2. Activate with Enter/Space — all buttons and links should work → verify: step output matches expected outcome
+3. Test with VoiceOver (Mac) or NVDA (Windows) — key flows should be narrated correctly → verify: all tests pass
 4. Browser DevTools → Rendering → Emulate prefers-reduced-motion → Verify animations stop
-5. axe DevTools extension for automated checks
+5. axe DevTools extension for automated checks → verify: all tests pass
 ```
 
 ## Troubleshooting
@@ -426,3 +426,45 @@ After fixing, create `accessibility-audit.md` summarizing what was found and fix
 ## References
 
 - `resources/audit-checklist.md` — Quick reference checklist for pre-ship review
+
+## When NOT to use
+
+- Task is unrelated to stitch a11y — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch A11Y needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch a11y
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

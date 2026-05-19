@@ -1,6 +1,7 @@
 ---
 name: ads-generate
-description: "AI image generation for paid ad creatives. Reads campaign-brief.md and brand-profile.json to produce platform-sized ad images using banana-claude. Requires banana-claude (v1.4.1+) with nanobanana-mcp configured. Triggers on: generate ads, create images, make ad creatives, generate visuals, create ad images, generate campaign images, make the images, generate from brief."
+description: "AI image generation for paid ad creatives. Reads campaign-brief.md and brand-profile.json to produce platform-sized ad images using ba. Triggers: 'use ads-generate', 'run ads generate', 'ads generate."
+allowed-tools: Glob, Grep, Read, Task
 user-invokable: false
 ---
 
@@ -8,27 +9,6 @@ user-invokable: false
 
 Generates platform-sized ad creative images from your campaign brief and brand
 profile. Uses banana-claude as the image generation provider.
-
-## Quick Reference
-
-| Command | What it does |
-|---------|-------------|
-| `/ads generate` | Generate all images from campaign-brief.md |
-| `/ads generate --platform meta` | Generate Meta assets only |
-| `/ads generate --prompt "text" --ratio 9:16` | Standalone generation without brief |
-
-## Environment Setup
-
-**Required before running:**
-
-- Requires banana-claude (v1.4.1+) with nanobanana-mcp configured
-- Run `/banana setup` to configure API key and MCP
-- Fallback: if banana is not available, use `scripts/generate_image.py` (deprecated)
-
-If banana-claude is not installed, this skill will display setup instructions
-and stop. It will never fail silently.
-
-If banana-claude is unavailable, alternatives include: OpenAI gpt-image-1 ($0.040/image), Stability SD 3.5 ($0.065), or Replicate FLUX.1 Pro ($0.055). Configure via ADS_IMAGE_PROVIDER env var.
 
 ## Process
 
@@ -51,9 +31,9 @@ generation job list.
 #### Step 2b: Standalone Mode
 
 Ask the user:
-1. Generation prompt (what should the image show?)
-2. Target platform (to set correct dimensions)
-3. Output filename (optional)
+1. Generation prompt (what should the image show?) → verify: step output matches expected outcome
+2. Target platform (to set correct dimensions) → verify: step output matches expected outcome
+3. Output filename (optional) → verify: step output matches expected outcome
 
 Then skip to Step 5.
 
@@ -136,37 +116,54 @@ Generation complete:
   Cost: $[N] total creative spend (from ~/.banana/costs.json)
 
   Next steps:
-    1. Review assets in ./ad-assets/
-    2. Check format-report.md for any missing formats
-    3. Upload to your ad platform managers
+    1. Review assets in ./ad-assets/ → verify: step output matches expected outcome
+    2. Check format-report.md for any missing formats → verify: all tests pass
+    3. Upload to your ad platform managers → verify: file readable + content matches expected shape
 ```
-
-## Cost Transparency
-
-Before generating, estimate and show the cost:
-- Count the number of image briefs in campaign-brief.md
-- Show estimated cost based on banana pricing tiers
-- If >$1.00, ask for confirmation before proceeding
-
-## Standalone Mode (No campaign-brief.md)
-
-When running without a campaign brief:
-
-```
-Platform target → dimensions used:
-  meta-feed     → 1080×1350 (4:5)
-  meta-reels    → 1080×1920 (9:16)
-  tiktok        → 1080×1920 (9:16)
-  google-pmax   → 1200×628 (1.91:1)
-  linkedin      → 1080×1080 (1:1)
-  youtube       → 1280×720 (16:9)
-  youtube-short → 1080×1920 (9:16)
-```
-
-Use `/banana generate` directly with the specified prompt and aspect ratio.
 
 ## Reference Files
 
 - `~/.claude/skills/ads/references/image-providers.md`: provider config, pricing, limits
 - `~/.claude/skills/ads/references/[platform]-creative-specs.md`: per-platform specs
 - `~/.claude/skills/ads/references/brand-dna-template.md`: brand injection schema
+
+## When NOT to use
+
+- Task is unrelated to ads generate — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ads Generate needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ads generate
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ads generate
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken
+
+## References
+
+Extended sections moved to `references/details.md`.

@@ -1,6 +1,7 @@
 ---
 name: "board-prep"
-description: "/em -board-prep — Board Meeting Preparation"
+description: "/em -board-prep — Board Meeting Preparation Triggers: 'use board-prep', 'board prep', 'board-prep task'."
+allowed-tools: Glob, Grep, Read
 ---
 
 # /em:board-prep — Board Meeting Preparation
@@ -77,11 +78,11 @@ The board meeting isn't a status update. It's a leadership demonstration.
 
 **The structure that works:**
 
-1. **Where we are (honest)** — Current state of business, the real number, not the smoothed one
-2. **What we learned** — What the data is telling us that we didn't know 90 days ago
-3. **What we got wrong** — Name it directly. Don't make them ask.
-4. **What we're doing about it** — Specific, dated, owned actions
-5. **What we need from this room** — Concrete ask. Not "support" — specific introductions, decisions, resources.
+1. **Where we are (honest)** — Current state of business, the real number, not the smoothed one → verify: step output matches expected outcome
+2. **What we learned** — What the data is telling us that we didn't know 90 days ago → verify: step output matches expected outcome
+3. **What we got wrong** — Name it directly. Don't make them ask. → verify: user confirms
+4. **What we're doing about it** — Specific, dated, owned actions → verify: step output matches expected outcome
+5. **What we need from this room** — Concrete ask. Not "support" — specific introductions, decisions, resources. → verify: user confirms
 
 **The rule on bad news:** Never let the board be surprised. If a quarter went badly, they should know before the deck. A 5-sentence email 3 days before: "Revenue came in at $X vs $Y target. Here's what happened, here's what I'm doing, here's what I need from you."
 
@@ -154,3 +155,40 @@ Within 24 hours:
 - Schedule follow-up with any director who seemed unsatisfied
 
 The next board prep starts now.
+
+## When NOT to use
+
+- Task is unrelated to board prep — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Board Prep needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for board prep
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving board prep
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

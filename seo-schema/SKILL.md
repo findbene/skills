@@ -1,18 +1,6 @@
 ---
 name: seo-schema
-description: >
-  Schema.org structured data detection, validation, and generation for rich results.
-  Audits JSON-LD, Microdata, and RDFa. Validates against Google's supported rich
-  result types, flags deprecated types (HowTo removed Sept 2023, FAQ restricted
-  Aug 2023, SpecialAnnouncement/CourseInfo retired 2025), and generates production-ready
-  JSON-LD templates. Covers Product, Organization, LocalBusiness, Article, BreadcrumbList,
-  Review, Event, JobPosting, VideoObject, and more. Make sure to use this skill whenever
-  the user mentions: "schema markup", "structured data", "rich results", "rich snippets",
-  "JSON-LD", "schema.org", "breadcrumbs schema", "product schema", "review schema",
-  "article schema", "FAQ schema", "organization schema", "local business schema",
-  "schema validation", "schema errors", "add schema to my site", or any request related
-  to making content eligible for Google rich results — even if they call it "markup" or
-  "structured markup" rather than "schema".
+description: 'Schema.org structured data detection, validation, and generation for rich results. Audits JSON-LD, Microdata, and RDFa. Triggers: "use seo-schema", "optimize seo schema", "seo schema".'
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -28,10 +16,10 @@ allowed-tools:
 
 ## Detection
 
-1. Scan page source for JSON-LD `<script type="application/ld+json">`
-2. Check for Microdata (`itemscope`, `itemprop`)
-3. Check for RDFa (`typeof`, `property`)
-4. Always recommend JSON-LD as primary format (Google's stated preference)
+1. Scan page source for JSON-LD `<script type="application/ld+json">` → verify: findings count > 0 OR clean signal returned
+2. Check for Microdata (`itemscope`, `itemprop`) → verify: all checks pass
+3. Check for RDFa (`typeof`, `property`) → verify: all checks pass
+4. Always recommend JSON-LD as primary format (Google's stated preference) → verify: step output matches expected outcome
 
 ## Validation
 
@@ -76,11 +64,11 @@ See `schema/templates.json` for ready-to-use JSON-LD templates for these types.
 ## Generation
 
 When generating schema for a page:
-1. Identify page type from content analysis
-2. Select appropriate schema type(s)
-3. Generate valid JSON-LD with all required + recommended properties
-4. Include only truthful, verifiable data. Use placeholders clearly marked for user to fill
-5. Validate output before presenting
+1. Identify page type from content analysis → verify: step output matches expected outcome
+2. Select appropriate schema type(s) → verify: step output matches expected outcome
+3. Generate valid JSON-LD with all required + recommended properties → verify: output exists + parses without error
+4. Include only truthful, verifiable data. Use placeholders clearly marked for user to fill → verify: step output matches expected outcome
+5. Validate output before presenting → verify: all checks pass
 
 ## Common Schema Templates
 
@@ -176,3 +164,40 @@ When generating schema for a page:
 | No schema markup found | Report that no JSON-LD, Microdata, or RDFa was detected. Recommend appropriate schema types based on page content analysis. |
 | Invalid JSON-LD syntax | Parse and report specific syntax errors (missing brackets, trailing commas, unquoted keys). Provide corrected JSON-LD output. |
 | Deprecated schema type detected | Flag the deprecated type with its retirement date. Recommend the current replacement type or advise removal if no replacement exists. |
+
+## When NOT to use
+
+- Task is unrelated to seo schema — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Schema needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo schema
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo schema
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

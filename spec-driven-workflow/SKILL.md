@@ -1,6 +1,7 @@
 ---
 name: "spec-driven-workflow"
-description: "Use when the user asks to write specs before code, define acceptance criteria, plan features before implementation, generate tests from specifications, or follow spec-first development practices."
+description: 'Use when the user asks to write specs before code, define acceptance criteria, plan features before implementation, generate. Triggers: "use spec-driven-workflow", "spec driven workflow", "spec task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Spec-Driven Workflow — POWERFUL
@@ -13,11 +14,11 @@ This is not documentation. This is a contract. A spec defines what the system MU
 
 ### Why Spec-First Matters
 
-1. **Eliminates rework.** 60-80% of defects originate from requirements, not implementation. Catching ambiguity in a spec costs minutes; catching it in production costs days.
-2. **Forces clarity.** If you cannot write what the system should do in plain language, you do not understand the problem well enough to write code.
-3. **Enables parallelism.** Once a spec is approved, frontend, backend, QA, and documentation can all start simultaneously.
-4. **Creates accountability.** The spec is the definition of done. No arguments about whether a feature is "complete" — either it satisfies the acceptance criteria or it does not.
-5. **Feeds TDD directly.** Acceptance criteria in Given/When/Then format translate 1:1 into test cases. The spec IS the test plan.
+1. **Eliminates rework.** 60-80% of defects originate from requirements, not implementation. Catching ambiguity in a spec costs minutes; catching it in production costs days. → verify: step output matches expected outcome
+2. **Forces clarity.** If you cannot write what the system should do in plain language, you do not understand the problem well enough to write code. → verify: output exists + parses without error
+3. **Enables parallelism.** Once a spec is approved, frontend, backend, QA, and documentation can all start simultaneously. → verify: step output matches expected outcome
+4. **Creates accountability.** The spec is the definition of done. No arguments about whether a feature is "complete" — either it satisfies the acceptance criteria or it does not. → verify: output exists + parses without error
+5. **Feeds TDD directly.** Acceptance criteria in Given/When/Then format translate 1:1 into test cases. The spec IS the test plan. → verify: all checks pass
 
 ### The Iron Law
 
@@ -69,25 +70,25 @@ These rules define when an agent (human or AI) MUST stop and ask for guidance vs
 
 ### STOP and Ask When:
 
-1. **Scope creep detected.** The implementation requires something not in the spec. Even if it seems obviously needed, STOP. The spec might have excluded it deliberately.
+1. **Scope creep detected.** The implementation requires something not in the spec. Even if it seems obviously needed, STOP. The spec might have excluded it deliberately. → verify: step output matches expected outcome
 
-2. **Ambiguity exceeds 30%.** If you cannot determine the correct behavior from the spec for more than 30% of a given requirement, the spec is incomplete. Do not guess.
+2. **Ambiguity exceeds 30%.** If you cannot determine the correct behavior from the spec for more than 30% of a given requirement, the spec is incomplete. Do not guess. → verify: step output matches expected outcome
 
-3. **Breaking changes required.** The implementation would change an existing API contract, database schema, or public interface. Always escalate.
+3. **Breaking changes required.** The implementation would change an existing API contract, database schema, or public interface. Always escalate. → verify: step output matches expected outcome
 
-4. **Security implications.** Any change that touches authentication, authorization, encryption, or PII handling requires explicit approval.
+4. **Security implications.** Any change that touches authentication, authorization, encryption, or PII handling requires explicit approval. → verify: step output matches expected outcome
 
-5. **Performance characteristics unknown.** If a requirement says "MUST complete in < 500ms" but you have no way to measure or guarantee that, escalate before implementing a guess.
+5. **Performance characteristics unknown.** If a requirement says "MUST complete in < 500ms" but you have no way to measure or guarantee that, escalate before implementing a guess. → verify: step output matches expected outcome
 
-6. **Cross-team dependencies.** If the spec requires coordination with another team or service, confirm the dependency before building against it.
+6. **Cross-team dependencies.** If the spec requires coordination with another team or service, confirm the dependency before building against it. → verify: step output matches expected outcome
 
 ### Continue Autonomously When:
 
-1. **Spec is clear and unambiguous** for the current task.
-2. **All acceptance criteria have passing tests** and you are refactoring internals.
-3. **Changes are non-breaking** — no public API, schema, or behavior changes.
-4. **Implementation is a direct translation** of a well-defined acceptance criterion.
-5. **Error handling follows established patterns** already documented in the codebase.
+1. **Spec is clear and unambiguous** for the current task. → verify: user confirms
+2. **All acceptance criteria have passing tests** and you are refactoring internals. → verify: all checks pass
+3. **Changes are non-breaking** — no public API, schema, or behavior changes. → verify: step output matches expected outcome
+4. **Implementation is a direct translation** of a well-defined acceptance criterion. → verify: step output matches expected outcome
+5. **Error handling follows established patterns** already documented in the codebase. → verify: file content matches expected shape
 
 ### Escalation Protocol
 
@@ -117,14 +118,14 @@ See `references/bounded_autonomy_rules.md` for the complete decision matrix.
 
 **Goal:** Understand what needs to be built and why.
 
-1. **Interview the user.** Ask:
+1. **Interview the user.** Ask: → verify: step output matches expected outcome
    - What problem does this solve?
    - Who are the users?
    - What does success look like?
    - What explicitly should NOT be built?
-2. **Read existing code.** Understand the current system before proposing changes.
-3. **Identify constraints.** Performance budgets, security requirements, backward compatibility.
-4. **List unknowns.** Every unknown is a risk. Surface them now, not during implementation.
+2. **Read existing code.** Understand the current system before proposing changes. → verify: file readable + content matches expected shape
+3. **Identify constraints.** Performance budgets, security requirements, backward compatibility. → verify: step output matches expected outcome
+4. **List unknowns.** Every unknown is a risk. Surface them now, not during implementation. → verify: step output matches expected outcome
 
 **Exit criteria:** You can explain the feature to someone unfamiliar with the project in 2 minutes.
 
@@ -132,12 +133,12 @@ See `references/bounded_autonomy_rules.md` for the complete decision matrix.
 
 **Goal:** Produce a complete spec document following The Spec Format above.
 
-1. Fill every section of the template. No section left blank.
-2. Number all requirements (FR-*, NFR-*, AC-*, EC-*, OS-*).
-3. Use RFC 2119 keywords precisely.
-4. Write acceptance criteria in Given/When/Then format.
-5. Define API contracts with TypeScript-style types.
-6. List explicit exclusions in Out of Scope.
+1. Fill every section of the template. No section left blank. → verify: step output matches expected outcome
+2. Number all requirements (FR-*, NFR-*, AC-*, EC-*, OS-*). → verify: step output matches expected outcome
+3. Use RFC 2119 keywords precisely. → verify: step output matches expected outcome
+4. Write acceptance criteria in Given/When/Then format. → verify: output file exists + no syntax error
+5. Define API contracts with TypeScript-style types. → verify: step output matches expected outcome
+6. List explicit exclusions in Out of Scope. → verify: step output matches expected outcome
 
 **Exit criteria:** The spec can be handed to a developer who was not in the requirements meeting, and they can implement the feature without asking clarifying questions.
 
@@ -172,10 +173,10 @@ Run `test_extractor.py` against the approved spec:
 python test_extractor.py --file spec.md --framework pytest --output tests/
 ```
 
-1. Each acceptance criterion becomes one or more test cases.
-2. Each edge case becomes a test case.
-3. Tests are stubs — they define the assertion but not the implementation.
-4. All tests MUST fail initially (red phase of TDD).
+1. Each acceptance criterion becomes one or more test cases. → verify: all tests pass
+2. Each edge case becomes a test case. → verify: all tests pass
+3. Tests are stubs — they define the assertion but not the implementation. → verify: all tests pass
+4. All tests MUST fail initially (red phase of TDD). → verify: all tests pass
 
 **Exit criteria:** You have a test file where every test fails with "not implemented" or equivalent.
 
@@ -183,11 +184,11 @@ python test_extractor.py --file spec.md --framework pytest --output tests/
 
 **Goal:** Write code that makes failing tests pass, one acceptance criterion at a time.
 
-1. Pick one acceptance criterion (start with the simplest).
-2. Make its test(s) pass with minimal code.
-3. Run the full test suite — no regressions.
-4. Commit.
-5. Pick the next acceptance criterion. Repeat.
+1. Pick one acceptance criterion (start with the simplest). → verify: step output matches expected outcome
+2. Make its test(s) pass with minimal code. → verify: all tests pass
+3. Run the full test suite — no regressions. → verify: command exit code 0
+4. Commit. → verify: git status clean
+5. Pick the next acceptance criterion. Repeat. → verify: step output matches expected outcome
 
 **Rules:**
 - Do NOT implement anything not in the spec.
@@ -331,3 +332,28 @@ python spec_validator.py --file specs/auth.md --strict
 # Extract test cases
 python test_extractor.py --file specs/auth.md --framework pytest --output tests/test_auth.py
 ```
+
+## When NOT to use
+
+- Task is unrelated to spec driven workflow — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Spec Driven Workflow needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for spec driven workflow
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow

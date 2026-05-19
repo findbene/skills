@@ -1,6 +1,7 @@
 ---
 name: "qms-audit-expert"
-description: ISO 13485 internal audit expertise for medical device QMS. Covers audit planning, execution, nonconformity classification, and CAPA verification. Use for internal audit planning, audit execution, finding classification, external audit preparation, or audit program management.
+description: "ISO 13485 internal audit expertise for medical device QMS. Covers audit planning, execution, nonconformity classification. Triggers: 'use qms-audit-expert', 'qms audit expert', 'qms-audit-expert task."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - ISO 13485 audit
   - internal audit
@@ -35,14 +36,14 @@ ISO 13485 internal audit methodology for medical device quality management syste
 
 Plan risk-based internal audit program:
 
-1. List all QMS processes requiring audit
-2. Assign risk level to each process (High/Medium/Low)
-3. Review previous audit findings and trends
-4. Determine audit frequency by risk level
+1. List all QMS processes requiring audit → verify: step output matches expected outcome
+2. Assign risk level to each process (High/Medium/Low) → verify: step output matches expected outcome
+3. Review previous audit findings and trends → verify: step output matches expected outcome
+4. Determine audit frequency by risk level → verify: step output matches expected outcome
 5. Assign qualified auditors (verify independence)
-6. Create annual audit schedule
-7. Communicate schedule to process owners
-8. **Validation:** All ISO 13485 clauses covered within cycle
+6. Create annual audit schedule → verify: output file exists + no syntax error
+7. Communicate schedule to process owners → verify: step output matches expected outcome
+8. **Validation:** All ISO 13485 clauses covered within cycle → verify: step output matches expected outcome
 
 ### Risk-Based Audit Frequency
 
@@ -82,14 +83,14 @@ Verify auditor independence before assignment:
 
 Conduct systematic internal audit:
 
-1. Prepare audit plan (scope, criteria, schedule)
-2. Review relevant documentation before audit
-3. Conduct opening meeting with auditee
-4. Collect evidence (records, interviews, observation)
-5. Classify findings (Major/Minor/Observation)
-6. Conduct closing meeting with preliminary findings
-7. Prepare audit report within 5 business days
-8. **Validation:** All scope items covered, findings supported by evidence
+1. Prepare audit plan (scope, criteria, schedule) → verify: findings count > 0 OR clean signal returned
+2. Review relevant documentation before audit → verify: findings count > 0 OR clean signal returned
+3. Conduct opening meeting with auditee → verify: file content matches expected shape
+4. Collect evidence (records, interviews, observation) → verify: step output matches expected outcome
+5. Classify findings (Major/Minor/Observation) → verify: step output matches expected outcome
+6. Conduct closing meeting with preliminary findings → verify: step output matches expected outcome
+7. Prepare audit report within 5 business days → verify: findings count > 0 OR clean signal returned
+8. **Validation:** All scope items covered, findings supported by evidence → verify: step output matches expected outcome
 
 ### Evidence Collection
 
@@ -148,14 +149,14 @@ representing a gap in calibration program execution.
 
 Classify and manage audit findings:
 
-1. Evaluate finding against classification criteria
-2. Assign severity (Major/Minor/Observation)
-3. Document finding with objective evidence
-4. Communicate to process owner
-5. Initiate CAPA for Major/Minor findings
-6. Track to closure
+1. Evaluate finding against classification criteria → verify: step output matches expected outcome
+2. Assign severity (Major/Minor/Observation) → verify: step output matches expected outcome
+3. Document finding with objective evidence → verify: step output matches expected outcome
+4. Communicate to process owner → verify: step output matches expected outcome
+5. Initiate CAPA for Major/Minor findings → verify: step output matches expected outcome
+6. Track to closure → verify: step output matches expected outcome
 7. Verify effectiveness at follow-up
-8. **Validation:** Finding closed only after effective CAPA
+8. **Validation:** Finding closed only after effective CAPA → verify: step output matches expected outcome
 
 ### Classification Criteria
 
@@ -194,14 +195,14 @@ See `references/nonconformity-classification.md` for detailed guidance.
 
 Prepare for certification body or regulatory audit:
 
-1. Complete all scheduled internal audits
+1. Complete all scheduled internal audits → verify: findings count > 0 OR clean signal returned
 2. Verify all findings closed with effective CAPA
-3. Review documentation for currency and accuracy
-4. Conduct management review with audit as input
-5. Prepare facility and personnel
-6. Conduct mock audit (full scope)
-7. Brief personnel on audit protocol
-8. **Validation:** Mock audit findings addressed before external audit
+3. Review documentation for currency and accuracy → verify: step output matches expected outcome
+4. Conduct management review with audit as input → verify: findings count > 0 OR clean signal returned
+5. Prepare facility and personnel → verify: step output matches expected outcome
+6. Conduct mock audit (full scope) → verify: findings count > 0 OR clean signal returned
+7. Brief personnel on audit protocol → verify: findings count > 0 OR clean signal returned
+8. **Validation:** Mock audit findings addressed before external audit → verify: findings count > 0 OR clean signal returned
 
 ### Pre-Audit Readiness Checklist
 
@@ -225,12 +226,12 @@ Prepare for certification body or regulatory audit:
 
 ### Mock Audit Protocol
 
-1. Use external auditor or qualified internal auditor
-2. Cover full scope of upcoming external audit
-3. Simulate actual audit conditions (timing, formality)
-4. Document findings as for real audit
-5. Address all Major and Minor findings before external audit
-6. Brief management on readiness status
+1. Use external auditor or qualified internal auditor → verify: findings count > 0 OR clean signal returned
+2. Cover full scope of upcoming external audit → verify: findings count > 0 OR clean signal returned
+3. Simulate actual audit conditions (timing, formality) → verify: findings count > 0 OR clean signal returned
+4. Document findings as for real audit → verify: findings count > 0 OR clean signal returned
+5. Address all Major and Minor findings before external audit → verify: findings count > 0 OR clean signal returned
+6. Brief management on readiness status → verify: file content matches expected shape
 
 ---
 
@@ -321,3 +322,40 @@ Track audit program effectiveness:
 | Repeat findings | <10% | Same finding in consecutive audits |
 | CAPA effectiveness | >90% | Verified effective at follow-up |
 | Auditor utilization | 4 days/month | Audit days per qualified auditor |
+
+## When NOT to use
+
+- Task is unrelated to qms audit expert — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Qms Audit Expert needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for qms audit expert
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving qms audit expert
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: seedance-real-estate
-description: Generate real estate, architecture, and interior design showcase video prompts for Seedance 2.0 on Higgsfield. Use whenever the user wants property tours, real estate listings, architecture showcases, interior design videos, home staging content, property marketing, virtual tours, construction reveals, or any real estate/architecture video. Triggers on: real estate, property, house, apartment, architecture, interior design, home tour, listing video, property marketing, virtual tour, building, construction, renovation, home staging, or any real estate/architecture video request. Use even for "make a video for my listing" or "showcase this property."
+description: "Generate real estate, architecture, and interior design showcase video prompts for Seedance 2.0 on Higgsfield. Triggers: 'use seedance-real-estate', 'seedance real estate', 'seedance-real-estate task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Real Estate & Architecture Showcase Videos — Seedance 2.0 on Higgsfield
@@ -1102,17 +1103,17 @@ Seedance 2.0 on Higgsfield allows you to position and control artificial lightin
 
 **Types of Strategic Lighting**:
 
-1. **Accent Uplighting on Facade**: Architectural details, stone, trees, entry features illuminated from below.
+1. **Accent Uplighting on Facade**: Architectural details, stone, trees, entry features illuminated from below. → verify: step output matches expected outcome
 
-2. **Landscape Lighting**: Path lights, tree uplighting, ground wash lighting on gardens.
+2. **Landscape Lighting**: Path lights, tree uplighting, ground wash lighting on gardens. → verify: step output matches expected outcome
 
-3. **Pool & Water Feature Lighting**: Underwater or edge lighting emphasizes water feature as nighttime focal point.
+3. **Pool & Water Feature Lighting**: Underwater or edge lighting emphasizes water feature as nighttime focal point. → verify: step output matches expected outcome
 
-4. **Interior Ambient Lighting**: Ceiling fixtures, sconces, table lamps creating warm, inviting interior glow.
+4. **Interior Ambient Lighting**: Ceiling fixtures, sconces, table lamps creating warm, inviting interior glow. → verify: diff matches intended change
 
-5. **Task Lighting**: Kitchen counter lighting, bathroom vanity lighting showing functionality and luxury.
+5. **Task Lighting**: Kitchen counter lighting, bathroom vanity lighting showing functionality and luxury. → verify: user confirms
 
-6. **Accent Lighting on Architectural Details**: Fireplace, built-ins, artwork, architectural moldings spotlit.
+6. **Accent Lighting on Architectural Details**: Fireplace, built-ins, artwork, architectural moldings spotlit. → verify: step output matches expected outcome
 
 ---
 
@@ -1348,11 +1349,11 @@ Music sets the emotional tone for the property. Choose carefully.
 
 Structure your audio to match video narrative:
 
-1. **Approach & Arrival** (0–0:15): Music enters subtly; establishes mood
-2. **Interior Exploration** (0:15–2:00): Music continues, builds slightly; maintains emotional consistency
-3. **Special Features** (2:00–4:00): Music may swell for key reveal moments (pool, view, special room)
-4. **Evening/Transition** (4:00–4:45): Music may shift to emphasize 24-hour appeal and lifestyle
-5. **Final Statement** (4:45–5:30): Music crescendos or resolves; emotional satisfaction
+1. **Approach & Arrival** (0–0:15): Music enters subtly; establishes mood → verify: step output matches expected outcome
+2. **Interior Exploration** (0:15–2:00): Music continues, builds slightly; maintains emotional consistency → verify: step output matches expected outcome
+3. **Special Features** (2:00–4:00): Music may swell for key reveal moments (pool, view, special room) → verify: step output matches expected outcome
+4. **Evening/Transition** (4:00–4:45): Music may shift to emphasize 24-hour appeal and lifestyle → verify: step output matches expected outcome
+5. **Final Statement** (4:45–5:30): Music crescendos or resolves; emotional satisfaction → verify: step output matches expected outcome
 
 ---
 
@@ -1852,8 +1853,8 @@ Real estate content comes in two primary forms. They serve different purposes an
 ### HYBRID APPROACH (RECOMMENDED FOR HIGH-VALUE PROPERTIES)
 
 Many listings benefit from BOTH:
-1. **Virtual Tour**: Comprehensive exploration tool; published on MLS, property website, Zillow
-2. **Marketing Video**: Emotional hook and sharing tool; published on YouTube, Instagram, broker website, social media
+1. **Virtual Tour**: Comprehensive exploration tool; published on MLS, property website, Zillow → verify: step output matches expected outcome
+2. **Marketing Video**: Emotional hook and sharing tool; published on YouTube, Instagram, broker website, social media → verify: step output matches expected outcome
 
 The VT serves as reference documentation; the MV serves as seduction and story.
 
@@ -2342,3 +2343,33 @@ Use this skill to craft videos that transcend the functional and enter the aspir
 
 **END OF SKILL.MD**
 ```
+
+## When NOT to use
+
+- Task is unrelated to seedance real estate — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seedance Real Estate needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seedance real estate
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+
+## References
+
+See `references/details.md` for extended sections.

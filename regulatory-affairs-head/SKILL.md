@@ -1,6 +1,7 @@
 ---
 name: "regulatory-affairs-head"
-description: Senior Regulatory Affairs Manager for HealthTech and MedTech companies. Prepares FDA 510(k), De Novo, and PMA submission packages; analyzes regulatory pathways for new medical devices; drafts responses to FDA deficiency letters and Notified Body queries; develops CE marking technical documentation under EU MDR 2017/745; coordinates multi-market approval strategies across FDA, EU, Health Canada, PMDA, and NMPA; and maintains regulatory intelligence on evolving standards. Use when users need to plan or execute FDA submissions, navigate 510(k) or PMA approval processes, achieve CE marking, prepare pre-submission meeting materials, write regulatory strategy documents, respond to agency queries, or manage compliance documentation for medical device market access.
+description: "Senior Regulatory Affairs Manager for HealthTech and MedTech companies. Triggers: 'use regulatory-affairs-head', 'regulatory affairs head', 'regulatory-affairs-head task'."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - regulatory strategy
   - FDA submission
@@ -40,24 +41,24 @@ Develop regulatory strategy aligned with business objectives and product charact
 
 ### Workflow: New Product Regulatory Strategy
 
-1. Gather product information:
+1. Gather product information: → verify: step output matches expected outcome
    - Intended use and indications
    - Device classification (risk level)
    - Technology platform
    - Target markets and timeline
-2. Identify applicable regulations per target market:
+2. Identify applicable regulations per target market: → verify: step output matches expected outcome
    - FDA (US): 21 CFR Part 820, 510(k)/PMA/De Novo
    - EU: MDR 2017/745, Notified Body requirements
    - Other markets: Health Canada, PMDA, NMPA, TGA
-3. Determine optimal regulatory pathway:
+3. Determine optimal regulatory pathway: → verify: step output matches expected outcome
    - Compare submission types (510(k) vs De Novo vs PMA)
    - Assess predicate device availability
    - Evaluate clinical evidence requirements
-4. Develop regulatory timeline with milestones
-5. Estimate resource requirements and budget
-6. Identify regulatory risks and mitigation strategies
-7. Obtain stakeholder alignment and approval
-8. **Validation:** Strategy document approved; timeline accepted; resources allocated
+4. Develop regulatory timeline with milestones → verify: step output matches expected outcome
+5. Estimate resource requirements and budget → verify: step output matches expected outcome
+6. Identify regulatory risks and mitigation strategies → verify: step output matches expected outcome
+7. Obtain stakeholder alignment and approval → verify: step output matches expected outcome
+8. **Validation:** Strategy document approved; timeline accepted; resources allocated → verify: step output matches expected outcome
 
 ### Regulatory Pathway Selection Matrix
 
@@ -77,33 +78,33 @@ REGULATORY STRATEGY
 
 Product: [Name]   Version: [X.X]   Date: [Date]
 
-1. PRODUCT OVERVIEW
+1. PRODUCT OVERVIEW → verify: step output matches expected outcome
    Intended use: [One-sentence statement of intended patient population, body site, and clinical purpose]
    Device classification: [Class I / II / III]
    Technology: [Brief description, e.g., "AI-powered wound-imaging software, SaMD"]
 
-2. TARGET MARKETS & TIMELINE
+2. TARGET MARKETS & TIMELINE → verify: step output matches expected outcome
    | Market | Pathway        | Priority | Target Date |
    |--------|----------------|----------|-------------|
    | USA    | 510(k) / PMA   | 1        | Q1 20XX     |
    | EU     | Class [X] MDR  | 2        | Q2 20XX     |
 
-3. REGULATORY PATHWAY RATIONALE
+3. REGULATORY PATHWAY RATIONALE → verify: step output matches expected outcome
    FDA: [510(k) / De Novo / PMA] — Predicate: [K-number or "none"]
    EU:  Class [X] via [Annex IX / X / XI] — NB: [Name or TBD]
    Rationale: [2–3 sentences on key factors driving pathway choice]
 
-4. CLINICAL EVIDENCE STRATEGY
+4. CLINICAL EVIDENCE STRATEGY → verify: step output matches expected outcome
    Requirements: [Summarize what each market needs, e.g., "510(k): bench + usability; EU Class IIb: PMCF study"]
    Approach: [Literature review / Prospective study / Combination]
 
-5. RISKS AND MITIGATION
+5. RISKS AND MITIGATION → verify: step output matches expected outcome
    | Risk                         | Prob | Impact | Mitigation                        |
    |------------------------------|------|--------|-----------------------------------|
    | Predicate delisted by FDA    | Low  | High   | Identify secondary predicate now  |
    | NB audit backlog             | Med  | Med    | Engage NB 6 months before target  |
 
-6. RESOURCE REQUIREMENTS
+6. RESOURCE REQUIREMENTS → verify: step output matches expected outcome
    Budget: $[Amount]   Personnel: [FTEs]   External: [Consultants / CRO]
 ```
 
@@ -115,12 +116,12 @@ Prepare and submit FDA regulatory applications.
 
 ### Workflow: 510(k) Submission
 
-1. Confirm 510(k) pathway suitability:
+1. Confirm 510(k) pathway suitability: → verify: step output matches expected outcome
    - Predicate device identified (note K-number, e.g., K213456)
    - Substantial equivalence (SE) argument supportable on intended use and technological characteristics
    - No new intended use or technology concerns triggering De Novo
-2. Schedule and conduct Pre-Submission (Q-Sub) meeting if needed (see [Pre-Sub Decision](#pre-submission-meeting-decision))
-3. Compile submission package checklist:
+2. Schedule and conduct Pre-Submission (Q-Sub) meeting if needed (see [Pre-Sub Decision](#pre-submission-meeting-decision)) → verify: step output matches expected outcome
+3. Compile submission package checklist: → verify: all tests pass
    - [ ] Cover letter with device name, product code, and predicate K-number
    - [ ] Section 1: Administrative information (applicant, contact, 510(k) type)
    - [ ] Section 2: Device description — include photos, dimensions, materials list
@@ -131,11 +132,11 @@ Prepare and submit FDA regulatory applications.
    - [ ] Section 7: Software documentation (IEC 62304 level, cybersecurity per FDA guidance, if applicable)
    - [ ] Section 8: Labeling — final draft IFU, device label
    - [ ] Section 9: Summary and conclusion
-4. Conduct internal review and quality check against FDA RTA checklist
-5. Prepare eCopy per FDA format requirements (PDF bookmarked, eCopy cover page)
-6. Submit via FDA ESG portal with user fee payment
-7. Monitor MDUFA clock and respond to AI/RTA requests within deadlines
-8. **Validation:** Submission accepted; MDUFA date received; tracking system updated
+4. Conduct internal review and quality check against FDA RTA checklist → verify: all tests pass
+5. Prepare eCopy per FDA format requirements (PDF bookmarked, eCopy cover page) → verify: step output matches expected outcome
+6. Submit via FDA ESG portal with user fee payment → verify: step output matches expected outcome
+7. Monitor MDUFA clock and respond to AI/RTA requests within deadlines → verify: step output matches expected outcome
+8. **Validation:** Submission accepted; MDUFA date received; tracking system updated → verify: step output matches expected outcome
 
 #### Substantial Equivalence Comparison Example
 
@@ -149,24 +150,24 @@ Prepare and submit FDA regulatory applications.
 
 ### Workflow: PMA Submission
 
-1. Confirm PMA pathway:
+1. Confirm PMA pathway: → verify: step output matches expected outcome
    - Class III device or no suitable predicate
    - Clinical data strategy defined
-2. Complete IDE clinical study if required:
+2. Complete IDE clinical study if required: → verify: step output matches expected outcome
    - IDE approval
    - Clinical protocol execution
    - Study report completion
-3. Conduct Pre-Submission meeting
-4. Compile PMA submission checklist:
+3. Conduct Pre-Submission meeting → verify: step output matches expected outcome
+4. Compile PMA submission checklist: → verify: all tests pass
    - [ ] Volume I: Administrative, device description, manufacturing
    - [ ] Volume II: Nonclinical studies (bench, animal, biocompatibility)
    - [ ] Volume III: Clinical studies (IDE protocol, data, statistical analysis)
    - [ ] Volume IV: Labeling
    - [ ] Volume V: Manufacturing information, sterilization
-5. Submit original PMA application
-6. Address FDA questions and deficiencies
-7. Prepare for FDA facility inspection
-8. **Validation:** PMA approved; approval letter received; post-approval requirements documented
+5. Submit original PMA application → verify: step output matches expected outcome
+6. Address FDA questions and deficiencies → verify: package installed + import succeeds
+7. Prepare for FDA facility inspection → verify: step output matches expected outcome
+8. **Validation:** PMA approved; approval letter received; post-approval requirements documented → verify: step output matches expected outcome
 
 ### FDA Submission Timeline
 
@@ -198,13 +199,13 @@ Achieve CE marking under EU MDR 2017/745.
 
 ### Workflow: MDR Technical Documentation
 
-1. Confirm device classification per MDR Annex VIII
-2. Select conformity assessment route based on class:
+1. Confirm device classification per MDR Annex VIII → verify: step output matches expected outcome
+2. Select conformity assessment route based on class: → verify: step output matches expected outcome
    - Class I: Self-declaration
    - Class IIa/IIb: Notified Body involvement
    - Class III: Full NB assessment
-3. Select and engage Notified Body (for Class IIa+) — see selection criteria below
-4. Compile Technical Documentation per Annex II checklist:
+3. Select and engage Notified Body (for Class IIa+) — see selection criteria below → verify: step output matches expected outcome
+4. Compile Technical Documentation per Annex II checklist: → verify: all tests pass
    - [ ] Annex II §1: Device description, intended purpose, UDI
    - [ ] Annex II §2: Design and manufacturing information (drawings, BoM, process flows)
    - [ ] Annex II §3: GSPR checklist — each requirement mapped to evidence (standard, test report, or justification)
@@ -212,10 +213,10 @@ Achieve CE marking under EU MDR 2017/745.
    - [ ] Annex II §5: Product verification and validation (test reports)
    - [ ] Annex II §6: Post-market surveillance plan
    - [ ] Annex XIV: Clinical evaluation report (CER) — literature, clinical data, equivalence justification
-5. Establish and document QMS per ISO 13485
-6. Submit application to Notified Body
-7. Address NB questions and coordinate audit
-8. **Validation:** CE certificate issued; Declaration of Conformity signed; EUDAMED registration complete
+5. Establish and document QMS per ISO 13485 → verify: step output matches expected outcome
+6. Submit application to Notified Body → verify: step output matches expected outcome
+7. Address NB questions and coordinate audit → verify: package installed + import succeeds
+8. **Validation:** CE certificate issued; Declaration of Conformity signed; EUDAMED registration complete → verify: step output matches expected outcome
 
 #### GSPR Checklist Row Example
 
@@ -253,21 +254,21 @@ Coordinate regulatory approvals across international markets.
 
 ### Workflow: Multi-Market Submission Strategy
 
-1. Define target markets based on business priorities
-2. Sequence markets for efficient evidence leverage:
+1. Define target markets based on business priorities → verify: step output matches expected outcome
+2. Sequence markets for efficient evidence leverage: → verify: step output matches expected outcome
    - Phase 1: FDA + EU (reference markets)
    - Phase 2: Recognition markets (Canada, Australia)
    - Phase 3: Major markets (Japan, China)
    - Phase 4: Emerging markets
-3. Identify local requirements per market:
+3. Identify local requirements per market: → verify: step output matches expected outcome
    - Clinical data acceptability
    - Local agent/representative needs
    - Language and labeling requirements
-4. Develop master technical file with localization plan
-5. Establish in-country regulatory support
-6. Execute parallel or sequential submissions
-7. Track approvals and coordinate launches
-8. **Validation:** All target market approvals obtained; registration database updated
+4. Develop master technical file with localization plan → verify: step output matches expected outcome
+5. Establish in-country regulatory support → verify: step output matches expected outcome
+6. Execute parallel or sequential submissions → verify: command exit code 0
+7. Track approvals and coordinate launches → verify: step output matches expected outcome
+8. **Validation:** All target market approvals obtained; registration database updated → verify: step output matches expected outcome
 
 ### Market Priority Matrix
 
@@ -302,21 +303,21 @@ Monitor and respond to regulatory changes affecting product portfolio.
 
 ### Workflow: Regulatory Change Management
 
-1. Monitor regulatory sources:
+1. Monitor regulatory sources: → verify: step output matches expected outcome
    - FDA Federal Register, guidance documents
    - EU Official Journal, MDCG guidance
    - Notified Body communications
    - Industry associations (AdvaMed, MedTech Europe)
-2. Assess relevance to product portfolio
-3. Evaluate impact:
+2. Assess relevance to product portfolio → verify: step output matches expected outcome
+3. Evaluate impact: → verify: step output matches expected outcome
    - Timeline to compliance
    - Resource requirements
    - Product changes needed
-4. Develop compliance action plan
-5. Communicate to affected stakeholders
-6. Implement required changes
-7. Document compliance status
-8. **Validation:** Compliance action plan approved; changes implemented on schedule
+4. Develop compliance action plan → verify: step output matches expected outcome
+5. Communicate to affected stakeholders → verify: step output matches expected outcome
+6. Implement required changes → verify: step output matches expected outcome
+7. Document compliance status → verify: step output matches expected outcome
+8. **Validation:** Compliance action plan approved; changes implemented on schedule → verify: step output matches expected outcome
 
 ### Regulatory Monitoring Sources
 
@@ -343,8 +344,8 @@ AFFECTED PRODUCTS
 | [Name]  | [H/M/L]        | [Specific action]      | [Date]   |
 
 COMPLIANCE ACTIONS
-1. [Action] — Owner: [Name] — Due: [Date]
-2. [Action] — Owner: [Name] — Due: [Date]
+1. [Action] — Owner: [Name] — Due: [Date] → verify: step output matches expected outcome
+2. [Action] — Owner: [Name] — Due: [Date] → verify: step output matches expected outcome
 
 RESOURCE REQUIREMENTS: Budget $[X]  |  Personnel [X] hrs
 
@@ -479,3 +480,40 @@ Submission Status Report — 2024-11-01
 | [fda-consultant-specialist](../fda-consultant-specialist/) | FDA submission deep expertise |
 | [quality-manager-qms-iso13485](../quality-manager-qms-iso13485/) | QMS for regulatory compliance |
 | [risk-management-specialist](../risk-management-specialist/) | ISO 14971 risk management |
+
+## When NOT to use
+
+- Task is unrelated to regulatory affairs head — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Regulatory Affairs Head needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for regulatory affairs head
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving regulatory affairs head
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

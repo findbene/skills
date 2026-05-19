@@ -1,6 +1,7 @@
 ---
 name: gsd
-description: "Get Shit Done meta-prompting and context engineering for creating specs quickly, breaking down work, and executing with clarity. Use this skill any time work needs to be organized and executed efficiently, specs need to be written fast, or a focused execution mode is needed without over-planning. Trigger immediately on: \"GSD\", \"get shit done\", \"just do it\", \"let us just build\", \"just ship it\", \"make it happen\", \"move fast\", \"write the spec\", \"just build it\", \"focus mode\", \"execution mode\", \"no fluff\", \"just get it done\", \"stop planning\". If someone says \"stop planning, let us just build\" or \"GSD mode\" this skill MUST trigger."
+description: 'Get Shit Done meta-prompting and context engineering for creating specs quickly, breaking down work, and executing with clarity. Triggers: "use gsd", "gsd", "gsd task".'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # GSD (Get Shit Done) - Context Engineering System
@@ -12,10 +13,10 @@ A system that solves **context rot** — the quality degradation that happens as
 **Problem:** Quality degrades as context accumulates.
 
 **GSD's Solution:**
-1. **Fresh 200k contexts per task** - Executors run clean, main session stays responsive
-2. **Persistent project memory** - State lives in markdown files, not chat history
-3. **Parallel orchestration** - Work happens in subagents; your session never accumulates garbage
-4. **Atomic tasks** - Each task self-contained with explicit verification
+1. **Fresh 200k contexts per task** - Executors run clean, main session stays responsive → verify: command exit code 0
+2. **Persistent project memory** - State lives in markdown files, not chat history → verify: step output matches expected outcome
+3. **Parallel orchestration** - Work happens in subagents; your session never accumulates garbage → verify: step output matches expected outcome
+4. **Atomic tasks** - Each task self-contained with explicit verification → verify: user confirms
 
 ## Installation
 
@@ -89,3 +90,40 @@ npx get-shit-done-cc --claude --global
 - **Planning:** Planner + checker iterate until verification passes
 - **Execution:** Parallel executors in fresh contexts; main at ~30-40%
 - **Verification:** Auto-diagnose failures; debug agents find root causes
+
+## When NOT to use
+
+- Task is unrelated to gsd — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Gsd needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for gsd
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving gsd
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

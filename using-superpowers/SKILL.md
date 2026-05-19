@@ -1,6 +1,7 @@
 ---
 name: using-superpowers
-description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+description: "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before AN. Triggers: 'use using-superpowers', 'using superpowers', 'using-superpowers task."
+allowed-tools: Glob, Grep, Read, Skill, Task
 ---
 
 <SUBAGENT-STOP>
@@ -19,9 +20,9 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 Superpowers skills override default system prompt behavior, but **user instructions always take precedence**:
 
-1. **User's explicit instructions** (CLAUDE.md, GEMINI.md, AGENTS.md, direct requests) — highest priority
-2. **Superpowers skills** — override default system behavior where they conflict
-3. **Default system prompt** — lowest priority
+1. **User's explicit instructions** (CLAUDE.md, GEMINI.md, AGENTS.md, direct requests) — highest priority → verify: step output matches expected outcome
+2. **Superpowers skills** — override default system behavior where they conflict → verify: step output matches expected outcome
+3. **Default system prompt** — lowest priority → verify: step output matches expected outcome
 
 If CLAUDE.md, GEMINI.md, or AGENTS.md says "don't use TDD" and a skill says "always use TDD," follow the user's instructions. The user is in control.
 
@@ -98,8 +99,8 @@ These thoughts mean STOP—you're rationalizing:
 
 When multiple skills could apply, use this order:
 
-1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
+1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task → verify: user confirms
+2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution → verify: step output matches expected outcome
 
 "Let's build X" → brainstorming first, then implementation skills.
 "Fix this bug" → debugging first, then domain-specific skills.
@@ -115,3 +116,32 @@ The skill itself tells you which.
 ## User Instructions
 
 Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.
+
+## When NOT to use
+
+- Subagents executing a specific dispatched task — skill explicitly says skip via `<SUBAGENT-STOP>`
+- User explicitly instructs to skip skills for this turn — user priority overrides skills
+- Trivial conversational reply with no task ("hi", "thanks") — no skill applies
+- When the relevant skill has not been installed yet — use `find-skills` first
+- Already mid-execution of a skill — do not re-invoke the same skill recursively
+
+## Output Contract
+
+Finished output must contain:
+- Confirmation that available skills were scanned before responding
+- Explicit invocation of any skill that matches (no guessing or paraphrasing)
+- If multiple skills apply, the most specific one chosen and others noted
+- Adherence to skill instructions over default behavior (unless user overrides)
+- User instructions honored when they conflict with skill defaults
+
+## Examples
+
+**Example 1 — Skill match detected**
+- Input: "Help me write a PR description"
+- Action: Recognize match → invoke `pr` skill via Skill tool BEFORE responding → follow skill instructions
+- Output: PR description produced per skill's contract, not freeform
+
+**Example 2 — User overrides a skill**
+- Input: "Skip the tests for this one, just push the fix"
+- Action: User instruction overrides default skill that mandates tests → comply with user → note the override explicitly
+- Output: Fix pushed without tests, with one-line note "user-requested skip of test step"

@@ -1,6 +1,7 @@
 ---
 name: "founder-coach"
-description: "Personal leadership development for founders and first-time CEOs. Covers founder archetype identification, delegation frameworks, energy management, CEO calendar audits, leadership style evolution, blind spot identification, imposter syndrome, founder mental health, and succession planning. Use when a founder feels like the bottleneck, struggles to delegate, is burning out, transitioning from IC to executive, managing a board, or when user mentions founder mode, CEO growth, leadership development, delegation, burnout, or imposter syndrome."
+description: "Personal leadership development for founders and first-time CEOs. Trigger: founder mode, CEO growth, leadership development, delegation, burnout, or imposter syndrome"
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -52,10 +53,10 @@ Most founders are Builder or Visionary. Most scaling problems happen because the
 ## 2. Delegation Framework
 
 Founders fail to delegate for four reasons:
-1. "Nobody does it as well as I do" (often true short-term, fatal long-term)
-2. "It takes longer to explain than to do it" (true once; not true the 10th time)
-3. "I lose control if I don't do it myself" (control is an illusion at scale)
-4. "If it fails, it's my fault" (it's your fault if you never let anyone else try)
+1. "Nobody does it as well as I do" (often true short-term, fatal long-term) → verify: step output matches expected outcome
+2. "It takes longer to explain than to do it" (true once; not true the 10th time) → verify: step output matches expected outcome
+3. "I lose control if I don't do it myself" (control is an illusion at scale) → verify: step output matches expected outcome
+4. "If it fails, it's my fault" (it's your fault if you never let anyone else try) → verify: step output matches expected outcome
 
 ### The Skill × Will Matrix
 
@@ -74,11 +75,11 @@ Founders fail to delegate for four reasons:
 
 Not all delegation is equal. Build up gradually:
 
-1. "Do exactly what I tell you" — not delegation, instruction
-2. "Research this and report back" — information gathering
-3. "Propose a solution and I'll decide" — thinking delegation
-4. "Decide and tell me what you decided" — decision delegation with review
-5. "Handle it completely — update me if it's outside these parameters" — full delegation
+1. "Do exactly what I tell you" — not delegation, instruction → verify: step output matches expected outcome
+2. "Research this and report back" — information gathering → verify: step output matches expected outcome
+3. "Propose a solution and I'll decide" — thinking delegation → verify: step output matches expected outcome
+4. "Decide and tell me what you decided" — decision delegation with review → verify: step output matches expected outcome
+5. "Handle it completely — update me if it's outside these parameters" — full delegation → verify: step output matches expected outcome
 
 Start at level 2–3. Move people up as trust is established. Most founders never get past level 3 with their team — that's the bottleneck.
 
@@ -209,10 +210,10 @@ Everyone has them. Founders more than most — because nobody in the early compa
 
 ### How to find your blind spots
 
-1. **360 feedback (anonymous):** Once a year. Ask direct reports, peers, board members. Include "What does [name] do that gets in the way of our success?"
-2. **Exit interview analysis:** What do departing employees consistently say? Find the pattern.
-3. **Failure post-mortems:** What do your worst decisions have in common? What were you assuming that wasn't true?
-4. **The energy audit:** Where do you consistently drain the people around you?
+1. **360 feedback (anonymous):** Once a year. Ask direct reports, peers, board members. Include "What does [name] do that gets in the way of our success?" → verify: user confirms
+2. **Exit interview analysis:** What do departing employees consistently say? Find the pattern. → verify: step output matches expected outcome
+3. **Failure post-mortems:** What do your worst decisions have in common? What were you assuming that wasn't true? → verify: step output matches expected outcome
+4. **The energy audit:** Where do you consistently drain the people around you? → verify: findings count > 0 OR clean signal returned
 
 ---
 
@@ -298,3 +299,40 @@ Most founders are at Level 0. Level 2 is a reasonable target. Level 3 is a strat
 ## Detailed References
 - `references/leadership-growth.md` — Maxwell levels, situational leadership, founder-to-CEO transition
 - `references/founder-toolkit.md` — Weekly reflection, energy audit, delegation matrix, 1:1 templates
+
+## When NOT to use
+
+- Task is unrelated to founder coach — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Founder Coach needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for founder coach
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving founder coach
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

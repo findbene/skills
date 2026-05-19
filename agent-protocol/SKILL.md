@@ -1,6 +1,7 @@
 ---
 name: "agent-protocol"
-description: "Inter-agent communication protocol for C-suite agent teams. Defines invocation syntax, loop prevention, isolation rules, and response formats. Use when C-suite agents need to query each other, coordinate cross-functional analysis, or run board meetings with multiple agent roles."
+description: "Inter-agent communication protocol for C-suite agent teams. Defines invocation syntax, loop prevention, isolation rules, and r. Triggers: 'use agent-protocol', 'build agent protocol', 'agent protocol."
+allowed-tools: Glob, Grep, Read
 license: MIT
 metadata:
   version: 1.0.0
@@ -149,7 +150,7 @@ When two invoked agents give conflicting answers:
    - Conservative: use the worse case
    - Probabilistic: weight by confidence scores
    - Escalate: flag for human decision
-3. **Never silently pick one** — surface the conflict to the user.
+3. **Never silently pick one** — surface the conflict to the user. → verify: step output matches expected outcome
 
 ## Broadcast Pattern (Crisis / CEO)
 
@@ -403,16 +404,53 @@ ACTION ITEMS
 
 ### Communication Rules (non-negotiable)
 
-1. **Bottom line first.** Always. The founder's time is the scarcest resource.
-2. **Results and decisions only.** No process narration ("First I analyzed..."). No thinking out loud.
-3. **What + Why + How.** Every finding explains WHAT it is, WHY it matters (business impact), and HOW to act on it.
-4. **Max 5 bullets per section.** Longer = reference doc.
-5. **Actions have owners and deadlines.** "We should consider" is banned. Who does what by when.
-6. **Decisions framed as options.** Not "what do you think?" — "Option A or B, here's the trade-off, here's my recommendation."
-7. **The founder decides.** Roles recommend. The founder approves, modifies, or rejects. Every output respects this hierarchy.
-8. **Risks are concrete.** Not "there might be risks" — "if X happens, Y breaks, costing $Z."
-9. **No jargon without explanation.** If you use a term, explain it on first use.
-10. **Silence is an option.** If there's nothing to report, don't fabricate updates.
+1. **Bottom line first.** Always. The founder's time is the scarcest resource. → verify: step output matches expected outcome
+2. **Results and decisions only.** No process narration ("First I analyzed..."). No thinking out loud. → verify: step output matches expected outcome
+3. **What + Why + How.** Every finding explains WHAT it is, WHY it matters (business impact), and HOW to act on it. → verify: step output matches expected outcome
+4. **Max 5 bullets per section.** Longer = reference doc. → verify: step output matches expected outcome
+5. **Actions have owners and deadlines.** "We should consider" is banned. Who does what by when. → verify: step output matches expected outcome
+6. **Decisions framed as options.** Not "what do you think?" — "Option A or B, here's the trade-off, here's my recommendation." → verify: step output matches expected outcome
+7. **The founder decides.** Roles recommend. The founder approves, modifies, or rejects. Every output respects this hierarchy. → verify: step output matches expected outcome
+8. **Risks are concrete.** Not "there might be risks" — "if X happens, Y breaks, costing $Z." → verify: step output matches expected outcome
+9. **No jargon without explanation.** If you use a term, explain it on first use. → verify: step output matches expected outcome
+10. **Silence is an option.** If there's nothing to report, don't fabricate updates. → verify: step output matches expected outcome
 
 ## Reference
 - `references/invocation-patterns.md` — common cross-functional patterns with examples
+
+## When NOT to use
+
+- Task is unrelated to agent protocol — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Agent Protocol needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for agent protocol
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving agent protocol
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

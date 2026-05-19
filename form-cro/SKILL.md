@@ -1,6 +1,7 @@
 ---
 name: form-cro
-description: "Optimize forms for higher completion rates — reducing field count, improving labels and placeholders, fixing validation UX, removing friction, and increasing form submission rates. Use this whenever the user mentions form optimization, 'my form has high drop-off,' 'signup form conversion,' 'reduce form abandonment,' 'form UX,' or shows a form and asks how to improve it. Trigger even when the user says 'people start but don't finish signing up' without explicitly mentioning forms."
+description: "Optimize forms for higher completion rates — reducing field count, improving labels and placeholders, fixing validation UX, removing friction, an. Triggers: 'use form-cro', 'form cro', 'form-cro task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -114,10 +115,10 @@ For each field, ask:
 ## Form Layout Optimization
 
 ### Field Order
-1. Start with easiest fields (name, email)
-2. Build commitment before asking more
-3. Sensitive fields last (phone, company size)
-4. Logical grouping if many fields
+1. Start with easiest fields (name, email) → verify: step output matches expected outcome
+2. Build commitment before asking more → verify: git status clean
+3. Sensitive fields last (phone, company size) → verify: step output matches expected outcome
+4. Logical grouping if many fields → verify: step output matches expected outcome
 
 ### Labels and Placeholders
 - Labels: Keep visible (not just placeholder) — placeholders disappear when typing, leaving users unsure what they're filling in
@@ -165,10 +166,10 @@ Email
 - Clear indication of required vs. optional
 
 ### Progressive Commitment Pattern
-1. Low-friction start (just email)
-2. More detail (name, company)
-3. Qualifying questions
-4. Contact preferences
+1. Low-friction start (just email) → verify: step output matches expected outcome
+2. More detail (name, company) → verify: step output matches expected outcome
+3. Qualifying questions → verify: step output matches expected outcome
+4. Contact preferences → verify: step output matches expected outcome
 
 ---
 
@@ -340,12 +341,12 @@ See [references/experiment-ideas.md](references/experiment-ideas.md) for the ful
 
 ## Task-Specific Questions
 
-1. What's your current form completion rate?
-2. Do you have field-level analytics?
-3. What happens with the data after submission?
-4. Which fields are actually used in follow-up?
-5. Are there compliance/legal requirements?
-6. What's the mobile vs. desktop split?
+1. What's your current form completion rate? → verify: step output matches expected outcome
+2. Do you have field-level analytics? → verify: step output matches expected outcome
+3. What happens with the data after submission? → verify: step output matches expected outcome
+4. Which fields are actually used in follow-up? → verify: step output matches expected outcome
+5. Are there compliance/legal requirements? → verify: step output matches expected outcome
+6. What's the mobile vs. desktop split? → verify: step output matches expected outcome
 
 ---
 
@@ -355,3 +356,44 @@ See [references/experiment-ideas.md](references/experiment-ideas.md) for the ful
 - **popup-cro**: For forms inside popups/modals
 - **page-cro**: For the page containing the form
 - **ab-test-setup**: For testing form changes
+
+## Triggers
+
+form optimization, 'my form has high drop-off,' 'signup form conversion,' 'reduce form abandonment,' 'form UX,' or shows a form and asks how to improve it
+
+## When NOT to use
+
+- Task is unrelated to form cro — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Form Cro needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for form cro
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving form cro
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "atlassian-admin"
-description: Atlassian Administrator for managing and organizing Atlassian products (Jira, Confluence, Bitbucket, Trello), users, permissions, security, integrations, system configuration, and org-wide governance. Use when asked to add users to Jira, change Confluence permissions, configure access control, update admin settings, manage Atlassian groups, set up SSO, install marketplace apps, review security policies, or handle any org-wide Atlassian administration task.
+description: "Atlassian Administrator for managing and organizing Atlassian products (Jira, Confluence, Bitbucket, Trello), users, permiss. Triggers: 'use atlassian-admin', 'atlassian admin', 'atlassian-admin task."
+allowed-tools: Glob, Grep, Read
 ---
 
 # Atlassian Administrator Expert
@@ -8,42 +9,42 @@ description: Atlassian Administrator for managing and organizing Atlassian produ
 ## Workflows
 
 ### User Provisioning
-1. Create user account: `admin.atlassian.com > User management > Invite users`
+1. Create user account: `admin.atlassian.com > User management > Invite users` → verify: output file exists + no syntax error
    - REST API: `POST /rest/api/3/user` with `{"emailAddress": "...", "displayName": "...","products": [...]}`
-2. Add to appropriate groups: `admin.atlassian.com > User management > Groups > [group] > Add members`
-3. Assign product access (Jira, Confluence) via `admin.atlassian.com > Products > [product] > Access`
-4. Configure default permissions per group scheme
-5. Send welcome email with onboarding info
-6. **NOTIFY**: Relevant team leads of new member
+2. Add to appropriate groups: `admin.atlassian.com > User management > Groups > [group] > Add members` → verify: package installed + import succeeds
+3. Assign product access (Jira, Confluence) via `admin.atlassian.com > Products > [product] > Access` → verify: step output matches expected outcome
+4. Configure default permissions per group scheme → verify: step output matches expected outcome
+5. Send welcome email with onboarding info → verify: step output matches expected outcome
+6. **NOTIFY**: Relevant team leads of new member → verify: step output matches expected outcome
 7. **VERIFY**: Confirm user appears active at `admin.atlassian.com/o/{orgId}/users` and can log in
 
 ### User Deprovisioning
-1. **CRITICAL**: Audit user's owned content and tickets
+1. **CRITICAL**: Audit user's owned content and tickets → verify: step output matches expected outcome
    - Jira: `GET /rest/api/3/search?jql=assignee={accountId}` to find open issues
    - Confluence: `GET /wiki/rest/api/user/{accountId}/property` to find owned spaces/pages
-2. Reassign ownership of:
+2. Reassign ownership of: → verify: step output matches expected outcome
    - Jira projects: `Project settings > People > Change lead`
    - Confluence spaces: `Space settings > Overview > Edit space details`
    - Open issues: bulk reassign via `Jira > Issues > Bulk change`
    - Filters and dashboards: transfer via `User management > [user] > Managed content`
-3. Remove from all groups: `admin.atlassian.com > User management > [user] > Groups`
-4. Revoke product access
-5. Deactivate account: `admin.atlassian.com > User management > [user] > Deactivate`
+3. Remove from all groups: `admin.atlassian.com > User management > [user] > Groups` → verify: step output matches expected outcome
+4. Revoke product access → verify: step output matches expected outcome
+5. Deactivate account: `admin.atlassian.com > User management > [user] > Deactivate` → verify: step output matches expected outcome
    - REST API: `DELETE /rest/api/3/user?accountId={accountId}`
 6. **VERIFY**: Confirm `GET /rest/api/3/user?accountId={accountId}` returns `"active": false`
-7. Document deprovisioning in audit log
-8. **USE**: Jira Expert to reassign any remaining issues
+7. Document deprovisioning in audit log → verify: step output matches expected outcome
+8. **USE**: Jira Expert to reassign any remaining issues → verify: step output matches expected outcome
 
 ### Group Management
-1. Create groups: `admin.atlassian.com > User management > Groups > Create group`
+1. Create groups: `admin.atlassian.com > User management > Groups > Create group` → verify: output file exists + no syntax error
    - REST API: `POST /rest/api/3/group` with `{"name": "..."}`
    - Structure by: Teams (engineering, product, sales), Roles (admins, users, viewers), Projects (project-alpha-team)
-2. Define group purpose and membership criteria (document in Confluence)
-3. Assign default permissions per group
-4. Add users to appropriate groups
+2. Define group purpose and membership criteria (document in Confluence) → verify: step output matches expected outcome
+3. Assign default permissions per group → verify: step output matches expected outcome
+4. Add users to appropriate groups → verify: package installed + import succeeds
 5. **VERIFY**: Confirm group members via `GET /rest/api/3/group/member?groupName={name}`
-6. Regular review and cleanup (quarterly)
-7. **USE**: Confluence Expert to document group structure
+6. Regular review and cleanup (quarterly) → verify: step output matches expected outcome
+7. **USE**: Confluence Expert to document group structure → verify: step output matches expected outcome
 
 ### Permission Scheme Design
 **Jira Permission Schemes** (`Jira Settings > Issues > Permission Schemes`):
@@ -65,27 +66,27 @@ description: Atlassian Administrator for managing and organizing Atlassian produ
 - Document permission rationale
 
 ### SSO Configuration
-1. Choose identity provider (Okta, Azure AD, Google)
-2. Configure SAML settings: `admin.atlassian.com > Security > SAML single sign-on > Add SAML configuration`
+1. Choose identity provider (Okta, Azure AD, Google) → verify: step output matches expected outcome
+2. Configure SAML settings: `admin.atlassian.com > Security > SAML single sign-on > Add SAML configuration` → verify: package installed + import succeeds
    - Set Entity ID, ACS URL, and X.509 certificate from IdP
-3. Test SSO with admin account (keep password login active during test)
-4. Test with regular user account
-5. Enable SSO for organization
-6. Enforce SSO: `admin.atlassian.com > Security > Authentication policies > Enforce SSO`
-7. Configure SCIM for auto-provisioning: `admin.atlassian.com > User provisioning > [IdP] > Enable SCIM`
+3. Test SSO with admin account (keep password login active during test) → verify: all tests pass
+4. Test with regular user account → verify: all tests pass
+5. Enable SSO for organization → verify: step output matches expected outcome
+6. Enforce SSO: `admin.atlassian.com > Security > Authentication policies > Enforce SSO` → verify: step output matches expected outcome
+7. Configure SCIM for auto-provisioning: `admin.atlassian.com > User provisioning > [IdP] > Enable SCIM` → verify: step output matches expected outcome
 8. **VERIFY**: Confirm SSO flow succeeds and audit logs show `saml.login.success` events
-9. Monitor SSO logs: `admin.atlassian.com > Security > Audit log > filter: SSO`
+9. Monitor SSO logs: `admin.atlassian.com > Security > Audit log > filter: SSO` → verify: step output matches expected outcome
 
 ### Marketplace App Management
-1. Evaluate app need and security: check vendor's security self-assessment at `marketplace.atlassian.com`
-2. Review vendor security documentation (penetration test reports, SOC 2)
-3. Test app in sandbox environment
-4. Purchase or request trial: `admin.atlassian.com > Billing > Manage subscriptions`
-5. Install app: `admin.atlassian.com > Products > [product] > Apps > Find new apps`
-6. Configure app settings per vendor documentation
-7. Train users on app usage
+1. Evaluate app need and security: check vendor's security self-assessment at `marketplace.atlassian.com` → verify: all tests pass
+2. Review vendor security documentation (penetration test reports, SOC 2) → verify: all tests pass
+3. Test app in sandbox environment → verify: all tests pass
+4. Purchase or request trial: `admin.atlassian.com > Billing > Manage subscriptions` → verify: step output matches expected outcome
+5. Install app: `admin.atlassian.com > Products > [product] > Apps > Find new apps` → verify: package installed + import succeeds
+6. Configure app settings per vendor documentation → verify: step output matches expected outcome
+7. Train users on app usage → verify: step output matches expected outcome
 8. **VERIFY**: Confirm app appears in `GET /rest/plugins/1.0/` and health check passes
-9. Monitor app performance and usage; review annually for continued need
+9. Monitor app performance and usage; review annually for continued need → verify: step output matches expected outcome
 
 ### System Performance Optimization
 **Jira** (`Jira Settings > System`):
@@ -114,14 +115,14 @@ description: Atlassian Administrator for managing and organizing Atlassian produ
 - **Salesforce**: Via Marketplace app `salesforce-connector`
 
 **Configuration Steps**:
-1. Review integration requirements and OAuth scopes needed
-2. Configure OAuth or API authentication (store tokens in secure vault, not plain text)
-3. Map fields and data flows
-4. Test integration thoroughly with sample data
-5. Document configuration in Confluence runbook
-6. Train users on integration features
+1. Review integration requirements and OAuth scopes needed → verify: step output matches expected outcome
+2. Configure OAuth or API authentication (store tokens in secure vault, not plain text) → verify: step output matches expected outcome
+3. Map fields and data flows → verify: step output matches expected outcome
+4. Test integration thoroughly with sample data → verify: all tests pass
+5. Document configuration in Confluence runbook → verify: command exit code 0
+6. Train users on integration features → verify: step output matches expected outcome
 7. **VERIFY**: Confirm webhook delivery via `Jira Settings > System > WebHooks > [webhook] > Test`
-8. Monitor integration health via app-specific dashboards
+8. Monitor integration health via app-specific dashboards → verify: step output matches expected outcome
 
 ## Global Configuration
 
@@ -180,13 +181,13 @@ description: Atlassian Administrator for managing and organizing Atlassian produ
 - **P4 (Low)**: Enhancement — respond in 24 hours
 
 **Response Steps**:
-1. Acknowledge and log incident
-2. Assess impact and severity
-3. Communicate status to stakeholders
-4. Investigate root cause (check `admin.atlassian.com > Products > [product] > Health` and Atlassian Status Page)
-5. Implement fix
+1. Acknowledge and log incident → verify: step output matches expected outcome
+2. Assess impact and severity → verify: step output matches expected outcome
+3. Communicate status to stakeholders → verify: step output matches expected outcome
+4. Investigate root cause (check `admin.atlassian.com > Products > [product] > Health` and Atlassian Status Page) → verify: all checks pass
+5. Implement fix → verify: diff matches intended change
 6. **VERIFY**: Confirm resolution via affected user test and health check
-7. Post-mortem and lessons learned
+7. Post-mortem and lessons learned → verify: step output matches expected outcome
 
 ## Metrics & Reporting
 
@@ -232,3 +233,40 @@ description: Atlassian Administrator for managing and organizing Atlassian produ
 - Provide Confluence Expert with template management
 - Ensure Senior PM has visibility into org health
 - Enable Scrum Master with team provisioning
+
+## When NOT to use
+
+- Task is unrelated to atlassian admin — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Atlassian Admin needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for atlassian admin
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving atlassian admin
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

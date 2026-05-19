@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions "SEO audit," "technical SEO," "why am I not ranking," "SEO issues," "on-page SEO," "meta tags review," "SEO health check," "my traffic dropped," "lost rankings," "not showing up in Google," "site isn't ranking," "Google update hit me," "page speed," "core web vitals," "crawl errors," or "indexing issues." Use this even if the user just says something vague like "my SEO is bad" or "help with SEO" — start with an audit. For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema-markup. For AI search optimization, see ai-seo.
+description: "When the user wants to audit, review, or diagnose SEO issues on their site. Trigger: site isn, indexing issues., my SEO is bad, help with SEO"
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -49,18 +49,18 @@ Before auditing, understand:
 Many CMS plugins (AIOSEO, Yoast, RankMath) inject JSON-LD via client-side JavaScript — it won't appear in static HTML or `web_fetch` output (which strips `<script>` tags during conversion).
 
 **To accurately check for schema markup, use one of these methods:**
-1. **Browser tool** — render the page and run: `document.querySelectorAll('script[type="application/ld+json"]')`
-2. **Google Rich Results Test** — https://search.google.com/test/rich-results
-3. **Screaming Frog export** — if the client provides one, use it (SF renders JavaScript)
+1. **Browser tool** — render the page and run: `document.querySelectorAll('script[type="application/ld+json"]')` → verify: command exit code 0
+2. **Google Rich Results Test** — https://search.google.com/test/rich-results → verify: all checks pass
+3. **Screaming Frog export** — if the client provides one, use it (SF renders JavaScript) → verify: step output matches expected outcome
 
 Reporting "no schema found" based solely on `web_fetch` or `curl` leads to false audit findings — these tools can't see JS-injected schema.
 
 ### Priority Order
-1. **Crawlability & Indexation** (can Google find and index it?)
-2. **Technical Foundations** (is the site fast and functional?)
-3. **On-Page Optimization** (is content optimized?)
-4. **Content Quality** (does it deserve to rank?)
-5. **Authority & Links** (does it have credibility?)
+1. **Crawlability & Indexation** (can Google find and index it?) → verify: step output matches expected outcome
+2. **Technical Foundations** (is the site fast and functional?) → verify: step output matches expected outcome
+3. **On-Page Optimization** (is content optimized?) → verify: step output matches expected outcome
+4. **Content Quality** (does it deserve to rank?) → verify: step output matches expected outcome
+5. **Authority & Links** (does it have credibility?) → verify: step output matches expected outcome
 
 ---
 
@@ -365,10 +365,10 @@ Same format as above
 Same format as above
 
 **Prioritized Action Plan**
-1. Critical fixes (blocking indexation/ranking)
-2. High-impact improvements
-3. Quick wins (easy, immediate benefit)
-4. Long-term recommendations
+1. Critical fixes (blocking indexation/ranking) → verify: diff matches intended change
+2. High-impact improvements → verify: step output matches expected outcome
+3. Quick wins (easy, immediate benefit) → verify: step output matches expected outcome
+4. Long-term recommendations → verify: step output matches expected outcome
 
 ---
 
@@ -401,11 +401,11 @@ Same format as above
 
 ## Task-Specific Questions
 
-1. What pages/keywords matter most?
-2. Do you have Search Console access?
-3. Any recent changes or migrations?
-4. Who are your top organic competitors?
-5. What's your current organic traffic baseline?
+1. What pages/keywords matter most? → verify: step output matches expected outcome
+2. Do you have Search Console access? → verify: step output matches expected outcome
+3. Any recent changes or migrations? → verify: step output matches expected outcome
+4. Who are your top organic competitors? → verify: step output matches expected outcome
+5. What's your current organic traffic baseline? → verify: step output matches expected outcome
 
 ---
 
@@ -417,3 +417,40 @@ Same format as above
 - **schema-markup**: For implementing structured data
 - **page-cro**: For optimizing pages for conversion (not just ranking)
 - **analytics-tracking**: For measuring SEO performance
+
+## When NOT to use
+
+- Task is unrelated to seo audit — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Audit needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo audit
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo audit
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

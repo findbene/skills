@@ -1,7 +1,7 @@
 ---
 name: ads
-description: "Multi-platform paid advertising audit and optimization skill. Analyzes Google, Meta, YouTube, LinkedIn, TikTok, Microsoft, and Apple Ads. 250+ checks with scoring, parallel agents, industry templates, and AI creative generation."
-argument-hint: "audit | google | meta | youtube | linkedin | tiktok | microsoft | apple | creative | landing | budget | plan <type> | competitor | dna <url> | create | generate | photoshoot"
+description: "Multi-platform paid advertising audit and optimization skill. Triggers: 'use ads', 'run ads', 'ads'."
+allowed-tools: Glob, Grep, Read, Task
 license: MIT
 ---
 
@@ -43,12 +43,12 @@ be generic and recommendations may be wrong for the user's situation.
 
 Ask these questions upfront (combine into one message):
 
-1. **Industry / Business type**: Which best describes you?
+1. **Industry / Business type**: Which best describes you? → verify: step output matches expected outcome
    SaaS · E-commerce · Local Service · B2B Enterprise · Info Products · Mobile App ·
    Real Estate · Healthcare · Finance · Agency · Other
-2. **Monthly ad spend**: Total budget and per-platform breakdown (approximate is fine)
-3. **Primary goal**: Sales / Revenue · Leads / Demos · App Installs · Calls · Brand
-4. **Active platforms**: Which platforms are you advertising on?
+2. **Monthly ad spend**: Total budget and per-platform breakdown (approximate is fine) → verify: step output matches expected outcome
+3. **Primary goal**: Sales / Revenue · Leads / Demos · App Installs · Calls · Brand → verify: dependency resolves + import works
+4. **Active platforms**: Which platforms are you advertising on? → verify: step output matches expected outcome
 
 If the user provides data upfront (e.g. "audit my Google Ads, I spend $5k/mo on SaaS"),
 extract context from that and proceed without re-asking.
@@ -61,13 +61,13 @@ Use the provided context to:
 ## Orchestration Logic
 
 When the user invokes `/ads audit`, delegate to subagents in parallel:
-1. **Collect context** (see Context Intake above; do this first)
-2. Collect account data (exports, screenshots, or pasted metrics)
-3. Detect business type and identify active platforms
-4. Spawn subagents via Task tool with `context: fork`: audit-google, audit-meta, audit-creative, audit-tracking, audit-budget, audit-compliance
+1. **Collect context** (see Context Intake above; do this first) → verify: step output matches expected outcome
+2. Collect account data (exports, screenshots, or pasted metrics) → verify: step output matches expected outcome
+3. Detect business type and identify active platforms → verify: step output matches expected outcome
+4. Spawn subagents via Task tool with `context: fork`: audit-google, audit-meta, audit-creative, audit-tracking, audit-budget, audit-compliance → verify: findings count > 0 OR clean signal returned
 5. **Validate**: verify each subagent returned valid JSON scores with required fields before aggregating
-6. Collect results and generate unified report with Ads Health Score (0-100)
-7. Create prioritized action plan with Quick Wins
+6. Collect results and generate unified report with Ads Health Score (0-100) → verify: output exists + parses without error
+7. Create prioritized action plan with Quick Wins → verify: output exists + parses without error
 
 For individual commands (`/ads google`, `/ads meta`, etc.), load the relevant
 sub-skill directly. Still collect context first if not already provided.
@@ -179,6 +179,7 @@ When sub-skills or agents reference `ads/references/*.md`, resolve to
 - `references/gaql-notes.md`: GAQL field compatibility, deduplication patterns, filter scope best practices
 - `references/voice-to-style.md`: Brand voice axis to visual attribute mapping for image generation
 - `references/copy-frameworks.md`: 6 ad copy frameworks (AIDA, PAS, BAB, 4P, FAB, Star-Story-Solution)
+- `references/modes/*.md`: Mode-specific execution steps — apple, budget, competitor, creative, google, landing, math, test, tiktok, youtube
 
 ## Scoring Methodology
 
@@ -212,23 +213,23 @@ Aggregate = Sum(Platform_Score x Platform_Budget_Share)
 
 This skill orchestrates 17 specialized sub-skills:
 
-1. **ads-audit**: Full multi-platform audit with parallel delegation
-2. **ads-google**: Google Ads deep analysis (Search, PMax, YouTube)
-3. **ads-meta**: Meta Ads deep analysis (FB, IG, Advantage+)
-4. **ads-youtube**: YouTube Ads specific analysis
-5. **ads-linkedin**: LinkedIn Ads deep analysis
-6. **ads-tiktok**: TikTok Ads deep analysis
-7. **ads-microsoft**: Microsoft/Bing Ads deep analysis
-8. **ads-creative**: Cross-platform creative quality audit
-9. **ads-landing**: Landing page quality for ad campaigns
-10. **ads-budget**: Budget allocation and bidding strategy
-11. **ads-plan**: Strategic ad planning with industry templates
-12. **ads-competitor**: Competitor ad intelligence
-13. **ads-apple**: Apple Ads deep analysis
-14. **ads-dna**: Brand DNA extraction from website URL
-15. **ads-create**: Campaign concepts, copy decks, creative briefs
-16. **ads-generate**: AI image generation with pluggable providers
-17. **ads-photoshoot**: Product photography in 5 professional styles
+1. **ads-audit**: Full multi-platform audit with parallel delegation → verify: findings count > 0 OR clean signal returned
+2. **ads-google**: Google Ads deep analysis (Search, PMax, YouTube) → verify: step output matches expected outcome
+3. **ads-meta**: Meta Ads deep analysis (FB, IG, Advantage+) → verify: step output matches expected outcome
+4. **ads-youtube**: YouTube Ads specific analysis → verify: step output matches expected outcome
+5. **ads-linkedin**: LinkedIn Ads deep analysis → verify: step output matches expected outcome
+6. **ads-tiktok**: TikTok Ads deep analysis → verify: step output matches expected outcome
+7. **ads-microsoft**: Microsoft/Bing Ads deep analysis → verify: step output matches expected outcome
+8. **ads-creative**: Cross-platform creative quality audit → verify: findings count > 0 OR clean signal returned
+9. **ads-landing**: Landing page quality for ad campaigns → verify: step output matches expected outcome
+10. **ads-budget**: Budget allocation and bidding strategy → verify: step output matches expected outcome
+11. **ads-plan**: Strategic ad planning with industry templates → verify: step output matches expected outcome
+12. **ads-competitor**: Competitor ad intelligence → verify: step output matches expected outcome
+13. **ads-apple**: Apple Ads deep analysis → verify: step output matches expected outcome
+14. **ads-dna**: Brand DNA extraction from website URL → verify: step output matches expected outcome
+15. **ads-create**: Campaign concepts, copy decks, creative briefs → verify: output exists + parses without error
+16. **ads-generate**: AI image generation with pluggable providers → verify: output exists + parses without error
+17. **ads-photoshoot**: Product photography in 5 professional styles → verify: step output matches expected outcome
 
 ## Subagents
 
@@ -243,3 +244,40 @@ For parallel analysis during full audits:
 - `visual-designer`: Image generation with brand injection via generate_image.py (Sonnet, maxTurns: 30)
 - `copy-writer`: Headlines, CTAs, primary text within platform limits (Sonnet, maxTurns: 20)
 - `format-adapter`: Asset dimension validation and spec compliance reporting (Haiku, maxTurns: 15)
+
+## When NOT to use
+
+- Task is unrelated to ads — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ads needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ads
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ads
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

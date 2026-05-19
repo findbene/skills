@@ -1,7 +1,7 @@
 ---
 name: ui-styling
-description: "Beautiful, accessible UI styling with shadcn/ui, Tailwind CSS, and modern CSS patterns for polished production-grade interfaces. Use this skill any time UI components need to be styled, Tailwind CSS classes need to be applied, shadcn/ui components need to be used, or interfaces need to be made more polished and accessible. Trigger immediately on: \"style this\", \"Tailwind\", \"shadcn\", \"CSS\", \"UI styling\", \"component styling\", \"dark mode\", \"responsive design\", \"shadcn/ui\", \"Tailwind CSS\", \"style components\", \"CSS classes\", \"UI polish\", \"make this look better\". If someone says \"style this component\" or \"apply Tailwind to this\" this skill MUST trigger."
-argument-hint: "[component or layout]"
+description: "Beautiful, accessible UI styling with shadcn/ui, Tailwind CSS, and modern CSS patterns for polished production-grade interfaces. Triggers: 'use ui-styling', 'build UI styling', 'ui styling'."
+allowed-tools: Bash, Glob, Grep, Read
 license: MIT
 metadata:
   author: claudekit
@@ -226,16 +226,16 @@ python scripts/tailwind_config_gen.py --colors brand:blue --fonts display:Inter
 
 ## Best Practices
 
-1. **Component Composition**: Build complex UIs from simple, composable primitives
-2. **Utility-First Styling**: Use Tailwind classes directly; extract components only for true repetition
-3. **Mobile-First Responsive**: Start with mobile styles, layer responsive variants
-4. **Accessibility-First**: Leverage Radix UI primitives, add focus states, use semantic HTML
-5. **Design Tokens**: Use consistent spacing scale, color palettes, typography system
-6. **Dark Mode Consistency**: Apply dark variants to all themed elements
-7. **Performance**: Leverage automatic CSS purging, avoid dynamic class names
-8. **TypeScript**: Use full type safety for better DX
-9. **Visual Hierarchy**: Let composition guide attention, use spacing and color intentionally
-10. **Expert Craftsmanship**: Every detail matters - treat UI as a craft
+1. **Component Composition**: Build complex UIs from simple, composable primitives → verify: step output matches expected outcome
+2. **Utility-First Styling**: Use Tailwind classes directly; extract components only for true repetition → verify: step output matches expected outcome
+3. **Mobile-First Responsive**: Start with mobile styles, layer responsive variants → verify: step output matches expected outcome
+4. **Accessibility-First**: Leverage Radix UI primitives, add focus states, use semantic HTML → verify: dependency resolves + import works
+5. **Design Tokens**: Use consistent spacing scale, color palettes, typography system → verify: step output matches expected outcome
+6. **Dark Mode Consistency**: Apply dark variants to all themed elements → verify: diff matches intended change
+7. **Performance**: Leverage automatic CSS purging, avoid dynamic class names → verify: step output matches expected outcome
+8. **TypeScript**: Use full type safety for better DX → verify: step output matches expected outcome
+9. **Visual Hierarchy**: Let composition guide attention, use spacing and color intentionally → verify: step output matches expected outcome
+10. **Expert Craftsmanship**: Every detail matters - treat UI as a craft → verify: step output matches expected outcome
 
 ## Reference Navigation
 
@@ -322,3 +322,45 @@ export function LoginForm() {
 - Tailwind UI: https://tailwindui.com
 - Headless UI: https://headlessui.com
 - v0 (AI UI Generator): https://v0.dev
+
+## Triggers
+
+\\\"style this\\\", \\\"Tailwind\\\", \\\"shadcn\\\", \\\"CSS\\\", \\\"UI styling\\\", \\\"component styling\\\", \\\"dark mode\\\", \\\"responsive design\\\", \\\"shadcn/ui\\\", \\\"Tailwind CSS\\\", \\\"style components\\\", \\\"CSS classes\\\", \\\"UI poli..."
+argument-hint: "[component or layout]
+
+## When NOT to use
+
+- Task is unrelated to ui styling — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Ui Styling needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for ui styling
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving ui styling
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

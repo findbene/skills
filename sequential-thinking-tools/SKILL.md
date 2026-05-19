@@ -1,6 +1,7 @@
 ---
 name: sequential-thinking-tools
-description: "Structured step-by-step reasoning via MCP for breaking down complex problems into systematic thinking chains before acting. Use this skill any time a complex problem needs to be reasoned through carefully, multi-step analysis needs to be structured, or systematic thinking needs to be applied before making a decision. Trigger immediately on: \"think step by step\", \"sequential thinking\", \"break this down logically\", \"reason through this\", \"systematic analysis\", \"step-by-step reasoning\", \"structured thinking\", \"chain of thought\", \"think this through\", \"work through this\", \"reasoning chain\", \"analyze systematically\". If someone says \"think through this carefully\" or \"reason step by step\" this skill MUST trigger."
+description: 'Structured step-by-step reasoning via MCP for breaking down complex problems into systematic thinking chains. Triggers: "use sequential-thinking-tools", "sequential thinking tools", "sequential task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Sequential Thinking Tools
@@ -44,25 +45,25 @@ Each call represents one step in the chain. Set `nextThoughtNeeded=false` on the
 ## Reasoning Patterns
 
 ### Tradeoff Analysis
-1. Define the decision and constraints
-2. List each option with pros/cons
-3. Weight the criteria by importance
-4. Score each option
-5. Recommend with rationale
+1. Define the decision and constraints → verify: step output matches expected outcome
+2. List each option with pros/cons → verify: step output matches expected outcome
+3. Weight the criteria by importance → verify: step output matches expected outcome
+4. Score each option → verify: step output matches expected outcome
+5. Recommend with rationale → verify: step output matches expected outcome
 
 ### Root Cause Analysis
-1. State the observed symptom
-2. List possible causes
-3. Eliminate causes using available evidence
-4. Identify most likely cause
-5. Propose verification steps
+1. State the observed symptom → verify: step output matches expected outcome
+2. List possible causes → verify: step output matches expected outcome
+3. Eliminate causes using available evidence → verify: step output matches expected outcome
+4. Identify most likely cause → verify: step output matches expected outcome
+5. Propose verification steps → verify: step output matches expected outcome
 
 ### System Design Decomposition
-1. Define requirements and constraints
-2. Identify major components
-3. Define interfaces between components
-4. Analyze failure modes
-5. Propose implementation order
+1. Define requirements and constraints → verify: step output matches expected outcome
+2. Identify major components → verify: step output matches expected outcome
+3. Define interfaces between components → verify: step output matches expected outcome
+4. Analyze failure modes → verify: step output matches expected outcome
+5. Propose implementation order → verify: step output matches expected outcome
 
 ## Tips
 
@@ -70,3 +71,40 @@ Each call represents one step in the chain. Set `nextThoughtNeeded=false` on the
 - Each thought should build on previous thoughts explicitly
 - Revise `totalThoughts` as the reasoning unfolds — it's an estimate, not a commitment
 - The chain creates an auditable reasoning trace the user can review
+
+## When NOT to use
+
+- Task is unrelated to sequential thinking tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Sequential Thinking Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for sequential thinking tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving sequential thinking tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

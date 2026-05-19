@@ -1,12 +1,7 @@
 ---
 name: support-ticket-triage
-description: >
-  Triages, categorizes, prioritizes, and drafts responses for customer support
-  tickets — individually or in batches. Use this skill whenever the user has
-  support tickets to process, wants to categorize or route tickets, needs to
-  draft customer replies, wants to build a triage SOP, or is setting up a
-  support automation workflow. Also trigger when they mention inbox overload,
-  slow response times, or want to train an AI on their support patterns.
+description: 'Triages, categorizes, prioritizes, and drafts responses for customer support tickets — individually or in batches. Triggers: "use support-ticket-triage", "support ticket triage", "support task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Support Ticket Triage
@@ -79,14 +74,14 @@ tried turning it off and on again" energy for an angry customer.
 
 Write the response. Follow this structure:
 
-1. **Acknowledgment** — one sentence showing you read their actual message, not a
+1. **Acknowledgment** — one sentence showing you read their actual message, not a → verify: file content matches expected shape
    template opener. ("I can see the payment went through twice on Tuesday — that's
    frustrating and I want to fix it now.")
-2. **Answer or next step** — clear, direct. If you don't know the answer, say what
+2. **Answer or next step** — clear, direct. If you don't know the answer, say what → verify: step output matches expected outcome
    you're doing to find out and when they'll hear back.
-3. **Confirmation ask** — only if needed. Don't ask "does this help?" — it adds
+3. **Confirmation ask** — only if needed. Don't ask "does this help?" — it adds → verify: user confirms
    friction. Only ask if you genuinely need their input to proceed.
-4. **Warm close** — one line. Keep it human, not corporate.
+4. **Warm close** — one line. Keep it human, not corporate. → verify: step output matches expected outcome
 
 ## Batch output format
 
@@ -122,8 +117,45 @@ Flag these for human review — don't draft a response:
 
 If the user wants to build a triage SOP rather than process specific tickets, switch
 to structured documentation mode. Produce:
-1. Categorization guide with definitions and examples
-2. Priority decision tree (flowchart in text/Mermaid format)
-3. Response templates for the top 5–10 ticket types
-4. Escalation rules with clear owners
-5. Metrics to track (first response time, resolution time, CSAT)
+1. Categorization guide with definitions and examples → verify: step output matches expected outcome
+2. Priority decision tree (flowchart in text/Mermaid format) → verify: step output matches expected outcome
+3. Response templates for the top 5–10 ticket types → verify: step output matches expected outcome
+4. Escalation rules with clear owners → verify: step output matches expected outcome
+5. Metrics to track (first response time, resolution time, CSAT) → verify: step output matches expected outcome
+
+## When NOT to use
+
+- Task is unrelated to support ticket triage — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Support Ticket Triage needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for support ticket triage
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving support ticket triage
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

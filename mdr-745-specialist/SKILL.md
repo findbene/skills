@@ -1,6 +1,7 @@
 ---
 name: "mdr-745-specialist"
-description: EU MDR 2017/745 compliance specialist for medical device classification, technical documentation, clinical evidence, and post-market surveillance. Covers Annex VIII classification rules, Annex II/III technical files, Annex XIV clinical evaluation, and EUDAMED integration.
+description: "EU MDR 2017/745 compliance specialist for medical device classification, technical documentation, clinical evidence. Triggers: 'use mdr-745-specialist', 'mdr 745 specialist', 'mdr-745-specialist task."
+allowed-tools: Bash, Glob, Grep, Read
 triggers:
   - MDR compliance
   - EU MDR
@@ -36,14 +37,14 @@ EU MDR compliance patterns for medical device classification, technical document
 
 Classify device under MDR Annex VIII:
 
-1. Identify device duration (transient, short-term, long-term)
-2. Determine invasiveness level (non-invasive, body orifice, surgical)
-3. Assess body system contact (CNS, cardiac, other)
-4. Check if active device (energy dependent)
-5. Apply classification rules 1-22
-6. For software, apply MDCG 2019-11 algorithm
-7. Document classification rationale
-8. **Validation:** Classification confirmed with Notified Body
+1. Identify device duration (transient, short-term, long-term) → verify: step output matches expected outcome
+2. Determine invasiveness level (non-invasive, body orifice, surgical) → verify: step output matches expected outcome
+3. Assess body system contact (CNS, cardiac, other) → verify: step output matches expected outcome
+4. Check if active device (energy dependent) → verify: all tests pass
+5. Apply classification rules 1-22 → verify: diff matches intended change
+6. For software, apply MDCG 2019-11 algorithm → verify: diff matches intended change
+7. Document classification rationale → verify: step output matches expected outcome
+8. **Validation:** Classification confirmed with Notified Body → verify: step output matches expected outcome
 
 ### Classification Matrix
 
@@ -86,14 +87,14 @@ Classify device under MDR Annex VIII:
 
 Prepare technical file per Annex II and III:
 
-1. Create device description (variants, accessories, intended purpose)
-2. Develop labeling (Article 13 requirements, IFU)
-3. Document design and manufacturing process
-4. Complete GSPR compliance matrix
-5. Prepare benefit-risk analysis
-6. Compile verification and validation evidence
-7. Integrate risk management file (ISO 14971)
-8. **Validation:** Technical file reviewed for completeness
+1. Create device description (variants, accessories, intended purpose) → verify: output exists + parses without error
+2. Develop labeling (Article 13 requirements, IFU) → verify: step output matches expected outcome
+3. Document design and manufacturing process → verify: step output matches expected outcome
+4. Complete GSPR compliance matrix → verify: step output matches expected outcome
+5. Prepare benefit-risk analysis → verify: step output matches expected outcome
+6. Compile verification and validation evidence → verify: step output matches expected outcome
+7. Integrate risk management file (ISO 14971) → verify: step output matches expected outcome
+8. **Validation:** Technical file reviewed for completeness → verify: step output matches expected outcome
 
 ### Technical File Structure
 
@@ -134,14 +135,14 @@ ANNEX II TECHNICAL DOCUMENTATION
 
 Develop clinical evidence strategy per Annex XIV:
 
-1. Define clinical claims and endpoints
-2. Conduct systematic literature search
-3. Appraise clinical data quality
-4. Assess equivalence (technical, biological, clinical)
-5. Identify evidence gaps
-6. Determine if clinical investigation required
-7. Prepare Clinical Evaluation Report (CER)
-8. **Validation:** CER reviewed by qualified evaluator
+1. Define clinical claims and endpoints → verify: step output matches expected outcome
+2. Conduct systematic literature search → verify: step output matches expected outcome
+3. Appraise clinical data quality → verify: step output matches expected outcome
+4. Assess equivalence (technical, biological, clinical) → verify: step output matches expected outcome
+5. Identify evidence gaps → verify: step output matches expected outcome
+6. Determine if clinical investigation required → verify: step output matches expected outcome
+7. Prepare Clinical Evaluation Report (CER) → verify: step output matches expected outcome
+8. **Validation:** CER reviewed by qualified evaluator → verify: step output matches expected outcome
 
 ### Evidence Requirements by Class
 
@@ -179,14 +180,14 @@ CER CONTENTS
 
 Establish PMS system per Chapter VII:
 
-1. Develop PMS plan (Article 84)
-2. Define data collection methods
-3. Establish complaint handling procedures
-4. Create vigilance reporting process
-5. Plan Periodic Safety Update Reports (PSUR)
-6. Integrate with PMCF activities
-7. Define trend analysis and signal detection
-8. **Validation:** PMS system audited annually
+1. Develop PMS plan (Article 84) → verify: step output matches expected outcome
+2. Define data collection methods → verify: step output matches expected outcome
+3. Establish complaint handling procedures → verify: step output matches expected outcome
+4. Create vigilance reporting process → verify: output exists + parses without error
+5. Plan Periodic Safety Update Reports (PSUR) → verify: step output matches expected outcome
+6. Integrate with PMCF activities → verify: step output matches expected outcome
+7. Define trend analysis and signal detection → verify: step output matches expected outcome
+8. **Validation:** PMS system audited annually → verify: findings count > 0 OR clean signal returned
 
 ### PMS System Components
 
@@ -221,14 +222,14 @@ Establish PMS system per Chapter VII:
 
 Implement UDI system per Article 27:
 
-1. Obtain issuing entity code (GS1, HIBCC, ICCBBA)
-2. Assign UDI-DI to each device variant
-3. Assign UDI-PI (production identifier)
-4. Apply UDI carrier to labels (AIDC + HRI)
-5. Register actor in EUDAMED
-6. Register devices in EUDAMED
-7. Upload certificates when available
-8. **Validation:** UDI verified on sample labels
+1. Obtain issuing entity code (GS1, HIBCC, ICCBBA) → verify: step output matches expected outcome
+2. Assign UDI-DI to each device variant → verify: step output matches expected outcome
+3. Assign UDI-PI (production identifier) → verify: step output matches expected outcome
+4. Apply UDI carrier to labels (AIDC + HRI) → verify: diff matches intended change
+5. Register actor in EUDAMED → verify: step output matches expected outcome
+6. Register devices in EUDAMED → verify: step output matches expected outcome
+7. Upload certificates when available → verify: file content matches expected shape
+8. **Validation:** UDI verified on sample labels → verify: step output matches expected outcome
 
 ### EUDAMED Modules
 
@@ -333,3 +334,40 @@ Analyzes device against MDR requirements, identifies compliance gaps, generates 
 - [ ] QMS (ISO 13485) certified
 - [ ] Labeling and IFU finalized
 - [ ] **Validation:** Internal gap assessment complete
+
+## When NOT to use
+
+- Task is unrelated to mdr 745 specialist — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Mdr 745 Specialist needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for mdr 745 specialist
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving mdr 745 specialist
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

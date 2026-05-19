@@ -1,6 +1,7 @@
 ---
 name: "pitch-deck"
-description: "Designs polished pitch deck slides and presentation layouts. Use when the user asks for a slide deck, investor pitch, presentation, or multi-slide narrative. Enforces slide structure, whitespace discipline, and one-claim-per-slide rule."
+description: 'Designs polished pitch deck slides and presentation layouts. Use when the user asks for a slide deck, investor pitch, presentation, or multi-sli. Triggers: "use pitch-deck", "pitch deck", "pitch task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 
@@ -30,3 +31,44 @@ The opening slide must make the problem viscerally clear in under 5 seconds of r
 ### Narrative Arc
 Structure: Problem → Insight → Solution → Evidence → Ask. Each section should be 1–3 slides. Do not spend more than 25% of the deck on product features.
 
+## When NOT to use
+
+- Quarterly board update — use `board-deck-builder`
+- Sales presentation to a buyer — use `sales-enablement` framing
+- Internal product roadmap deck — use `slides` with a different structure
+- A single one-pager or memo — write prose
+- Conference keynote with heavy visuals — different design constraints
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Two claims per slide for efficiency" | One claim per slide; if you say 'and also', it's two slides |
+| "End with 'Thank You / Q&A'" | Closing slide = single desired action with contact info |
+| "4:3 ratio looks classic" | Reads as dated; use 16:9 (or 9:16 for mobile-first) |
+| "Use pie chart for everything" | Bar/area read fastest; never 3D, never pie with >4 segments |
+
+## Output Contract
+
+Done when:
+- One claim per slide, ≤12 words headline at top
+- 3-tier typographic scale, ≤2 font families
+- ≥20% empty space per slide
+- 16:9 (or 9:16 mobile) ratio
+- 3-color palette throughout (background + text + accent), shared across all slides
+- Opening slide makes the problem viscerally clear in <5s
+- Closing slide names one specific action + contact
+- Narrative follows Problem → Insight → Solution → Evidence → Ask
+- ≤25% of deck on product features
+
+## Examples
+
+### Example 1 — Seed-stage investor deck
+- Input: "10-slide seed pitch for our AI dental front-desk product"
+- Action: Slide 1 problem ("dentists lose 80 calls/week"), 2 insight, 3-4 solution, 5-7 evidence (pilot metrics, testimonial, projection), 8 ask ($1.5M for 12 months), 9 team, 10 contact + specific action
+- Output: 10-slide PDF, 16:9, 3-color palette, one claim per slide, contact slide names the next step
+
+### Example 2 — Mobile pitch for X Twitter
+- Input: "Pitch as scrollable carousel for sharing"
+- Action: Switch to 9:16, reduce slide count to 7, headlines tightened to 8 words, big touch-friendly type
+- Output: 9:16 PDF or PNG sequence, mobile-readable, narrative arc preserved

@@ -1,15 +1,7 @@
 ---
 name: "skill-security-auditor"
-description: >
-  Security audit and vulnerability scanner for AI agent skills before installation.
-  Use when: (1) evaluating a skill from an untrusted source, (2) auditing a skill
-  directory or git repo URL for malicious code, (3) pre-install security gate for
-  Claude Code plugins, OpenClaw skills, or Codex skills, (4) scanning Python scripts
-  for dangerous patterns like os.system, eval, subprocess, network exfiltration,
-  (5) detecting prompt injection in SKILL.md files, (6) checking dependency supply
-  chain risks, (7) verifying file system access stays within skill boundaries.
-  Triggers: "audit this skill", "is this skill safe", "scan skill for security",
-  "check skill before install", "skill security check", "skill vulnerability scan".
+description: "Security audit and vulnerability scanner for AI agent skills before installation. Triggers: 'use skill-security-auditor', 'use skill security auditor', 'skill security auditor'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Skill Security Auditor
@@ -88,13 +80,13 @@ For skills with `requirements.txt`, `package.json`, or inline `pip install`:
 
 ## Audit Workflow
 
-1. **Run the scanner** on the skill directory or repo URL
-2. **Review the report** — findings grouped by severity
-3. **Verdict interpretation:**
+1. **Run the scanner** on the skill directory or repo URL → verify: command exit code 0
+2. **Review the report** — findings grouped by severity → verify: step output matches expected outcome
+3. **Verdict interpretation:** → verify: step output matches expected outcome
    - **✅ PASS** — No critical or high findings. Safe to install.
    - **⚠️ WARN** — High/medium findings detected. Review manually before installing.
    - **❌ FAIL** — Critical findings. Do NOT install without remediation.
-4. **Remediation** — each finding includes specific fix guidance
+4. **Remediation** — each finding includes specific fix guidance → verify: diff matches intended change
 
 ## Reading the Report
 
@@ -169,3 +161,40 @@ For the complete threat model, detection patterns, and known attack vectors agai
 - Dependency vulnerability checks use local pattern matching, not live CVE databases
 
 When in doubt after an audit, **don't install**. Ask the skill author for clarification.
+
+## When NOT to use
+
+- Task is unrelated to skill security auditor — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Skill Security Auditor needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for skill security auditor
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving skill security auditor
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

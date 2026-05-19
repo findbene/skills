@@ -1,13 +1,7 @@
 ---
 name: wordpress-publisher
-description: >
-  Formats, structures, and prepares content for publishing to WordPress — including
-  post metadata, SEO fields, category/tag recommendations, featured image briefs,
-  internal linking suggestions, and WP-ready HTML/Gutenberg blocks. Use this skill
-  whenever the user wants to publish to WordPress, format content for a WP site,
-  create a post draft, optimize a WP article for SEO, or set up a WordPress
-  publishing workflow. Also trigger when they mention WP, Gutenberg, Yoast, RankMath,
-  or any WordPress plugin, or want to schedule posts.
+description: 'Formats, structures, and prepares content for publishing to WordPress — including post metadata, SEO fields, category/tag. Triggers: "use wordpress-publisher", "wordpress publisher", "wordpress task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # WordPress Publisher
@@ -125,9 +119,9 @@ Before hitting publish, confirm:
 
 If the user has multiple posts to prepare, offer to produce a batch:
 
-1. Metadata table for all posts (one row per post)
-2. Individual post packages on request
-3. Optional: CSV export format for WP import via WP All Import or similar
+1. Metadata table for all posts (one row per post) → verify: step output matches expected outcome
+2. Individual post packages on request → verify: step output matches expected outcome
+3. Optional: CSV export format for WP import via WP All Import or similar → verify: step output matches expected outcome
 
 ## WP REST API / automation
 
@@ -150,3 +144,45 @@ provide the post payload as JSON:
 ```
 
 Adapt to RankMath meta keys if the site uses RankMath (`rank_math_focus_keyword`, etc.).
+
+## When NOT to use
+
+- Drafting raw content (no WP target) — use `content-research-writer` or `copywriting`
+- Headless CMS (Sanity, Contentful, Strapi) — use the relevant CMS skill
+- Email newsletter formatting — use `email-template-builder`
+- Static-site generator (Hugo, Astro, Next.js) — use the matching skill
+- Programmatic SEO at scale (1000+ pages) — use `programmatic-seo` / `seo-programmatic`
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Skip alt text on featured image" | Required for a11y and image SEO; never publish without alt |
+| "Use generic categories like 'Misc'" | Hurts taxonomy; use specific existing categories or propose new ones |
+| "Skip schema markup, Yoast handles it" | Yoast handles basics but Article, FAQPage, HowTo benefit from explicit JSON-LD |
+| "Single H1, then all H2s" | Use H2/H3/H4 hierarchy; flat H2 list hurts comprehension and SEO |
+
+## Output Contract
+
+Finished output must contain:
+- Title (SEO-optimized, ≤60 chars)
+- Slug (kebab-case, keyword-aligned)
+- Meta description (≤155 chars, with primary keyword)
+- Categories (1-2) and tags (3-6) recommended
+- Featured image brief (subject, aspect ratio, alt text)
+- 3-7 internal-link suggestions to existing posts on the site
+- Gutenberg blocks (or classic HTML) — matching the site's editor
+- SEO field block formatted for Yoast or RankMath as specified
+- Schema markup JSON-LD when type warrants it (Article default)
+
+## Examples
+
+**Example 1 — Publish a how-to post on a Yoast blog**
+- Input: Draft "How to set up Stripe Tax for SaaS" + WP site uses Gutenberg + Yoast
+- Action: Optimize title for keyword → write meta description → propose featured image brief → produce Gutenberg blocks (headings, paragraphs, code blocks, callouts) → add HowTo schema → suggest 5 internal links
+- Output: Complete post package: title, slug, meta, blocks, Yoast fields, schema JSON-LD, image brief, link list
+
+**Example 2 — Affiliate roundup post**
+- Input: "Best CRM tools 2026" affiliate article
+- Action: Optimize title → ItemList schema → table of comparison → affiliate disclosure block → 6 internal links to related comparisons
+- Output: Gutenberg blocks with rel=sponsored on affiliate links, ItemList schema, disclosure paragraph, complete WP-ready package

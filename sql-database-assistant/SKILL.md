@@ -1,6 +1,7 @@
 ---
 name: "sql-database-assistant"
-description: "Use when the user asks to write SQL queries, optimize database performance, generate migrations, explore database schemas, or work with ORMs like Prisma, Drizzle, TypeORM, or SQLAlchemy."
+description: 'Use when the user asks to write SQL queries, optimize database performance, generate migrations, explore database schemas,. Triggers: "use sql-database-assistant", "sql database assistant", "sql task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # SQL Database Assistant - POWERFUL Tier Skill
@@ -34,11 +35,11 @@ The operational companion to database design. While **database-designer** focuse
 
 When converting requirements to SQL, follow this sequence:
 
-1. **Identify entities** — map nouns to tables
-2. **Identify relationships** — map verbs to JOINs or subqueries
-3. **Identify filters** — map adjectives/conditions to WHERE clauses
-4. **Identify aggregations** — map "total", "average", "count" to GROUP BY
-5. **Identify ordering** — map "top", "latest", "highest" to ORDER BY + LIMIT
+1. **Identify entities** — map nouns to tables → verify: step output matches expected outcome
+2. **Identify relationships** — map verbs to JOINs or subqueries → verify: step output matches expected outcome
+3. **Identify filters** — map adjectives/conditions to WHERE clauses → verify: step output matches expected outcome
+4. **Identify aggregations** — map "total", "average", "count" to GROUP BY → verify: step output matches expected outcome
+5. **Identify ordering** — map "top", "latest", "highest" to ORDER BY + LIMIT → verify: all checks pass
 
 ### Common Query Templates
 
@@ -145,11 +146,11 @@ python scripts/schema_explorer.py --dialect mysql --tables users,orders --format
 
 ### EXPLAIN Analysis Workflow
 
-1. **Run EXPLAIN ANALYZE** (PostgreSQL) or **EXPLAIN FORMAT=JSON** (MySQL)
-2. **Identify the costliest node** — Seq Scan on large tables, Nested Loop with high row estimates
-3. **Check for missing indexes** — sequential scans on filtered columns
-4. **Look for estimation errors** — planned vs actual rows divergence signals stale statistics
-5. **Evaluate JOIN order** — ensure the smallest result set drives the join
+1. **Run EXPLAIN ANALYZE** (PostgreSQL) or **EXPLAIN FORMAT=JSON** (MySQL) → verify: command exit code 0
+2. **Identify the costliest node** — Seq Scan on large tables, Nested Loop with high row estimates → verify: findings count > 0 OR clean signal returned
+3. **Check for missing indexes** — sequential scans on filtered columns → verify: all checks pass
+4. **Look for estimation errors** — planned vs actual rows divergence signals stale statistics → verify: step output matches expected outcome
+5. **Evaluate JOIN order** — ensure the smallest result set drives the join → verify: step output matches expected outcome
 
 ### Index Recommendation Checklist
 
@@ -247,9 +248,9 @@ CREATE INDEX CONCURRENTLY idx_orders_status ON orders (status);
 
 Every migration must have a reversible down script. For irreversible changes:
 
-1. **Backup before execution** — `pg_dump` the affected tables
-2. **Feature flags** — application can switch between old/new schema reads
-3. **Shadow tables** — keep a copy of the original table during migration window
+1. **Backup before execution** — `pg_dump` the affected tables → verify: step output matches expected outcome
+2. **Feature flags** — application can switch between old/new schema reads → verify: file content matches expected shape
+3. **Shadow tables** — keep a copy of the original table during migration window → verify: step output matches expected outcome
 
 ### Migration Generator Tool
 
@@ -387,10 +388,10 @@ class User(Base):
 
 ### Deadlock Prevention
 
-1. **Consistent lock ordering** — always acquire locks in the same table/row order
-2. **Short transactions** — minimize time between first lock and commit
-3. **Advisory locks** — use `pg_advisory_lock()` for application-level coordination
-4. **Retry logic** — catch deadlock errors and retry with exponential backoff
+1. **Consistent lock ordering** — always acquire locks in the same table/row order → verify: step output matches expected outcome
+2. **Short transactions** — minimize time between first lock and commit → verify: git status clean
+3. **Advisory locks** — use `pg_advisory_lock()` for application-level coordination → verify: step output matches expected outcome
+4. **Retry logic** — catch deadlock errors and retry with exponential backoff → verify: step output matches expected outcome
 
 ---
 
@@ -455,3 +456,40 @@ sqlite3 dbname ".backup backup.db"
 | **migration-architect** | Complex multi-step migration orchestration |
 | **api-design-reviewer** | Ensuring API endpoints align with query patterns |
 | **observability-platform** | Query performance monitoring, slow query alerts |
+
+## When NOT to use
+
+- Task is unrelated to sql database assistant — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Sql Database Assistant needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for sql database assistant
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving sql database assistant
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: "revenue-operations"
-description: Analyzes sales pipeline health, revenue forecasting accuracy, and go-to-market efficiency metrics for SaaS revenue optimization. Use when analyzing sales pipeline coverage, forecasting revenue, evaluating go-to-market performance, reviewing sales metrics, assessing pipeline analysis, tracking forecast accuracy with MAPE, calculating GTM efficiency, or measuring sales efficiency and unit economics for SaaS teams.
+description: "Analyzes sales pipeline health, revenue forecasting accuracy, and go-to-market efficiency metrics for SaaS revenue. Triggers: 'use revenue-operations', 'revenue operations', 'revenue-operations task'."
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Revenue Operations
@@ -178,22 +179,22 @@ Use this workflow for your weekly pipeline inspection cadence.
 
 1. **Verify input data:** Confirm pipeline export is current and all required fields (stage, value, close_date, owner) are populated before proceeding.
 
-2. **Generate pipeline report:**
+2. **Generate pipeline report:** → verify: output file exists + no syntax error
    ```bash
    python scripts/pipeline_analyzer.py --input current_pipeline.json --format text
    ```
 
-3. **Cross-check output totals** against your CRM source system to confirm data integrity.
+3. **Cross-check output totals** against your CRM source system to confirm data integrity. → verify: all tests pass
 
-4. **Review key indicators:**
+4. **Review key indicators:** → verify: step output matches expected outcome
    - Pipeline coverage ratio (is it above 3x quota?)
    - Deals aging beyond threshold (which deals need intervention?)
    - Concentration risk (are we over-reliant on a few large deals?)
    - Stage distribution (is there a healthy funnel shape?)
 
-5. **Document using template:** Use `assets/pipeline_review_template.md`
+5. **Document using template:** Use `assets/pipeline_review_template.md` → verify: package installed + import succeeds
 
-6. **Action items:** Address aging deals, redistribute pipeline concentration, fill coverage gaps
+6. **Action items:** Address aging deals, redistribute pipeline concentration, fill coverage gaps → verify: package installed + import succeeds
 
 ### Forecast Accuracy Review
 
@@ -201,21 +202,21 @@ Use monthly or quarterly to evaluate and improve forecasting discipline.
 
 1. **Verify input data:** Confirm all forecast periods have corresponding actuals and no periods are missing before running.
 
-2. **Generate accuracy report:**
+2. **Generate accuracy report:** → verify: output file exists + no syntax error
    ```bash
    python scripts/forecast_accuracy_tracker.py forecast_history.json --format text
    ```
 
-3. **Cross-check actuals** against closed-won records in your CRM before drawing conclusions.
+3. **Cross-check actuals** against closed-won records in your CRM before drawing conclusions. → verify: all tests pass
 
-4. **Analyze patterns:**
+4. **Analyze patterns:** → verify: step output matches expected outcome
    - Is MAPE trending down (improving)?
    - Which reps or segments have the highest error rates?
    - Is there systematic over- or under-forecasting?
 
-5. **Document using template:** Use `assets/forecast_report_template.md`
+5. **Document using template:** Use `assets/forecast_report_template.md` → verify: step output matches expected outcome
 
-6. **Improvement actions:** Coach high-bias reps, adjust methodology, improve data hygiene
+6. **Improvement actions:** Coach high-bias reps, adjust methodology, improve data hygiene → verify: step output matches expected outcome
 
 ### GTM Efficiency Audit
 
@@ -223,32 +224,32 @@ Use quarterly or during board prep to evaluate go-to-market efficiency.
 
 1. **Verify input data:** Confirm revenue, cost, and customer figures reconcile with finance records before running.
 
-2. **Calculate efficiency metrics:**
+2. **Calculate efficiency metrics:** → verify: step output matches expected outcome
    ```bash
    python scripts/gtm_efficiency_calculator.py quarterly_data.json --format text
    ```
 
-3. **Cross-check computed ARR and spend totals** against your finance system before sharing results.
+3. **Cross-check computed ARR and spend totals** against your finance system before sharing results. → verify: all tests pass
 
-4. **Benchmark against targets:**
+4. **Benchmark against targets:** → verify: step output matches expected outcome
    - Magic Number (>0.75)
    - LTV:CAC (>3:1)
    - CAC Payback (<18 months)
    - Rule of 40 (>40%)
 
-5. **Document using template:** Use `assets/gtm_dashboard_template.md`
+5. **Document using template:** Use `assets/gtm_dashboard_template.md` → verify: step output matches expected outcome
 
-6. **Strategic decisions:** Adjust spend allocation, optimize channels, improve retention
+6. **Strategic decisions:** Adjust spend allocation, optimize channels, improve retention → verify: step output matches expected outcome
 
 ### Quarterly Business Review
 
 Combine all three tools for a comprehensive QBR analysis.
 
-1. Run pipeline analyzer for forward-looking coverage
-2. Run forecast tracker for backward-looking accuracy
-3. Run GTM calculator for efficiency benchmarks
-4. Cross-reference pipeline health with forecast accuracy
-5. Align GTM efficiency metrics with growth targets
+1. Run pipeline analyzer for forward-looking coverage → verify: command exit code 0
+2. Run forecast tracker for backward-looking accuracy → verify: command exit code 0
+3. Run GTM calculator for efficiency benchmarks → verify: command exit code 0
+4. Cross-reference pipeline health with forecast accuracy → verify: package installed + import succeeds
+5. Align GTM efficiency metrics with growth targets → verify: step output matches expected outcome
 
 ---
 
@@ -271,3 +272,40 @@ Combine all three tools for a comprehensive QBR analysis.
 | [GTM Dashboard Template](assets/gtm_dashboard_template.md) | GTM efficiency dashboard for leadership review |
 | [Sample Pipeline Data](assets/sample_pipeline_data.json) | Example input for pipeline_analyzer.py |
 | [Expected Output](assets/expected_output.json) | Reference output from pipeline_analyzer.py |
+
+## When NOT to use
+
+- Task is unrelated to revenue operations — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Revenue Operations needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for revenue operations
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving revenue operations
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: impeccable
-description: Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code that avoids generic AI aesthetics. Use when the user asks to build web components, pages, artifacts, posters, or applications, or when any design skill requires project context. Call with 'craft' for shape-then-build, 'teach' for design context setup, or 'extract' to pull reusable components and tokens into the design system.
+description: "Create distinctive, production-grade frontend interfaces with high design quality. Triggers: 'use impeccable', 'impeccable', 'impeccable task'."
+allowed-tools: Bash, Glob, Grep, Read
 version: 2.1.1
 user-invocable: true
 argument-hint: "[craft|teach|extract]"
@@ -39,9 +40,9 @@ Individual skills may require additional context. Check the skill's preparation 
 **CRITICAL**: You cannot infer this context by reading the codebase. Code tells you what was built, not who it's for or what it should feel like. Only the creator can provide this context.
 
 **Gathering order:**
-1. **Check current instructions (instant)**: If your loaded instructions already contain a **Design Context** section, proceed immediately.
-2. **Check .impeccable.md (fast)**: If not in instructions, read `.impeccable.md` from the project root. If it exists and contains the required context, proceed.
-3. **Run impeccable teach (REQUIRED)**: If neither source has context, you MUST run /impeccable teach NOW before doing anything else. Do NOT skip this step. Do NOT attempt to infer context from the codebase instead.
+1. **Check current instructions (instant)**: If your loaded instructions already contain a **Design Context** section, proceed immediately. → verify: file content matches expected shape
+2. **Check .impeccable.md (fast)**: If not in instructions, read `.impeccable.md` from the project root. If it exists and contains the required context, proceed. → verify: file content matches expected shape
+3. **Run impeccable teach (REQUIRED)**: If neither source has context, you MUST run /impeccable teach NOW before doing anything else. Do NOT skip this step. Do NOT attempt to infer context from the codebase instead. → verify: command exit code 0
 
 ---
 
@@ -363,3 +364,48 @@ Confirm completion and summarize the key design principles that will now guide a
 ## Extract Mode
 
 If this skill is invoked with the argument "extract" (e.g., `/impeccable extract [target]`), follow the [extract flow](reference/extract.md). Pass any additional arguments as the extraction target.
+
+## When NOT to use
+
+- Stitch-driven component generation — use `stitch-*-components`
+- Pure accessibility audit — use `a11y-audit`
+- Brand identity / logo work — use `brand` or `brand-guidelines`
+- Standards-compliance review — use `web-design-guidelines`
+- Mobile-native UI — use `apple-hig-expert` or RN/SwiftUI skills
+
+## Red Flags
+
+| Rationalization | Reality |
+|---|---|
+| "Skip context gathering, just build it" | Skill explicitly mandates confirmed design context before any work; without it output is generic |
+| "Use Inter / default Tailwind palette" | Generic AI-slop pattern; use distinctive type and a curated palette |
+| "Add a hero, features grid, footer — done" | The default 3-section template is the slop pattern; vary layout per design taste |
+| "Skip the cleanup script when updating" | The post-update cleanup deduplicates renamed/merged skill files; running it once is required |
+
+## Output Contract
+
+Finished output must contain:
+- Context gathering completed (project goal, brand vibe, audience confirmed)
+- Distinctive typography choice with rationale (not Inter)
+- Curated palette (not default Tailwind gray scale)
+- Layout that varies from the standard hero+features+footer template
+- Motion/micro-interactions on at least 3 interactive elements
+- Empty/loading/error states implemented where the design has data
+- Mobile + desktop layouts verified
+
+
+## References
+
+See `references/details.md` for extended sections.
+
+## Examples
+
+### Example 1 — Standard case
+- Input: User invokes this skill for the typical use case
+- Action: Follow the numbered process above end-to-end
+- Output: Result matching the Output Contract
+
+### Example 2 — Edge case
+- Input: Unusual or boundary input matching the When-NOT triggers
+- Action: Either route to the right skill or apply the documented fallback
+- Output: Either correct hand-off or graceful no-op

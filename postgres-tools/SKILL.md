@@ -1,6 +1,7 @@
 ---
 name: postgres-tools
-description: "PostgreSQL database query and management via MCP for executing SQL, inspecting schemas, and running database operations. Use this skill any time PostgreSQL databases need to be queried, database schemas need to be inspected, SQL needs to be executed via MCP, or database state needs to be managed. Trigger immediately on: \"PostgreSQL\", \"postgres\", \"query database\", \"SQL query\", \"database MCP\", \"run SQL\", \"table schema\", \"database table\", \"Postgres MCP\", \"execute query\", \"inspect database\", \"database connection\", \"pg query\", \"Supabase SQL\". If someone says \"query the database\" or \"run this SQL\" this skill MUST trigger."
+description: 'PostgreSQL database query and management via MCP for executing SQL, inspecting schemas, and running database operations. Triggers: "use postgres-tools", "postgres tools", "postgres task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # PostgreSQL Tools
@@ -65,3 +66,40 @@ query("SELECT datname, usename, state, query FROM pg_stat_activity WHERE state =
 - To target a different database, update the args in `~/.claude/settings.json`
 - Use `information_schema` views for portable schema introspection
 - Use `pg_catalog` tables for PostgreSQL-specific metadata
+
+## When NOT to use
+
+- Task is unrelated to postgres tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Postgres Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for postgres tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving postgres tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

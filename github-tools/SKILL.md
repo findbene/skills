@@ -1,6 +1,7 @@
 ---
 name: github-tools
-description: "GitHub repository and workflow management via MCP for issues, PRs, code search, commits, and repository operations. Use this skill any time GitHub repos need to be managed programmatically, issues need to be created or searched, PRs need to be worked with via API, or code search on GitHub is needed. Trigger immediately on: \"GitHub\", \"create issue\", \"GitHub PR\", \"GitHub API\", \"repository\", \"GitHub search\", \"code search\", \"create PR\", \"GitHub issue\", \"repo management\", \"fork\", \"GitHub MCP\", \"GitHub workflow\", \"push files\". If someone says \"create a GitHub issue\" or \"search GitHub for X\" this skill MUST trigger."
+description: 'GitHub repository and workflow management via MCP for issues, PRs, code search, commits, and repository operations. Triggers: "use github-tools", "github tools", "github task".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # GitHub Tools
@@ -54,15 +55,15 @@ Manage repositories, issues, pull requests, and code search via the GitHub API.
 ## Common Workflows
 
 ### Create and Merge a PR
-1. `create_pull_request(owner, repo, title, body, head, base)`
-2. Wait for CI: `get_pull_request_status(owner, repo, pr_number)`
-3. `merge_pull_request(owner, repo, pr_number)` when checks pass
+1. `create_pull_request(owner, repo, title, body, head, base)` → verify: output file exists + no syntax error
+2. Wait for CI: `get_pull_request_status(owner, repo, pr_number)` → verify: step output matches expected outcome
+3. `merge_pull_request(owner, repo, pr_number)` when checks pass → verify: all tests pass
 
 ### Review a PR
-1. `get_pull_request(owner, repo, pr_number)` for overview
-2. `get_pull_request_files(owner, repo, pr_number)` to see changes
-3. `get_file_contents` for full file context if needed
-4. `create_pull_request_review(owner, repo, pr_number, body, event)` to submit
+1. `get_pull_request(owner, repo, pr_number)` for overview → verify: step output matches expected outcome
+2. `get_pull_request_files(owner, repo, pr_number)` to see changes → verify: step output matches expected outcome
+3. `get_file_contents` for full file context if needed → verify: step output matches expected outcome
+4. `create_pull_request_review(owner, repo, pr_number, body, event)` to submit → verify: output file exists + no syntax error
 
 ### Search for Implementation Examples
 ```
@@ -71,9 +72,9 @@ search_code(query="useOptimistic language:typescript")
 Find real-world usage patterns across public repos.
 
 ### Manage Issues
-1. `list_issues(owner, repo, state="open", labels="bug")` to find bugs
-2. `update_issue(owner, repo, issue_number, assignees=["user"])` to assign
-3. `add_issue_comment` to discuss
+1. `list_issues(owner, repo, state="open", labels="bug")` to find bugs → verify: file readable + content matches expected shape
+2. `update_issue(owner, repo, issue_number, assignees=["user"])` to assign → verify: step output matches expected outcome
+3. `add_issue_comment` to discuss → verify: package installed + import succeeds
 
 ## Tips
 
@@ -81,3 +82,40 @@ Find real-world usage patterns across public repos.
 - `get_pull_request_status` shows CI check results — wait for green before merging
 - `push_files` is more efficient than multiple `create_or_update_file` calls
 - For large PRs, review `get_pull_request_files` first to prioritize critical changes
+
+## When NOT to use
+
+- Task is unrelated to github tools — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Github Tools needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for github tools
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving github tools
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: design-council
-description: Use when the user says "convene the council", "design debate", "council review", "get the team together", "run a design review", or "debate this design"; OR describes a cross-domain decision or review with real stakes — architecture pivot, API surface, pre-release hardening, codebase-wide audit. Convenes parallel role-specialized agents (default Opus) who debate in real time via inter-agent messaging while the invoking Claude serves as CEO. Do NOT invoke for single-specialist questions, bug fixes, or quick library picks.
+description: "Use when the user says \"convene the council\", \"design debate\", \"council review\", \"get the team together\", \"run a design review\", or \"debate this design\"; OR describes a cross-domain."
+allowed-tools: Glob, Grep, Read, Task
 version: 0.2.1
 ---
 
@@ -10,12 +11,12 @@ Convene a **parallel team of role-specialized agents** to debate a non-trivial t
 
 ## What the user sees
 
-1. **Plan card.** Before any seat spawns, the CEO shows a one-screen card: mode, roster, per-seat model, rough token/wall-clock budget, drafted opening question. You reply `go`, `swap X for Y`, `drop X`, `add X`, or `abort`.
-2. **Handshake status.** After spawn, the CEO emits one line — e.g. `HANDSHAKE: 8/8 ok | verdict=PROCEED` — so you know every seat actually started.
-3. **Cross-talk.** Seats post opening verdicts, DM each other to debate, CEO routes deadlocks. Bounded: 3 rounds max.
-4. **Log preview.** Before saving, the CEO posts the draft decision log to chat. Reply `save`, `amend <note>`, or `discard`.
-5. **Output.** One-page decision log at `~/.claude/councils/<yyyy-mm-dd>-<slug>/log.md` (outside any repo).
-6. **Stop early.** Say "stop the council" at any phase — CEO broadcasts shutdown, saves a `status: halted` partial log, cleans up.
+1. **Plan card.** Before any seat spawns, the CEO shows a one-screen card: mode, roster, per-seat model, rough token/wall-clock budget, drafted opening question. You reply `go`, `swap X for Y`, `drop X`, `add X`, or `abort`. → verify: file content matches expected shape
+2. **Handshake status.** After spawn, the CEO emits one line — e.g. `HANDSHAKE: 8/8 ok | verdict=PROCEED` — so you know every seat actually started. → verify: output exists + parses without error
+3. **Cross-talk.** Seats post opening verdicts, DM each other to debate, CEO routes deadlocks. Bounded: 3 rounds max. → verify: file content matches expected shape
+4. **Log preview.** Before saving, the CEO posts the draft decision log to chat. Reply `save`, `amend <note>`, or `discard`. → verify: step output matches expected outcome
+5. **Output.** One-page decision log at `~/.claude/councils/<yyyy-mm-dd>-<slug>/log.md` (outside any repo). → verify: step output matches expected outcome
+6. **Stop early.** Say "stop the council" at any phase — CEO broadcasts shutdown, saves a `status: halted` partial log, cleans up. → verify: step output matches expected outcome
 
 ## When to invoke
 
@@ -70,10 +71,10 @@ Full protocol: `references/protocol.md`. Opening-prompt scaffold: `references/op
 
 Every spawn prompt **must** inline these four delivery rules. Skipping them silently breaks the council:
 
-1. `SendMessage(to: "team-lead")` is the ONLY channel to the CEO. Plain-text output is invisible.
-2. Send a 1-line handshake as the first action. Without it, the seat is indistinguishable from a silent-spawn failure.
-3. Final position/findings delivered via `SendMessage`. Writing as plain text then going idle drops work on the floor. **Protocol responses (`shutdown_response`, `plan_approval_response`) use their structured JSON form — prose acks don't close the protocol state and will block teardown.**
-4. Idle-notification `summary` field is ≤200 chars — do not put substantive content there.
+1. `SendMessage(to: "team-lead")` is the ONLY channel to the CEO. Plain-text output is invisible. → verify: step output matches expected outcome
+2. Send a 1-line handshake as the first action. Without it, the seat is indistinguishable from a silent-spawn failure. → verify: step output matches expected outcome
+3. Final position/findings delivered via `SendMessage`. Writing as plain text then going idle drops work on the floor. **Protocol responses (`shutdown_response`, `plan_approval_response`) use their structured JSON form — prose acks don't close the protocol state and will block teardown.** → verify: step output matches expected outcome
+4. Idle-notification `summary` field is ≤200 chars — do not put substantive content there. → verify: step output matches expected outcome
 
 Canonical wording with peer-DM addressing: `references/protocol.md` Phase 2.
 
@@ -116,3 +117,40 @@ Harness gotchas (worktree cwd leaks, commit-hook races, tracker-state pollution,
 - `spec-driven-development` — often runs BEFORE a council, to produce the spec being debated.
 - `planning-and-task-breakdown` — often runs AFTER a council, to decompose the decision into implementable tasks.
 - `beads:beads` — tracker commonly used for deferred follow-ups.
+
+## When NOT to use
+
+- User wants brand-agnostic design → use generic `frontend-design` skill instead
+- Different brand requested → use the matching `design-<brand>` skill
+- User needs plain Tailwind/CSS without brand language → skip design-* skills
+- Building production replica of Council itself (trademark / IP risk)
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll pick close hex values instead of exact" | Brand voltage must match exact — close hex breaks brand recognition |
+| "Tailwind defaults are close enough" | Brand radii/shadows/spacing are non-default; defaults break the look |
+| "Skip DESIGN.md, just match vibes" | Tokens encode the rules; vibes drift |
+| "Apply brand color everywhere" | Brand uses CTA/accent voltage sparingly — uniform application kills hierarchy |
+
+## Output Contract
+
+Done-state:
+- All color values traceable to `DESIGN.md` `colors:` block
+- Typography scale uses brand font + brand weight ladder from `typography:`
+- Component radii, shadows, spacing match `components:` tokens
+- No `dos_donts:` rule violated in generated output
+- CSS variables exposed for downstream re-theming
+
+## Examples
+
+### Example 1 — Marketing hero
+- Input: "Build a marketing hero in Council style"
+- Action: read `DESIGN.md`, apply brand background/typography/CTA radius + brand voltage color, follow whitespace guidance from spec
+- Output: hero section using exact brand tokens, ready to drop into Next.js or HTML
+
+### Example 2 — Card grid
+- Input: "Card grid that looks like Council"
+- Action: pull card radius from `components:`, shadow from `shadows:`, gap from `spacing:`, hover state from `dos_donts:` guidance
+- Output: grid with brand-correct card chrome, no default Tailwind leakage

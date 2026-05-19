@@ -1,17 +1,6 @@
 ---
 name: seo-geo
-description: >
-  Generative Engine Optimization (GEO) and AI search visibility analysis. Optimizes
-  content for Google AI Overviews, AI Mode (200+ countries), ChatGPT web search,
-  Perplexity, and Bing Copilot. Analyzes: AI crawler accessibility (GPTBot, ClaudeBot,
-  PerplexityBot), llms.txt compliance, passage-level citability (optimal 134-167 words),
-  brand mention signals across YouTube/Reddit/Wikipedia/LinkedIn, and server-side
-  rendering readiness. Includes RSL 1.0 licensing and platform-specific citation
-  strategy. Make sure to use this skill whenever the user mentions: "AI Overviews",
-  "SGE", "GEO", "AI search", "LLM optimization", "Perplexity citations", "ChatGPT
-  search", "AI visibility", "AI citations", "will AI cite me", "show up in AI",
-  "generative search", "llms.txt", "AI mode", "AI-powered search", "brand mentions",
-  or any concern about visibility in AI-generated answers — not just traditional rankings.
+description: 'Generative Engine Optimization (GEO) and AI search visibility analysis. Optimizes content for Google AI Overviews, AI Mode (200+ countries), Cha. Triggers: "use seo-geo", "optimize seo geo", "seo geo.'
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -24,233 +13,46 @@ allowed-tools:
 
 # AI Search / GEO Optimization (February 2026)
 
-## Key Statistics
+## When NOT to use
 
-| Metric | Value | Source |
-|--------|-------|--------|
-| AI Overviews reach | 1.5 billion users/month across 200+ countries | Google |
-| AI Overviews query coverage | 50%+ of all queries | Industry data |
-| AI-referred sessions growth | 527% (Jan-May 2025) | SparkToro |
-| ChatGPT weekly active users | 900 million | OpenAI |
-| Perplexity monthly queries | 500+ million | Perplexity |
+- Traditional Google SERP ranking (10 blue links) — use `seo-page` / `seo-technical`
+- Content quality assessment beyond AI citability — use `seo-content`
+- Schema markup setup only — use `seo-schema`
+- Local pack / Map results optimization — use `seo-local`
+- Keyword research not focused on AI answer engines — use `seo-plan`
 
-## Critical Insight: Brand Mentions > Backlinks
+## Red Flags
 
-**Brand mentions correlate 3x more strongly with AI visibility than backlinks.**
-(Ahrefs December 2025 study of 75,000 brands)
+| Rationalization | Reality |
+|---|---|
+| "Backlinks still matter most" | Per Ahrefs Dec 2025 study, brand mentions correlate ~3x higher than backlinks for AI citations; rebalance off-page work |
+| "ChatGPT and AI Overviews are basically the same" | Only 11% domain overlap on cited results — optimize per platform, do not assume transfer |
+| "Skip llms.txt, robots.txt is enough" | llms.txt is rapidly becoming an expected file for LLM crawlers; absence excludes you from some pipelines |
+| "Long paragraphs are fine, AI will summarize" | Optimal citable passage is 134-167 words and self-contained; long paragraphs get chunked badly |
 
-| Signal | Correlation with AI Citations |
-|--------|------------------------------|
-| YouTube mentions | ~0.737 (strongest) |
-| Reddit mentions | High |
-| Wikipedia presence | High |
-| LinkedIn presence | Moderate |
-| Domain Rating (backlinks) | ~0.266 (weak) |
+## Output Contract
 
-**Only 11% of domains** are cited by both ChatGPT and Google AI Overviews for the same query, so platform-specific optimization is essential.
+Finished output must contain:
+- Citability score (passage length, self-contained answer blocks, first-40-words rule) with examples flagged
+- Brand mention audit (YouTube, Reddit, Wikipedia, LinkedIn presence) vs backlink profile
+- Platform-specific recommendation: AI Overviews, ChatGPT Search, Perplexity, Bing Copilot
+- llms.txt audit (present? content quality?)
+- robots.txt directives for AI crawlers (GPTBot, OAI-SearchBot, PerplexityBot, Google-Extended)
+- Schema markup recommendations specifically for AI extraction (FAQPage, HowTo, Article with author + datePublished)
+- Top 3 quick wins ranked by AI-visibility impact
 
----
+## Examples
 
-## GEO Analysis Criteria (Updated)
+**Example 1 — AI visibility audit for a SaaS landing page**
+- Input: `/seo-geo https://example.com/product`
+- Action: WebFetch → measure passage length distribution → check for self-contained answer blocks → audit llms.txt → check robots.txt for GPTBot/PerplexityBot → identify brand mentions on Reddit/YouTube
+- Output: Citability 38/100, brand mentions weak on YouTube (0) and Reddit (3), llms.txt missing, GPTBot allowed, 6 paragraphs flagged as not-citable, 3 quick wins (add llms.txt, restructure FAQ, publish 5 YouTube demos)
 
-### 1. Citability Score (25%)
+**Example 2 — Compare AI visibility across competitors**
+- Input: `/seo-geo` for our homepage + 3 competitor URLs
+- Action: Score each on citability + brand mention proxies → check who appears in Perplexity test queries → identify why competitor X gets cited and we do not
+- Output: Comparison table, finding that competitor wins on Wikipedia presence and structured FAQ; recommendation to publish Wikipedia-style brand entity page and add FAQPage schema
 
-**Optimal passage length: 134-167 words** for AI citation.
+## References
 
-**Strong signals:**
-- Clear, quotable sentences with specific facts/statistics
-- Self-contained answer blocks (can be extracted without context)
-- Direct answer in first 40-60 words of section
-- Claims attributed with specific sources
-- Definitions following "X is..." or "X refers to..." patterns
-- Unique data points not found elsewhere
-
-**Weak signals:**
-- Vague, general statements
-- Opinion without evidence
-- Buried conclusions
-- No specific data points
-
-### 2. Structural Readability (20%)
-
-**92% of AI Overview citations come from top-10 ranking pages**, but 47% come from pages ranking below position 5, demonstrating different selection logic.
-
-**Strong signals:**
-- Clean H1->H2->H3 heading hierarchy
-- Question-based headings (matches query patterns)
-- Short paragraphs (2-4 sentences)
-- Tables for comparative data
-- Ordered/unordered lists for step-by-step or multi-item content
-- FAQ sections with clear Q&A format
-
-**Weak signals:**
-- Wall of text with no structure
-- Inconsistent heading hierarchy
-- No lists or tables
-- Information buried in paragraphs
-
-### 3. Multi-Modal Content (15%)
-
-Content with multi-modal elements sees **156% higher selection rates**.
-
-**Check for:**
-- Text + relevant images
-- Video content (embedded or linked)
-- Infographics and charts
-- Interactive elements (calculators, tools)
-- Structured data supporting media
-
-### 4. Authority & Brand Signals (20%)
-
-**Strong signals:**
-- Author byline with credentials
-- Publication date and last-updated date
-- Citations to primary sources (studies, official docs, data)
-- Organization credentials and affiliations
-- Expert quotes with attribution
-- Entity presence in Wikipedia, Wikidata
-- Mentions on Reddit, YouTube, LinkedIn
-
-**Weak signals:**
-- Anonymous authorship
-- No dates
-- No sources cited
-- No brand presence across platforms
-
-### 5. Technical Accessibility (20%)
-
-**AI crawlers do NOT execute JavaScript.** Server-side rendering is critical.
-
-**Check for:**
-- Server-side rendering (SSR) vs client-only content
-- AI crawler access in robots.txt
-- llms.txt file presence and configuration
-- RSL 1.0 licensing terms
-
----
-
-## AI Crawler Detection
-
-Check `robots.txt` for these AI crawlers:
-
-| Crawler | Owner | Purpose |
-|---------|-------|---------|
-| GPTBot | OpenAI | ChatGPT web search |
-| OAI-SearchBot | OpenAI | OpenAI search features |
-| ChatGPT-User | OpenAI | ChatGPT browsing |
-| ClaudeBot | Anthropic | Claude web features |
-| PerplexityBot | Perplexity | Perplexity AI search |
-| CCBot | Common Crawl | Training data (often blocked) |
-| anthropic-ai | Anthropic | Claude training |
-| Bytespider | ByteDance | TikTok/Douyin AI |
-| cohere-ai | Cohere | Cohere models |
-
-**Recommendation:** Allow GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot for AI search visibility. Block CCBot and training crawlers if desired.
-
----
-
-## llms.txt Standard
-
-The emerging **llms.txt** standard provides AI crawlers with structured content guidance.
-
-**Location:** `/llms.txt` (root of domain)
-
-**Format:**
-```
-# Title of site
-> Brief description
-
-## Main sections
-- [Page title](url): Description
-- [Another page](url): Description
-
-## Optional: Key facts
-- Fact 1
-- Fact 2
-```
-
-**Check for:**
-- Presence of `/llms.txt`
-- Structured content guidance
-- Key page highlights
-- Contact/authority information
-
----
-
-## RSL 1.0 (Really Simple Licensing)
-
-New standard (December 2025) for machine-readable AI licensing terms.
-
-**Backed by:** Reddit, Yahoo, Medium, Quora, Cloudflare, Akamai, Creative Commons
-
-**Check for:** RSL implementation and appropriate licensing terms.
-
----
-
-## Platform-Specific Optimization
-
-| Platform | Key Citation Sources | Optimization Focus |
-|----------|---------------------|-------------------|
-| **Google AI Overviews** | Top-10 ranking pages (92%) | Traditional SEO + passage optimization |
-| **ChatGPT** | Wikipedia (47.9%), Reddit (11.3%) | Entity presence, authoritative sources |
-| **Perplexity** | Reddit (46.7%), Wikipedia | Community validation, discussions |
-| **Bing Copilot** | Bing index, authoritative sites | Bing SEO, IndexNow |
-
----
-
-## Output
-
-Generate `GEO-ANALYSIS.md` with:
-
-1. **GEO Readiness Score: XX/100**
-2. **Platform breakdown** (Google AIO, ChatGPT, Perplexity scores)
-3. **AI Crawler Access Status** (which crawlers allowed/blocked)
-4. **llms.txt Status** (present, missing, recommendations)
-5. **Brand Mention Analysis** (presence on Wikipedia, Reddit, YouTube, LinkedIn)
-6. **Passage-Level Citability** (optimal 134-167 word blocks identified)
-7. **Server-Side Rendering Check** (JavaScript dependency analysis)
-8. **Top 5 Highest-Impact Changes**
-9. **Schema Recommendations** (for AI discoverability)
-10. **Content Reformatting Suggestions** (specific passages to rewrite)
-
----
-
-## Quick Wins
-
-1. Add "What is [topic]?" definition in first 60 words
-2. Create 134-167 word self-contained answer blocks
-3. Add question-based H2/H3 headings
-4. Include specific statistics with sources
-5. Add publication/update dates
-6. Implement Person schema for authors
-7. Allow key AI crawlers in robots.txt
-
-## Medium Effort
-
-1. Create `/llms.txt` file
-2. Add author bio with credentials + Wikipedia/LinkedIn links
-3. Ensure server-side rendering for key content
-4. Build entity presence on Reddit, YouTube
-5. Add comparison tables with data
-6. Implement FAQ sections (structured, not schema for commercial sites)
-
-## High Impact
-
-1. Create original research/surveys (unique citability)
-2. Build Wikipedia presence for brand/key people
-3. Establish YouTube channel with content mentions
-4. Implement comprehensive entity linking (sameAs across platforms)
-5. Develop unique tools or calculators
-
-## DataForSEO Integration (Optional)
-
-If DataForSEO MCP tools are available, use `ai_optimization_chat_gpt_scraper` to check what ChatGPT web search returns for target queries (real GEO visibility check) and `ai_opt_llm_ment_search` with `ai_opt_llm_ment_top_domains` for LLM mention tracking across AI platforms.
-
-## Error Handling
-
-| Scenario | Action |
-|----------|--------|
-| URL unreachable (DNS failure, connection refused) | Report the error clearly. Do not guess site content. Suggest the user verify the URL and try again. |
-| AI crawlers blocked by robots.txt | Report exactly which crawlers are blocked and which are allowed. Provide specific robots.txt directives to add for enabling AI search visibility. |
-| No llms.txt found | Note the absence and provide a ready-to-use llms.txt template based on the site's content structure. |
-| No structured data detected | Report the gap and provide specific schema recommendations (Article, Organization, Person) for improving AI discoverability. |
+Extended sections moved to `references/details.md`.

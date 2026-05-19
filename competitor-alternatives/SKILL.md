@@ -1,6 +1,7 @@
 ---
 name: competitor-alternatives
-description: "Create 'alternatives to [competitor]' and comparison content that captures high-intent buyers researching competitors and looking to switch — including page strategy, positioning, objection handling, and copy. Use this whenever the user asks about 'competitor alternatives pages,' 'vs. pages,' '[our product] vs. [competitor],' 'capture competitor traffic,' 'comparison pages,' or 'people searching for alternatives to [competitor].' Trigger even when the user says 'our competitors are getting traffic from people looking to switch' without using SEO terminology."
+description: "Create 'alternatives to [competitor]' and comparison content that captures high-intent buyers resear. Triggers: 'use competitor-alternatives', 'competitor alternatives', 'competitor-alternatives task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -75,12 +76,12 @@ Before creating competitor pages, understand:
 **Target keywords**: "[Competitor] alternative", "alternative to [Competitor]", "switch from [Competitor]"
 
 **Page structure**:
-1. Why people look for alternatives (validate their pain)
-2. Summary: You as the alternative (quick positioning)
-3. Detailed comparison (features, service, pricing)
-4. Who should switch (and who shouldn't)
-5. Migration path
-6. Social proof from switchers
+1. Why people look for alternatives (validate their pain) → verify: all checks pass
+2. Summary: You as the alternative (quick positioning) → verify: step output matches expected outcome
+3. Detailed comparison (features, service, pricing) → verify: step output matches expected outcome
+4. Who should switch (and who shouldn't) → verify: step output matches expected outcome
+5. Migration path → verify: step output matches expected outcome
+6. Social proof from switchers → verify: step output matches expected outcome
 7. CTA
 
 ---
@@ -94,12 +95,12 @@ Before creating competitor pages, understand:
 **Target keywords**: "[Competitor] alternatives", "best [Competitor] alternatives", "tools like [Competitor]"
 
 **Page structure**:
-1. Why people look for alternatives (common pain points)
-2. What to look for in an alternative (criteria framework)
-3. List of alternatives (you first, but include real options)
-4. Comparison table (summary)
-5. Detailed breakdown of each alternative
-6. Recommendation by use case
+1. Why people look for alternatives (common pain points) → verify: step output matches expected outcome
+2. What to look for in an alternative (criteria framework) → verify: step output matches expected outcome
+3. List of alternatives (you first, but include real options) → verify: step output matches expected outcome
+4. Comparison table (summary) → verify: step output matches expected outcome
+5. Detailed breakdown of each alternative → verify: step output matches expected outcome
+6. Recommendation by use case → verify: step output matches expected outcome
 7. CTA
 
 **Important**: Include 4-7 real alternatives. Being genuinely helpful builds trust and ranks better.
@@ -115,13 +116,13 @@ Before creating competitor pages, understand:
 **Target keywords**: "[You] vs [Competitor]", "[Competitor] vs [You]"
 
 **Page structure**:
-1. TL;DR summary (key differences in 2-3 sentences)
-2. At-a-glance comparison table
-3. Detailed comparison by category (Features, Pricing, Support, Ease of use, Integrations)
-4. Who [You] is best for
-5. Who [Competitor] is best for (be honest)
-6. What customers say (testimonials from switchers)
-7. Migration support
+1. TL;DR summary (key differences in 2-3 sentences) → verify: step output matches expected outcome
+2. At-a-glance comparison table → verify: step output matches expected outcome
+3. Detailed comparison by category (Features, Pricing, Support, Ease of use, Integrations) → verify: step output matches expected outcome
+4. Who [You] is best for → verify: step output matches expected outcome
+5. Who [Competitor] is best for (be honest) → verify: step output matches expected outcome
+6. What customers say (testimonials from switchers) → verify: all checks pass
+7. Migration support → verify: step output matches expected outcome
 8. CTA
 
 ---
@@ -133,11 +134,11 @@ Before creating competitor pages, understand:
 **URL pattern**: `/compare/[competitor-a]-vs-[competitor-b]`
 
 **Page structure**:
-1. Overview of both products
-2. Comparison by category
-3. Who each is best for
-4. The third option (introduce yourself)
-5. Comparison table (all three)
+1. Overview of both products → verify: step output matches expected outcome
+2. Comparison by category → verify: step output matches expected outcome
+3. Who each is best for → verify: step output matches expected outcome
+4. The third option (introduce yourself) → verify: step output matches expected outcome
+5. Comparison table (all three) → verify: step output matches expected outcome
 6. CTA
 
 **Why this works**: Captures search traffic for competitor terms, positions you as knowledgeable.
@@ -190,11 +191,11 @@ Create a single source of truth for each competitor with:
 
 For each competitor, gather:
 
-1. **Product research**: Sign up, use it, document features/UX/limitations
-2. **Pricing research**: Current pricing, what's included, hidden costs
-3. **Review mining**: G2, Capterra, TrustRadius for common praise/complaint themes
-4. **Customer feedback**: Talk to customers who switched (both directions)
-5. **Content research**: Their positioning, their comparison pages, their changelog
+1. **Product research**: Sign up, use it, document features/UX/limitations → verify: step output matches expected outcome
+2. **Pricing research**: Current pricing, what's included, hidden costs → verify: step output matches expected outcome
+3. **Review mining**: G2, Capterra, TrustRadius for common praise/complaint themes → verify: step output matches expected outcome
+4. **Customer feedback**: Talk to customers who switched (both directions) → verify: step output matches expected outcome
+5. **Content research**: Their positioning, their comparison pages, their changelog → verify: step output matches expected outcome
 
 ### Ongoing Updates
 
@@ -240,10 +241,10 @@ Recommended pages to create with priority order based on search volume.
 
 ## Task-Specific Questions
 
-1. What are common reasons people switch to you?
-2. Do you have customer quotes about switching?
-3. What's your pricing vs. competitors?
-4. Do you offer migration support?
+1. What are common reasons people switch to you? → verify: step output matches expected outcome
+2. Do you have customer quotes about switching? → verify: step output matches expected outcome
+3. What's your pricing vs. competitors? → verify: step output matches expected outcome
+4. Do you offer migration support? → verify: step output matches expected outcome
 
 ---
 
@@ -254,3 +255,40 @@ Recommended pages to create with priority order based on search volume.
 - **seo-audit**: For optimizing competitor pages
 - **schema-markup**: For FAQ and comparison schema
 - **sales-enablement**: For internal sales collateral, decks, and objection docs
+
+## When NOT to use
+
+- Task is unrelated to competitor alternatives — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Competitor Alternatives needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for competitor alternatives
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving competitor alternatives
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

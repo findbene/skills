@@ -1,6 +1,6 @@
 ---
 name: stitch-mcp-edit-screens
-description: Edits existing Stitch screens with text prompts — the iteration tool. Change colors, layout, content, or style without regenerating from scratch. Supports refinement loops via output_components suggestions.
+description: "Edits existing Stitch screens with text prompts — the iteration tool. Triggers: 'use stitch-mcp-edit-screens', 'stitch mcp edit screens', 'stitch-mcp-edit-screens task'."
 allowed-tools:
   - "stitch*:*"
   - "Bash"
@@ -95,9 +95,9 @@ The response may contain `output_components` with suggestions:
 ```
 
 **When you see suggestions:**
-1. Present them to the user
-2. If the user accepts: call `edit_screens` again with the suggestion as the new `prompt`
-3. This creates a natural refinement loop — keep going until the user is satisfied
+1. Present them to the user → verify: step output matches expected outcome
+2. If the user accepts: call `edit_screens` again with the suggestion as the new `prompt` → verify: diff matches intended change
+3. This creates a natural refinement loop — keep going until the user is satisfied → verify: output exists + parses without error
 
 ## Timing
 
@@ -108,8 +108,8 @@ Same as generation: 60–180 seconds is normal.
 
 ## After editing
 
-1. Re-fetch the screen: `stitch-mcp-get-screen` with the same projectId and screenId
-2. Show the updated screenshot to the user
+1. Re-fetch the screen: `stitch-mcp-get-screen` with the same projectId and screenId → verify: step output matches expected outcome
+2. Show the updated screenshot to the user → verify: step output matches expected outcome
 3. Offer:
    - "Continue editing?" → another `edit_screens` call
    - "Generate variants of this version?" → `stitch-mcp-generate-variants`
@@ -120,3 +120,40 @@ Same as generation: 60–180 seconds is normal.
 - **Never send vague edit prompts** — "make it better" will produce unpredictable results
 - **Never use `projects/ID` format** for projectId or screenId — both must be numeric
 - **Never batch unrelated edits** — "change the color AND completely redo the layout" works poorly
+
+## When NOT to use
+
+- Task is unrelated to stitch mcp edit screens — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Stitch Mcp Edit Screens needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for stitch mcp edit screens
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving stitch mcp edit screens
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

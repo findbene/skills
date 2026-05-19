@@ -1,6 +1,7 @@
 ---
 name: "azure-cloud-architect"
-description: "Design Azure architectures for startups and enterprises. Use when asked to design Azure infrastructure, create Bicep/ARM templates, optimize Azure costs, set up Azure DevOps pipelines, or migrate to Azure. Covers AKS, App Service, Azure Functions, Cosmos DB, and cost optimization."
+description: 'Design Azure architectures for startups and enterprises. Use when asked to design Azure infrastructure, create Bicep/ARM t. Triggers: "use azure-cloud-architect", "azure cloud architect", "azure task.'
+allowed-tools: Bash, Glob, Grep, Read
 ---
 
 # Azure Cloud Architect
@@ -243,15 +244,15 @@ Validate security posture before production:
 
 **If deployment fails:**
 
-1. Check the deployment status:
+1. Check the deployment status: → verify: all tests pass
    ```bash
    az deployment group show \
      --resource-group rg-myapp-dev \
      --name main \
      --query 'properties.error'
    ```
-2. Review Activity Log for RBAC or policy errors.
-3. Validate the Bicep template before deploying:
+2. Review Activity Log for RBAC or policy errors. → verify: step output matches expected outcome
+3. Validate the Bicep template before deploying: → verify: step output matches expected outcome
    ```bash
    az bicep build --file main.bicep
    az deployment group validate \
@@ -461,3 +462,40 @@ Provide these details for architecture design:
 | `references/architecture_patterns.md` | 5 patterns: web app, microservices/AKS, serverless, data pipeline, multi-region |
 | `references/service_selection.md` | Decision matrices for compute, database, storage, messaging, networking |
 | `references/best_practices.md` | Naming conventions, tagging, RBAC, network security, monitoring, DR |
+
+## When NOT to use
+
+- Task is unrelated to azure cloud architect — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Azure Cloud Architect needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for azure cloud architect
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving azure cloud architect
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,14 +1,7 @@
 ---
 name: seo-aeo-research-pack
-description: >
-  Delivers a full SEO + AEO (Answer Engine Optimization) research pack for a given
-  topic, niche, or URL — covering keyword clusters, search intent mapping, SERP
-  pattern analysis, AI answer engine visibility gaps, and a prioritized content
-  action plan. Use this skill whenever the user wants keyword research, topic
-  research, SEO planning, content strategy, or wants to rank in AI search tools
-  like ChatGPT, Perplexity, Google AI Overviews, or Bing Copilot. Trigger even
-  when they just say "what should I write about for [niche]" or "how do I show up
-  in AI search."
+description: 'Delivers a full SEO + AEO (Answer Engine Optimization) research pack for a given topic, niche, or URL. Triggers: "use seo-aeo-research-pack", "optimize seo aeo research pack", "seo aeo research pack".'
+allowed-tools: Glob, Grep, Read
 ---
 
 # SEO + AEO Research Pack
@@ -109,3 +102,40 @@ AI engines favor:
 - Original data, frameworks, or named methodologies
 - Author expertise signals (bylines, credentials, first-person experience)
 - Fast-loading, clean HTML (AI crawlers penalize JS-heavy sites)
+
+## When NOT to use
+
+- Task is unrelated to seo aeo research pack — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Seo Aeo Research Pack needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for seo aeo research pack
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving seo aeo research pack
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

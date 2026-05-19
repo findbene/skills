@@ -1,6 +1,7 @@
 ---
 name: llm-council-v2
-description: Run any high-stakes question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Adapted from Karpathy's LLM Council methodology. MANDATORY TRIGGERS - "council this", "run the council", "war room this", "pressure-test this", "stress-test this", "debate this". STRONG TRIGGERS (when paired with a real tradeoff) - "should I X or Y", "which option", "what would you do", "is this the right move", "validate this", "get multiple perspectives", "I can't decide", "I'm torn between". Do NOT trigger on simple yes/no questions, factual lookups, or casual "should I" without a meaningful tradeoff. DO trigger when the user presents a genuine decision with stakes, multiple options, and context that suggests they want it pressure-tested from multiple angles.
+description: "Run any high-stakes question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review ea. Triggers: 'use llm-council-v2', 'llm council v2', 'llm-council-v2 task."
+allowed-tools: Glob, Grep, Read
 license: MIT
 ---
 
@@ -38,12 +39,12 @@ The council shines when there's genuine uncertainty and the cost of a bad call i
 
 A session is a 6-step pipeline:
 
-1. **Frame the question** with workspace context enrichment
-2. **Convene the council** — spawn all 5 advisors as sub-agents in parallel
-3. **Peer review** — anonymize responses, spawn 5 reviewers in parallel
-4. **Chairman synthesis** — produce final verdict
-5. **Generate HTML report** — `council-report-[timestamp].html`
-6. **Save full transcript** — `council-transcript-[timestamp].md`
+1. **Frame the question** with workspace context enrichment → verify: step output matches expected outcome
+2. **Convene the council** — spawn all 5 advisors as sub-agents in parallel → verify: step output matches expected outcome
+3. **Peer review** — anonymize responses, spawn 5 reviewers in parallel → verify: step output matches expected outcome
+4. **Chairman synthesis** — produce final verdict → verify: step output matches expected outcome
+5. **Generate HTML report** — `council-report-[timestamp].html` → verify: output file exists + no syntax error
+6. **Save full transcript** — `council-transcript-[timestamp].md` → verify: step output matches expected outcome
 
 Full step-by-step instructions, prompt templates, and output formats live in `references/process.md`. **Read it before running a session.**
 
@@ -93,3 +94,40 @@ council-transcript-[timestamp].md  # full transcript — for reference
 ```
 
 Open the HTML after generating it.
+
+## When NOT to use
+
+- Task is unrelated to llm council v2 — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Llm Council V2 needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for llm council v2
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving llm council v2
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

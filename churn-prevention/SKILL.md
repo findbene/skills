@@ -1,6 +1,7 @@
 ---
 name: churn-prevention
-description: "Reduce customer churn through early warning systems, intervention playbooks, win-back campaigns, and retention strategies. Use this whenever the user mentions 'churn,' 'customer retention,' 'reduce churn,' 'why are customers leaving,' 'win-back campaign,' 'churn prediction,' 'churn rate,' or 'customer cancellations.' Trigger even when the user shares declining NRR or mentions customers not renewing without explicitly using the word 'churn."
+description: "Reduce customer churn through early warning systems, intervention playbooks, win-back campaigns, and retention strategies. Triggers: 'use churn-prevention', 'churn prevention', 'churn-prevention task."
+allowed-tools: Glob, Grep, Read
 metadata:
   version: 2.0.0
 ---
@@ -54,9 +55,9 @@ Voluntary churn is typically 50-70% of total churn. Involuntary churn is 30-50% 
 
 This skill supports three modes:
 
-1. **Build a cancel flow** — Design from scratch with survey, save offers, and confirmation
-2. **Optimize an existing flow** — Analyze cancel data and improve save rates
-3. **Set up dunning** — Failed payment recovery with retries and email sequences
+1. **Build a cancel flow** — Design from scratch with survey, save offers, and confirmation → verify: step output matches expected outcome
+2. **Optimize an existing flow** — Analyze cancel data and improve save rates → verify: step output matches expected outcome
+3. **Set up dunning** — Failed payment recovery with retries and email sequences → verify: step output matches expected outcome
 
 ---
 
@@ -395,3 +396,44 @@ See [references/tool-integrations.md](references/tool-integrations.md) for the f
 - **onboarding-cro**: For activation to prevent early churn
 - **analytics-tracking**: For setting up churn signal events
 - **ab-test-setup**: For testing cancel flow variations with statistical rigor
+
+## Triggers
+
+churn,' 'customer retention,' 'reduce churn,' 'why are customers leaving,' 'win-back campaign,' 'churn prediction,' 'churn rate,' or 'customer cancellations.'
+
+## When NOT to use
+
+- Task is unrelated to churn prevention — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Churn Prevention needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for churn prevention
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving churn prevention
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

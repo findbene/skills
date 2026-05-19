@@ -1,6 +1,7 @@
 ---
 name: admin-ai-ops
-description: "DevOps and infrastructure management specialist covering Terraform IaC, Kubernetes orchestration, CI/CD pipelines, Docker, secrets management, and cloud platform operations. Use this skill any time infrastructure needs to be provisioned, CI/CD pipelines need to be built, containers need to be orchestrated, or cloud resources need to be managed. Trigger immediately on: \"Terraform\", \"Kubernetes\", \"CI/CD\", \"infrastructure\", \"Docker\", \"GitHub Actions\", \"secrets management\", \"cloud deployment\", \"k8s\", \"container\", \"IaC\", \"helm chart\", \"cloud ops\", \"provisioning\". If someone says \"set up our infrastructure\" or \"build a CI/CD pipeline\" this skill MUST trigger."
+description: 'DevOps and infrastructure management specialist covering Terraform IaC, Kubernetes orchestration, CI/CD pipelines, Docker, secrets managemen. Triggers: "use admin-ai-ops", "admin ai ops", "admin task.'
+allowed-tools: Glob, Grep, Read
 ---
 
 # Admin AI Ops
@@ -65,11 +66,11 @@ jobs:
 ```
 
 ### Pipeline Stage Progression
-1. **Build** — Compile and package artifacts
-2. **Test** — Unit, integration, and security tests
-3. **Staging** — Deploy to staging environment
-4. **Approval** — Manual or automated gates
-5. **Production** — Canary/blue-green deployment
+1. **Build** — Compile and package artifacts → verify: step output matches expected outcome
+2. **Test** — Unit, integration, and security tests → verify: all checks pass
+3. **Staging** — Deploy to staging environment → verify: step output matches expected outcome
+4. **Approval** — Manual or automated gates → verify: step output matches expected outcome
+5. **Production** — Canary/blue-green deployment → verify: step output matches expected outcome
 
 ## GitOps Workflow
 
@@ -99,11 +100,50 @@ spec:
 
 ## Best Practices
 
-1. **Fail Fast** — Run quick validations early in pipelines to save time
-2. **Parallelize** — Execute independent jobs concurrently
-3. **Cache Aggressively** — Cache dependencies and build artifacts
-4. **Pin Versions** — Use specific versions for actions and images to prevent surprise breakages
-5. **Environment Parity** — Keep dev/staging/prod consistent to catch issues before production
-6. **Automate Rollbacks** — Implement automatic rollback on failures
-7. **Monitor Everything** — Integrate observability into pipelines
-8. **Document Runbooks** — Maintain operational documentation for incident response
+1. **Fail Fast** — Run quick validations early in pipelines to save time → verify: command exit code 0
+2. **Parallelize** — Execute independent jobs concurrently → verify: command exit code 0
+3. **Cache Aggressively** — Cache dependencies and build artifacts → verify: step output matches expected outcome
+4. **Pin Versions** — Use specific versions for actions and images to prevent surprise breakages → verify: step output matches expected outcome
+5. **Environment Parity** — Keep dev/staging/prod consistent to catch issues before production → verify: step output matches expected outcome
+6. **Automate Rollbacks** — Implement automatic rollback on failures → verify: step output matches expected outcome
+7. **Monitor Everything** — Integrate observability into pipelines → verify: dependency resolves + import works
+8. **Document Runbooks** — Maintain operational documentation for incident response → verify: command exit code 0
+
+## When NOT to use
+
+- Application-layer feature code (use `backend-architect` or `frontend-developer`)
+- One-off `kubectl` / `terraform apply` for an existing well-defined module — just run it
+- Pure cloud cost optimization without infra change — use `cost-reducer`
+- Application observability config (dashboards, alerts) — use `observability-designer`
+- Security policy / threat modeling — use `senior-secops` or `cloud-security`
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "I'll commit this secret just for testing" | Git history is forever; rotate immediately, never commit |
+| "Skip `helm diff`, the change is small" | Small Helm changes routinely take down namespaces; diff is cheap |
+| "Pin to `latest` for the GitHub Action" | Supply-chain risk + non-reproducible builds; always pin SHA or version |
+| "Manual hotfix in prod, I'll IaC it later" | "Later" = configuration drift forever; codify before applying |
+
+## Output Contract
+
+Done when:
+- Change expressed as code (Terraform module, Helm values, Action YAML) — no manual console clicks
+- Pinned versions and digests for any external action/image
+- Least-privilege IAM/RBAC scoped to what the workload actually needs
+- Rollback path defined (Helm rollback, Terraform state, blue-green cutover)
+- `helm diff` or `terraform plan` output reviewed before apply
+- Runbook updated if the change is operationally novel
+
+## Examples
+
+### Example 1 — New service needs CI/CD + Kubernetes deploy
+- Input: "Add CI/CD for a new Node service and deploy to our k8s cluster"
+- Action: Write a GitHub Actions workflow (build → test → image push to ECR pinned by SHA) + Helm chart with values per env + ExternalSecret for runtime config; pinned action versions; `helm diff` step before apply
+- Output: `.github/workflows/service.yml`, `charts/service/`, ExternalSecret manifest, rollback runbook in repo
+
+### Example 2 — Terraform module for new VPC
+- Input: "We need a new VPC for the staging environment"
+- Action: Author a reusable `modules/vpc` with CIDR/AZ inputs, remote S3 backend with DynamoDB locking, IAM policy scoped to network actions only, `terraform plan` reviewed
+- Output: Module + `envs/staging/main.tf` reference, plan output attached to PR, drift-detection alert wired

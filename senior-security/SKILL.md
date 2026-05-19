@@ -1,6 +1,7 @@
 ---
 name: "senior-security"
-description: Security engineering toolkit for threat modeling, vulnerability analysis, secure architecture, and penetration testing. Includes STRIDE analysis, OWASP guidance, cryptography patterns, and security scanning tools. Use when the user asks about security reviews, threat analysis, vulnerability assessments, secure coding practices, security audits, attack surface analysis, CVE remediation, or security best practices.
+description: "Security engineering toolkit for threat modeling, vulnerability analysis, secure architecture, and penetration testing. Triggers: 'use senior-security', 'senior security', 'senior-security task'."
+allowed-tools: Glob, Grep, Read
 triggers:
   - security architecture
   - threat modeling
@@ -40,26 +41,26 @@ Identify and analyze security threats using STRIDE methodology.
 
 ### Workflow: Conduct Threat Model
 
-1. Define system scope and boundaries:
+1. Define system scope and boundaries: → verify: step output matches expected outcome
    - Identify assets to protect
    - Map trust boundaries
    - Document data flows
-2. Create data flow diagram:
+2. Create data flow diagram: → verify: output file exists + no syntax error
    - External entities (users, services)
    - Processes (application components)
    - Data stores (databases, caches)
    - Data flows (APIs, network connections)
-3. Apply STRIDE to each DFD element (see [STRIDE per Element Matrix](#stride-per-element-matrix) below)
-4. Score risks using DREAD:
+3. Apply STRIDE to each DFD element (see [STRIDE per Element Matrix](#stride-per-element-matrix) below) → verify: diff matches intended change
+4. Score risks using DREAD: → verify: file readable + content matches expected shape
    - Damage potential (1-10)
    - Reproducibility (1-10)
    - Exploitability (1-10)
    - Affected users (1-10)
    - Discoverability (1-10)
-5. Prioritize threats by risk score
-6. Define mitigations for each threat
-7. Document in threat model report
-8. **Validation:** All DFD elements analyzed; STRIDE applied; threats scored; mitigations mapped
+5. Prioritize threats by risk score → verify: step output matches expected outcome
+6. Define mitigations for each threat → verify: step output matches expected outcome
+7. Document in threat model report → verify: step output matches expected outcome
+8. **Validation:** All DFD elements analyzed; STRIDE applied; threats scored; mitigations mapped → verify: step output matches expected outcome
 
 ### STRIDE Threat Categories
 
@@ -91,34 +92,34 @@ Design secure systems using defense-in-depth principles.
 
 ### Workflow: Design Secure Architecture
 
-1. Define security requirements:
+1. Define security requirements: → verify: step output matches expected outcome
    - Compliance requirements (GDPR, HIPAA, PCI-DSS)
    - Data classification (public, internal, confidential, restricted)
    - Threat model inputs
-2. Apply defense-in-depth layers:
+2. Apply defense-in-depth layers: → verify: diff matches intended change
    - Perimeter: WAF, DDoS protection, rate limiting
    - Network: Segmentation, IDS/IPS, mTLS
    - Host: Patching, EDR, hardening
    - Application: Input validation, authentication, secure coding
    - Data: Encryption at rest and in transit
-3. Implement Zero Trust principles:
+3. Implement Zero Trust principles: → verify: step output matches expected outcome
    - Verify explicitly (every request)
    - Least privilege access (JIT/JEA)
    - Assume breach (segment, monitor)
-4. Configure authentication and authorization:
+4. Configure authentication and authorization: → verify: step output matches expected outcome
    - Identity provider selection
    - MFA requirements
    - RBAC/ABAC model
-5. Design encryption strategy:
+5. Design encryption strategy: → verify: step output matches expected outcome
    - Key management approach
    - Algorithm selection
    - Certificate lifecycle
-6. Plan security monitoring:
+6. Plan security monitoring: → verify: step output matches expected outcome
    - Log aggregation
    - SIEM integration
    - Alerting rules
-7. Document architecture decisions
-8. **Validation:** Defense-in-depth layers defined; Zero Trust applied; encryption strategy documented; monitoring planned
+7. Document architecture decisions → verify: step output matches expected outcome
+8. **Validation:** Defense-in-depth layers defined; Zero Trust applied; encryption strategy documented; monitoring planned → verify: step output matches expected outcome
 
 ### Defense-in-Depth Layers
 
@@ -159,35 +160,35 @@ Identify and remediate security vulnerabilities in applications.
 
 ### Workflow: Conduct Vulnerability Assessment
 
-1. Define assessment scope:
+1. Define assessment scope: → verify: step output matches expected outcome
    - In-scope systems and applications
    - Testing methodology (black box, gray box, white box)
    - Rules of engagement
-2. Gather information:
+2. Gather information: → verify: step output matches expected outcome
    - Technology stack inventory
    - Architecture documentation
    - Previous vulnerability reports
-3. Perform automated scanning:
+3. Perform automated scanning: → verify: step output matches expected outcome
    - SAST (static analysis)
    - DAST (dynamic analysis)
    - Dependency scanning
    - Secret detection
-4. Conduct manual testing:
+4. Conduct manual testing: → verify: all tests pass
    - Business logic flaws
    - Authentication bypass
    - Authorization issues
    - Injection vulnerabilities
-5. Classify findings by severity:
+5. Classify findings by severity: → verify: step output matches expected outcome
    - Critical: Immediate exploitation risk
    - High: Significant impact, easier to exploit
    - Medium: Moderate impact or difficulty
    - Low: Minor impact
-6. Develop remediation plan:
+6. Develop remediation plan: → verify: step output matches expected outcome
    - Prioritize by risk
    - Assign owners
    - Set deadlines
 7. Verify fixes and document
-8. **Validation:** Scope defined; automated and manual testing complete; findings classified; remediation tracked
+8. **Validation:** Scope defined; automated and manual testing complete; findings classified; remediation tracked → verify: all tests pass
 
 For OWASP Top 10 vulnerability descriptions and testing guidance, refer to [owasp.org/Top10](https://owasp.org/Top10).
 
@@ -208,33 +209,33 @@ Review code for security vulnerabilities before deployment.
 
 ### Workflow: Conduct Security Code Review
 
-1. Establish review scope:
+1. Establish review scope: → verify: step output matches expected outcome
    - Changed files and functions
    - Security-sensitive areas (auth, crypto, input handling)
    - Third-party integrations
-2. Run automated analysis:
+2. Run automated analysis: → verify: command exit code 0
    - SAST tools (Semgrep, CodeQL, Bandit)
    - Secret scanning
    - Dependency vulnerability check
-3. Review authentication code:
+3. Review authentication code: → verify: step output matches expected outcome
    - Password handling (hashing, storage)
    - Session management
    - Token validation
-4. Review authorization code:
+4. Review authorization code: → verify: step output matches expected outcome
    - Access control checks
    - RBAC implementation
    - Privilege boundaries
-5. Review data handling:
+5. Review data handling: → verify: step output matches expected outcome
    - Input validation
    - Output encoding
    - SQL query construction
    - File path handling
-6. Review cryptographic code:
+6. Review cryptographic code: → verify: step output matches expected outcome
    - Algorithm selection
    - Key management
    - Random number generation
-7. Document findings with severity
-8. **Validation:** Automated scans passed; auth/authz reviewed; data handling checked; crypto verified; findings documented
+7. Document findings with severity → verify: step output matches expected outcome
+8. **Validation:** Automated scans passed; auth/authz reviewed; data handling checked; crypto verified; findings documented → verify: all tests pass
 
 ### Security Code Review Checklist
 
@@ -318,32 +319,32 @@ Respond to and contain security incidents.
 
 ### Workflow: Handle Security Incident
 
-1. Identify and triage:
+1. Identify and triage: → verify: step output matches expected outcome
    - Validate incident is genuine
    - Assess initial scope and severity
    - Activate incident response team
-2. Contain the threat:
+2. Contain the threat: → verify: step output matches expected outcome
    - Isolate affected systems
    - Block malicious IPs/accounts
    - Disable compromised credentials
-3. Eradicate root cause:
+3. Eradicate root cause: → verify: step output matches expected outcome
    - Remove malware/backdoors
    - Patch vulnerabilities
    - Update configurations
-4. Recover operations:
+4. Recover operations: → verify: step output matches expected outcome
    - Restore from clean backups
    - Verify system integrity
    - Monitor for recurrence
-5. Conduct post-mortem:
+5. Conduct post-mortem: → verify: step output matches expected outcome
    - Timeline reconstruction
    - Root cause analysis
    - Lessons learned
-6. Implement improvements:
+6. Implement improvements: → verify: step output matches expected outcome
    - Update detection rules
    - Enhance controls
    - Update runbooks
-7. Document and report
-8. **Validation:** Threat contained; root cause eliminated; systems recovered; post-mortem complete; improvements implemented
+7. Document and report → verify: step output matches expected outcome
+8. **Validation:** Threat contained; root cause eliminated; systems recovered; post-mortem complete; improvements implemented → verify: step output matches expected outcome
 
 ### Incident Severity Levels
 
@@ -442,3 +443,40 @@ For compliance framework requirements (OWASP ASVS, CIS Benchmarks, NIST CSF, PCI
 | [senior-secops](../senior-secops/) | Security monitoring, incident response |
 | [senior-backend](../senior-backend/) | Secure API development |
 | [senior-architect](../senior-architect/) | Security architecture decisions |
+
+## When NOT to use
+
+- Task is unrelated to senior security — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Senior Security needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for senior security
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
+
+## Examples
+
+### Example 1 — golden path
+- Input: standard user request involving senior security
+- Action: follow the documented numbered process with verify clauses at each step
+- Output: deliverable matching the Output Contract above
+
+### Example 2 — edge case
+- Input: request with partial info, non-standard constraint, or conflicting requirements
+- Action: detect the gap, surface a clarifying question OR document the assumption explicitly, then proceed with adapted process
+- Output: deliverable + explicit note on the assumption/limitation taken

@@ -1,6 +1,7 @@
 ---
 name: image-enhancer
-description: Improves the quality of images and screenshots by enhancing resolution, sharpness, and clarity. Use this skill whenever the user wants to sharpen a blurry screenshot, upscale a low-resolution image, clean up compression artifacts, improve images for blog posts or documentation, or optimize images for social media or presentations. Apply whenever the user says "enhance this image", "make this sharper", "upscale this screenshot", or "improve image quality" — process image files systematically rather than offering generic advice.
+description: "Improves the quality of images and screenshots by enhancing resolution, sharpness, and clarity. Trigger: enhance this image, make this sharper, upscale this screenshot, improve image quality"
+allowed-tools: Glob, Grep, Read
 ---
 
 # Image Enhancer
@@ -18,11 +19,11 @@ This skill takes your images and screenshots and makes them look better—sharpe
 
 ## What This Skill Does
 
-1. **Analyzes Image Quality**: Checks resolution, sharpness, and compression artifacts
-2. **Enhances Resolution**: Upscales images intelligently
-3. **Improves Sharpness**: Enhances edges and details
-4. **Reduces Artifacts**: Cleans up compression artifacts and noise
-5. **Optimizes for Use Case**: Adjusts based on intended use (web, print, social media)
+1. **Analyzes Image Quality**: Checks resolution, sharpness, and compression artifacts → verify: step output matches expected outcome
+2. **Enhances Resolution**: Upscales images intelligently → verify: step output matches expected outcome
+3. **Improves Sharpness**: Enhances edges and details → verify: step output matches expected outcome
+4. **Reduces Artifacts**: Cleans up compression artifacts and noise → verify: step output matches expected outcome
+5. **Optimizes for Use Case**: Adjusts based on intended use (web, print, social media) → verify: step output matches expected outcome
 
 ## How to Use
 
@@ -97,3 +98,27 @@ Original preserved as: screenshot-2024-original.png
 - **Presentations**: Upscale images for large screens
 - **Print Materials**: Increase resolution for physical media
 
+## When NOT to use
+
+- Task is unrelated to image enhancer — pick a domain-specific skill instead
+- Simple one-line operation that doesn't need this skill's structure
+- User explicitly asks for raw output without skill discipline → respect override
+- Different toolchain / framework required → search with `find-skills` for alternatives
+
+## Red Flags
+
+| Thought | Reality |
+|---------|---------|
+| "Output looks right, skip verify" | Eyeball checks miss edge cases — run the verify step |
+| "Generic template is good enough" | Image Enhancer needs domain-specific judgment, not boilerplate |
+| "I'll inline the context, no need to read references" | Context drift produces stale output; check linked references |
+| "One more shortcut won't hurt" | Shortcuts compound — finish the discipline before declaring done |
+
+## Output Contract
+
+Done when:
+- Primary deliverable produced matches user's stated goal for image enhancer
+- Every verify step in the process passed
+- Edge cases addressed or explicitly flagged with assumption
+- Output reproducible — no hidden state or one-time setup
+- Brief hand-off summary so user can validate without rereading the full flow
