@@ -44,3 +44,14 @@
 
 
 ════ self-review @ 2026-05-27 02:42:50 ════
+── secret-scan: FAIL (7 match(es))
+./remotion/packages/docs/src/components/GoogleMaps.tsx:						src="https://www.google.com/maps/embed/v1/place?q=Remotion,+Hohlstrasse+186,+8004+Zurich&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+./senior-security/scripts/secret_scanner.py:        regex=r'-----BEGIN RSA PRIVATE KEY-----',
+./senior-security/scripts/secret_scanner.py:        regex=r'-----BEGIN EC PRIVATE KEY-----',
+./senior-security/scripts/secret_scanner.py:        regex=r'-----BEGIN OPENSSH PRIVATE KEY-----',
+./skill-tester/tests/test_security_scorer.py:        code = 'private_key = "-----BEGIN RSA PRIVATE KEY-----"'
+./skill-tester/tests/test_security_scorer.py:private_key = "-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAJCA..."
+./terraform-patterns/scripts/tf_security_scanner.py:  access_key = "AKIAIOSFODNN7EXAMPLE"
+
+
+════ self-review @ 2026-05-27 02:43:37 ════
