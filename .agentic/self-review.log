@@ -1,20 +1,2 @@
 
-════ self-review @ 2026-05-19 07:39:19 ════
-── secret-scan: FAIL (14 match(es))
-./gstack/test/brain-sync.test.ts:    ['aws-access-key', 'AKIAABCDEFGHIJKLMNOP'],
-./gstack/test/brain-sync.test.ts:    ['github-token-ghp', 'ghp_abcdefghij1234567890abcdef1234567890'],
-./gstack/test/brain-sync.test.ts:    ['openai-key', 'sk-abcdefghij1234567890abcdef1234567890'],
-./gstack/test/brain-sync.test.ts:    ['pem-block', '-----BEGIN PRIVATE KEY-----'],
-./gstack/test/brain-sync.test.ts:      '{"gh":"ghp_abcdefghij1234567890abcdef1234567890"}\n');
-./gstack/test/gstack-memory-ingest.test.ts:  echo '[{"RuleID":"fake-rule","Description":"fake finding","StartLine":1,"Match":"REDACTED","Secret":"AKIAFAKEFAKEFAKE12345"}]'
-./gstack/test/skill-e2e-cso.test.ts:const API_KEY = "sk-1234567890abcdef1234567890abcdef";
-./remotion/packages/docs/src/components/GoogleMaps.tsx:						src="https://www.google.com/maps/embed/v1/place?q=Remotion,+Hohlstrasse+186,+8004+Zurich&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
-./senior-security/scripts/secret_scanner.py:        regex=r'-----BEGIN RSA PRIVATE KEY-----',
-./senior-security/scripts/secret_scanner.py:        regex=r'-----BEGIN EC PRIVATE KEY-----',
-./senior-security/scripts/secret_scanner.py:        regex=r'-----BEGIN OPENSSH PRIVATE KEY-----',
-./skill-tester/tests/test_security_scorer.py:        code = 'private_key = "-----BEGIN RSA PRIVATE KEY-----"'
-./skill-tester/tests/test_security_scorer.py:private_key = "-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAJCA..."
-./terraform-patterns/scripts/tf_security_scanner.py:  access_key = "AKIAIOSFODNN7EXAMPLE"
-
-
-════ self-review @ 2026-05-19 07:42:14 ════
+════ self-review @ 2026-05-27 02:31:16 ════
